@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">万嘉欢购</string>
+    <string name="title_activity_main">万嘉欢购</string>
+    <string name="hello_world">Hello world!</string>
 </resources>
