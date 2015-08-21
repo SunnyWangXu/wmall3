@@ -13,8 +13,8 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.wjhgw.R;
-import com.wjhgw.ui.util.SystemBarTintManager;
-import com.wjhgw.ui.util.SystemBarTintManager.SystemBarConfig;
+import com.wjhgw.ui.utils.SystemBarTintManager;
+import com.wjhgw.ui.utils.SystemBarTintManager.SystemBarConfig;
 import com.wjhgw.ui.view.NavigationActionBar;
 
 /**

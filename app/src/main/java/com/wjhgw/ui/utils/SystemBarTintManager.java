@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wjhgw.ui.util;
+package com.wjhgw.ui.utils;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;

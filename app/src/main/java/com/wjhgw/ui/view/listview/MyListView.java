@@ -1,4 +1,4 @@
-package com.wjhgw.ui.activity.listview;
+package com.wjhgw.ui.view.listview;
 
 import android.content.Context;
 import android.graphics.Rect;
