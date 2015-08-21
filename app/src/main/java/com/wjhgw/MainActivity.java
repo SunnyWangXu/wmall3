@@ -1,12 +1,18 @@
 package com.wjhgw;
 
+import android.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.wjhgw.base.BaseActivity;
 
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.ui.fragment.ClassificationFragment;
@@ -46,6 +52,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         initViews();
         fragmentManager = getFragmentManager();
         setTabSelection(0);
+
+        this.setActionBarTitle("万嘉欢购");
     }
 
     /**
