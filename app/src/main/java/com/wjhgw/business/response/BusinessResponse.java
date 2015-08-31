@@ -1,4 +1,4 @@
-package com.wjhgw.business;
+package com.wjhgw.business.response;
 
 import org.json.JSONException;
 import org.json.JSONObject;

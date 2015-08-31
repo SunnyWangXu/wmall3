@@ -2,8 +2,8 @@ package com.wjhgw.base;
 
 import android.content.Context;
 
-import com.wjhgw.business.BusinessResponse;
-import com.wjhgw.business.FailedResponse;
+import com.wjhgw.business.response.BusinessResponse;
+import com.wjhgw.business.response.FailedResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
