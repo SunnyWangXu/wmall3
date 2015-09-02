@@ -1,6 +1,8 @@
 package com.wjhgw.base;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.business.response.FailedResponse;
@@ -20,6 +22,21 @@ public class BaseModel implements BusinessResponse, FailedResponse {
         mContext = context;
 	}
 
+	/**
+	 *
+	 * 判断当前网络是否可用
+	 * @return
+	 */
+	public static boolean checkNetworkAvailable(Context context) {
+		ConnectivityManager connectivity = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = connectivity.getActiveNetworkInfo();
+		if (networkInfo == null || !networkInfo.isAvailable()) {
+			return false;	//网络不可用
+		} else {
+			return true;	//网络可用
+		}
+	}
 	/**
 	 *
 	 * 增加响应侦听器

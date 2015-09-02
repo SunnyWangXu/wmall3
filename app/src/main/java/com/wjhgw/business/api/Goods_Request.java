@@ -11,8 +11,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.wjhgw.base.BaseModel;
 import com.wjhgw.base.BaseQuery;
-import com.wjhgw.business.controller.goods_list_controller;
 import com.wjhgw.business.data.goods_list_data;
+import com.wjhgw.business.manager.goods_list_manager;
 import com.wjhgw.config.ApiInterface;
 
 import org.json.JSONException;
@@ -23,7 +23,7 @@ import java.util.HashMap;
 
 public class Goods_Request extends BaseModel {
 
-	public ArrayList<goods_list_data> simplegoodsList = new ArrayList<>();
+	public ArrayList<goods_list_data> goodsList = new ArrayList<>();
 	private RequestQueue mRequestQueue;
 	private StringRequest stringRequest;
 	public Goods_Request(Context context) {
@@ -45,14 +45,32 @@ public class Goods_Request extends BaseModel {
 	 * 商品列表接口
 	 */
 	public void goods_list() {
+		final goods_list_manager list = new goods_list_manager(mContext);
+		if(!super.checkNetworkAvailable(mContext)){
+			//list.delete();
+			ArrayList<goods_list_data> data = list.query();
+			if (null != data && data.size() > 0) {
+				goodsList.clear();
+				goodsList.addAll(data);
+				try {
+					OnMessageResponse(ApiInterface.Goods_list, "", null);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}else{
 		mRequestQueue = Volley.newRequestQueue(mContext);
 		Response.Listener<String> SuccessfulResponse = new Response.Listener<String>() {
 			@Override
 			public void onResponse(String response) {
+				list.add(response);
 				try {
-					goods_list_controller list = new goods_list_controller(mContext);
-					list.add(response);
-					OnMessageResponse(ApiInterface.Goods_list, response, new JSONObject(new JSONObject(response.toString()).getString("status").toString()));
+					ArrayList<goods_list_data> data = list.data;
+					if (null != data && data.size() > 0) {
+						goodsList.clear();
+						goodsList.addAll(data);
+					}
+					OnMessageResponse(ApiInterface.Goods_list, response, new JSONObject(new JSONObject(response).getString("status")));
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
@@ -69,5 +87,6 @@ public class Goods_Request extends BaseModel {
 		};
 		mRequestQueue.add(stringRequest);
 
+	}
 	}
 }

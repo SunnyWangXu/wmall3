@@ -61,9 +61,9 @@ public class DatabaseHelper extends SQLiteOpenHelper// 继承SQLiteOpenHelper类
 
         sBuffer.append("CREATE TABLE [" + TABLE_NAME + "] (");
         sBuffer.append("[_id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ");
-        sBuffer.append("[name] TEXT,");
+        sBuffer.append("[goods_name] TEXT,");
         sBuffer.append("[age] INTEGER,");
-        sBuffer.append("[info] TEXT)");
+        sBuffer.append("[goods_id] TEXT)");
 
         // 执行创建表的SQL语句
         db.execSQL(sBuffer.toString());

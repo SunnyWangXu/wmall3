@@ -1,17 +1,24 @@
 package com.wjhgw.business.data;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class goods_list_data {
-    public int _id;
-    public String name;
-    public int age;
-    public String info;
+    public String goods_name;
+    public int age = 1;
+    public String goods_id;
 
     public goods_list_data() {
     }
 
-    public goods_list_data(String name, int age, String info) {
-        this.name = name;
-        this.age = age;
-        this.info = info;
+
+    public void  fromJson(JSONObject jsonObject)  throws JSONException
+    {
+        if(null == jsonObject){
+            return ;
+        }
+        this.goods_id = jsonObject.optString("goods_id");
+        this.goods_name = jsonObject.optString("goods_name");
+        return ;
     }
 }
