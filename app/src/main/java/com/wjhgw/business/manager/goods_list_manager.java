@@ -48,6 +48,7 @@ public class goods_list_manager
             e.printStackTrace();
         }
         if (data.size()>0){
+            deleteOldPerson();
             // 采用事务处理，确保数据完整性
             db.beginTransaction(); // 开始事务
             try
