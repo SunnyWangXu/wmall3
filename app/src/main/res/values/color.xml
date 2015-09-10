@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="text_selector">#ffba0e2f</color>
+
     <color name="action_bar_color">#ba0e2f</color>
     
 	<color name="filter_text_color">#666666</color>

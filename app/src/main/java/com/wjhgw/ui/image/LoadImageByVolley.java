@@ -31,7 +31,7 @@ public class LoadImageByVolley {
 
     public void loadImageByVolley(String imageUrl){
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
-        final LruCache<String, Bitmap> lruCache = new LruCache<String, Bitmap>(20);
+        final LruCache<String, Bitmap> lruCache = new LruCache<>(20);
         ImageLoader.ImageCache imageCache = new ImageLoader.ImageCache() {
             @Override
             public void putBitmap(String key, Bitmap value) {

@@ -76,13 +76,7 @@ public class SystemBarTintManager {
     private View mStatusBarTintView;
     private View mNavBarTintView;
 
-    /**
-     * Constructor. Call this in the host HelloDBActivity onCreate method after its
-     * content view has been set. You should always create new instances when
-     * the host HelloDBActivity is recreated.
-     *
-     * @param activity The host HelloDBActivity.
-     */
+
     @TargetApi(19)
     public SystemBarTintManager(Activity activity) {
 

@@ -1,7 +1,7 @@
 package com.wjhgw.ui.fragment;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +9,7 @@ import android.webkit.WebView;
 
 import com.wjhgw.R;
 
-public class ClassificationFragment extends Fragment{
+public class ClassificationFragment extends Fragment {
 	private WebView webView;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
