@@ -180,11 +180,6 @@ public class XListView extends ListView implements OnScrollListener {
 		mFooterView.setEnabled(true);
 	}
 
-	/**
-	 * set last refresh time
-	 * 
-	 * @param time
-	 */
 	public void setRefreshTime() {
 		//mHeaderTimeView.setText(new Date().toLocaleString());
 		mHeaderTimeView.setText(date());

@@ -6,34 +6,41 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.wjhgw.R;
 import com.wjhgw.business.api.Goods_Request;
 import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.image.LoadImageByVolley;
+import com.wjhgw.ui.view.listview.MyListView;
+import com.wjhgw.ui.view.listview.XListView.IXListViewListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class IndexFragment extends Fragment implements BusinessResponse {
-	View messageLayout;
+public class IndexFragment extends Fragment implements BusinessResponse, IXListViewListener, View.OnClickListener {
+	private View messageLayout;
+	private LinearLayout MenuLayout;
 	private ImageView mImageView;
 	private LoadImageByVolley load;
 	private Goods_Request dataModel;
+	private MyListView mListView;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		messageLayout = inflater.inflate(R.layout.index_layout, container, false);
-		mImageView = (ImageView) messageLayout.findViewById(R.id.imageView);
-		load = new LoadImageByVolley(getActivity(), mImageView);
-		load.loadImageByVolley("http://avatar.csdn.net/6/6/D/1_lfdfhl.jpg");
+		MenuLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_menu,null);
 		dataModel = new Goods_Request(getActivity());
 		dataModel.addResponseListener(this);
-		mImageView.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-			}
-		});
+
+		mListView = (MyListView)messageLayout.findViewById(R.id.index_listview);
+		mListView.addHeaderView(MenuLayout);
+
+		mListView.setPullLoadEnable(false);
+		mListView.setPullRefreshEnable(true);
+		mListView.setXListViewListener(this, 1);
+		mListView.setRefreshTime();
+		mListView.setAdapter(null);
 
 		return messageLayout;
 	}
@@ -57,5 +64,20 @@ public class IndexFragment extends Fragment implements BusinessResponse {
 			}*/
 
 		}
+	}
+
+	@Override
+	public void onRefresh(int id) {
+
+	}
+
+	@Override
+	public void onLoadMore(int id) {
+
+	}
+
+	@Override
+	public void onClick(View v) {
+
 	}
 }
