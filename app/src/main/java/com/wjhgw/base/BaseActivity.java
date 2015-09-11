@@ -1,6 +1,5 @@
 package com.wjhgw.base;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,7 +30,7 @@ public class BaseActivity extends AppCompatActivity {
             actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
             actionBar.setDisplayShowCustomEnabled(true);
             actionBar.setBackgroundDrawable(getResources().getDrawable(R.color.action_bar_color));
-            LayoutInflater inflator = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflator = (LayoutInflater) this.getSystemService(this.LAYOUT_INFLATER_SERVICE);
             View v = inflator.inflate(R.layout.action_bar, new LinearLayout(this));
             ActionBar.LayoutParams layout = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
             actionBar.setCustomView(v, layout);
@@ -42,6 +41,13 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void setActionBarTitle(String title) {
         this.navigationActionBar.setTitle(title);
+    }
+
+    /**
+     *隐藏ActionBar的标题栏部分
+     */
+    protected void HideActionBar() {
+        this.getSupportActionBar().hide();
     }
 
     private void initSystemBar() {
