@@ -39,10 +39,10 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         ft = getSupportFragmentManager().beginTransaction();
         switch (checkedId) {
             case R.id.home_button:
-                ft.replace(R.id.content, indexFragment).commit();
                 if (indexFragment == null) {
                     indexFragment = new IndexFragment();
                 }
+                ft.replace(R.id.content, indexFragment).commit();
                 break;
 
             case R.id.category_button:
