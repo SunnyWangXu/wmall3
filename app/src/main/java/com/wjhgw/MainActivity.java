@@ -29,7 +29,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
         indexFragment = new IndexFragment();
         ft2.replace(R.id.content, indexFragment).commit();
-        this.setActionBarTitle("万嘉欢购");
+        //this.setActionBarTitle("万嘉欢购");
+        this.HideActionBar();
     }
 
     //RadioButton 点击事件
