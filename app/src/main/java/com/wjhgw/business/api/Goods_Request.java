@@ -80,7 +80,7 @@ public class Goods_Request extends BaseModel {
 			// 携带参数
 			@Override
 			protected HashMap<String, String> getParams() throws AuthFailureError {
-				HashMap<String, String> hashMap = new HashMap<String, String>();
+				HashMap<String, String> hashMap = new HashMap<>();
 				return hashMap;
 			}
 
