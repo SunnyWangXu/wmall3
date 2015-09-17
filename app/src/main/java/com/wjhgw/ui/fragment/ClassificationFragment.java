@@ -20,6 +20,8 @@ import com.wjhgw.ui.view.listview.adapter.goods_class_adapter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 public class ClassificationFragment extends Fragment implements XListView.IXListViewListener ,BusinessResponse {
 	public static int MAK = 0;
 	private WebView webView;
@@ -32,7 +34,9 @@ public class ClassificationFragment extends Fragment implements XListView.IXList
 		View View = inflater.inflate(R.layout.discoverylayout, container, false);
 		dataModel = new Classification_Request(getActivity());
 		dataModel.addResponseListener(this);
-		dataModel.goods_class("ed86e0e4dd9fd54ffea7511b9fc6728e");
+		HashMap<String, String> hashMap = new HashMap<>();
+		hashMap.put("key", "ed86e0e4dd9fd54ffea7511b9fc6728e");
+		dataModel.goods_class(hashMap);
 		mListView  = (MyListView)View.findViewById(R.id.discovery_listview);
 		mListView.setPullLoadEnable(false);
 		mListView.setPullRefreshEnable(false);
@@ -42,6 +46,7 @@ public class ClassificationFragment extends Fragment implements XListView.IXList
 		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				String s = dataModel.class_List.get(position-1).gc_id;
 				MAK = position-1;
 				adapter.notifyDataSetChanged();
 			}

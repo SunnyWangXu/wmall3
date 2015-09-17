@@ -44,10 +44,9 @@ public class Classification_Request extends BaseModel {
 	};
 
 	/**
-	 * 商品列表接口
+	 * 商品一级分类
 	 */
-	public void goods_class(String Key) {
-		this.key = Key;
+	public void goods_class(final HashMap<String, String> mhashMap) {
 		if(!super.checkNetworkAvailable(mContext)){
 			Toast.makeText(mContext, "网络错误！", Toast.LENGTH_SHORT).show();
 		}else{
@@ -57,8 +56,7 @@ public class Classification_Request extends BaseModel {
 			public void onResponse(String response) {
 				final ClassAnalytical list = new ClassAnalytical();
 				try {
-					list.fromJson(response);
-					ArrayList<goods_class_data> data = list.data;
+					ArrayList<goods_class_data> data = list.fromJson(response, goods_class_data.class);
 					if (null != data && data.size() > 0) {
 						class_List.clear();
 						class_List.addAll(data);
@@ -73,9 +71,7 @@ public class Classification_Request extends BaseModel {
 			// 携带参数
 			@Override
 			protected HashMap<String, String> getParams() throws AuthFailureError {
-				HashMap<String, String> hashMap = new HashMap<>();
-				hashMap.put("key", key);
-				return hashMap;
+				return mhashMap;
 			}
 
 		};

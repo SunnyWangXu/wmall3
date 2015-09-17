@@ -8,10 +8,6 @@ public class goods_list_data {
     public int age = 1;
     public String goods_id;
 
-    public goods_list_data() {
-    }
-
-
     public void  fromJson(JSONObject jsonObject)  throws JSONException
     {
         if(null == jsonObject){
