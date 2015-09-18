@@ -13,19 +13,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class BaseModel implements BusinessResponse, FailedResponse {
+public class BaseRequest implements BusinessResponse, FailedResponse {
 	protected ArrayList<BusinessResponse> businessResponseArrayList = new ArrayList<>();
 	protected ArrayList<FailedResponse> failedResponseArrayList = new ArrayList<>();
 	protected Context mContext;
 
-	public BaseModel(Context context) {
+	public BaseRequest(Context context) {
         mContext = context;
 	}
 
 	/**
 	 *
 	 * 判断当前网络是否可用
-	 * @return
 	 */
 	public static boolean checkNetworkAvailable(Context context) {
 		ConnectivityManager connectivity = (ConnectivityManager) context

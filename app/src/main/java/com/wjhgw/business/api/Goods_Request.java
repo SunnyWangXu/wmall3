@@ -9,7 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.wjhgw.base.BaseModel;
+import com.wjhgw.base.BaseRequest;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.data.goods_list_data;
 import com.wjhgw.business.manager.goods_list_manager;
@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Goods_Request extends BaseModel {
+public class Goods_Request extends BaseRequest {
 
 	public ArrayList<goods_list_data> goodsList = new ArrayList<>();
 	private RequestQueue mRequestQueue;

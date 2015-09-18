@@ -9,5 +9,10 @@ public class ApiInterface {
     /**
      * 一级分类接口
      */
-    public static final String Goods_class  ="/mobile/index.php?act=goods_class";
+    public static final String Goods_class  ="/mobile/index.php?act=goods_class&flag=1";
+    /**
+     * 指定分类接口
+     */
+    public static final String Goods_class1  ="/mobile/index.php?act=goods_class&flag=2";
+
 }
