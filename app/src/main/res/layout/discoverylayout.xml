@@ -2,7 +2,67 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="12dp"
+            android:layout_gravity="center_vertical"
+            android:background="#efefef"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/qrcode_scanner"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:padding="10dp"
+                android:src="@mipmap/icon_homepage_select" />
+
+            <EditText
+                android:id="@+id/search_name"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:layout_gravity="center_vertical"
+                android:background="#efefef"
+                android:hint="请输入你想要的商品"
+                android:layout_weight="3"
+                android:maxLength="20"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:textColor="#666666"
+                android:textSize="17dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#efefef"
+                android:gravity="center" >
+
+                <ImageView
+                    android:id="@+id/d2_delete"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:visibility="gone"
+                    android:layout_toRightOf="@+id/login_name"
+                    android:src="@mipmap/icon_mine_select" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="horizontal">
 
     <com.wjhgw.ui.view.listview.MyListView
         android:id="@+id/discovery_listview"
@@ -34,5 +94,6 @@
             android:scrollbars="none"
             android:numColumns="3"/>
 
+    </LinearLayout>
     </LinearLayout>
 </LinearLayout>
