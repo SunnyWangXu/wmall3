@@ -58,7 +58,8 @@ public class goods_class_adapter extends BaseAdapter {
 		return position;
 	}
 
-	@Override
+
+		@Override
 	public View getView(int position, View cellView, ViewGroup parent) {
 		cellView = LayoutInflater.from(mContext).inflate(R.layout.discovery_item, null);
 		LinearLayout class_item_layout = (LinearLayout)cellView.findViewById(R.id.class_item_layout);
