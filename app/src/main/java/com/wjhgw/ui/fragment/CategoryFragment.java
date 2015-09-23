@@ -28,7 +28,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-public class ClassificationFragment extends Fragment implements XListView.IXListViewListener, BusinessResponse ,View.OnClickListener {
+public class CategoryFragment extends Fragment implements XListView.IXListViewListener, BusinessResponse, View.OnClickListener {
     public static int MAK = 0;
     private ImageView image;
     private ImageView qrcode_scanner;
@@ -114,7 +114,7 @@ public class ClassificationFragment extends Fragment implements XListView.IXList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.qrcode_scanner:
                 Intent intent = new Intent(getActivity(), CaptureActivity.class);
                 getActivity().startActivity(intent);
@@ -150,7 +150,7 @@ public class ClassificationFragment extends Fragment implements XListView.IXList
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }*/
-            Toast.makeText(getActivity(), "扫描返回"+RESULT_MESSAGE, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "扫描返回" + RESULT_MESSAGE, Toast.LENGTH_SHORT).show();
             RESULT_MESSAGE = null;
         }
     }

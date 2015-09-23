@@ -23,7 +23,13 @@ import java.util.HashMap;
 
 public class Classification_Request extends BaseRequest {
 
+    /**
+     * class_List 一级分类数据列表
+     */
     public ArrayList<goods_class_data> class_List = new ArrayList<>();
+    /**
+     * class_List1 制定分类数据列表
+     */
     public ArrayList<goods_class_data1> class_List1 = new ArrayList<>();
     private RequestQueue mRequestQueue;
     private StringRequest stringRequest;

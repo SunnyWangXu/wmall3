@@ -5,16 +5,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioGroup;
 
 import com.wjhgw.base.BaseActivity;
-import com.wjhgw.ui.fragment.ClassificationFragment;
+import com.wjhgw.ui.fragment.CategoryFragment;
 import com.wjhgw.ui.fragment.DiscoveryFragment;
 import com.wjhgw.ui.fragment.IndexFragment;
-import com.wjhgw.ui.fragment.MessageFragment;
+import com.wjhgw.ui.fragment.ShoppingCartFragment;
 import com.wjhgw.ui.fragment.MineFragment;
 
 public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener{
     private FragmentTransaction ft;
-    private MessageFragment messageFragment;
-    private ClassificationFragment classificationFragment;
+    private ShoppingCartFragment shoppingCartFragment;
+    private CategoryFragment categoryFragment;
     private IndexFragment indexFragment;
     private DiscoveryFragment discoveryFragment;
     private MineFragment mineFragment;
@@ -47,10 +47,10 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 break;
 
             case R.id.category_button:
-                if (classificationFragment == null) {
-                    classificationFragment = new ClassificationFragment();
+                if (categoryFragment == null) {
+                    categoryFragment = new CategoryFragment();
                 }
-                ft.replace(R.id.content, classificationFragment).commit();
+                ft.replace(R.id.content, categoryFragment).commit();
                 break;
 
             case R.id.found_button:
@@ -61,11 +61,11 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 break;
 
             case R.id.by_button:
-            if (messageFragment == null) {
-                messageFragment = new MessageFragment();
+            if (shoppingCartFragment == null) {
+                shoppingCartFragment = new ShoppingCartFragment();
             }
 
-            ft.replace(R.id.content, messageFragment).commit();
+            ft.replace(R.id.content, shoppingCartFragment).commit();
             break;
             case R.id.my_button:
                 if (mineFragment == null) {

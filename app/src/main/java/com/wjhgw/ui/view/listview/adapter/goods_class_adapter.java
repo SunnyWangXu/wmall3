@@ -25,7 +25,7 @@ import android.widget.TextView;
 
 import com.wjhgw.R;
 import com.wjhgw.business.data.goods_class_data;
-import com.wjhgw.ui.fragment.ClassificationFragment;
+import com.wjhgw.ui.fragment.CategoryFragment;
 
 import java.util.ArrayList;
 
@@ -65,7 +65,7 @@ public class goods_class_adapter extends BaseAdapter {
 		TextView text = (TextView)cellView.findViewById(R.id.goods_class);
 		text.setText(List.get(position).gc_name);
 
-		if(position == ClassificationFragment.MAK){
+		if(position == CategoryFragment.MAK){
 			text.setTextColor(Color.parseColor("#fff14f4f"));
 			class_item_layout.setBackgroundColor(Color.parseColor("#ffffff"));
 		}

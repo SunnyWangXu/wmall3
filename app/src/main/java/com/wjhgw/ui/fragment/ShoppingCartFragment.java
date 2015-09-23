@@ -7,12 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wjhgw.R;
-public class MessageFragment extends Fragment {
+public class ShoppingCartFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.message_layout,container, false);
+		View rootView = inflater.inflate(R.layout.shopping_layout,container, false);
 		return rootView;
 	}
 }

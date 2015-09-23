@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.wjhgw.R;
-import com.wjhgw.ui.fragment.ClassificationFragment;
+import com.wjhgw.ui.fragment.CategoryFragment;
 import com.wjhgw.utils.Zxing.camera.CameraManager;
 import com.wjhgw.utils.Zxing.decoding.CaptureActivityHandler;
 import com.wjhgw.utils.Zxing.decoding.InactivityTimer;
@@ -148,8 +148,8 @@ public class CaptureActivity extends Activity implements Callback {
         /*txtResult.setText(obj.getBarcodeFormat().toString() + ":"
                 + obj.getText());*/
 
-        ClassificationFragment.RESULT_MESSAGE = obj.getText();
-        if (ClassificationFragment.RESULT_MESSAGE != null) {
+        CategoryFragment.RESULT_MESSAGE = obj.getText();
+        if (CategoryFragment.RESULT_MESSAGE != null) {
             finish();
         }
 
