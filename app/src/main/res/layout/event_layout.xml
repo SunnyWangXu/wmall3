@@ -7,8 +7,7 @@
         android:id="@+id/group_purchase_layout"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="20dp"
         android:layout_weight="1"
         android:background="#ffffff"
         android:orientation="vertical">
@@ -89,12 +88,16 @@
             android:src="@mipmap/default_image" />
     </LinearLayout>
 
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#eeeeee"/>
+
     <LinearLayout
         android:id="@+id/auction_layout"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="20dp"
         android:layout_weight="1"
         android:background="#ffffff"
         android:orientation="vertical">
