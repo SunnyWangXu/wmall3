@@ -38,7 +38,7 @@ public class goods_class_adapter extends BaseAdapter {
 	private ArrayList<goods_class_data> List;
 
 	public goods_class_adapter(Context c, ArrayList<goods_class_data> list) {
-		mInflater = LayoutInflater.from(c);
+		//mInflater = LayoutInflater.from(c);
 		this.mContext = c;
 		this.List = list;
 	}
@@ -60,7 +60,7 @@ public class goods_class_adapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View cellView, ViewGroup parent) {
-		cellView = mInflater.inflate(R.layout.discovery_item, null);
+		cellView = LayoutInflater.from(mContext).inflate(R.layout.discovery_item, null);
 		LinearLayout class_item_layout = (LinearLayout)cellView.findViewById(R.id.class_item_layout);
 		TextView text = (TextView)cellView.findViewById(R.id.goods_class);
 		text.setText(List.get(position).gc_name);

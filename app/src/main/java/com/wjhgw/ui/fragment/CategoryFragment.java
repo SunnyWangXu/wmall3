@@ -38,12 +38,13 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
     private Classification_Request dataModel;
     private GridView grid;
     private LoadImageByVolley Image;
+    View View;
     public static String RESULT_MESSAGE = null; // 接收扫二维码返回数据
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View View = inflater.inflate(R.layout.discoverylayout, container, false);
+        View = inflater.inflate(R.layout.classification_layout, container, false);
 
         dataModel = new Classification_Request(getActivity());
         dataModel.addResponseListener(this);
@@ -61,14 +62,14 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
         mListView.setPullRefreshEnable(false);
         mListView.setXListViewListener(this, 1);
         mListView.setRefreshTime();
-        Image = new LoadImageByVolley(getActivity(), image);
+        Image = new LoadImageByVolley(getActivity());
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MAK = position - 1;
                 adapter.notifyDataSetChanged();
-                Image.loadImageByVolley(dataModel.class_List.get(position - 1).image);
+                Image.loadImageByVolley(dataModel.class_List.get(position - 1).image, image);
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put("key", "ed86e0e4dd9fd54ffea7511b9fc6728e");
                 hashMap.put("gc_id", dataModel.class_List.get(position - 1).gc_id);
@@ -86,11 +87,14 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
             if (status.getString("code").equals("10000")) {
                 adapter = new goods_class_adapter(getActivity(), dataModel.class_List);
                 mListView.setAdapter(adapter);
-                Image.loadImageByVolley(dataModel.class_List.get(0).image);
-                HashMap<String, String> hashMap = new HashMap<>();
-                hashMap.put("key", "ed86e0e4dd9fd54ffea7511b9fc6728e");
-                hashMap.put("gc_id", dataModel.class_List.get(0).gc_id);
-                dataModel.goods_class1(hashMap, BaseQuery.serviceUrl() + ApiInterface.Goods_class1);
+                if (dataModel.class_List.size() > 0) {
+                    Image.loadImageByVolley(dataModel.class_List.get(0).image, image);
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("key", "ed86e0e4dd9fd54ffea7511b9fc6728e");
+                    hashMap.put("gc_id", dataModel.class_List.get(0).gc_id);
+                    dataModel.goods_class1(hashMap, BaseQuery.serviceUrl() + ApiInterface.Goods_class1);
+                }
+
             } else if (status.getString("code").equals("600100")) {
                 Toast.makeText(getActivity(), status.getString("msg"), Toast.LENGTH_SHORT).show();
             }

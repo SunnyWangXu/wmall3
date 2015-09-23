@@ -22,14 +22,13 @@ import com.wjhgw.R;
 public class LoadImageByVolley {
 
     private Context mContext;
-    private ImageView mImageView;
+    //private ImageView mImageView;
 
-    public LoadImageByVolley(Context context,ImageView view) {
+    public LoadImageByVolley(Context context) {
         mContext = context;
-        mImageView = view;
     }
 
-    public void loadImageByVolley(String imageUrl){
+    public void loadImageByVolley(String imageUrl ,ImageView view){
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
         final LruCache<String, Bitmap> lruCache = new LruCache<>(20);
         ImageLoader.ImageCache imageCache = new ImageLoader.ImageCache() {
@@ -44,7 +43,7 @@ public class LoadImageByVolley {
             }
         };
         ImageLoader imageLoader = new ImageLoader(requestQueue, imageCache);
-        ImageLoader.ImageListener listener = ImageLoader.getImageListener(mImageView, R.mipmap.ic_launcher,R.mipmap.ic_launcher);
+        ImageLoader.ImageListener listener = ImageLoader.getImageListener(view, R.mipmap.ic_launcher,R.mipmap.ic_launcher);
         imageLoader.get(imageUrl, listener);
     }
 }

@@ -26,14 +26,13 @@ public class Classification_Request extends BaseRequest {
     /**
      * class_List 一级分类数据列表
      */
-    public ArrayList<goods_class_data> class_List = new ArrayList<>();
+    public final ArrayList<goods_class_data> class_List = new ArrayList<>();
     /**
      * class_List1 制定分类数据列表
      */
-    public ArrayList<goods_class_data1> class_List1 = new ArrayList<>();
+    public final ArrayList<goods_class_data1> class_List1 = new ArrayList<>();
     private RequestQueue mRequestQueue;
     private StringRequest stringRequest;
-    private String key;        //登录令牌
 
     public Classification_Request(Context context) {
         super(context);
@@ -57,7 +56,9 @@ public class Classification_Request extends BaseRequest {
         if (!super.checkNetworkAvailable(mContext)) {
             Toast.makeText(mContext, "网络错误！", Toast.LENGTH_SHORT).show();
         } else {
-            mRequestQueue = Volley.newRequestQueue(mContext);
+            if(mRequestQueue == null){
+                mRequestQueue = Volley.newRequestQueue(mContext);
+            }
             Response.Listener<String> SuccessfulResponse = new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -93,7 +94,9 @@ public class Classification_Request extends BaseRequest {
         if (!super.checkNetworkAvailable(mContext)) {
             Toast.makeText(mContext, "网络错误！", Toast.LENGTH_SHORT).show();
         } else {
-            mRequestQueue = Volley.newRequestQueue(mContext);
+            if(mRequestQueue == null){
+                mRequestQueue = Volley.newRequestQueue(mContext);
+            }
             Response.Listener<String> SuccessfulResponse = new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {

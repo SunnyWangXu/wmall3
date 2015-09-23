@@ -35,7 +35,7 @@ public class grid_adapter extends BaseAdapter {
 	private ArrayList<goods_class_data1> List;
 
 	public grid_adapter(Context c, ArrayList<goods_class_data1> list) {
-		mInflater = LayoutInflater.from(c);
+		//mInflater = LayoutInflater.from(c);
 		this.mContext = c;
 		this.List = list;
 	}
@@ -57,7 +57,7 @@ public class grid_adapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View cellView, ViewGroup parent) {
-		cellView = mInflater.inflate(R.layout.grid_item, null);
+		cellView = LayoutInflater.from(mContext).inflate(R.layout.grid_item, null);
 		TextView text = (TextView)cellView.findViewById(R.id.goods_class_item);
 		text.setText(List.get(position).gc_name);
 		return cellView;

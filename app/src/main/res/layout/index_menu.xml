@@ -23,7 +23,7 @@
             android:orientation="vertical" >
 
             <ImageButton
-                android:id="@+id/b0_index_menu_extension"
+                android:id="@+id/index_menu_extension"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:background="@mipmap/icon_homepage_select" />
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="4dp"
-                android:text="我的推广" />
+                android:text="我的收藏" />
         </LinearLayout>
         
         <LinearLayout            
@@ -44,7 +44,7 @@
             android:orientation="vertical" >
 
             <ImageButton
-                android:id="@+id/b0_index_menu_gradevin"
+                android:id="@+id/index_menu_gradevin"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:background="@mipmap/icon_shopping_cart" />
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="4dp"
-                android:text="我的酒柜" />
+                android:text="物流查询" />
         </LinearLayout>
 
 
@@ -66,7 +66,7 @@
             android:orientation="vertical" >
 
             <ImageButton
-                android:id="@+id/b0_index_menu_funds"
+                android:id="@+id/index_menu_funds"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:background="@mipmap/icon_find" />
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="4dp"
-                android:text="资金管理" />
+                android:text="欢购币" />
         </LinearLayout>
 
         <LinearLayout
@@ -87,7 +87,7 @@
             android:orientation="vertical" >
 
             <ImageButton
-                android:id="@+id/b0_index_menu_collect"
+                android:id="@+id/index_menu_collect"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:background="@mipmap/icon_mine_select" />
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="4dp"
-                android:text="我的收藏" />
+                android:text="领好券" />
         </LinearLayout>
     </LinearLayout>
 
