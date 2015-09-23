@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/group_purchase_layout"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="1"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="9dp"
+            android:text="本期组团购"
+            android:textColor="#dd3333"
+            android:textSize="17dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/time1"
+                android:layout_width="36dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/bo_color_shape"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="#ffffff"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="6dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:gravity="center"
+                android:text=":"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/time2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/bo_color_shape"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="#ffffff"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="6dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="2dp"
+                android:gravity="center"
+                android:text=":"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/time3"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/bo_color_shape"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="#ffffff"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/group_purchase_view"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="2dp"
+            android:src="@mipmap/default_image" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/auction_layout"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="1"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="9dp"
+            android:text="本期拍卖"
+            android:textColor="#dd3333"
+            android:textSize="17dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/time4"
+                android:layout_width="36dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/bo_color_shape"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="#ffffff"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="6dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:gravity="center"
+                android:text=":"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/time5"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/bo_color_shape"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="#ffffff"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="6dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="2dp"
+                android:gravity="center"
+                android:text=":"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/time6"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/bo_color_shape"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="#ffffff"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/auction_view"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_marginTop="2dp"
+                android:src="@mipmap/default_image" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="卡罗兰葡萄酒 20L" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="15人围观" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1000元起拍"
+                    android:textColor="#dd3333" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
