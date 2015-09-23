@@ -29,6 +29,8 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
         View.OnClickListener, RadioGroup.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
     private View messageLayout;
     private LinearLayout MenuLayout;
+    private LinearLayout Eventlayout;
+    private LinearLayout Themelayout;
     private ImageView mImageView;
     private LoadImageByVolley load;
     private Goods_Request dataModel;
@@ -87,6 +89,8 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
         mListView = (MyListView) messageLayout.findViewById(R.id.index_listview);
         mListView.addHeaderView(indexViewPageLayout);
         mListView.addHeaderView(MenuLayout);
+        mListView.addHeaderView(Eventlayout);
+        mListView.addHeaderView(Themelayout);
     }
 
     /**
@@ -95,6 +99,8 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
 
     private void setInflaterView() {
         MenuLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_menu, null);
+        Eventlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.event_layout, null);
+        Themelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.theme_layout, null);
         indexViewPageLayout = (RelativeLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_page_layout, null);
         indexPager = (ViewPager) indexViewPageLayout.findViewById(R.id.pager);
         mPagerAdapter = new IndexPagerAdapter(getActivity());
