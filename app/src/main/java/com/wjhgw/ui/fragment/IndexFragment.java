@@ -31,6 +31,7 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     private LinearLayout MenuLayout;
     private LinearLayout Eventlayout;
     private LinearLayout Themelayout;
+    private LinearLayout Brandlayout;
     private LinearLayout Guesslikelayout;
     private ImageView mImageView;
     private LoadImageByVolley load;
@@ -92,6 +93,7 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
         mListView.addHeaderView(MenuLayout);
         mListView.addHeaderView(Eventlayout);
         mListView.addHeaderView(Themelayout);
+        mListView.addHeaderView(Brandlayout);
         mListView.addHeaderView(Guesslikelayout);
     }
 
@@ -103,6 +105,7 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
         MenuLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_menu, null);
         Eventlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.event_layout, null);
         Themelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.theme_layout, null);
+        Brandlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.brand_layout, null);
         Guesslikelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.guess_like_layout, null);
         indexViewPageLayout = (RelativeLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_page_layout, null);
         indexPager = (ViewPager) indexViewPageLayout.findViewById(R.id.pager);
