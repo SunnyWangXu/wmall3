@@ -33,6 +33,11 @@ public class grid_adapter extends BaseAdapter {
 	private Context mContext;
 	private LayoutInflater mInflater;
 	private ArrayList<goods_class_data1> List;
+	private ViewHolder vh = new ViewHolder();
+
+	private static class ViewHolder {
+		private TextView text;
+	}
 
 	public grid_adapter(Context c, ArrayList<goods_class_data1> list) {
 		//mInflater = LayoutInflater.from(c);
@@ -58,8 +63,9 @@ public class grid_adapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View cellView, ViewGroup parent) {
 		cellView = LayoutInflater.from(mContext).inflate(R.layout.grid_item, null);
-		TextView text = (TextView)cellView.findViewById(R.id.goods_class_item);
-		text.setText(List.get(position).gc_name);
+		vh.text = (TextView)cellView.findViewById(R.id.goods_class_item);
+		vh.text.setText(List.get(position).gc_name);
+		cellView.setTag(vh);
 		return cellView;
 	}
 }
