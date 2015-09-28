@@ -40,7 +40,7 @@ public class goods_class_adapter extends BaseAdapter {
 
     private static class ViewHolder {
         private TextView text;
-        private LinearLayout class_item_layo;
+        private LinearLayout class_item_layout;
     }
 
     public goods_class_adapter(Context c, ArrayList<goods_class_data> list) {
@@ -67,13 +67,14 @@ public class goods_class_adapter extends BaseAdapter {
     @Override
     public View getView(int position, View cellView, ViewGroup parent) {
         cellView = LayoutInflater.from(mContext).inflate(R.layout.discovery_item, null);
-        LinearLayout class_item_layout = (LinearLayout)cellView.findViewById(R.id.class_item_layout);
-        TextView text = (TextView)cellView.findViewById(R.id.goods_class);
-        text.setText(List.get(position).gc_name);
+        vh.class_item_layout = (LinearLayout)cellView.findViewById(R.id.class_item_layout);
+        vh.text = (TextView)cellView.findViewById(R.id.goods_class);
+        cellView.setTag(vh);
+        vh.text.setText(List.get(position).gc_name);
 
         if(position == CategoryFragment.MAK){
-            text.setTextColor(Color.parseColor("#fff14f4f"));
-            class_item_layout.setBackgroundColor(Color.parseColor("#ffffff"));
+            vh.text.setTextColor(Color.parseColor("#fff14f4f"));
+            vh.class_item_layout.setBackgroundColor(Color.parseColor("#ffffff"));
         }
 
         return cellView;
