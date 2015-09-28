@@ -11,10 +11,11 @@ import com.wjhgw.R;
 
 public class DiscoveryFragment extends Fragment {
 	private WebView webView;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View View = inflater.inflate(R.layout.discover_layout, container, false);
+							 Bundle savedInstanceState) {
+		View View = inflater.inflate(R.layout.discover_layout,null);
 		return View;
 	}
 }

@@ -6,9 +6,9 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -20,6 +20,7 @@ import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.image.LoadImageByVolley;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView.IXListViewListener;
+import com.wjhgw.ui.view.listview.adapter.DiscountPagerAdapter;
 import com.wjhgw.ui.view.listview.adapter.IndexPagerAdapter;
 
 import org.json.JSONException;
@@ -27,13 +28,14 @@ import org.json.JSONObject;
 
 public class IndexFragment extends Fragment implements BusinessResponse, IXListViewListener,
         View.OnClickListener, RadioGroup.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
-    private View messageLayout;
+    private static final int SCROLL_COUNT = 3;
+    private View homeLayout;
     private LinearLayout MenuLayout;
     private LinearLayout Eventlayout;
+    private LinearLayout Discountlayout;
     private LinearLayout Themelayout;
     private LinearLayout Brandlayout;
     private LinearLayout Guesslikelayout;
-    private ImageView mImageView;
     private LoadImageByVolley load;
     private Goods_Request dataModel;
     private MyListView mListView;
@@ -43,21 +45,46 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     private RadioGroup group;
     private static final int HANDLERID = 1;
     private Handler handler;
+    private ViewPager discountViewPager;
+    private LinearLayout viewPagerContainer;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        messageLayout = inflater.inflate(R.layout.index_layout, container, false);
+        homeLayout = inflater.inflate(R.layout.index_layout, container, false);
         /**
          * 加载视图
          */
         setInflaterView();
+
+        /**
+         * 初始化控件
+         */
+        initView();
+
+
+        // pageCount设置缓存的页面数
+        discountViewPager.setOffscreenPageLimit(SCROLL_COUNT);
+        // 设置2张图之前的间距。
+        discountViewPager.setPageMargin(getResources().getDimensionPixelSize(R.dimen.page_margin));
+        viewPagerContainer = (LinearLayout) Discountlayout.findViewById(R.id.viewPagerContainer);
+        viewPagerContainer.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return discountViewPager.dispatchTouchEvent(event);
+            }
+        });
+
+
+        discountViewPager.setAdapter(new DiscountPagerAdapter(getActivity()));
 
         dataModel = new Goods_Request(getActivity());
         dataModel.addResponseListener(this);
 
         indexPager.addOnPageChangeListener(this);
         group.setOnCheckedChangeListener(this);
+
 
 //        new Handler().sendMessageDelayed();
 
@@ -81,17 +108,24 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
         mListView.setRefreshTime();
         mListView.setAdapter(null);
 
-        return messageLayout;
+        return homeLayout;
+    }
+
+    private void initView() {
+        discountViewPager = (ViewPager) Discountlayout.findViewById(R.id.viewpager_discount);
+
+
     }
 
     /**
      * 给ListView添加视图
      */
     private void listAddHeader() {
-        mListView = (MyListView) messageLayout.findViewById(R.id.index_listview);
+        mListView = (MyListView) homeLayout.findViewById(R.id.index_listview);
         mListView.addHeaderView(indexViewPageLayout);
         mListView.addHeaderView(MenuLayout);
         mListView.addHeaderView(Eventlayout);
+        mListView.addHeaderView(Discountlayout);
         mListView.addHeaderView(Themelayout);
         mListView.addHeaderView(Brandlayout);
         mListView.addHeaderView(Guesslikelayout);
@@ -104,6 +138,7 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     private void setInflaterView() {
         MenuLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_menu, null);
         Eventlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.event_layout, null);
+        Discountlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_discount__layout, null);
         Themelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.theme_layout, null);
         Brandlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.brand_layout, null);
         Guesslikelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.guess_like_layout, null);
@@ -112,6 +147,8 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
         mPagerAdapter = new IndexPagerAdapter(getActivity());
         indexPager.setAdapter(mPagerAdapter);
         group = (RadioGroup) indexViewPageLayout.findViewById(R.id.radio_group);
+
+
     }
 
     @Override
