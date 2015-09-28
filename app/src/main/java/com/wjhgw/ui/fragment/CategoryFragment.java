@@ -35,7 +35,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
     private MyListView mListView;
     private goods_class_adapter adapter;
     private grid_adapter adapter1;
-    private Classification_Request dataModel;
+    private Classification_Request Request;
     private GridView grid;
     private LoadImageByVolley Image;
     View View;
@@ -46,11 +46,11 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
                              Bundle savedInstanceState) {
         View = inflater.inflate(R.layout.classification_layout, container, false);
 
-        dataModel = new Classification_Request(getActivity());
-        dataModel.addResponseListener(this);
+        Request = new Classification_Request(getActivity());
+        Request.addResponseListener(this);
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("key", "ed86e0e4dd9fd54ffea7511b9fc6728e");
-        dataModel.goods_class(hashMap, BaseQuery.serviceUrl() + ApiInterface.Goods_class);
+        Request.goods_class(hashMap, BaseQuery.serviceUrl() + ApiInterface.Goods_class);
 
 
         grid = (GridView) View.findViewById(R.id.grid);
@@ -69,11 +69,11 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MAK = position - 1;
                 adapter.notifyDataSetChanged();
-                Image.loadImageByVolley(dataModel.class_List.get(position - 1).image, image);
+                Image.loadImageByVolley(Request.class_List.get(position - 1).image, image);
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put("key", "ed86e0e4dd9fd54ffea7511b9fc6728e");
-                hashMap.put("gc_id", dataModel.class_List.get(position - 1).gc_id);
-                dataModel.goods_class1(hashMap, BaseQuery.serviceUrl() + ApiInterface.Goods_class1);
+                hashMap.put("gc_id", Request.class_List.get(position - 1).gc_id);
+                Request.goods_class1(hashMap, BaseQuery.serviceUrl() + ApiInterface.Goods_class1);
             }
         });
 
@@ -85,14 +85,14 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
     public void OnMessageResponse(String url, String response, JSONObject status) throws JSONException {
         if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Goods_class)) {
             if (status.getString("code").equals("10000")) {
-                adapter = new goods_class_adapter(getActivity(), dataModel.class_List);
+                adapter = new goods_class_adapter(getActivity(), Request.class_List);
                 mListView.setAdapter(adapter);
-                if (dataModel.class_List.size() > 0) {
-                    Image.loadImageByVolley(dataModel.class_List.get(0).image, image);
+                if (Request.class_List.size() > 0) {
+                    Image.loadImageByVolley(Request.class_List.get(0).image, image);
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("key", "ed86e0e4dd9fd54ffea7511b9fc6728e");
-                    hashMap.put("gc_id", dataModel.class_List.get(0).gc_id);
-                    dataModel.goods_class1(hashMap, BaseQuery.serviceUrl() + ApiInterface.Goods_class1);
+                    hashMap.put("gc_id", Request.class_List.get(0).gc_id);
+                    Request.goods_class1(hashMap, BaseQuery.serviceUrl() + ApiInterface.Goods_class1);
                 }
 
             } else if (status.getString("code").equals("600100")) {
@@ -100,7 +100,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
             }
         }
         if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Goods_class1)) {
-            adapter1 = new grid_adapter(getActivity(), dataModel.class_List1);
+            adapter1 = new grid_adapter(getActivity(), Request.class_List1);
             grid.setAdapter(adapter1);
         }
     }

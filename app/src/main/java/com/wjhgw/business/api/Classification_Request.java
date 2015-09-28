@@ -64,7 +64,7 @@ public class Classification_Request extends BaseRequest {
                 public void onResponse(String response) {
                     final ClassAnalytical list = new ClassAnalytical();
                     try {
-                        ArrayList<goods_class_data> data = list.fromJson(response, goods_class_data.class);
+                        ArrayList<goods_class_data> data = list.fromJsonArray(response, goods_class_data.class);
                         if (null != data && data.size() > 0) {
                             class_List.clear();
                             class_List.addAll(data);
@@ -102,7 +102,7 @@ public class Classification_Request extends BaseRequest {
                 public void onResponse(String response) {
                     final ClassAnalytical list = new ClassAnalytical();
                     try {
-                        ArrayList<goods_class_data1> data = list.fromJson(response, goods_class_data1.class);
+                        ArrayList<goods_class_data1> data = list.fromJsonArray(response, goods_class_data1.class);
                         if (null != data && data.size() > 0) {
                             class_List1.clear();
                             class_List1.addAll(data);

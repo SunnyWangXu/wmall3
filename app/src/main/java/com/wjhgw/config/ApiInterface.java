@@ -14,5 +14,9 @@ public class ApiInterface {
      * 指定分类接口
      */
     public static final String Goods_class1  ="/mobile/index.php?act=goods_class&flag=2";
+    /**
+     * 登录接口
+     */
+    public static final String Login  ="/mobile/index.php?act=login";
 
 }

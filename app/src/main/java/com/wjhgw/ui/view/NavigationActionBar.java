@@ -44,7 +44,7 @@ public class NavigationActionBar extends LinearLayout {
         titleView.setText(title);
         titleView.setGravity(Gravity.CENTER);
         titleView.setTextSize(24);
-        titleView.setTextColor(Color.parseColor("white"));
+        titleView.setTextColor(Color.parseColor("#000000"));
         this.setTitleItem(titleView);
     }
 

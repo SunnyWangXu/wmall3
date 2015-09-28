@@ -2,7 +2,7 @@
 <resources>
     <color name="text_selector">#ffba0e2f</color>
 
-    <color name="action_bar_color">#ba0e2f</color>
+    <color name="action_bar_color">#ffffff</color>
     
 	<color name="filter_text_color">#666666</color>
     <color name="spec_text_color">#999999</color>

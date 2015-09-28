@@ -1,5 +1,6 @@
 package com.wjhgw.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +18,7 @@ import com.wjhgw.R;
 import com.wjhgw.business.api.Goods_Request;
 import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.image.LoadImageByVolley;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView.IXListViewListener;
@@ -36,6 +38,7 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     private LinearLayout Themelayout;
     private LinearLayout Brandlayout;
     private LinearLayout Guesslikelayout;
+    private LinearLayout group_purchase_layout;
     private LoadImageByVolley load;
     private Goods_Request dataModel;
     private MyListView mListView;
@@ -47,6 +50,7 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     private Handler handler;
     private ViewPager discountViewPager;
     private LinearLayout viewPagerContainer;
+    private Intent intent;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -85,6 +89,7 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
         indexPager.addOnPageChangeListener(this);
         group.setOnCheckedChangeListener(this);
 
+        group_purchase_layout.setOnClickListener(this);
 
 //        new Handler().sendMessageDelayed();
 
@@ -143,7 +148,9 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
         Brandlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.brand_layout, null);
         Guesslikelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.guess_like_layout, null);
         indexViewPageLayout = (RelativeLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_page_layout, null);
+
         indexPager = (ViewPager) indexViewPageLayout.findViewById(R.id.pager);
+        group_purchase_layout = (LinearLayout) Eventlayout.findViewById(R.id.group_purchase_layout);
         mPagerAdapter = new IndexPagerAdapter(getActivity());
         indexPager.setAdapter(mPagerAdapter);
         group = (RadioGroup) indexViewPageLayout.findViewById(R.id.radio_group);
@@ -186,6 +193,15 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     @Override
     public void onClick(View v) {
 
+        switch (v.getId()){
+            case R.id.group_purchase_layout:
+                intent = new Intent(getActivity(), A0_LoginActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+
+        }
     }
 
     //RadioGroup监听
