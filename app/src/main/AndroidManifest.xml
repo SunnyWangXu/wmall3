@@ -21,10 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.wjhgw.ui.activity.CaptureActivity" />
-        <activity
-            android:name="com.wjhgw.ui.activity.A0_LoginActivity" />
+        <activity android:name="com.wjhgw.ui.activity.CaptureActivity" />
+        <activity android:name="com.wjhgw.ui.activity.A0_LoginActivity" />
+        <activity android:name=".ui.activity.PrductDetail" />
     </application>
 
 </manifest>

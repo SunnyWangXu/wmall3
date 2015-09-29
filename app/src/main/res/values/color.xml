@@ -19,5 +19,6 @@
     <color name="white">#ffffffff</color>
     <color name="discovery_bg">#f1f1f1</color>
     <color name="discovery_line_bg">#eeeeee</color>
+    <color name="title_color">#333333</color>
 
 </resources>

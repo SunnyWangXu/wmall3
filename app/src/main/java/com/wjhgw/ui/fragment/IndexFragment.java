@@ -7,7 +7,6 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -19,10 +18,10 @@ import com.wjhgw.business.api.Goods_Request;
 import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
+import com.wjhgw.ui.activity.PrductDetail;
 import com.wjhgw.ui.image.LoadImageByVolley;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView.IXListViewListener;
-import com.wjhgw.ui.view.listview.adapter.DiscountPagerAdapter;
 import com.wjhgw.ui.view.listview.adapter.IndexPagerAdapter;
 
 import org.json.JSONException;
@@ -30,7 +29,7 @@ import org.json.JSONObject;
 
 public class IndexFragment extends Fragment implements BusinessResponse, IXListViewListener,
         View.OnClickListener, RadioGroup.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
-    private static final int SCROLL_COUNT = 3;
+    //    private static final int SCROLL_COUNT = 3;
     private View homeLayout;
     private LinearLayout MenuLayout;
     private LinearLayout Eventlayout;
@@ -48,9 +47,12 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     private RadioGroup group;
     private static final int HANDLERID = 1;
     private Handler handler;
-    private ViewPager discountViewPager;
-    private LinearLayout viewPagerContainer;
-    private Intent intent;
+//    private ViewPager discountViewPager;
+//    private LinearLayout viewPagerContainer;
+
+    private LinearLayout ll_discount01;
+    private LinearLayout ll_discount02;
+    private LinearLayout ll_discount03;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,7 +69,7 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
         initView();
 
 
-        // pageCount设置缓存的页面数
+   /*     // pageCount设置缓存的页面数
         discountViewPager.setOffscreenPageLimit(SCROLL_COUNT);
         // 设置2张图之前的间距。
         discountViewPager.setPageMargin(getResources().getDimensionPixelSize(R.dimen.page_margin));
@@ -79,17 +81,13 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
                 return discountViewPager.dispatchTouchEvent(event);
             }
         });
-
-
-        discountViewPager.setAdapter(new DiscountPagerAdapter(getActivity()));
+        discountViewPager.setAdapter(new DiscountPagerAdapter(getActivity()));*/
 
         dataModel = new Goods_Request(getActivity());
         dataModel.addResponseListener(this);
 
         indexPager.addOnPageChangeListener(this);
-        group.setOnCheckedChangeListener(this);
 
-        group_purchase_layout.setOnClickListener(this);
 
 //        new Handler().sendMessageDelayed();
 
@@ -113,13 +111,30 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
         mListView.setRefreshTime();
         mListView.setAdapter(null);
 
+        setClick();
+
         return homeLayout;
     }
 
+
     private void initView() {
-        discountViewPager = (ViewPager) Discountlayout.findViewById(R.id.viewpager_discount);
+//        discountViewPager = (ViewPager) Discountlayout.findViewById(R.id.viewpager_discount);
+        ll_discount01 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_01);
+        ll_discount02 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_02);
+        ll_discount03 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_03);
 
+    }
 
+    /**
+     * 设置监听事件
+     */
+    private void setClick() {
+        group.setOnCheckedChangeListener(this);
+        group_purchase_layout.setOnClickListener(this);
+
+        ll_discount01.setOnClickListener(this);
+        ll_discount02.setOnClickListener(this);
+        ll_discount03.setOnClickListener(this);
     }
 
     /**
@@ -192,10 +207,25 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
 
     @Override
     public void onClick(View v) {
-
-        switch (v.getId()){
+        Intent intent = new Intent();
+        switch (v.getId()) {
             case R.id.group_purchase_layout:
-                intent = new Intent(getActivity(), A0_LoginActivity.class);
+                intent.setClass(getActivity(), A0_LoginActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_discount_01:
+
+                intent.setClass(getActivity(), PrductDetail.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_discount_02:
+
+                intent.setClass(getActivity(), PrductDetail.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_discount_03:
+
+                intent.setClass(getActivity(), PrductDetail.class);
                 startActivity(intent);
                 break;
             default:
@@ -233,13 +263,12 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     @Override
     public void onStart() {
         super.onStart();
-        handler.sendEmptyMessageDelayed(HANDLERID, 3000);
+//        handler.sendEmptyMessageDelayed(HANDLERID, 3000);
     }
-
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        handler.removeMessages(HANDLERID);
+//        handler.removeMessages(HANDLERID);
     }
 }
