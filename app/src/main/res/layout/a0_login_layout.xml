@@ -19,7 +19,7 @@
             android:layout_height="25dp"
             android:layout_marginLeft="20dp"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/b0_user_icon"
+            android:src="@mipmap/ic_a0_user"
             />
         <TextView
             android:layout_width="1dp"
@@ -50,7 +50,7 @@
            android:layout_marginLeft="5dp"
            android:visibility="gone"
            android:layout_gravity="center"
-           android:src="@mipmap/eliminate_icon"/>
+           android:src="@mipmap/ic_a0_delete"/>
     </LinearLayout>
     
     <LinearLayout
@@ -67,7 +67,7 @@
             android:layout_height="25dp"
             android:layout_marginLeft="20dp"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/b0_password_icon"
+            android:src="@mipmap/ic_a0_password"
             />
         <TextView
             android:layout_width="1dp"
@@ -99,7 +99,7 @@
            android:layout_marginLeft="5dp"
            android:visibility="gone"
            android:layout_gravity="center"
-           android:src="@mipmap/eliminate_icon"/>
+           android:src="@mipmap/ic_a0_delete"/>
     </LinearLayout>
     
     <LinearLayout
