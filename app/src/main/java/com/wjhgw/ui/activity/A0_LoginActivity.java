@@ -45,7 +45,6 @@ public class A0_LoginActivity extends BaseActivity implements BusinessResponse, 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setActionBarTitle("登录");
         setContentView(R.layout.a0_login_layout);
         et_name = (EditText) findViewById(R.id.et_a0_name);
         et_password = (EditText) findViewById(R.id.et_a0_password);
