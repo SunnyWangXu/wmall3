@@ -31,6 +31,8 @@ public class A1_RegisterActivity2 extends BaseActivity implements BusinessRespon
     private EditText et_cipher;
     private ImageView iv_delete;
     private TextView tv_next;
+    private ImageView iv_title_back;
+    private TextView tv_title_name;
 
     private Registered_Request Request;
     private String Number;
@@ -41,13 +43,16 @@ public class A1_RegisterActivity2 extends BaseActivity implements BusinessRespon
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a1_register_layout2);
+        iv_title_back = (ImageView) findViewById(R.id.iv_title_back);
+        tv_title_name = (TextView) findViewById(R.id.tv_title_name);
         et_cipher = (EditText) findViewById(R.id.et_a1_cipher);
         iv_delete = (ImageView) findViewById(R.id.iv_a1_delete);
         //a2_return = (ImageView)findViewById(R.id.a2_return);
         tv_next = (TextView) findViewById(R.id.tv_a1_next);
-
+        tv_title_name.setText("注册");
         iv_delete.setOnClickListener(this);
         tv_next.setOnClickListener(this);
+        iv_title_back.setOnClickListener(this);
 
         et_cipher.addTextChangedListener(new TextWatcher() {
             @Override
@@ -90,6 +95,9 @@ public class A1_RegisterActivity2 extends BaseActivity implements BusinessRespon
             case R.id.iv_a1_delete:
                 et_cipher.setText("");
                 iv_delete.setVisibility(View.GONE);
+                break;
+            case R.id.iv_title_back:
+                finish();
                 break;
             case R.id.tv_a1_next:
                 cipher = et_cipher.getText().toString();

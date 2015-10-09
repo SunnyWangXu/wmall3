@@ -31,6 +31,8 @@ public class VerificationCodeActivity extends BaseActivity implements BusinessRe
     private TextView tv_next;
     private TextView tv_verificationcode;
     private TextView tv_state;
+    private ImageView iv_title_back;
+    private TextView tv_title_name;
 
     private Registered_Request Request;
     private String Number;
@@ -44,16 +46,18 @@ public class VerificationCodeActivity extends BaseActivity implements BusinessRe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.verification_code_layout);
+        iv_title_back = (ImageView) findViewById(R.id.iv_title_back);
+        tv_title_name = (TextView) findViewById(R.id.tv_title_name);
         et_editText = (EditText) findViewById(R.id.et_editext);
         tv_verificationcode = (TextView) findViewById(R.id.tv_verificationcode);
         iv_delete = (ImageView) findViewById(R.id.iv_delete);
         tv_state = (TextView) findViewById(R.id.tv_state);
         tv_next = (TextView) findViewById(R.id.tv_next);
-
+        tv_title_name.setText("验证验证码");
         iv_delete.setOnClickListener(this);
         tv_next.setOnClickListener(this);
         tv_verificationcode.setOnClickListener(this);
-
+        iv_title_back.setOnClickListener(this);
         et_editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -122,7 +126,9 @@ public class VerificationCodeActivity extends BaseActivity implements BusinessRe
                     Request.Verification_code(hashMap, BaseQuery.serviceUrl() + ApiInterface.VerificationCode);
                 }
                 break;
-
+            case R.id.iv_title_back:
+                finish();
+                break;
             default:
                 break;
         }

@@ -25,12 +25,17 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+/**
+ * 登录
+ */
 public class A0_LoginActivity extends BaseActivity implements BusinessResponse, OnClickListener {
 
     private EditText et_name;
     private EditText et_password;
     private ImageView iv_delete;
     private ImageView iv_delete1;
+    private ImageView iv_title_back;
+    private TextView tv_title_name;
     private TextView tv_next;
     private TextView tv_registered;
     private TextView tv_back;
@@ -38,7 +43,6 @@ public class A0_LoginActivity extends BaseActivity implements BusinessResponse, 
     private Login_Request Request;
     private String Number;
     private String password;
-    private int Lock = 0;
     Intent intent;
     private SharedPreferences preferences;
 
@@ -46,6 +50,9 @@ public class A0_LoginActivity extends BaseActivity implements BusinessResponse, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a0_login_layout);
+        iv_title_back = (ImageView) findViewById(R.id.iv_title_back);
+        tv_title_name = (TextView) findViewById(R.id.tv_title_name);
+
         et_name = (EditText) findViewById(R.id.et_a0_name);
         et_password = (EditText) findViewById(R.id.et_a0_password);
         iv_delete = (ImageView) findViewById(R.id.iv_a0_delete);
@@ -54,11 +61,14 @@ public class A0_LoginActivity extends BaseActivity implements BusinessResponse, 
         tv_registered = (TextView) findViewById(R.id.tv_a0_registered);
         tv_back = (TextView) findViewById(R.id.tv_a0_tback);
 
+        tv_title_name.setText("登录");
+
         iv_delete.setOnClickListener(this);
         iv_delete1.setOnClickListener(this);
         tv_next.setOnClickListener(this);
         tv_registered.setOnClickListener(this);
         tv_back.setOnClickListener(this);
+        iv_title_back.setOnClickListener(this);
         et_name.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -142,10 +152,9 @@ public class A0_LoginActivity extends BaseActivity implements BusinessResponse, 
                 intent = new Intent(this, A1_RegisterActivity1.class);
                 startActivity(intent);
                 break;
-        /*case R.id.back:
-			intent = new Intent(this,A2_ResetPassActivity1.class);
-			startActivity(intent);
-			break;*/
+        case R.id.iv_title_back:
+			finish();
+			break;
 
             default:
                 break;
