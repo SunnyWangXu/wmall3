@@ -24,6 +24,9 @@
         <activity android:name="com.wjhgw.ui.activity.CaptureActivity" />
         <activity android:name="com.wjhgw.ui.activity.A0_LoginActivity" />
         <activity android:name=".ui.activity.PrductDetail" />
+        <activity android:name=".ui.activity.A1_RegisterActivity1" />
+        <activity android:name=".ui.activity.A1_RegisterActivity2" />
+        <activity android:name=".ui.activity.VerificationCodeActivity" />
     </application>
 
 </manifest>

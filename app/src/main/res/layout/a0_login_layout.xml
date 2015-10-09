@@ -50,7 +50,7 @@
            android:layout_marginLeft="5dp"
            android:visibility="gone"
            android:layout_gravity="center"
-           android:src="@mipmap/ic_a0_delete"/>
+           android:src="@mipmap/ic_delete"/>
     </LinearLayout>
     
     <LinearLayout
@@ -99,7 +99,7 @@
            android:layout_marginLeft="5dp"
            android:visibility="gone"
            android:layout_gravity="center"
-           android:src="@mipmap/ic_a0_delete"/>
+           android:src="@mipmap/ic_delete"/>
     </LinearLayout>
     
     <LinearLayout

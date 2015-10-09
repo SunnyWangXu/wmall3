@@ -18,5 +18,26 @@ public class ApiInterface {
      * 登录接口
      */
     public static final String Login  ="/mobile/index.php?act=login";
+    /**
+     * 验证手机号码是否已注册接口
+     */
+    public static final String VerificationRegistered  ="/mobile/index.php?act=common&op=validate_phone";
+    /**
+     * 验证手机号码是否正确接口
+     */
+    public static final String Number  ="http://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=";
+    /**
+     * 请求发送验证码接口
+     */
+    public static final String VerificationCode  ="/mobile/index.php?act=common&op=req_validate_code";
+    /**
+     * 验证验证码是否正确接口
+     */
+    public static final String VerificationNumber  ="/mobile/index.php?act=common&op=validate_code";
+    /**
+     * 注册接口
+     */
+    public static final String Registered  ="/mobile/index.php?act=register";
+
 
 }
