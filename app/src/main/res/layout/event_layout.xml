@@ -19,7 +19,7 @@
             android:layout_marginTop="9dp"
             android:text="本期组团购"
             android:textColor="#dd3333"
-            android:textSize="17dp" />
+            android:textSize="13sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -28,13 +28,20 @@
             android:orientation="horizontal">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="距结束"
+                android:textColor="@color/lightgray" />
+
+            <TextView
                 android:id="@+id/time1"
                 android:layout_width="36dp"
                 android:layout_height="24dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="12dp"
                 android:background="@drawable/bo_color_shape"
                 android:gravity="center"
-                android:text="0"
+                android:text="00"
                 android:textColor="#ffffff"
                 android:textSize="16dp" />
 
@@ -54,7 +61,7 @@
                 android:layout_marginLeft="2dp"
                 android:background="@drawable/bo_color_shape"
                 android:gravity="center"
-                android:text="0"
+                android:text="00"
                 android:textColor="#ffffff"
                 android:textSize="16dp" />
 
@@ -74,7 +81,7 @@
                 android:layout_marginLeft="2dp"
                 android:background="@drawable/bo_color_shape"
                 android:gravity="center"
-                android:text="0"
+                android:text="00"
                 android:textColor="#ffffff"
                 android:textSize="16dp" />
         </LinearLayout>
@@ -91,7 +98,7 @@
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="#eeeeee"/>
+        android:background="#eeeeee" />
 
     <LinearLayout
         android:id="@+id/auction_layout"
@@ -109,14 +116,19 @@
             android:layout_marginTop="9dp"
             android:text="本期拍卖"
             android:textColor="#dd3333"
-            android:textSize="17dp" />
+            android:textSize="13sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
             android:orientation="horizontal">
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="距开始"
+                android:textColor="@color/lightgray" />
             <TextView
                 android:id="@+id/time4"
                 android:layout_width="36dp"
@@ -124,7 +136,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/bo_color_shape"
                 android:gravity="center"
-                android:text="0"
+                android:text="00"
                 android:textColor="#ffffff"
                 android:textSize="16dp" />
 
@@ -144,7 +156,7 @@
                 android:layout_marginLeft="2dp"
                 android:background="@drawable/bo_color_shape"
                 android:gravity="center"
-                android:text="0"
+                android:text="00"
                 android:textColor="#ffffff"
                 android:textSize="16dp" />
 
@@ -164,7 +176,7 @@
                 android:layout_marginLeft="2dp"
                 android:background="@drawable/bo_color_shape"
                 android:gravity="center"
-                android:text="0"
+                android:text="00"
                 android:textColor="#ffffff"
                 android:textSize="16dp" />
         </LinearLayout>

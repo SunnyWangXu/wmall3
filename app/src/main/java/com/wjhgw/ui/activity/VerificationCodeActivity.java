@@ -98,11 +98,11 @@ public class VerificationCodeActivity extends BaseActivity implements BusinessRe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.a1_delete:
+            case R.id.iv_delete:
                 et_editText.setText("");
                 iv_delete.setVisibility(View.GONE);
                 break;
-            case R.id.a1_next:
+            case R.id.tv_next:
                 Verification_code = et_editText.getText().toString();
                 if (!Verification_code.equals("")) {
                     tv_next.setClickable(false);
@@ -113,7 +113,7 @@ public class VerificationCodeActivity extends BaseActivity implements BusinessRe
 
                 }
                 break;
-            case R.id.a1_verificationcode:
+            case R.id.tv_verificationcode:
                 if (!Number.equals("")) {
                     time.start();
                     tv_verificationcode.setBackgroundColor(0xffcccccc);

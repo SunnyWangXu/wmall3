@@ -20,7 +20,7 @@
             <View
                 android:layout_width="5dp"
                 android:layout_height="match_parent"
-                android:layout_margin="2dp"
+                android:layout_margin="5dp"
                 android:background="@color/red" />
 
             <TextView
@@ -62,6 +62,10 @@
                   android:layout_marginLeft="10dp"
                   android:layout_marginRight="210dp"
                   android:clipChildren="false" />-->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/discovery_line_bg" />
 
             <LinearLayout
                 android:id="@+id/ll_discount_01"
@@ -70,6 +74,11 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/discovery_line_bg" />
 
                 <ImageView
                     android:id="@+id/iv_A0_discount01"
@@ -165,11 +174,26 @@
                         android:layout_margin="5dp"
                         android:layout_marginTop="10dp"
                         android:text="¥199"
+                        android:textColor="@color/gray"
                         android:textSize="15sp" />
 
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/discovery_line_bg" />
             </LinearLayout>
 
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/discovery_line_bg" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/discovery_line_bg" />
 
             <LinearLayout
                 android:id="@+id/ll_discount_02"
@@ -178,6 +202,12 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/discovery_line_bg" />
 
                 <ImageView
                     android:id="@+id/iv_A0_discount02"
@@ -273,10 +303,21 @@
                         android:layout_margin="5dp"
                         android:layout_marginTop="10dp"
                         android:text="¥199"
+                        android:textColor="@color/gray"
                         android:textSize="15sp" />
 
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/discovery_line_bg" />
             </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/discovery_line_bg" />
 
             <LinearLayout
                 android:id="@+id/ll_discount_03"
@@ -285,6 +326,11 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/discovery_line_bg" />
 
                 <ImageView
                     android:id="@+id/iv_A0_discount03"
@@ -380,9 +426,15 @@
                         android:layout_margin="5dp"
                         android:layout_marginTop="10dp"
                         android:text="¥199"
+                        android:textColor="@color/gray"
                         android:textSize="15sp" />
 
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/discovery_line_bg" />
             </LinearLayout>
 
 

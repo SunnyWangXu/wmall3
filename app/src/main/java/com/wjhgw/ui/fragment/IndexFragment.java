@@ -1,6 +1,7 @@
 package com.wjhgw.ui.fragment;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.wjhgw.R;
 import com.wjhgw.business.api.Goods_Request;
@@ -53,6 +55,9 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     private LinearLayout ll_discount01;
     private LinearLayout ll_discount02;
     private LinearLayout ll_discount03;
+    private TextView tv;
+    private TextView tv1;
+    private TextView tv2;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -116,13 +121,21 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
         return homeLayout;
     }
 
-
+    /**
+     *  初始化视图
+     */
     private void initView() {
 //        discountViewPager = (ViewPager) Discountlayout.findViewById(R.id.viewpager_discount);
         ll_discount01 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_01);
         ll_discount02 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_02);
         ll_discount03 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_03);
 
+        tv = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount01_original_price);
+        tv1 = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount02_original_price);
+        tv2 = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount03_original_price);
+        tv.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);//文件中间加下划线，加上后面的属性字体更清晰一些
+        tv1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);//文件中间加下划线，加上后面的属性字体更清晰一些
+        tv2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);//文件中间加下划线，加上后面的属性字体更清晰一些
     }
 
     /**
@@ -263,12 +276,12 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     @Override
     public void onStart() {
         super.onStart();
-//        handler.sendEmptyMessageDelayed(HANDLERID, 3000);
+        handler.sendEmptyMessageDelayed(HANDLERID, 3000);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        handler.removeMessages(HANDLERID);
+        handler.removeMessages(HANDLERID);
     }
 }
