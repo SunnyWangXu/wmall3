@@ -39,6 +39,7 @@ public class A0_LoginActivity extends BaseActivity implements BusinessResponse, 
     private TextView tv_next;
     private TextView tv_registered;
     private TextView tv_back;
+    private TextView tv_a0_tback;
 
     private Login_Request Request;
     private String Number;
@@ -59,6 +60,7 @@ public class A0_LoginActivity extends BaseActivity implements BusinessResponse, 
         iv_delete1 = (ImageView) findViewById(R.id.iv_a0_delete1);
         tv_next = (TextView) findViewById(R.id.tv_a0_next);
         tv_registered = (TextView) findViewById(R.id.tv_a0_registered);
+        tv_a0_tback = (TextView) findViewById(R.id.tv_a0_tback);
         tv_back = (TextView) findViewById(R.id.tv_a0_tback);
 
         tv_title_name.setText("登录");
@@ -69,6 +71,7 @@ public class A0_LoginActivity extends BaseActivity implements BusinessResponse, 
         tv_registered.setOnClickListener(this);
         tv_back.setOnClickListener(this);
         iv_title_back.setOnClickListener(this);
+        tv_a0_tback.setOnClickListener(this);
         et_name.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -150,6 +153,10 @@ public class A0_LoginActivity extends BaseActivity implements BusinessResponse, 
                 break;
             case R.id.tv_a0_registered:
                 intent = new Intent(this, A1_RegisterActivity1.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_a0_tback:
+                intent = new Intent(this, A2_ResetPassActivity1.class);
                 startActivity(intent);
                 break;
         case R.id.iv_title_back:

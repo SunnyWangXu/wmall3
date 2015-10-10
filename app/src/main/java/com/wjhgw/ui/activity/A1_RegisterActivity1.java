@@ -31,7 +31,6 @@ public class A1_RegisterActivity1 extends BaseActivity implements BusinessRespon
 
     private Registered_Request Request;
     private String Number;
-    private int Lock = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
