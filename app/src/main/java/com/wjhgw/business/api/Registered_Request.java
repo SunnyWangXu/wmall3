@@ -75,14 +75,7 @@ public class Registered_Request extends BaseRequest {
 					}
 				}
 			};
-			stringRequest = new StringRequest(Request.Method.POST, ApiInterface.Number + number, SuccessfulResponse, FailureResponse) {
-				@Override
-				protected HashMap<String, String> getParams() throws AuthFailureError {
-					HashMap<String, String> hashMap = new HashMap<>();
-					return hashMap;
-				}
-
-			};
+			stringRequest = new StringRequest(Request.Method.POST, ApiInterface.Number + number, SuccessfulResponse, FailureResponse) ;
 			mRequestQueue.add(stringRequest);
 		}
 
@@ -161,7 +154,7 @@ public class Registered_Request extends BaseRequest {
 				@Override
 				public Map<String, String> getHeaders() throws AuthFailureError {
 					if(cookies != null && cookies.length() > 0){
-						HashMap<String, String>	headers = new HashMap<String, String>();
+						HashMap<String, String>	headers = new HashMap<>();
 						headers.put("Cookie", cookies);
 						return headers;
 					}
@@ -201,7 +194,7 @@ public class Registered_Request extends BaseRequest {
 				@Override
 				public Map<String, String> getHeaders() throws AuthFailureError {
 					if(cookies != null && cookies.length() > 0){
-						HashMap<String, String>	headers = new HashMap<String, String>();
+						HashMap<String, String>	headers = new HashMap<>();
 						headers.put("Cookie", cookies);
 						return headers;
 					}
@@ -215,6 +208,45 @@ public class Registered_Request extends BaseRequest {
 	 * 注册
 	 */
 	public void register(final HashMap<String, String> mhashMap, final String Route) {
+		if (!super.checkNetworkAvailable(mContext)) {
+			Toast.makeText(mContext, "网络错误！", Toast.LENGTH_SHORT).show();
+		} else {
+			if(mRequestQueue == null){
+				mRequestQueue = Volley.newRequestQueue(mContext);
+			}
+			Response.Listener<String> SuccessfulResponse = new Response.Listener<String>() {
+				@Override
+				public void onResponse(String response) {
+					try {
+						OnMessageResponse(Route, response, new JSONObject(new JSONObject(response).getString("status")));
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+			};
+			stringRequest = new StringRequest(Request.Method.POST, Route, SuccessfulResponse, FailureResponse) {
+				// 携带参数
+				@Override
+				protected HashMap<String, String> getParams() throws AuthFailureError {
+					return mhashMap;
+				}
+				@Override
+				public Map<String, String> getHeaders() throws AuthFailureError {
+					if(cookies != null && cookies.length() > 0){
+						HashMap<String, String>	headers = new HashMap<>();
+						headers.put("Cookie", cookies);
+						return headers;
+					}
+					return super.getHeaders();
+				}
+			};
+			mRequestQueue.add(stringRequest);
+		}
+	}
+	/**
+	 * 重置密码
+	 */
+	public void ResetPassword(final HashMap<String, String> mhashMap, final String Route) {
 		if (!super.checkNetworkAvailable(mContext)) {
 			Toast.makeText(mContext, "网络错误！", Toast.LENGTH_SHORT).show();
 		} else {

@@ -17,7 +17,7 @@
         android:background="#ffffff" >
 
        <EditText
-           android:id="@+id/et_a1_cipher"
+           android:id="@+id/et_a2_cipher"
            android:layout_width="wrap_content"
            android:layout_height="match_parent"
            android:layout_gravity="center_vertical"
@@ -30,8 +30,8 @@
            android:digits="1234567890"
            android:inputType="number"
            android:singleLine="true"
-           android:textColor="#000000"
            android:password="true"
+           android:textColor="#000000"
            android:textSize="17dp" />
        
         <LinearLayout
@@ -42,7 +42,7 @@
         android:gravity="center" >
 
        <ImageView
-           android:id="@+id/iv_a1_delete"
+           android:id="@+id/iv_a2_delete1"
            android:layout_width="20dp"
            android:layout_height="20dp"
            android:visibility="gone"
@@ -53,7 +53,7 @@
     </LinearLayout>
     
     <TextView
-        android:id="@+id/tv_a1_next"
+        android:id="@+id/tv_a2_next1"
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:layout_marginTop="20dp"

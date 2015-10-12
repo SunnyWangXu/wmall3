@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="text_selector">#ffba0e2f</color>
-
-    <color name="action_bar_color">#ffffff</color>
     
 	<color name="filter_text_color">#666666</color>
     <color name="spec_text_color">#999999</color>
@@ -10,7 +8,6 @@
     
     <drawable name="color_b">#44aaaaaa</drawable>
 	<drawable name="color_a">#00000000</drawable>
-
 
     <color name="black">#ff000000</color>
     <color name="red">#ffff0000</color>
@@ -22,6 +19,5 @@
     <color name="title_color">#333333</color>
     <color name="lightgray">#656666</color>
     <color name="gray">#cccccc</color>
-
 
 </resources>

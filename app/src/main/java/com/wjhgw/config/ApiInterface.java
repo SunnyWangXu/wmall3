@@ -38,6 +38,9 @@ public class ApiInterface {
      * 注册接口
      */
     public static final String Registered  ="/mobile/index.php?act=register";
-
+    /**
+     * 重置密码接口
+     */
+    public static final String ResetPassword  ="/mobile/index.php?act=reset_password";
 
 }

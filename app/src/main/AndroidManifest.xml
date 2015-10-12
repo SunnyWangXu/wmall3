@@ -26,6 +26,8 @@
         <activity android:name=".ui.activity.PrductDetail" />
         <activity android:name=".ui.activity.A1_RegisterActivity1" />
         <activity android:name=".ui.activity.A1_RegisterActivity2" />
+        <activity android:name=".ui.activity.A2_ResetPassActivity1" />
+        <activity android:name=".ui.activity.A2_ResetPassActivity2" />
         <activity android:name=".ui.activity.VerificationCodeActivity" />
     </application>
 
