@@ -24,7 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wjhgw.R;
-import com.wjhgw.business.data.goods_class_data;
+import com.wjhgw.business.bean.goods_class_data;
 import com.wjhgw.ui.fragment.CategoryFragment;
 
 import java.util.ArrayList;

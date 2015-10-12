@@ -22,7 +22,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.wjhgw.R;
-import com.wjhgw.business.data.goods_class_data1;
+import com.wjhgw.business.bean.goods_class_data1;
 
 import java.util.ArrayList;
 

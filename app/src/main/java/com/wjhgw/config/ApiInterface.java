@@ -3,6 +3,11 @@ package com.wjhgw.config;
 public class ApiInterface {
 
     /**
+     * 首页焦点图接口
+     */
+    public final static  String  Index_pager = "http://10.10.0.143/mobile/index.php?act=index&op=index_ad";
+
+    /**
      * 商品列表接口
      */
     public static final String Goods_list  ="/mobile/index.php?act=goods&op=goods_list";
@@ -42,5 +47,7 @@ public class ApiInterface {
      * 重置密码接口
      */
     public static final String ResetPassword  ="/mobile/index.php?act=reset_password";
+
+
 
 }

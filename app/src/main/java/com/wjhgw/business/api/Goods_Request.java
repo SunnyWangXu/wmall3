@@ -11,7 +11,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.wjhgw.base.BaseRequest;
 import com.wjhgw.base.BaseQuery;
-import com.wjhgw.business.data.goods_list_data;
+import com.wjhgw.business.bean.goods_list_data;
 import com.wjhgw.business.manager.goods_list_manager;
 import com.wjhgw.config.ApiInterface;
 

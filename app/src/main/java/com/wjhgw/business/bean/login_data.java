@@ -1,4 +1,4 @@
-package com.wjhgw.business.data;
+package com.wjhgw.business.bean;
 
 public class login_data {
     public String key;

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.wjhgw.business.data.goods_list_data;
+import com.wjhgw.business.bean.goods_list_data;
 import com.wjhgw.business.sqlite.DatabaseHelper;
 
 import org.json.JSONArray;

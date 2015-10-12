@@ -1,4 +1,4 @@
-package com.wjhgw.business.data;
+package com.wjhgw.business.bean;
 
 import org.json.JSONException;
 import org.json.JSONObject;

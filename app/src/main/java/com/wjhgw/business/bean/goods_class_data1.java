@@ -1,4 +1,4 @@
-package com.wjhgw.business.data;
+package com.wjhgw.business.bean;
 
 public class goods_class_data1 {
     public String gc_id;

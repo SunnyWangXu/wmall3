@@ -12,8 +12,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.wjhgw.base.BaseRequest;
 import com.wjhgw.business.analytical.ClassAnalytical;
-import com.wjhgw.business.data.goods_class_data;
-import com.wjhgw.business.data.goods_class_data1;
+import com.wjhgw.business.bean.goods_class_data;
+import com.wjhgw.business.bean.goods_class_data1;
 
 import org.json.JSONException;
 import org.json.JSONObject;

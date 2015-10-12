@@ -7,26 +7,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.wjhgw.APP;
+import com.wjhgw.business.bean.Index_Pager_data;
+
 import java.util.List;
 
 /**
  * 首页ViewPager 适配器
  */
 public class IndexPagerAdapter extends PagerAdapter {
-    private List<ImageView> imageViews;
+    private List<Index_Pager_data> data;
     private Context context;
     private int imageSize;
 
-    public IndexPagerAdapter(Context context, List<ImageView> imageViews) {
+    public IndexPagerAdapter(Context context, List<Index_Pager_data> data) {
         this.context = context;
-        this.imageViews = imageViews;
-        imageSize = imageViews.size();
+        this.data = data;
+        imageSize = data.size();
     }
 
     @Override
     public int getCount() {
 
-//        return imageViews.size();
         return Integer.MAX_VALUE;
     }
 
@@ -38,7 +40,7 @@ public class IndexPagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        ((ViewPager) container).removeView(imageViews.get(position % (imageSize)));
+//        ((ViewPager) container).removeView(imageViews.get(position % (imageSize)));
 
     }
 
@@ -46,7 +48,10 @@ public class IndexPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
 
 
-        ImageView image = imageViews.get(position % (imageSize));
+//        ImageView image = imageViews.get(position % (imageSize));
+        ImageView image = new ImageView(context);
+        String imageUrl = data.get(position % imageSize).getAdv_pic();
+        APP.getApp().getImageLoader().displayImage(imageUrl, image);
         ((ViewPager) container).addView(image);
         return image;
     }

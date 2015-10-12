@@ -15,9 +15,18 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
+import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.business.api.Goods_Request;
+import com.wjhgw.business.bean.Index_Pager;
+import com.wjhgw.business.bean.Index_Pager_data;
 import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
@@ -68,25 +77,13 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     private ImageView point;
     private ImageView[] points;
 
+    private Index_Pager index_pager;
+    private List<Index_Pager_data> data = new ArrayList<Index_Pager_data>();
+    private Index_Pager pagers;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         homeLayout = inflater.inflate(R.layout.index_layout, container, false);
-
-        imageViews = new ArrayList<>();
-        ImageView imageview1 = new ImageView(getActivity());
-        imageview1.setImageResource(R.mipmap.ic_1);
-        imageViews.add(imageview1);
-        ImageView imageview2 = new ImageView(getActivity());
-        imageview2.setImageResource(R.mipmap.ic_2);
-        imageViews.add(imageview2);
-        ImageView imageview3 = new ImageView(getActivity());
-        imageview3.setImageResource(R.mipmap.ic_3);
-        imageViews.add(imageview3);
-        ImageView imageview4 = new ImageView(getActivity());
-        imageview4.setImageResource(R.mipmap.ic_3);
-        imageViews.add(imageview4);
-
 
         /**
          * 加载视图
@@ -97,8 +94,37 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
          * 初始化控件
          */
         initView();
+        indexPager = (ViewPager) indexViewPageLayout.findViewById(R.id.pager);
+        /**
+         *  广告的小圆点
+         */
 
-        addPoints();
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, ApiInterface.Index_pager, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    index_pager = gson.fromJson(responseInfo.result, Index_Pager.class);
+
+                    if (index_pager.getStatus().getCode() == 10000) {
+                        data.addAll(index_pager.getDatas());
+                    }
+                }
+
+                mPagerAdapter = new IndexPagerAdapter(getActivity(), data);
+                indexPager.setAdapter(mPagerAdapter);
+
+                addPoints();
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
    /*     // pageCount设置缓存的页面数
         discountViewPager.setOffscreenPageLimit(SCROLL_COUNT);
@@ -158,10 +184,7 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
         Brandlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.brand_layout, null);
         Guesslikelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.guess_like_layout, null);
 
-        indexPager = (ViewPager) indexViewPageLayout.findViewById(R.id.pager);
         group_purchase_layout = (LinearLayout) Eventlayout.findViewById(R.id.group_purchase_layout);
-        mPagerAdapter = new IndexPagerAdapter(getActivity(), imageViews);
-        indexPager.setAdapter(mPagerAdapter);
 
     }
 
@@ -190,7 +213,7 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
      * 添加圆点
      */
     private void addPoints() {
-        int size = imageViews.size();
+        int size = data.size();
         points = new ImageView[size];
 
         for (int i = 0; i < points.length; i++) {
@@ -310,7 +333,7 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     public void onPageSelected(int position) {
 
         for (int i = 0; i < points.length; i++) {
-            if (i == position % imageViews.size()) {
+            if (i == position % data.size()) {
                 points[i].setBackgroundResource(R.mipmap.dot_select);
             } else {
                 points[i].setBackgroundResource(R.mipmap.dot_unselect);
