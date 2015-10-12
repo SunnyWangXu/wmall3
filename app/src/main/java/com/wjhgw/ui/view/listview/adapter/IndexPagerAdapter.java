@@ -1,28 +1,32 @@
 package com.wjhgw.ui.view.listview.adapter;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.wjhgw.R;
+import java.util.List;
 
 /**
  * 首页ViewPager 适配器
  */
 public class IndexPagerAdapter extends PagerAdapter {
+    private List<ImageView> imageViews;
     private Context context;
-    private int[] arrID = {R.mipmap.ic_1, R.mipmap.ic_2, R.mipmap.ic_3, R.mipmap.ic_4};
+    private int imageSize;
 
-    public IndexPagerAdapter(Context context) {
-        this.context =context;
+    public IndexPagerAdapter(Context context, List<ImageView> imageViews) {
+        this.context = context;
+        this.imageViews = imageViews;
+        imageSize = imageViews.size();
     }
 
     @Override
     public int getCount() {
 
+//        return imageViews.size();
         return Integer.MAX_VALUE;
     }
 
@@ -34,13 +38,16 @@ public class IndexPagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
+        ((ViewPager) container).removeView(imageViews.get(position % (imageSize)));
+
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        ImageView image = new ImageView(context);
-        image.setImageResource(arrID[position % 4]);
-        container.addView(image);
+
+
+        ImageView image = imageViews.get(position % (imageSize));
+        ((ViewPager) container).addView(image);
         return image;
     }
 }

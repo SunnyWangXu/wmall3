@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -29,8 +30,11 @@ import com.wjhgw.ui.view.listview.adapter.IndexPagerAdapter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class IndexFragment extends Fragment implements BusinessResponse, IXListViewListener,
-        View.OnClickListener, RadioGroup.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
+        View.OnClickListener, ViewPager.OnPageChangeListener {
     //    private static final int SCROLL_COUNT = 3;
     private View homeLayout;
     private LinearLayout MenuLayout;
@@ -59,10 +63,31 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     private TextView tv1;
     private TextView tv2;
 
+    private List<ImageView> imageViews;
+    private LinearLayout ll_Point;
+    private ImageView point;
+    private ImageView[] points;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         homeLayout = inflater.inflate(R.layout.index_layout, container, false);
+
+        imageViews = new ArrayList<>();
+        ImageView imageview1 = new ImageView(getActivity());
+        imageview1.setImageResource(R.mipmap.ic_1);
+        imageViews.add(imageview1);
+        ImageView imageview2 = new ImageView(getActivity());
+        imageview2.setImageResource(R.mipmap.ic_2);
+        imageViews.add(imageview2);
+        ImageView imageview3 = new ImageView(getActivity());
+        imageview3.setImageResource(R.mipmap.ic_3);
+        imageViews.add(imageview3);
+        ImageView imageview4 = new ImageView(getActivity());
+        imageview4.setImageResource(R.mipmap.ic_3);
+        imageViews.add(imageview4);
+
+
         /**
          * 加载视图
          */
@@ -73,6 +98,7 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
          */
         initView();
 
+        addPoints();
 
    /*     // pageCount设置缓存的页面数
         discountViewPager.setOffscreenPageLimit(SCROLL_COUNT);
@@ -94,14 +120,12 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
         indexPager.addOnPageChangeListener(this);
 
 
-//        new Handler().sendMessageDelayed();
-
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what == HANDLERID) {
 
-                    indexPager.setCurrentItem(indexPager.getCurrentItem() + 1);
+                    indexPager.setCurrentItem((indexPager.getCurrentItem() + 1));
 
                     sendEmptyMessageDelayed(HANDLERID, 3000);
                 }
@@ -122,9 +146,33 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     }
 
     /**
-     *  初始化视图
+     * 视图加载 要添加的视图
+     */
+
+    private void setInflaterView() {
+        indexViewPageLayout = (RelativeLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_page_layout, null);
+        MenuLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_menu, null);
+        Eventlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.event_layout, null);
+        Discountlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_discount__layout, null);
+        Themelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.theme_layout, null);
+        Brandlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.brand_layout, null);
+        Guesslikelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.guess_like_layout, null);
+
+        indexPager = (ViewPager) indexViewPageLayout.findViewById(R.id.pager);
+        group_purchase_layout = (LinearLayout) Eventlayout.findViewById(R.id.group_purchase_layout);
+        mPagerAdapter = new IndexPagerAdapter(getActivity(), imageViews);
+        indexPager.setAdapter(mPagerAdapter);
+
+    }
+
+    /**
+     * 初始化视图
      */
     private void initView() {
+
+        ll_Point = (LinearLayout) indexViewPageLayout.findViewById(R.id.ll_index_point);
+
+
 //        discountViewPager = (ViewPager) Discountlayout.findViewById(R.id.viewpager_discount);
         ll_discount01 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_01);
         ll_discount02 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_02);
@@ -139,10 +187,35 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     }
 
     /**
+     * 添加圆点
+     */
+    private void addPoints() {
+        int size = imageViews.size();
+        points = new ImageView[size];
+
+        for (int i = 0; i < points.length; i++) {
+            point = new ImageView(getActivity());
+
+            point.setLayoutParams(new LinearLayout.LayoutParams(20, 20));
+
+            points[i] = point;
+
+            if (i == 0) {
+                points[i]
+                        .setBackgroundResource(R.mipmap.dot_select);
+            } else {
+                points[i]
+                        .setBackgroundResource(R.mipmap.dot_unselect);
+            }
+            // 添加圆点到容器
+            ll_Point.addView(point);
+        }
+    }
+
+    /**
      * 设置监听事件
      */
     private void setClick() {
-        group.setOnCheckedChangeListener(this);
         group_purchase_layout.setOnClickListener(this);
 
         ll_discount01.setOnClickListener(this);
@@ -164,27 +237,6 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
         mListView.addHeaderView(Guesslikelayout);
     }
 
-    /**
-     * 视图加载 要添加的视图
-     */
-
-    private void setInflaterView() {
-        MenuLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_menu, null);
-        Eventlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.event_layout, null);
-        Discountlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_discount__layout, null);
-        Themelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.theme_layout, null);
-        Brandlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.brand_layout, null);
-        Guesslikelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.guess_like_layout, null);
-        indexViewPageLayout = (RelativeLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_page_layout, null);
-
-        indexPager = (ViewPager) indexViewPageLayout.findViewById(R.id.pager);
-        group_purchase_layout = (LinearLayout) Eventlayout.findViewById(R.id.group_purchase_layout);
-        mPagerAdapter = new IndexPagerAdapter(getActivity());
-        indexPager.setAdapter(mPagerAdapter);
-        group = (RadioGroup) indexViewPageLayout.findViewById(R.id.radio_group);
-
-
-    }
 
     @Override
     public void OnMessageResponse(String url, String response, JSONObject status) throws JSONException {
@@ -247,25 +299,23 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
         }
     }
 
-    //RadioGroup监听
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        if (checkedId == indexPager.getCurrentItem()) {
-            indexPager.setCurrentItem(checkedId);
-        }
-    }
 
     //ViewPager 监听
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        int[] pointIDs = {R.id.point_1, R.id.point_2, R.id.point_3, R.id.point_4};
-        group.check(pointIDs[position % 4]);
 
     }
 
     @Override
     public void onPageSelected(int position) {
 
+        for (int i = 0; i < points.length; i++) {
+            if (i == position % imageViews.size()) {
+                points[i].setBackgroundResource(R.mipmap.dot_select);
+            } else {
+                points[i].setBackgroundResource(R.mipmap.dot_unselect);
+            }
+        }
     }
 
     @Override
@@ -273,10 +323,17 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
 
     }
 
+
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         handler.sendEmptyMessageDelayed(HANDLERID, 3000);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeMessages(HANDLERID);
     }
 
     @Override

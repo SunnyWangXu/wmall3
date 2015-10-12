@@ -76,8 +76,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart()
-    {
+    protected void onStart() {
         super.onStart();
     }
 
@@ -105,7 +104,6 @@ public class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
-
 
     @Override
     public void startActivity(Intent intent) {
