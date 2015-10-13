@@ -167,7 +167,7 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
                 mPagerAdapter = new IndexPagerAdapter(getActivity(), data);
                 indexPager.setAdapter(mPagerAdapter);
 
-                if(data != null){
+                if (data != null) {
                     /**
                      * 添加圆点
                      */
@@ -366,11 +366,13 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     public void onPause() {
         super.onPause();
         handler.removeMessages(HANDLERID);
+        data.clear();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         handler.removeMessages(HANDLERID);
+        data.clear();
     }
 }
