@@ -308,11 +308,13 @@ public class IndexFragment extends Fragment implements IXListViewListener,
     public void onPause() {
         super.onPause();
         handler.removeMessages(HANDLERID);
+        data.clear();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         handler.removeMessages(HANDLERID);
+        data.clear();
     }
 }
