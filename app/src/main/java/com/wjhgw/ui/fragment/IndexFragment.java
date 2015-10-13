@@ -67,6 +67,7 @@ public class IndexFragment extends Fragment implements IXListViewListener,
     private Index_Pager index_pager;
     private List<Index_Pager_data> data = new ArrayList<>();
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         homeLayout = inflater.inflate(R.layout.index_layout, container, false);
@@ -127,6 +128,7 @@ public class IndexFragment extends Fragment implements IXListViewListener,
                     index_pager = gson.fromJson(responseInfo.result, Index_Pager.class);
 
                     if (index_pager.status.code == 10000) {
+                        data.clear();
                         data.addAll(index_pager.datas);
                     }
                 }
@@ -273,7 +275,6 @@ public class IndexFragment extends Fragment implements IXListViewListener,
         }
     }
 
-
     //ViewPager 监听
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -297,7 +298,6 @@ public class IndexFragment extends Fragment implements IXListViewListener,
 
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -308,13 +308,11 @@ public class IndexFragment extends Fragment implements IXListViewListener,
     public void onPause() {
         super.onPause();
         handler.removeMessages(HANDLERID);
-        data.clear();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         handler.removeMessages(HANDLERID);
-        data.clear();
     }
 }
