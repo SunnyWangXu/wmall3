@@ -46,8 +46,6 @@ public class IndexPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-
-//        ImageView image = imageViews.get(position % (imageSize));
         ImageView image = new ImageView(context);
         String imageUrl = data.get(position % imageSize).adv_pic;
         APP.getApp().getImageLoader().displayImage(imageUrl, image);
