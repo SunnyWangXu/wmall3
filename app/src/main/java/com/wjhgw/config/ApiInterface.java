@@ -5,7 +5,7 @@ public class ApiInterface {
     /**
      * 首页焦点图接口
      */
-    public final static  String  Index_pager = "http://10.10.0.143/mobile/index.php?act=index&op=index_ad";
+    public final static  String  Index_pager = "/mobile/index.php?act=index&op=index_ad";
 
     /**
      * 商品列表接口

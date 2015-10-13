@@ -13,22 +13,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
+import com.wjhgw.APP;
+import com.wjhgw.MainActivity;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
-import com.wjhgw.business.api.Login_Request;
-import com.wjhgw.business.response.BusinessResponse;
+import com.wjhgw.business.bean.Login_Pager;
 import com.wjhgw.config.ApiInterface;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
 
 /**
  * 登录
  */
-public class A0_LoginActivity extends BaseActivity implements BusinessResponse, OnClickListener {
+public class A0_LoginActivity extends BaseActivity implements OnClickListener {
 
     private EditText et_name;
     private EditText et_password;
@@ -40,8 +42,6 @@ public class A0_LoginActivity extends BaseActivity implements BusinessResponse, 
     private TextView tv_registered;
     private TextView tv_back;
     private TextView tv_a0_tback;
-
-    private Login_Request Request;
     private String Number;
     private String password;
     Intent intent;
@@ -116,14 +116,11 @@ public class A0_LoginActivity extends BaseActivity implements BusinessResponse, 
             public void afterTextChanged(Editable s) {
             }
         });
-        Request = new Login_Request(this);
-        Request.addResponseListener(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Request.removeResponseListener(this);
     }
 
     @Override
@@ -141,12 +138,7 @@ public class A0_LoginActivity extends BaseActivity implements BusinessResponse, 
                 Number = et_name.getText().toString();
                 password = et_password.getText().toString();
                 if (Number.length() == 11 && Number.substring(0, 1).equals("1")) {
-                    tv_next.setClickable(false);
-                    HashMap<String, String> hashMap = new HashMap<>();
-                    hashMap.put("member_mobile", Number);
-                    hashMap.put("password", password);
-                    hashMap.put("client", "android");
-                    Request.login(hashMap, BaseQuery.serviceUrl() + ApiInterface.Login);
+                    login();
                 } else {
                     Toast.makeText(A0_LoginActivity.this, "你输入的号码有误！请重新输入", Toast.LENGTH_LONG).show();
                 }
@@ -159,9 +151,9 @@ public class A0_LoginActivity extends BaseActivity implements BusinessResponse, 
                 intent = new Intent(this, A2_ResetPassActivity1.class);
                 startActivity(intent);
                 break;
-        case R.id.iv_title_back:
-			finish();
-			break;
+            case R.id.iv_title_back:
+                finish();
+                break;
 
             default:
                 break;
@@ -170,37 +162,42 @@ public class A0_LoginActivity extends BaseActivity implements BusinessResponse, 
     }
 
     /**
-     * 接口回调
+     * 登录网络请求
      */
-    @Override
-    public void OnMessageResponse(String url, String response, JSONObject status)
-            throws JSONException {
-        tv_next.setClickable(true);
-        if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Login)) {
-            if (status.getString("code").equals("10000")) {
-                preferences = getSharedPreferences("key", MODE_PRIVATE);
-                Editor editor = preferences.edit();
-                //存入数据
-                editor.putString("key", Request.data.getKey());
-                editor.putString("username", Request.data.getMember_name());
-                //提交修改
-                editor.commit();
-                //读取出来
-                preferences.getString("key", "0");
-                preferences.getString("username", "0");
-	        /*intent = new Intent(this,MainActivity.class);
-			startActivity(intent);*/
-                Toast.makeText(A0_LoginActivity.this, "登录成功！", Toast.LENGTH_LONG).show();
-                finish(false);
-            } else if (status.getString("code").equals("200100")) {
-                Toast.makeText(A0_LoginActivity.this, status.getString("msg"), Toast.LENGTH_LONG).show();
-            } else if (status.getString("code").equals("200101")) {
-                Toast.makeText(A0_LoginActivity.this, status.getString("msg"), Toast.LENGTH_LONG).show();
-            } else if (status.getString("code").equals("200102")) {
-                Toast.makeText(A0_LoginActivity.this, status.getString("msg"), Toast.LENGTH_LONG).show();
-            } else if (status.getString("code").equals("200103")) {
-                Toast.makeText(A0_LoginActivity.this, status.getString("msg"), Toast.LENGTH_LONG).show();
+    private void login() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("member_mobile", Number);
+        params.addBodyParameter("password", password);
+        params.addBodyParameter("client", "android");
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Login, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    Login_Pager login = gson.fromJson(responseInfo.result, Login_Pager.class);
+
+                    if (login.status.code == 10000) {
+                        preferences = getSharedPreferences("key", MODE_PRIVATE);
+                        Editor editor = preferences.edit();
+                        //存入数据
+                        editor.putString("key", login.datas.key);
+                        //提交修改
+                        editor.commit();
+                        //读取出来
+                        preferences.getString("key", "0");
+                        intent = new Intent(A0_LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        Toast.makeText(A0_LoginActivity.this, "登录成功！", Toast.LENGTH_LONG).show();
+                        finish(false);
+                    }
+                }
             }
-        }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Toast.makeText(A0_LoginActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

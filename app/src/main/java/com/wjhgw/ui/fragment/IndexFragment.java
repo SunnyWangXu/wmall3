@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,27 +23,21 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.wjhgw.APP;
 import com.wjhgw.R;
-import com.wjhgw.business.api.Goods_Request;
+import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.Index_Pager;
 import com.wjhgw.business.bean.Index_Pager_data;
-import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.PrductDetail;
-import com.wjhgw.ui.image.LoadImageByVolley;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView.IXListViewListener;
 import com.wjhgw.ui.view.listview.adapter.IndexPagerAdapter;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class IndexFragment extends Fragment implements BusinessResponse, IXListViewListener,
+public class IndexFragment extends Fragment implements IXListViewListener,
         View.OnClickListener, ViewPager.OnPageChangeListener {
-    //    private static final int SCROLL_COUNT = 3;
     private View homeLayout;
     private LinearLayout MenuLayout;
     private LinearLayout Eventlayout;
@@ -53,17 +46,12 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     private LinearLayout Brandlayout;
     private LinearLayout Guesslikelayout;
     private LinearLayout group_purchase_layout;
-    private LoadImageByVolley load;
-    private Goods_Request dataModel;
     private MyListView mListView;
     private RelativeLayout indexViewPageLayout;
     private ViewPager indexPager;
     private IndexPagerAdapter mPagerAdapter;
-    private RadioGroup group;
     private static final int HANDLERID = 1;
     private Handler handler;
-//    private ViewPager discountViewPager;
-//    private LinearLayout viewPagerContainer;
 
     private LinearLayout ll_discount01;
     private LinearLayout ll_discount02;
@@ -72,14 +60,12 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     private TextView tv1;
     private TextView tv2;
 
-    private List<ImageView> imageViews;
     private LinearLayout ll_Point;
     private ImageView point;
     private ImageView[] points;
 
     private Index_Pager index_pager;
-    private List<Index_Pager_data> data = new ArrayList<Index_Pager_data>();
-    private Index_Pager pagers;
+    private List<Index_Pager_data> data = new ArrayList<>();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -100,24 +86,6 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
          * 请求首页焦点图
          */
         loadIndexPager();
-
-
-   /*     // pageCount设置缓存的页面数
-        discountViewPager.setOffscreenPageLimit(SCROLL_COUNT);
-        // 设置2张图之前的间距。
-        discountViewPager.setPageMargin(getResources().getDimensionPixelSize(R.dimen.page_margin));
-        viewPagerContainer = (LinearLayout) Discountlayout.findViewById(R.id.viewPagerContainer);
-        viewPagerContainer.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return discountViewPager.dispatchTouchEvent(event);
-            }
-        });
-        discountViewPager.setAdapter(new DiscountPagerAdapter(getActivity()));*/
-
-        dataModel = new Goods_Request(getActivity());
-        dataModel.addResponseListener(this);
 
         indexPager.addOnPageChangeListener(this);
 
@@ -150,7 +118,7 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     }
 
     private void loadIndexPager() {
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, ApiInterface.Index_pager, new RequestCallBack<String>() {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Index_pager, new RequestCallBack<String>() {
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -167,7 +135,7 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
                 mPagerAdapter = new IndexPagerAdapter(getActivity(), data);
                 indexPager.setAdapter(mPagerAdapter);
 
-                if(data != null){
+                if (data != null) {
                     /**
                      * 添加圆点
                      */
@@ -204,9 +172,6 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
     private void initView() {
 
         ll_Point = (LinearLayout) indexViewPageLayout.findViewById(R.id.ll_index_point);
-
-
-//        discountViewPager = (ViewPager) Discountlayout.findViewById(R.id.viewpager_discount);
         ll_discount01 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_01);
         ll_discount02 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_02);
         ll_discount03 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_03);
@@ -267,29 +232,6 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
         mListView.addHeaderView(Themelayout);
         mListView.addHeaderView(Brandlayout);
         mListView.addHeaderView(Guesslikelayout);
-    }
-
-
-    @Override
-    public void OnMessageResponse(String url, String response, JSONObject status) throws JSONException {
-        if (url.equals(ApiInterface.Goods_list)) {
-            /*if (status == null){
-                ArrayList<goods_list_data> list= dataModel.goodsList;
-				String goodslist = list.get(1).goods_name;
-				String s = list.get(1).goods_id;
-				String s1 = list.get(1).goods_id;
-			}else{
-				if (status.getString("code").equals("10000")) {
-					ArrayList<goods_list_data> list= dataModel.goodsList;
-					String goodslist = list.get(1).goods_name;
-					String s = list.get(1).goods_id;
-					Toast.makeText(getActivity(), status.getString("msg"), Toast.LENGTH_LONG).show();
-				} else if (status.getString("code").equals("600100")) {
-					Toast.makeText(getActivity(), status.getString("msg"), Toast.LENGTH_LONG).show();
-				}
-			}*/
-
-        }
     }
 
     @Override
