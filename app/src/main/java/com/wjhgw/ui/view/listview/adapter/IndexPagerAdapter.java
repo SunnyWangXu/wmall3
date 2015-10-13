@@ -2,7 +2,6 @@ package com.wjhgw.ui.view.listview.adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -40,7 +39,7 @@ public class IndexPagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-//        ((ViewPager) container).removeView(imageViews.get(position % (imageSize)));
+//         container.removeView(imageViews.get(position % (imageSize)));
 
     }
 
@@ -50,9 +49,9 @@ public class IndexPagerAdapter extends PagerAdapter {
 
 //        ImageView image = imageViews.get(position % (imageSize));
         ImageView image = new ImageView(context);
-        String imageUrl = data.get(position % imageSize).getAdv_pic();
+        String imageUrl = data.get(position % imageSize).adv_pic;
         APP.getApp().getImageLoader().displayImage(imageUrl, image);
-        ((ViewPager) container).addView(image);
+        container.addView(image);
         return image;
     }
 }

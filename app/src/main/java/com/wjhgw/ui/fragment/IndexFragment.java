@@ -95,35 +95,11 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
          */
         initView();
         indexPager = (ViewPager) indexViewPageLayout.findViewById(R.id.pager);
+
         /**
-         *  广告的小圆点
+         * 请求首页焦点图
          */
-
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, ApiInterface.Index_pager, new RequestCallBack<String>() {
-
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                Gson gson = new Gson();
-                if (responseInfo != null) {
-                    index_pager = gson.fromJson(responseInfo.result, Index_Pager.class);
-
-                    if (index_pager.getStatus().getCode() == 10000) {
-                        data.addAll(index_pager.getDatas());
-                    }
-                }
-
-                mPagerAdapter = new IndexPagerAdapter(getActivity(), data);
-                indexPager.setAdapter(mPagerAdapter);
-
-                addPoints();
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-                Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        loadIndexPager();
 
 
    /*     // pageCount设置缓存的页面数
@@ -145,7 +121,6 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
 
         indexPager.addOnPageChangeListener(this);
 
-
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -166,9 +141,45 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
         mListView.setRefreshTime();
         mListView.setAdapter(null);
 
+        /**
+         * 设置监听事件
+         */
         setClick();
 
         return homeLayout;
+    }
+
+    private void loadIndexPager() {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, ApiInterface.Index_pager, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    index_pager = gson.fromJson(responseInfo.result, Index_Pager.class);
+
+                    if (index_pager.status.code == 10000) {
+                        data.addAll(index_pager.datas);
+                    }
+                }
+
+                //适配首页焦点图
+                mPagerAdapter = new IndexPagerAdapter(getActivity(), data);
+                indexPager.setAdapter(mPagerAdapter);
+
+                if(data != null){
+                    /**
+                     * 添加圆点
+                     */
+                    addPoints();
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /**
@@ -185,7 +196,6 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
         Guesslikelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.guess_like_layout, null);
 
         group_purchase_layout = (LinearLayout) Eventlayout.findViewById(R.id.group_purchase_layout);
-
     }
 
     /**
@@ -220,7 +230,6 @@ public class IndexFragment extends Fragment implements BusinessResponse, IXListV
             point = new ImageView(getActivity());
 
             point.setLayoutParams(new LinearLayout.LayoutParams(20, 20));
-
             points[i] = point;
 
             if (i == 0) {

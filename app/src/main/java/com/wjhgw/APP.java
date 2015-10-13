@@ -72,19 +72,18 @@ public class APP extends Application {
             diskCachePath = new StringBuffer()
                     .append(Environment.getExternalStorageDirectory())
                     .append(File.separator)
-                    .append("qianfeng/imageCache").toString();
-            // /mnt/sdcard/qianfeng/imageCache
+                    .append("wjhgw/imageCache").toString();
+            // /mnt/sdcard/wjhgw/imageCache
         } else {
             diskCachePath = new StringBuffer().append(Environment.getDataDirectory())
                     .append(File.separator)
                     .append(this.getPackageName())
-                    .append("qianfeng/imageCache").toString();
-            // /data/data/com.example.volley_case_greentree_list/qianfeng/imageCache
+                    .append("wjhgw/imageCache").toString();
+            // /data/data/com.wjhgw/wjhgw/imageCache
         }
 
 
         // 设置内存缓存
-        //
         int cacheSize = (int) Runtime.getRuntime().maxMemory() / 8;
 
         configuration =
