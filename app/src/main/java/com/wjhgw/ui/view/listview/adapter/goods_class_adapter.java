@@ -24,7 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wjhgw.R;
-import com.wjhgw.business.bean.goods_class_data;
+import com.wjhgw.business.bean.Goods_class_Pager_data1;
 import com.wjhgw.ui.fragment.CategoryFragment;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ import java.util.ArrayList;
 public class goods_class_adapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
-    private ArrayList<goods_class_data> List;
+    private ArrayList<Goods_class_Pager_data1> List;
     private ViewHolder vh = new ViewHolder();
 
     private static class ViewHolder {
@@ -43,7 +43,7 @@ public class goods_class_adapter extends BaseAdapter {
         private LinearLayout class_item_layout;
     }
 
-    public goods_class_adapter(Context c, ArrayList<goods_class_data> list) {
+    public goods_class_adapter(Context c, ArrayList<Goods_class_Pager_data1> list) {
         //mInflater = LayoutInflater.from(c);
         this.mContext = c;
         this.List = list;

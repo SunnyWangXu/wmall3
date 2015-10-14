@@ -22,7 +22,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.wjhgw.R;
-import com.wjhgw.business.bean.goods_class_data1;
+import com.wjhgw.business.bean.Goods_class_Pager_data2;
 
 import java.util.ArrayList;
 
@@ -32,14 +32,14 @@ import java.util.ArrayList;
 public class grid_adapter extends BaseAdapter {
 	private Context mContext;
 	private LayoutInflater mInflater;
-	private ArrayList<goods_class_data1> List;
+	private ArrayList<Goods_class_Pager_data2> List;
 	private ViewHolder vh = new ViewHolder();
 
 	private static class ViewHolder {
 		private TextView text;
 	}
 
-	public grid_adapter(Context c, ArrayList<goods_class_data1> list) {
+	public grid_adapter(Context c, ArrayList<Goods_class_Pager_data2> list) {
 		//mInflater = LayoutInflater.from(c);
 		this.mContext = c;
 		this.List = list;

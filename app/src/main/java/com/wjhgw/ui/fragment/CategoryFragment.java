@@ -11,10 +11,17 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
+import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseQuery;
-import com.wjhgw.business.api.Classification_Request;
-import com.wjhgw.business.response.BusinessResponse;
+import com.wjhgw.business.bean.Goods_class_Pager1;
+import com.wjhgw.business.bean.Goods_class_Pager2;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.CaptureActivity;
 import com.wjhgw.ui.image.LoadImageByVolley;
@@ -23,21 +30,17 @@ import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.goods_class_adapter;
 import com.wjhgw.ui.view.listview.adapter.grid_adapter;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-
-public class CategoryFragment extends Fragment implements XListView.IXListViewListener, BusinessResponse, View.OnClickListener {
+public class CategoryFragment extends Fragment implements XListView.IXListViewListener, View.OnClickListener {
     public static int MAK = 0;
     private ImageView image;
     private ImageView qrcode_scanner;
     private MyListView mListView;
     private goods_class_adapter adapter;
     private grid_adapter adapter1;
-    private Classification_Request Request;
     private GridView grid;
     private LoadImageByVolley Image;
+    private Goods_class_Pager1 goods_class1;
+    private Goods_class_Pager2 goods_class2;
     View View;
     public static String RESULT_MESSAGE = null; // 接收扫二维码返回数据
 
@@ -45,13 +48,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View = inflater.inflate(R.layout.classification_layout, container, false);
-
-        Request = new Classification_Request(getActivity());
-        Request.addResponseListener(this);
-        HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("key", "ed86e0e4dd9fd54ffea7511b9fc6728e");
-        Request.goods_class(hashMap, BaseQuery.serviceUrl() + ApiInterface.Goods_class);
-
+        goods_class1();
 
         grid = (GridView) View.findViewById(R.id.grid);
         image = (ImageView) View.findViewById(R.id.image);
@@ -69,40 +66,13 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MAK = position - 1;
                 adapter.notifyDataSetChanged();
-                Image.loadImageByVolley(Request.class_List.get(position - 1).image, image);
-                HashMap<String, String> hashMap = new HashMap<>();
-                hashMap.put("key", "ed86e0e4dd9fd54ffea7511b9fc6728e");
-                hashMap.put("gc_id", Request.class_List.get(position - 1).gc_id);
-                Request.goods_class1(hashMap, BaseQuery.serviceUrl() + ApiInterface.Goods_class1);
+                Image.loadImageByVolley(goods_class1.datas.get(position - 1).image, image);
+                goods_class2(goods_class1.datas.get(position - 1).gc_id);
             }
         });
 
         qrcode_scanner.setOnClickListener(this);
         return View;
-    }
-
-    @Override
-    public void OnMessageResponse(String url, String response, JSONObject status) throws JSONException {
-        if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Goods_class)) {
-            if (status.getString("code").equals("10000")) {
-                adapter = new goods_class_adapter(getActivity(), Request.class_List);
-                mListView.setAdapter(adapter);
-                if (Request.class_List.size() > 0) {
-                    Image.loadImageByVolley(Request.class_List.get(0).image, image);
-                    HashMap<String, String> hashMap = new HashMap<>();
-                    hashMap.put("key", "ed86e0e4dd9fd54ffea7511b9fc6728e");
-                    hashMap.put("gc_id", Request.class_List.get(0).gc_id);
-                    Request.goods_class1(hashMap, BaseQuery.serviceUrl() + ApiInterface.Goods_class1);
-                }
-
-            } else if (status.getString("code").equals("600100")) {
-                Toast.makeText(getActivity(), status.getString("msg"), Toast.LENGTH_SHORT).show();
-            }
-        }
-        if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Goods_class1)) {
-            adapter1 = new grid_adapter(getActivity(), Request.class_List1);
-            grid.setAdapter(adapter1);
-        }
     }
 
     @Override
@@ -130,32 +100,69 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
     public void onResume() {
         super.onResume();
         if (RESULT_MESSAGE != null) {
-            /*try {
-                URL myURL = new URL(RESULT_MESSAGE);
-                if (myURL.getProtocol().equals("http")
-                        || myURL.getProtocol().equals("https")
-                        || myURL.getProtocol().equals("ftp")) {
-                    if (myURL.getPath().equals("/mobile/goods.php")
-                            || myURL.getPath().equals("/goods.php")) {
-                        Intent it = new Intent(getActivity(),
-                                B2_ProductDetailActivity.class);
-                        it.putExtra(
-                                "good_id",
-                                myURL.getQuery().substring(3,
-                                        myURL.getQuery().length()));
-                        this.startActivity(it);
-                    } else {
-                        Intent intent = new Intent(getActivity(),
-                                BannerWebActivity.class);
-                        intent.putExtra("url", RESULT_MESSAGE);
-                        startActivity(intent);
-                    }
-                }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }*/
             Toast.makeText(getActivity(), "扫描返回" + RESULT_MESSAGE, Toast.LENGTH_SHORT).show();
             RESULT_MESSAGE = null;
         }
+    }
+
+    /**
+     * 商品一级分类
+     */
+    private void goods_class1() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", "b961e533cb73bb5f9b4dce25e38a6f76");
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Goods_class, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    goods_class1 = gson.fromJson(responseInfo.result, Goods_class_Pager1.class);
+
+                    if (goods_class1.status.code == 10000) {
+                        adapter = new goods_class_adapter(getActivity(),goods_class1.datas);
+                        mListView.setAdapter(adapter);
+                        if (goods_class1.datas.size() > 0) {
+                            Image.loadImageByVolley(goods_class1.datas.get(0).image, image);
+                            goods_class2(goods_class1.datas.get(0).gc_id);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * 指定分类
+     */
+    private void goods_class2(String gc_id) {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", "b961e533cb73bb5f9b4dce25e38a6f76");
+        params.addBodyParameter("gc_id", gc_id);
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Goods_class1, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    goods_class2 = gson.fromJson(responseInfo.result, Goods_class_Pager2.class);
+
+                    if (goods_class2.status.code == 10000) {
+                        adapter1 = new grid_adapter(getActivity(), goods_class2.datas);
+                        grid.setAdapter(adapter1);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
