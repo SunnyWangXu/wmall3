@@ -17,7 +17,7 @@
     <color name="discovery_bg">#f1f1f1</color>
     <color name="discovery_line_bg">#eeeeee</color>
     <color name="title_color">#333333</color>
-    <color name="lightgray">#656666</color>
+    <color name="lightgray">#666666</color>
     <color name="gray">#cccccc</color>
 
 </resources>
