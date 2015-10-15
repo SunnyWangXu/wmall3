@@ -1,89 +1,146 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical" >
 
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#666666"
         android:layout_weight="1" >
     </FrameLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#dedede" />
 
-    <RadioGroup
-        android:id="@+id/radio_group"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:background="#333333" >
 
-        <RadioButton
-            android:id="@+id/home_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@null"
-            android:checked="true"
-            android:textColor="@drawable/text_color_scelector"
-            android:drawableTop="@drawable/index"
-            android:gravity="center_horizontal"
-            android:text="首页" />
 
-        <RadioButton
-            android:id="@+id/category_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:button="@null"
-            android:checked="false"
-            android:textColor="@drawable/text_color_scelector"
-            android:drawableTop="@drawable/classification"
-            android:gravity="center"
-            android:text="分类" />
+            <LinearLayout
+                android:id="@+id/index_layout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/found_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="right"
-            android:layout_weight="1"
-            android:button="@null"
-            android:textColor="@drawable/text_color_scelector"
-            android:checked="false"
-            android:drawableTop="@drawable/found"
-            android:gravity="center"
-            android:text="发现" />
+                <ImageView
+                    android:id="@+id/index_image"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/ic_homepage_select" />
 
-        <RadioButton
-            android:id="@+id/by_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="right"
-            android:layout_weight="1"
-            android:textColor="@drawable/text_color_scelector"
-            android:button="@null"
-            android:checked="false"
-            android:drawableTop="@drawable/shopping_car"
-            android:gravity="center"
-            android:text="购物车" />
+                <TextView
+                    android:id="@+id/index_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/string_index"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
 
-        <RadioButton
-            android:id="@+id/my_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="right"
-            android:layout_weight="1"
-            android:button="@null"
-            android:textColor="@drawable/text_color_scelector"
+            <LinearLayout
+                android:id="@+id/classification_layout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            android:checked="false"
-            android:drawableTop="@drawable/my"
-            android:gravity="center"
-            android:text="我的" />
+                <ImageView
+                    android:id="@+id/classification_image"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/ic_search" />
 
-    </RadioGroup>
+                <TextView
+                    android:id="@+id/classification_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="分类"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/contacts_layout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/contacts_image"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/ic_find" />
+
+                <TextView
+                    android:id="@+id/contacts_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/string_find"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/shopping_car_layout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/shopping_car_image"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/ic_shopping_cart" />
+
+                <TextView
+                    android:id="@+id/shopping_car_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/string_message"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/setting_layout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/setting_image"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/ic_mine" />
+
+                <TextView
+                    android:id="@+id/setting_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/string_mine"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

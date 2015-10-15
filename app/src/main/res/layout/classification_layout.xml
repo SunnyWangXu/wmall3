@@ -21,7 +21,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:padding="10dp"
-                android:src="@mipmap/icon_homepage_select" />
+                android:src="@mipmap/ic_homepage_select" />
 
             <EditText
                 android:id="@+id/search_name"
@@ -52,7 +52,7 @@
                     android:layout_height="20dp"
                     android:visibility="gone"
                     android:layout_toRightOf="@+id/login_name"
-                    android:src="@mipmap/icon_mine_select" />
+                    android:src="@mipmap/ic_mine_select" />
 
             </LinearLayout>
         </LinearLayout>
