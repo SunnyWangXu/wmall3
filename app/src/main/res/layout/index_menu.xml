@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    android:background="#ffffff"
-    android:gravity="center"
-    android:orientation="horizontal">
+    android:layout_height="match_parent"
+    android:background="#eeeeee">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="#ffffff"
+        android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -17,8 +19,8 @@
 
         <ImageButton
             android:id="@+id/iv_index_menu_collect"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@mipmap/ic_my_collect" />
 
         <TextView
@@ -26,21 +28,23 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="4dp"
+            android:textColor="#333333"
+            android:textSize="14dp"
             android:text="我的收藏" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical">
 
         <ImageButton
             android:id="@+id/iv_index_menu_logistics"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@mipmap/ic_logistics_inquiry" />
 
         <TextView
@@ -48,21 +52,23 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="4dp"
+            android:textColor="#333333"
+            android:textSize="14dp"
             android:text="物流查询" />
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical">
 
         <ImageButton
             android:id="@+id/iv_index_menu_funds"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@mipmap/ic_funds" />
 
         <TextView
@@ -70,20 +76,22 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="4dp"
+            android:textColor="#333333"
+            android:textSize="14dp"
             android:text="欢购币" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical">
 
         <ImageButton
             android:id="@+id/iv_index_menu_shopping_coupon"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@mipmap/ic_shopping_coupon" />
 
         <TextView
@@ -91,6 +99,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="4dp"
+            android:textColor="#333333"
+            android:textSize="14dp"
             android:text="领好券" />
     </LinearLayout>
+</LinearLayout>
 </LinearLayout>
