@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="200dp"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="32dp"
         android:layout_marginTop="20dp"
+        android:orientation="horizontal"
         android:background="#ffffff">
 
-        <View
-            android:layout_width="6dp"
-            android:layout_height="30dp"
-            android:layout_gravity="bottom"
-            android:background="#dd3333" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="9dp"
             android:text="品牌街"
-            android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textColor="@color/tv_red"
+            android:textSize="@dimen/theme_size" />
 
     </LinearLayout>
 
@@ -34,33 +30,35 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="158dp"
+        android:orientation="horizontal"
         android:background="#ffffff">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="124dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="9dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:text="葡萄酒"
+                android:text="11年泸州老窖"
                 android:textColor="#000000"
-                android:textSize="15dp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="1dp"
-                android:text="抢先喝" />
+                android:text="滴滴醇香，为你而来"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/body_size" />
 
             <ImageView
-                android:layout_width="100dp"
+                android:layout_width="124dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginTop="2dp"
@@ -84,35 +82,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@mipmap/default_image" />
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@mipmap/default_image" />
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@mipmap/default_image" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#f1f1f1" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@mipmap/default_image" />
 
             <ImageView
                 android:layout_width="80dp"
@@ -141,19 +110,50 @@
 
             <ImageView
                 android:layout_width="80dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:src="@mipmap/default_image" />
 
             <ImageView
                 android:layout_width="80dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:src="@mipmap/default_image" />
 
             <ImageView
                 android:layout_width="80dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:src="@mipmap/default_image" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#f1f1f1" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:src="@mipmap/default_image" />
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:src="@mipmap/default_image" />
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:src="@mipmap/default_image" />
 

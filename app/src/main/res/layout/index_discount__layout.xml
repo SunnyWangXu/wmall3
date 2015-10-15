@@ -57,6 +57,11 @@
             android:orientation="horizontal">
 
             <View
+                android:layout_width="9dp"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+
+            <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@color/discovery_line_bg" />
@@ -66,13 +71,12 @@
                 android:id="@+id/ll_discount_01"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="9dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/discovery_line_bg" />
 
                 <ImageView
@@ -152,7 +156,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="30dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -181,6 +185,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/discovery_line_bg" />
+
             </LinearLayout>
 
             <View
@@ -189,15 +194,20 @@
                 android:background="@color/discovery_line_bg" />
 
             <View
+                android:layout_width="6dp"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+
+            <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@color/discovery_line_bg" />
+
 
             <LinearLayout
                 android:id="@+id/ll_discount_02"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="6dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -283,7 +293,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="30dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -319,12 +329,20 @@
                 android:layout_height="match_parent"
                 android:background="@color/discovery_line_bg" />
 
+            <View
+                android:layout_width="6dp"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/discovery_line_bg" />
+
             <LinearLayout
                 android:id="@+id/ll_discount_03"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="6dp"
-                android:layout_marginRight="9dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -409,7 +427,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="30dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -420,7 +438,6 @@
                         android:text="¥ 75.00"
                         android:textColor="@color/red"
                         android:textSize="14sp" />
-
 
                     <TextView
                         android:id="@+id/tv_A0_discount03_original_price"
@@ -439,6 +456,15 @@
                     android:layout_height="1dp"
                     android:background="@color/discovery_line_bg" />
             </LinearLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/discovery_line_bg" />
+
+            <View
+                android:layout_width="9dp"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
 
         </LinearLayout>
     </LinearLayout>

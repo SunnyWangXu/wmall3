@@ -4,4 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="page_margin">5dp</dimen>
     <dimen name="title_size">18sp</dimen>
+    <dimen name="theme_size">14sp</dimen>
+    <dimen name="body_size">11sp</dimen>
+
 </resources>
