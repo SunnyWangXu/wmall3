@@ -6,24 +6,19 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
         android:background="#ffffff">
-
-        <View
-            android:layout_width="6dp"
-            android:layout_height="30dp"
-            android:layout_gravity="bottom"
-            android:background="#dd3333" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="9dp"
             android:text="主题街"
-            android:textColor="#000000"
-            android:textSize="18dp" />
+            android:textColor="#b63235"
+            android:textSize="15sp" />
 
     </LinearLayout>
 
@@ -34,7 +29,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="140dp"
         android:background="#ffffff">
 
         <LinearLayout
@@ -46,24 +41,25 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="11dp"
                 android:text="葡萄酒"
-                android:textColor="#000000"
-                android:textSize="15dp" />
+                android:textColor="#333333"
+                android:textSize="11dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="1dp"
-                android:text="抢先喝" />
+                android:layout_marginLeft="13dp"
+                android:text="抢先喝"
+                android:textColor="#cccccc"
+                android:textSize="11dp"/>
 
             <ImageView
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="9dp"
                 android:src="@mipmap/default_image" />
 
         </LinearLayout>
@@ -82,24 +78,25 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="11dp"
                 android:text="洋酒"
-                android:textColor="#000000"
-                android:textSize="15dp" />
+                android:textColor="#333333"
+                android:textSize="11dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="1dp"
+                android:layout_marginLeft="13dp"
+                android:textSize="11dp"
+                android:textColor="#cccccc"
                 android:text="抢先喝" />
 
             <ImageView
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="9dp"
                 android:src="@mipmap/default_image" />
 
         </LinearLayout>
@@ -112,7 +109,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="105dp"
         android:background="#ffffff">
 
         <LinearLayout
@@ -124,24 +121,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="8dp"
                 android:text="白酒馆"
                 android:textColor="#000000"
-                android:textSize="15dp" />
+                android:textSize="11sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="1dp"
+                android:layout_marginLeft="7dp"
+                android:textSize="11sp"
+                android:textColor="#cccccc"
                 android:text="抢先喝" />
 
             <ImageView
-                android:layout_width="100dp"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginTop="2dp"
+                android:layout_gravity="right"
                 android:src="@mipmap/default_image" />
 
         </LinearLayout>
@@ -160,24 +157,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:text="滋补品"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="8dp"
+                android:text="白酒馆"
                 android:textColor="#000000"
-                android:textSize="15dp" />
+                android:textSize="11sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="1dp"
+                android:layout_marginLeft="7dp"
+                android:textSize="11sp"
+                android:textColor="#cccccc"
                 android:text="抢先喝" />
 
             <ImageView
-                android:layout_width="100dp"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginTop="2dp"
+                android:layout_gravity="right"
                 android:src="@mipmap/default_image" />
 
         </LinearLayout>
@@ -196,24 +193,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:text="红酒馆"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="8dp"
+                android:text="白酒馆"
                 android:textColor="#000000"
-                android:textSize="15dp" />
+                android:textSize="11sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="1dp"
+                android:layout_marginLeft="7dp"
+                android:textSize="11sp"
+                android:textColor="#cccccc"
                 android:text="抢先喝" />
 
             <ImageView
-                android:layout_width="100dp"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginTop="2dp"
+                android:layout_gravity="right"
                 android:src="@mipmap/default_image" />
 
         </LinearLayout>
@@ -232,24 +229,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:text="葡萄酒"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="8dp"
+                android:text="白酒馆"
                 android:textColor="#000000"
-                android:textSize="15dp" />
+                android:textSize="11sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="1dp"
+                android:layout_marginLeft="7dp"
+                android:textSize="11sp"
+                android:textColor="#cccccc"
                 android:text="抢先喝" />
 
             <ImageView
-                android:layout_width="100dp"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginTop="2dp"
+                android:layout_gravity="right"
                 android:src="@mipmap/default_image" />
 
         </LinearLayout>
