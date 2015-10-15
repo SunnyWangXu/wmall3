@@ -1,56 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="240dp"
     android:background="@color/discovery_line_bg"
     android:orientation="vertical">
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/discovery_bg" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
         android:background="@color/white"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <View
-                android:layout_width="5dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:background="@color/red" />
+            <!--  <View
+                  android:layout_width="5dp"
+                  android:layout_height="match_parent"
+                  android:layout_margin="5dp"
+                  android:background="@color/red" />-->
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="9dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="折扣街"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textColor="@color/tv_red"
+                android:textSize="14sp" />
 
 
             <Button
-                android:layout_width="80dp"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_marginRight="15dp"
                 android:background="@drawable/discount_btn_bg"
                 android:text="促销专场"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="14sp" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/discovery_bg" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="184dp"
             android:orientation="horizontal">
 
             <View
@@ -58,11 +61,12 @@
                 android:layout_height="match_parent"
                 android:background="@color/discovery_line_bg" />
 
+
             <LinearLayout
                 android:id="@+id/ll_discount_01"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="9dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -73,16 +77,22 @@
 
                 <ImageView
                     android:id="@+id/iv_A0_discount01"
-                    android:layout_width="140dp"
-                    android:layout_height="120dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="102dp"
                     android:src="@mipmap/ic_4" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="22dp"
                     android:background="@color/red"
                     android:gravity="center"
-                    android:padding="5dp">
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="3dp"
+                        android:src="@mipmap/ic_clock" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -90,6 +100,7 @@
                         android:layout_marginRight="5dp"
                         android:gravity="center"
                         android:text="距结束"
+                        android:textColor="@color/white"
                         android:textSize="10sp" />
 
                     <TextView
@@ -132,11 +143,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="6dp"
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:text="森奈克卡佩尔无醇气泡白葡萄汁"
-                    android:textSize="13sp" />
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -147,26 +159,21 @@
                         android:id="@+id/tv_A0_discount01_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_marginTop="10dp"
-                        android:text="¥75.00"
+                        android:layout_marginBottom="6dp"
+                        android:text="¥ 75.00"
                         android:textColor="@color/red"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/tv_A0_discount01_original_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_marginLeft="19dp"
                         android:text="¥199"
                         android:textColor="@color/gray"
-                        android:textSize="15sp" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
@@ -190,7 +197,7 @@
                 android:id="@+id/ll_discount_02"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="6dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -202,16 +209,21 @@
 
                 <ImageView
                     android:id="@+id/iv_A0_discount02"
-                    android:layout_width="140dp"
-                    android:layout_height="120dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="102dp"
                     android:src="@mipmap/ic_4" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="22dp"
                     android:background="@color/red"
-                    android:gravity="center"
-                    android:padding="5dp">
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="3dp"
+                        android:src="@mipmap/ic_clock" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -219,6 +231,7 @@
                         android:layout_marginRight="5dp"
                         android:gravity="center"
                         android:text="距结束"
+                        android:textColor="@color/white"
                         android:textSize="10sp" />
 
                     <TextView
@@ -261,11 +274,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="6dp"
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:text="森奈克卡佩尔无醇气泡白葡萄汁"
-                    android:textSize="13sp" />
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -276,26 +290,21 @@
                         android:id="@+id/tv_A0_discount02_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_marginTop="10dp"
-                        android:text="¥75.00"
+                        android:layout_marginBottom="6dp"
+                        android:text="¥ 75.00"
                         android:textColor="@color/red"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/tv_A0_discount02_original_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_marginLeft="19dp"
                         android:text="¥199"
                         android:textColor="@color/gray"
-                        android:textSize="15sp" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
@@ -314,7 +323,8 @@
                 android:id="@+id/ll_discount_03"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="9dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -325,16 +335,21 @@
 
                 <ImageView
                     android:id="@+id/iv_A0_discount03"
-                    android:layout_width="140dp"
-                    android:layout_height="120dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="102dp"
                     android:src="@mipmap/ic_4" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="22dp"
                     android:background="@color/red"
-                    android:gravity="center"
-                    android:padding="5dp">
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="3dp"
+                        android:src="@mipmap/ic_clock" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -342,6 +357,7 @@
                         android:layout_marginRight="5dp"
                         android:gravity="center"
                         android:text="距结束"
+                        android:textColor="@color/white"
                         android:textSize="10sp" />
 
                     <TextView
@@ -384,11 +400,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="6dp"
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:text="森奈克卡佩尔无醇气泡白葡萄汁"
-                    android:textSize="13sp" />
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -399,26 +416,21 @@
                         android:id="@+id/tv_A0_discount03_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_marginTop="10dp"
-                        android:text="¥75.00"
+                        android:layout_marginBottom="6dp"
+                        android:text="¥ 75.00"
                         android:textColor="@color/red"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/tv_A0_discount03_original_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_marginLeft="19dp"
                         android:text="¥199"
                         android:textColor="@color/gray"
-                        android:textSize="15sp" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
@@ -427,7 +439,6 @@
                     android:layout_height="1dp"
                     android:background="@color/discovery_line_bg" />
             </LinearLayout>
-
 
         </LinearLayout>
     </LinearLayout>

@@ -19,5 +19,6 @@
     <color name="title_color">#333333</color>
     <color name="lightgray">#666666</color>
     <color name="gray">#cccccc</color>
+    <color name="tv_red">#d63235</color>
 
 </resources>

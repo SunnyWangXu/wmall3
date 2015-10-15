@@ -42,6 +42,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initViews();
         fragmentManager = getSupportFragmentManager();
         setTabSelection(0);
@@ -100,7 +101,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     /**
      * 根据传入的index参数来设置选中的tab页。
      *
-     * @param index 每个tab页对应的下标。0首页  1分类  2发现 3购物车 4我的
+     * @param index 每个tab页对应的下标。0首页，  1分类  2发现 3购物车 4我的
      */
     private void setTabSelection(int index) {
         clearSelection();
