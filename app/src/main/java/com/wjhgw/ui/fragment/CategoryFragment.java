@@ -48,6 +48,9 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View = inflater.inflate(R.layout.classification_layout, container, false);
+        /**
+         * 商品一级分类
+         */
         goods_class1();
 
         grid = (GridView) View.findViewById(R.id.grid);

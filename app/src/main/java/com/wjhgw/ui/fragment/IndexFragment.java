@@ -129,15 +129,17 @@ public class IndexFragment extends Fragment implements IXListViewListener,
 
                     if (index_pager.status.code == 10000) {
                         data.clear();
-                        data.addAll(index_pager.datas);
+
+                        if (index_pager.datas != null) {
+                            data.addAll(index_pager.datas);
+                        }
                     }
                 }
+                if (data.size() != 0 && data != null) {
 
-                //适配首页焦点图
-                mPagerAdapter = new IndexPagerAdapter(getActivity(), data);
-                indexPager.setAdapter(mPagerAdapter);
-
-                if (data != null) {
+                    //适配首页焦点图
+                    mPagerAdapter = new IndexPagerAdapter(getActivity(), data);
+                    indexPager.setAdapter(mPagerAdapter);
                     /**
                      * 添加圆点
                      */

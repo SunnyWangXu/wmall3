@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     /**
      * 根据传入的index参数来设置选中的tab页。
      *
-     * @param index 每个tab页对应的下标。0表示消息，1表示联系人，2表示动态，3表示设置。
+     * @param index 每个tab页对应的下标。0首页  1分类  2发现 3购物车 4我的
      */
     private void setTabSelection(int index) {
         clearSelection();
