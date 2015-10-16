@@ -5,8 +5,8 @@ import java.util.List;
 /**
  * 首页轮播图
  */
-public class Index_Pager {
+public class Home_Pager {
     public NetStatus status;
-    public List<Index_Pager_data> datas;
+    public List<Home_Pager_Data1> datas;
 }
 

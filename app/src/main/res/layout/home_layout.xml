@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
     <com.wjhgw.ui.view.listview.MyListView
-        android:id="@+id/index_listview"
+        android:id="@+id/home_listview"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:divider="#00000000"

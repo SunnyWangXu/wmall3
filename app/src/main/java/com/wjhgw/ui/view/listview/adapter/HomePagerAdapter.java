@@ -7,19 +7,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.wjhgw.APP;
-import com.wjhgw.business.bean.Index_Pager_data;
 
 import java.util.List;
 
 /**
  * 首页ViewPager 适配器
  */
-public class IndexPagerAdapter extends PagerAdapter {
-    private List<Index_Pager_data> data;
+public class HomePagerAdapter extends PagerAdapter {
+    private List<Home_Pager_Data> data;
     private Context context;
     private int imageSize;
 
-    public IndexPagerAdapter(Context context, List<Index_Pager_data> data) {
+    public HomePagerAdapter(Context context, List<Home_Pager_Data> data) {
         this.context = context;
         this.data = data;
         imageSize = data.size();

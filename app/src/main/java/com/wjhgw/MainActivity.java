@@ -13,14 +13,14 @@ import android.widget.TextView;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.ui.fragment.CategoryFragment;
 import com.wjhgw.ui.fragment.DiscoveryFragment;
-import com.wjhgw.ui.fragment.IndexFragment;
+import com.wjhgw.ui.fragment.HomeFragment;
 import com.wjhgw.ui.fragment.MineFragment;
 import com.wjhgw.ui.fragment.ShoppingCartFragment;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ShoppingCartFragment shoppingCartFragment;  //购物车
     private CategoryFragment categoryFragment; //分类
-    private IndexFragment indexFragment;    //首页
+    private HomeFragment homeFragment;    //首页
     private DiscoveryFragment discoveryFragment;    //发现
     private MineFragment mineFragment;     //我的
     private View index_Layout;
@@ -118,11 +118,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case 0:
                 indexImage.setImageResource(R.mipmap.ic_homepage_select);
                 indexText.setTextColor(Color.parseColor("#ba0e2f"));
-                if (indexFragment == null) {
-                    indexFragment = new IndexFragment();
-                    transaction.add(R.id.content, indexFragment);
+                if (homeFragment == null) {
+                    homeFragment = new HomeFragment();
+                    transaction.add(R.id.content, homeFragment);
                 } else {
-                    transaction.show(indexFragment);
+                    transaction.show(homeFragment);
                 }
 
                 break;
@@ -200,8 +200,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if (categoryFragment != null) {
             transaction.hide(categoryFragment);
         }
-        if (indexFragment != null) {
-            transaction.hide(indexFragment);
+        if (homeFragment != null) {
+            transaction.hide(homeFragment);
         }
         if (discoveryFragment != null) {
             transaction.hide(discoveryFragment);

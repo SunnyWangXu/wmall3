@@ -24,19 +24,20 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseQuery;
-import com.wjhgw.business.bean.Index_Pager;
-import com.wjhgw.business.bean.Index_Pager_data;
+import com.wjhgw.business.bean.GroupBuy;
+import com.wjhgw.business.bean.GroupBuy_Data;
+import com.wjhgw.business.bean.Home_Pager;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.PrductDetail;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView.IXListViewListener;
-import com.wjhgw.ui.view.listview.adapter.IndexPagerAdapter;
+import com.wjhgw.ui.view.listview.adapter.HomePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class IndexFragment extends Fragment implements IXListViewListener,
+public class HomeFragment extends Fragment implements IXListViewListener,
         View.OnClickListener, ViewPager.OnPageChangeListener {
     private View homeLayout;
     private LinearLayout MenuLayout;
@@ -47,9 +48,9 @@ public class IndexFragment extends Fragment implements IXListViewListener,
     private LinearLayout Guesslikelayout;
     private LinearLayout group_purchase_layout;
     private MyListView mListView;
-    private RelativeLayout indexViewPageLayout;
-    private ViewPager indexPager;
-    private IndexPagerAdapter mPagerAdapter;
+    private RelativeLayout homeViewPageLayout;
+    private ViewPager homePager;
+    private HomePagerAdapter mPagerAdapter;
     private static final int HANDLERID = 1;
     private Handler handler;
 
@@ -64,13 +65,18 @@ public class IndexFragment extends Fragment implements IXListViewListener,
     private ImageView point;
     private ImageView[] points;
 
-    private Index_Pager index_pager;
-    private List<Index_Pager_data> data = new ArrayList<>();
+    private Home_Pager home_pager;
+    private List<Home_Pager_Data> data = new ArrayList<>();
+    private GroupBuy groupBuys;
+    private List<GroupBuy_Data> groupBuy_data = new ArrayList<>();
+    private ImageView iv_discount01;
+    private TextView tv_discount01_price;
+    private TextView tv_discount01_groupbuy_price;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        homeLayout = inflater.inflate(R.layout.index_layout, container, false);
+        homeLayout = inflater.inflate(R.layout.home_layout, container, false);
 
         /**
          * 加载视图
@@ -81,21 +87,24 @@ public class IndexFragment extends Fragment implements IXListViewListener,
          * 初始化控件
          */
         initView();
-        indexPager = (ViewPager) indexViewPageLayout.findViewById(R.id.pager);
+        homePager = (ViewPager) homeViewPageLayout.findViewById(R.id.pager);
 
         /**
          * 请求首页焦点图
          */
-        loadIndexPager();
-
-        indexPager.addOnPageChangeListener(this);
+        loadHomePager();
+        /**
+         * 请求折扣街数据
+         */
+        loadGroupBuy();
+        homePager.addOnPageChangeListener(this);
 
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what == HANDLERID) {
 
-                    indexPager.setCurrentItem((indexPager.getCurrentItem() + 1));
+                    homePager.setCurrentItem((homePager.getCurrentItem() + 1));
 
                     sendEmptyMessageDelayed(HANDLERID, 3000);
                 }
@@ -118,28 +127,67 @@ public class IndexFragment extends Fragment implements IXListViewListener,
         return homeLayout;
     }
 
-    private void loadIndexPager() {
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Index_pager, new RequestCallBack<String>() {
+    private void loadGroupBuy() {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Group_Buy, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    groupBuys = gson.fromJson(responseInfo.result, GroupBuy.class);
+
+                    if (groupBuys.status.code == 10000) {
+                        groupBuy_data.clear();
+                        groupBuy_data.addAll(groupBuys.datas);
+
+                        for (int i = 0; i < groupBuy_data.size(); i++) {
+                            if (i == 0) {
+                                String imagUrl = groupBuy_data.get(i).groupbuy_image;
+                                APP.getApp().getImageLoader().displayImage(imagUrl, iv_discount01);
+
+                                tv_discount01_price.setText("¥ " + groupBuy_data.get(i).goods_price);
+                                tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(i).groupbuy_price);
+                            }
+
+                        }
+
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+            }
+        });
+
+
+    }
+
+    private void loadHomePager() {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Home_pager, new RequestCallBack<String>() {
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Gson gson = new Gson();
                 if (responseInfo != null) {
-                    index_pager = gson.fromJson(responseInfo.result, Index_Pager.class);
+                    home_pager = gson.fromJson(responseInfo.result, Home_Pager.class);
 
-                    if (index_pager.status.code == 10000) {
+                    if (home_pager.status.code == 10000) {
                         data.clear();
 
-                        if (index_pager.datas != null) {
-                            data.addAll(index_pager.datas);
+                        if (home_pager.datas != null) {
+                            data.addAll(home_pager.datas);
                         }
                     }
                 }
                 if (data.size() != 0 && data != null) {
 
                     //适配首页焦点图
-                    mPagerAdapter = new IndexPagerAdapter(getActivity(), data);
-                    indexPager.setAdapter(mPagerAdapter);
+                    mPagerAdapter = new HomePagerAdapter(getActivity(), data);
+                    homePager.setAdapter(mPagerAdapter);
                     /**
                      * 添加圆点
                      */
@@ -159,10 +207,10 @@ public class IndexFragment extends Fragment implements IXListViewListener,
      */
 
     private void setInflaterView() {
-        indexViewPageLayout = (RelativeLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_page_layout, null);
+        homeViewPageLayout = (RelativeLayout) LayoutInflater.from(getActivity()).inflate(R.layout.home_page_layout, null);
         MenuLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_menu, null);
         Eventlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.event_layout, null);
-        Discountlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_discount__layout, null);
+        Discountlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.home_discount__layout, null);
         Themelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.theme_layout, null);
         Brandlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.brand_layout, null);
         Guesslikelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.guess_like_layout, null);
@@ -175,12 +223,16 @@ public class IndexFragment extends Fragment implements IXListViewListener,
      */
     private void initView() {
 
-        ll_Point = (LinearLayout) indexViewPageLayout.findViewById(R.id.ll_index_point);
+        ll_Point = (LinearLayout) homeViewPageLayout.findViewById(R.id.ll_home_point);
         ll_discount01 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_01);
         ll_discount02 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_02);
         ll_discount03 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_03);
+        iv_discount01 = (ImageView) Discountlayout.findViewById(R.id.iv_A0_discount01);
+        tv_discount01_price = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount01_price);
+        tv_discount01_groupbuy_price = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount01_groupbuy_price);
 
-        tv = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount01_original_price);
+
+        tv = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount01_groupbuy_price);
         tv1 = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount02_original_price);
         tv2 = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount03_original_price);
         tv.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);//文件中间加下划线，加上后面的属性字体更清晰一些
@@ -228,8 +280,8 @@ public class IndexFragment extends Fragment implements IXListViewListener,
      * 给ListView添加视图
      */
     private void listAddHeader() {
-        mListView = (MyListView) homeLayout.findViewById(R.id.index_listview);
-        mListView.addHeaderView(indexViewPageLayout);
+        mListView = (MyListView) homeLayout.findViewById(R.id.home_listview);
+        mListView.addHeaderView(homeViewPageLayout);
         mListView.addHeaderView(MenuLayout);
         mListView.addHeaderView(Eventlayout);
         mListView.addHeaderView(Discountlayout);

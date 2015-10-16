@@ -5,8 +5,11 @@ public class ApiInterface {
     /**
      * 首页焦点图接口
      */
-    public final static  String  Index_pager = "/mobile/index.php?act=index&op=index_ad";
-
+    public static final String Home_pager = "/mobile/index.php?act=index&op=index_ad";
+    /**
+     *
+     */
+    public static final String Group_Buy = "/mobile/index.php?act=index&op=groupbuy_list";
     /**
      * 商品列表接口
      */
