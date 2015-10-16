@@ -7,6 +7,6 @@ import java.util.List;
  */
 public class Home_Pager {
     public NetStatus status;
-    public List<Home_Pager_Data1> datas;
+    public List<Home_Pager_Data> datas;
 }
 

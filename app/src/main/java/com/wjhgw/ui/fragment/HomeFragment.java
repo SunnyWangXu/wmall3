@@ -27,7 +27,7 @@ import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.GroupBuy;
 import com.wjhgw.business.bean.GroupBuy_Data;
 import com.wjhgw.business.bean.Home_Pager;
-import com.wjhgw.business.bean.Home_Pager_Data1;
+import com.wjhgw.business.bean.Home_Pager_Data;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.PrductDetail;
@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private ImageView[] points;
 
     private Home_Pager home_pager;
-    private List<Home_Pager_Data1> data = new ArrayList<>();
+    private List<Home_Pager_Data> data = new ArrayList<>();
     private GroupBuy groupBuys;
     private List<GroupBuy_Data> groupBuy_data = new ArrayList<>();
     private ImageView iv_discount01;
