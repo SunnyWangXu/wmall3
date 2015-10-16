@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.wjhgw.APP;
+import com.wjhgw.business.bean.Home_Pager_Data1;
 
 import java.util.List;
 
@@ -14,11 +15,11 @@ import java.util.List;
  * 首页ViewPager 适配器
  */
 public class HomePagerAdapter extends PagerAdapter {
-    private List<Home_Pager_Data> data;
+    private List<Home_Pager_Data1> data;
     private Context context;
     private int imageSize;
 
-    public HomePagerAdapter(Context context, List<Home_Pager_Data> data) {
+    public HomePagerAdapter(Context context, List<Home_Pager_Data1> data) {
         this.context = context;
         this.data = data;
         imageSize = data.size();
