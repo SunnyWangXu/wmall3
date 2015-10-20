@@ -71,8 +71,17 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private GroupBuy groupBuys;
     private List<GroupBuy_Data> groupBuy_data = new ArrayList<>();
     private ImageView iv_discount01;
+    private TextView tv_discount01_name;
     private TextView tv_discount01_price;
     private TextView tv_discount01_groupbuy_price;
+    private ImageView iv_discount02;
+    private TextView tv_discount02_name;
+    private TextView tv_discount02_price;
+    private TextView tv_discount02_groupbuy_price;
+    private ImageView iv_discount03;
+    private TextView tv_discount03_name;
+    private TextView tv_discount03_price;
+    private TextView tv_discount03_groupbuy_price;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -88,7 +97,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
          * 初始化控件
          */
         initView();
-        homePager = (ViewPager) homeViewPageLayout.findViewById(R.id.pager);
 
         /**
          * 请求首页焦点图
@@ -128,6 +136,9 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         return homeLayout;
     }
 
+    /**
+     * 请求折扣街数据
+     */
     private void loadGroupBuy() {
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Group_Buy, new RequestCallBack<String>() {
             @Override
@@ -141,21 +152,25 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                         groupBuy_data.clear();
                         groupBuy_data.addAll(groupBuys.datas);
 
-                        for (int i = 0; i < groupBuy_data.size(); i++) {
-                            if (i == 0) {
-                                String imagUrl = groupBuy_data.get(i).groupbuy_image;
+                                String imagUrl = groupBuy_data.get(0).groupbuy_image;
                                 APP.getApp().getImageLoader().displayImage(imagUrl, iv_discount01);
+                                tv_discount01_name.setText(groupBuy_data.get(0).goods_name);
+                                tv_discount01_price.setText("¥" + groupBuy_data.get(0).goods_price);
+                                tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(0).groupbuy_price);
 
-                                tv_discount01_price.setText("¥ " + groupBuy_data.get(i).goods_price);
-                                tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(i).groupbuy_price);
-                            }
+                        String imagUrl2 = groupBuy_data.get(1).groupbuy_image;
+                        APP.getApp().getImageLoader().displayImage(imagUrl2, iv_discount02);
+                        tv_discount02_name.setText(groupBuy_data.get(1).goods_name);
+                        tv_discount02_price.setText("¥" + groupBuy_data.get(1).goods_price);
+                        tv_discount02_groupbuy_price.setText("¥" + groupBuy_data.get(1).groupbuy_price);
 
-                        }
-
+                        String imagUrl3 = groupBuy_data.get(2).groupbuy_image;
+                        APP.getApp().getImageLoader().displayImage(imagUrl3, iv_discount03);
+                        tv_discount03_name.setText(groupBuy_data.get(2).goods_name);
+                        tv_discount03_price.setText("¥" + groupBuy_data.get(2).goods_price);
+                        tv_discount03_groupbuy_price.setText("¥" + groupBuy_data.get(2).groupbuy_price);
                     }
                 }
-
-
             }
 
             @Override
@@ -166,7 +181,9 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
 
     }
-
+    /**
+     * 请求首页焦点图
+     */
     private void loadHomePager() {
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Home_pager, new RequestCallBack<String>() {
 
@@ -211,7 +228,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         homeViewPageLayout = (RelativeLayout) LayoutInflater.from(getActivity()).inflate(R.layout.home_page_layout, null);
         MenuLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_menu, null);
         Eventlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.event_layout, null);
-        Discountlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.home_discount__layout, null);
+        Discountlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.home_discount_layout, null);
         Themelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.theme_layout, null);
         Brandlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.brand_layout, null);
         Guesslikelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.guess_like_layout, null);
@@ -224,18 +241,32 @@ public class HomeFragment extends Fragment implements IXListViewListener,
      */
     private void initView() {
 
+        homePager = (ViewPager) homeViewPageLayout.findViewById(R.id.pager);
         ll_Point = (LinearLayout) homeViewPageLayout.findViewById(R.id.ll_home_point);
+
+
         ll_discount01 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_01);
         ll_discount02 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_02);
         ll_discount03 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_03);
         iv_discount01 = (ImageView) Discountlayout.findViewById(R.id.iv_A0_discount01);
+        tv_discount01_name = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount01_name);
         tv_discount01_price = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount01_price);
         tv_discount01_groupbuy_price = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount01_groupbuy_price);
 
+        iv_discount02 = (ImageView) Discountlayout.findViewById(R.id.iv_A0_discount02);
+        tv_discount02_name = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount02_name);
+        tv_discount02_price = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount02_price);
+        tv_discount02_groupbuy_price = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount02_groupbuy_price);
+
+        iv_discount03 = (ImageView) Discountlayout.findViewById(R.id.iv_A0_discount03);
+        tv_discount03_name = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount03_name);
+        tv_discount03_price = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount03_price);
+        tv_discount03_groupbuy_price = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount03_groupbuy_price);
+
 
         tv = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount01_groupbuy_price);
-        tv1 = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount02_original_price);
-        tv2 = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount03_original_price);
+        tv1 = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount02_groupbuy_price);
+        tv2 = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount03_groupbuy_price);
         tv.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);//文件中间加下划线，加上后面的属性字体更清晰一些
         tv1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);//文件中间加下划线，加上后面的属性字体更清晰一些
         tv2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);//文件中间加下划线，加上后面的属性字体更清晰一些
