@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
@@ -26,6 +27,8 @@ import com.wjhgw.R;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.GroupBuy;
 import com.wjhgw.business.bean.GroupBuy_Data;
+import com.wjhgw.business.bean.Guess_Like;
+import com.wjhgw.business.bean.Guess_Like_Datas;
 import com.wjhgw.business.bean.Home_Pager;
 import com.wjhgw.business.bean.Home_Pager_Data;
 import com.wjhgw.config.ApiInterface;
@@ -70,18 +73,32 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private List<Home_Pager_Data> data = new ArrayList<>();
     private GroupBuy groupBuys;
     private List<GroupBuy_Data> groupBuy_data = new ArrayList<>();
-    private ImageView iv_discount01;
+    private ImageView iv_discount01_image;
     private TextView tv_discount01_name;
     private TextView tv_discount01_price;
     private TextView tv_discount01_groupbuy_price;
-    private ImageView iv_discount02;
+    private ImageView iv_discount02_iamge;
     private TextView tv_discount02_name;
     private TextView tv_discount02_price;
     private TextView tv_discount02_groupbuy_price;
-    private ImageView iv_discount03;
+    private ImageView iv_discount03_iamge;
     private TextView tv_discount03_name;
     private TextView tv_discount03_price;
     private TextView tv_discount03_groupbuy_price;
+    private Guess_Like guess_like;
+    private List<Guess_Like_Datas> guess_like_datases = new ArrayList<>();
+    private ImageView iv_guessLike01_image;
+    private TextView tv_guessLike01_name;
+    private TextView tv_guessLike01_price;
+    private ImageView iv_guessLike02_image;
+    private TextView tv_guessLike02_name;
+    private TextView tv_guessLike02_price;
+    private ImageView iv_guessLike03_image;
+    private TextView tv_guessLike03_name;
+    private TextView tv_guessLike03_price;
+    private ImageView iv_guessLike04_image;
+    private TextView tv_guessLike04_name;
+    private TextView tv_guessLike04_price;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -106,6 +123,11 @@ public class HomeFragment extends Fragment implements IXListViewListener,
          * 请求折扣街数据
          */
         loadGroupBuy();
+
+        /**
+         *  请求猜你喜欢数据
+         */
+        loadGuessLike();
         homePager.addOnPageChangeListener(this);
 
         handler = new Handler() {
@@ -136,6 +158,49 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         return homeLayout;
     }
 
+    private void loadGuessLike() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("num", "4");
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Guess_Like, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    guess_like = gson.fromJson(responseInfo.result, Guess_Like.class);
+
+                    if (guess_like != null && guess_like.status.code == 10000) {
+                        guess_like_datases.clear();
+                        guess_like_datases.addAll(guess_like.datas);
+
+                        APP.getApp().getImageLoader().displayImage(guess_like_datases.get(0).goods_image, iv_guessLike01_image);
+                        tv_guessLike01_name.setText(guess_like_datases.get(0).goods_name);
+                        tv_guessLike01_price.setText(guess_like_datases.get(0).goods_price);
+
+                        APP.getApp().getImageLoader().displayImage(guess_like_datases.get(1).goods_image, iv_guessLike02_image);
+                        tv_guessLike02_name.setText(guess_like_datases.get(1).goods_name);
+                        tv_guessLike02_price.setText(guess_like_datases.get(1).goods_price);
+
+                        APP.getApp().getImageLoader().displayImage(guess_like_datases.get(2).goods_image, iv_guessLike03_image);
+                        tv_guessLike03_name.setText(guess_like_datases.get(2).goods_name);
+                        tv_guessLike03_price.setText(guess_like_datases.get(2).goods_price);
+
+                        APP.getApp().getImageLoader().displayImage(guess_like_datases.get(3).goods_image, iv_guessLike04_image);
+                        tv_guessLike04_name.setText(guess_like_datases.get(3).goods_name);
+                        tv_guessLike04_price.setText(guess_like_datases.get(3).goods_price);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+            }
+        });
+    }
+
     /**
      * 请求折扣街数据
      */
@@ -152,20 +217,20 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                         groupBuy_data.clear();
                         groupBuy_data.addAll(groupBuys.datas);
 
-                                String imagUrl = groupBuy_data.get(0).groupbuy_image;
-                                APP.getApp().getImageLoader().displayImage(imagUrl, iv_discount01);
-                                tv_discount01_name.setText(groupBuy_data.get(0).goods_name);
-                                tv_discount01_price.setText("¥" + groupBuy_data.get(0).goods_price);
-                                tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(0).groupbuy_price);
+                        String imagUrl = groupBuy_data.get(0).groupbuy_image;
+                        APP.getApp().getImageLoader().displayImage(imagUrl, iv_discount01_image);
+                        tv_discount01_name.setText(groupBuy_data.get(0).goods_name);
+                        tv_discount01_price.setText("¥" + groupBuy_data.get(0).goods_price);
+                        tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(0).groupbuy_price);
 
                         String imagUrl2 = groupBuy_data.get(1).groupbuy_image;
-                        APP.getApp().getImageLoader().displayImage(imagUrl2, iv_discount02);
+                        APP.getApp().getImageLoader().displayImage(imagUrl2, iv_discount02_iamge);
                         tv_discount02_name.setText(groupBuy_data.get(1).goods_name);
                         tv_discount02_price.setText("¥" + groupBuy_data.get(1).goods_price);
                         tv_discount02_groupbuy_price.setText("¥" + groupBuy_data.get(1).groupbuy_price);
 
                         String imagUrl3 = groupBuy_data.get(2).groupbuy_image;
-                        APP.getApp().getImageLoader().displayImage(imagUrl3, iv_discount03);
+                        APP.getApp().getImageLoader().displayImage(imagUrl3, iv_discount03_iamge);
                         tv_discount03_name.setText(groupBuy_data.get(2).goods_name);
                         tv_discount03_price.setText("¥" + groupBuy_data.get(2).goods_price);
                         tv_discount03_groupbuy_price.setText("¥" + groupBuy_data.get(2).groupbuy_price);
@@ -175,12 +240,13 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
             @Override
             public void onFailure(HttpException e, String s) {
-
+                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
             }
         });
 
 
     }
+
     /**
      * 请求首页焦点图
      */
@@ -248,25 +314,41 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         ll_discount01 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_01);
         ll_discount02 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_02);
         ll_discount03 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_03);
-        iv_discount01 = (ImageView) Discountlayout.findViewById(R.id.iv_A0_discount01);
-        tv_discount01_name = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount01_name);
-        tv_discount01_price = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount01_price);
-        tv_discount01_groupbuy_price = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount01_groupbuy_price);
+        iv_discount01_image = (ImageView) Discountlayout.findViewById(R.id.iv_discount01_iamge);
+        tv_discount01_name = (TextView) Discountlayout.findViewById(R.id.tv_discount01_name);
+        tv_discount01_price = (TextView) Discountlayout.findViewById(R.id.tv_discount01_price);
+        tv_discount01_groupbuy_price = (TextView) Discountlayout.findViewById(R.id.tv_discount01_groupbuy_price);
 
-        iv_discount02 = (ImageView) Discountlayout.findViewById(R.id.iv_A0_discount02);
-        tv_discount02_name = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount02_name);
-        tv_discount02_price = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount02_price);
-        tv_discount02_groupbuy_price = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount02_groupbuy_price);
+        iv_discount02_iamge = (ImageView) Discountlayout.findViewById(R.id.iv_discount02_image);
+        tv_discount02_name = (TextView) Discountlayout.findViewById(R.id.tv_discount02_name);
+        tv_discount02_price = (TextView) Discountlayout.findViewById(R.id.tv_discount02_price);
+        tv_discount02_groupbuy_price = (TextView) Discountlayout.findViewById(R.id.tv_discount02_groupbuy_price);
 
-        iv_discount03 = (ImageView) Discountlayout.findViewById(R.id.iv_A0_discount03);
-        tv_discount03_name = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount03_name);
-        tv_discount03_price = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount03_price);
-        tv_discount03_groupbuy_price = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount03_groupbuy_price);
+        iv_discount03_iamge = (ImageView) Discountlayout.findViewById(R.id.iv_discount03_image);
+        tv_discount03_name = (TextView) Discountlayout.findViewById(R.id.tv_discount03_name);
+        tv_discount03_price = (TextView) Discountlayout.findViewById(R.id.tv_discount03_price);
+        tv_discount03_groupbuy_price = (TextView) Discountlayout.findViewById(R.id.tv_discount03_groupbuy_price);
+
+        iv_guessLike01_image = (ImageView) Guesslikelayout.findViewById(R.id.iv_guess_like01_image);
+        tv_guessLike01_name = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like01_name);
+        tv_guessLike01_price = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like01_price);
+
+        iv_guessLike02_image = (ImageView) Guesslikelayout.findViewById(R.id.iv_guess_like02_image);
+        tv_guessLike02_name = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like02_name);
+        tv_guessLike02_price = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like02_price);
+
+        iv_guessLike03_image = (ImageView) Guesslikelayout.findViewById(R.id.iv_guess_like03_image);
+        tv_guessLike03_name = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like03_name);
+        tv_guessLike03_price = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like03_price);
+
+        iv_guessLike04_image = (ImageView) Guesslikelayout.findViewById(R.id.iv_guess_like04_image);
+        tv_guessLike04_name = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like04_name);
+        tv_guessLike04_price = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like04_price);
 
 
-        tv = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount01_groupbuy_price);
-        tv1 = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount02_groupbuy_price);
-        tv2 = (TextView) Discountlayout.findViewById(R.id.tv_A0_discount03_groupbuy_price);
+        tv = (TextView) Discountlayout.findViewById(R.id.tv_discount01_groupbuy_price);
+        tv1 = (TextView) Discountlayout.findViewById(R.id.tv_discount02_groupbuy_price);
+        tv2 = (TextView) Discountlayout.findViewById(R.id.tv_discount03_groupbuy_price);
         tv.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);//文件中间加下划线，加上后面的属性字体更清晰一些
         tv1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);//文件中间加下划线，加上后面的属性字体更清晰一些
         tv2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);//文件中间加下划线，加上后面的属性字体更清晰一些

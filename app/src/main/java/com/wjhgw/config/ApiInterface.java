@@ -7,9 +7,14 @@ public class ApiInterface {
      */
     public static final String Home_pager = "/mobile/index.php?act=index&op=index_ad";
     /**
-     *
+     *折扣街接口
      */
     public static final String Group_Buy = "/mobile/index.php?act=index&op=groupbuy_list";
+    /**
+     * 猜你喜欢接口
+     */
+    public static final String Guess_Like = "/mobile/index.php?act=index&op=guess_like";
+
     /**
      * 商品列表接口
      */

@@ -3,6 +3,7 @@ package com.wjhgw.base;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.wjhgw.R;
 
@@ -73,5 +74,14 @@ public class BaseActivity extends AppCompatActivity {
         if (animation) {
             overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
         }
+    }
+
+
+    public void showToastShort(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void showToastLong(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

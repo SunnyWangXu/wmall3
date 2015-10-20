@@ -50,6 +50,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/iv_guess_like01_image"
                 android:layout_width="match_parent"
                 android:layout_height="136dp"
                 android:layout_gravity="center"
@@ -59,6 +60,7 @@
                 android:src="@mipmap/default_image" />
 
             <TextView
+                android:id="@+id/tv_guess_like01_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="14dp"
@@ -71,6 +73,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tv_guess_like01_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -91,6 +94,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/iv_guess_like02_image"
                 android:layout_width="match_parent"
                 android:layout_height="136dp"
                 android:layout_gravity="center"
@@ -100,6 +104,7 @@
                 android:src="@mipmap/default_image" />
 
             <TextView
+                android:id="@+id/tv_guess_like02_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="14dp"
@@ -112,6 +117,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tv_guess_like02_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -139,6 +145,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/iv_guess_like03_image"
                 android:layout_width="match_parent"
                 android:layout_height="136dp"
                 android:layout_gravity="center"
@@ -148,6 +155,7 @@
                 android:src="@mipmap/default_image" />
 
             <TextView
+                android:id="@+id/tv_guess_like03_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="14dp"
@@ -160,6 +168,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tv_guess_like03_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -180,6 +189,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/iv_guess_like04_image"
                 android:layout_width="match_parent"
                 android:layout_height="136dp"
                 android:layout_gravity="center"
@@ -189,6 +199,7 @@
                 android:src="@mipmap/default_image" />
 
             <TextView
+                android:id="@+id/tv_guess_like04_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="14dp"
@@ -201,6 +212,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tv_guess_like04_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
