@@ -158,134 +158,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         return homeLayout;
     }
 
-    private void loadGuessLike() {
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("num", "4");
-
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Guess_Like, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                Gson gson = new Gson();
-                if (responseInfo != null) {
-                    guess_like = gson.fromJson(responseInfo.result, Guess_Like.class);
-
-                    if (guess_like != null && guess_like.status.code == 10000) {
-                        guess_like_datases.clear();
-                        guess_like_datases.addAll(guess_like.datas);
-
-                        APP.getApp().getImageLoader().displayImage(guess_like_datases.get(0).goods_image, iv_guessLike01_image);
-                        tv_guessLike01_name.setText(guess_like_datases.get(0).goods_name);
-                        tv_guessLike01_price.setText(guess_like_datases.get(0).goods_price);
-
-                        APP.getApp().getImageLoader().displayImage(guess_like_datases.get(1).goods_image, iv_guessLike02_image);
-                        tv_guessLike02_name.setText(guess_like_datases.get(1).goods_name);
-                        tv_guessLike02_price.setText(guess_like_datases.get(1).goods_price);
-
-                        APP.getApp().getImageLoader().displayImage(guess_like_datases.get(2).goods_image, iv_guessLike03_image);
-                        tv_guessLike03_name.setText(guess_like_datases.get(2).goods_name);
-                        tv_guessLike03_price.setText(guess_like_datases.get(2).goods_price);
-
-                        APP.getApp().getImageLoader().displayImage(guess_like_datases.get(3).goods_image, iv_guessLike04_image);
-                        tv_guessLike04_name.setText(guess_like_datases.get(3).goods_name);
-                        tv_guessLike04_price.setText(guess_like_datases.get(3).goods_price);
-
-                    }
-                }
-
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-
-            }
-        });
-    }
-
-    /**
-     * 请求折扣街数据
-     */
-    private void loadGroupBuy() {
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Group_Buy, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-
-                Gson gson = new Gson();
-                if (responseInfo != null) {
-                    groupBuys = gson.fromJson(responseInfo.result, GroupBuy.class);
-
-                    if (groupBuys.status.code == 10000) {
-                        groupBuy_data.clear();
-                        groupBuy_data.addAll(groupBuys.datas);
-
-                        String imagUrl = groupBuy_data.get(0).groupbuy_image;
-                        APP.getApp().getImageLoader().displayImage(imagUrl, iv_discount01_image);
-                        tv_discount01_name.setText(groupBuy_data.get(0).goods_name);
-                        tv_discount01_price.setText("¥" + groupBuy_data.get(0).goods_price);
-                        tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(0).groupbuy_price);
-
-                        String imagUrl2 = groupBuy_data.get(1).groupbuy_image;
-                        APP.getApp().getImageLoader().displayImage(imagUrl2, iv_discount02_iamge);
-                        tv_discount02_name.setText(groupBuy_data.get(1).goods_name);
-                        tv_discount02_price.setText("¥" + groupBuy_data.get(1).goods_price);
-                        tv_discount02_groupbuy_price.setText("¥" + groupBuy_data.get(1).groupbuy_price);
-
-                        String imagUrl3 = groupBuy_data.get(2).groupbuy_image;
-                        APP.getApp().getImageLoader().displayImage(imagUrl3, iv_discount03_iamge);
-                        tv_discount03_name.setText(groupBuy_data.get(2).goods_name);
-                        tv_discount03_price.setText("¥" + groupBuy_data.get(2).goods_price);
-                        tv_discount03_groupbuy_price.setText("¥" + groupBuy_data.get(2).groupbuy_price);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-    }
-
-    /**
-     * 请求首页焦点图
-     */
-    private void loadHomePager() {
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Home_pager, new RequestCallBack<String>() {
-
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                Gson gson = new Gson();
-                if (responseInfo != null) {
-                    home_pager = gson.fromJson(responseInfo.result, Home_Pager.class);
-
-                    if (home_pager.status.code == 10000) {
-                        data.clear();
-
-                        if (home_pager.datas != null) {
-                            data.addAll(home_pager.datas);
-                        }
-                    }
-                }
-                if (data.size() != 0 && data != null) {
-
-                    //适配首页焦点图
-                    mPagerAdapter = new HomePagerAdapter(getActivity(), data);
-                    homePager.setAdapter(mPagerAdapter);
-                    /**
-                     * 添加圆点
-                     */
-                    addPoints();
-                }
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
     /**
      * 视图加载 要添加的视图
      */
@@ -464,6 +336,136 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    /**
+     * 请求首页焦点图
+     */
+    private void loadHomePager() {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Home_pager, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    home_pager = gson.fromJson(responseInfo.result, Home_Pager.class);
+
+                    if (home_pager.status.code == 10000) {
+                        data.clear();
+
+                        if (home_pager.datas != null) {
+                            data.addAll(home_pager.datas);
+                        }
+                    }
+                }
+                if (data.size() != 0 && data != null) {
+
+                    //适配首页焦点图
+                    mPagerAdapter = new HomePagerAdapter(getActivity(), data);
+                    homePager.setAdapter(mPagerAdapter);
+                    /**
+                     * 添加圆点
+                     */
+                    addPoints();
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    /**
+     * 请求折扣街数据
+     */
+    private void loadGroupBuy() {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Group_Buy, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    groupBuys = gson.fromJson(responseInfo.result, GroupBuy.class);
+
+                    if (groupBuys.status.code == 10000) {
+                        groupBuy_data.clear();
+                        groupBuy_data.addAll(groupBuys.datas);
+
+                        String imagUrl = groupBuy_data.get(0).groupbuy_image;
+                        APP.getApp().getImageLoader().displayImage(imagUrl, iv_discount01_image);
+                        tv_discount01_name.setText(groupBuy_data.get(0).goods_name);
+                        tv_discount01_price.setText("¥" + groupBuy_data.get(0).goods_price);
+                        tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(0).groupbuy_price);
+
+                        String imagUrl2 = groupBuy_data.get(1).groupbuy_image;
+                        APP.getApp().getImageLoader().displayImage(imagUrl2, iv_discount02_iamge);
+                        tv_discount02_name.setText(groupBuy_data.get(1).goods_name);
+                        tv_discount02_price.setText("¥" + groupBuy_data.get(1).goods_price);
+                        tv_discount02_groupbuy_price.setText("¥" + groupBuy_data.get(1).groupbuy_price);
+
+                        String imagUrl3 = groupBuy_data.get(2).groupbuy_image;
+                        APP.getApp().getImageLoader().displayImage(imagUrl3, iv_discount03_iamge);
+                        tv_discount03_name.setText(groupBuy_data.get(2).goods_name);
+                        tv_discount03_price.setText("¥" + groupBuy_data.get(2).goods_price);
+                        tv_discount03_groupbuy_price.setText("¥" + groupBuy_data.get(2).groupbuy_price);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * 请求猜你喜欢数据
+     */
+    private void loadGuessLike() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("num", "4");
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Guess_Like, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    guess_like = gson.fromJson(responseInfo.result, Guess_Like.class);
+
+                    if (guess_like != null && guess_like.status.code == 10000) {
+                        guess_like_datases.clear();
+                        guess_like_datases.addAll(guess_like.datas);
+
+                        APP.getApp().getImageLoader().displayImage(guess_like_datases.get(0).goods_image, iv_guessLike01_image);
+                        tv_guessLike01_name.setText(guess_like_datases.get(0).goods_name);
+                        tv_guessLike01_price.setText(guess_like_datases.get(0).goods_price);
+
+                        APP.getApp().getImageLoader().displayImage(guess_like_datases.get(1).goods_image, iv_guessLike02_image);
+                        tv_guessLike02_name.setText(guess_like_datases.get(1).goods_name);
+                        tv_guessLike02_price.setText(guess_like_datases.get(1).goods_price);
+
+                        APP.getApp().getImageLoader().displayImage(guess_like_datases.get(2).goods_image, iv_guessLike03_image);
+                        tv_guessLike03_name.setText(guess_like_datases.get(2).goods_name);
+                        tv_guessLike03_price.setText(guess_like_datases.get(2).goods_price);
+
+                        APP.getApp().getImageLoader().displayImage(guess_like_datases.get(3).goods_image, iv_guessLike04_image);
+                        tv_guessLike04_name.setText(guess_like_datases.get(3).goods_name);
+                        tv_guessLike04_price.setText(guess_like_datases.get(3).goods_price);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
