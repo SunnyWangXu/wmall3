@@ -38,18 +38,17 @@
 
         </LinearLayout>
 
-
         <TextView
             android:id="@+id/tv_guess_refresh"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="15dp"
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:text="换一批"
-            android:textColor="@color/light_gray"
+            android:textColor="@color/tv_red"
             android:textSize="12sp" />
 
     </RelativeLayout>
