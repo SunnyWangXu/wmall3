@@ -128,6 +128,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private Auction_super_value auction_super_value;
     private TextView tvRefresh;
     private Timer timer;
+    private int START = 1;
     private static Long countdown1;
     private static Long countdown2;
     private static Long countdown3;
@@ -383,7 +384,24 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
     @Override
     public void onRefresh(int id) {
+        START++;
+        /**
+         * 请求首页焦点图
+         */
+        loadHomePager();
+        /**
+         * 请求拍卖和团购数据
+         */
+        auction_super_value();
+        /**
+         * 请求折扣街数据
+         */
+        loadGroupBuy();
 
+        /**
+         *  请求猜你喜欢数据
+         */
+        loadGuessLike();
     }
 
     @Override
@@ -476,7 +494,9 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                     /**
                      * 添加圆点
                      */
-                    addPoints();
+                    if(START == 1){
+                        addPoints();
+                    }
                 }
             }
 
@@ -506,8 +526,10 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                         countdown2 = auction_super_value.datas.auction_goods.count_dowm_time;
                         tv_home_click.setText(auction_super_value.datas.auction_goods.goods_click + "次围观");
                         tv_home_name.setText(auction_super_value.datas.auction_goods.goods_name);
-                        Countdown(1);
-                        Countdown(2);
+                        if(START == 1){
+                            Countdown(1);
+                            Countdown(2);
+                        }
                     }
                 }
             }
@@ -543,7 +565,9 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                             tv_discount01_price.setText("¥" + groupBuy_data.get(0).goods_price);
                             tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(0).groupbuy_price);
                             countdown3 = groupBuy_data.get(0).count_down;
-                            Countdown(3);
+                            if(START == 1) {
+                                Countdown(3);
+                            }
 
 
                             String imagUrl2 = groupBuy_data.get(1).groupbuy_image;
@@ -552,15 +576,18 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                             tv_discount02_price.setText("¥" + groupBuy_data.get(1).goods_price);
                             tv_discount02_groupbuy_price.setText("¥" + groupBuy_data.get(1).groupbuy_price);
                             countdown4 = groupBuy_data.get(1).count_down;
-                            Countdown(4);
-
+                            if(START == 1) {
+                                Countdown(4);
+                            }
                             String imagUrl3 = groupBuy_data.get(2).groupbuy_image;
                             APP.getApp().getImageLoader().displayImage(imagUrl3, iv_discount03_iamge);
                             tv_discount03_name.setText(groupBuy_data.get(2).goods_name);
                             tv_discount03_price.setText("¥" + groupBuy_data.get(2).goods_price);
                             tv_discount03_groupbuy_price.setText("¥" + groupBuy_data.get(2).groupbuy_price);
                             countdown5 = groupBuy_data.get(2).count_down;
-                            Countdown(5);
+                            if(START == 1) {
+                                Countdown(5);
+                            }
                         }
 
                     }
