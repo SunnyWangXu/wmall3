@@ -108,7 +108,7 @@
                         android:textSize="10sp" />
 
                     <TextView
-                        android:id="@+id/tv_A0_discount01_hour"
+                        android:id="@+id/time7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
@@ -119,7 +119,7 @@
                         android:textSize="10sp" />
 
                     <TextView
-                        android:id="@+id/tv_A0_discount_minute"
+                        android:id="@+id/time8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
@@ -130,7 +130,7 @@
                         android:textSize="10sp" />
 
                     <TextView
-                        android:id="@+id/tv_A0_discount01_second"
+                        android:id="@+id/time9"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
@@ -246,7 +246,7 @@
                         android:textSize="10sp" />
 
                     <TextView
-                        android:id="@+id/tv_A0_discount02_hour"
+                        android:id="@+id/time10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
@@ -257,7 +257,7 @@
                         android:textSize="10sp" />
 
                     <TextView
-                        android:id="@+id/tv_A0_discount02_minute"
+                        android:id="@+id/time11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
@@ -268,7 +268,7 @@
                         android:textSize="10sp" />
 
                     <TextView
-                        android:id="@+id/tv_A0_discount02_second"
+                        android:id="@+id/time12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
@@ -381,7 +381,7 @@
                         android:textSize="10sp" />
 
                     <TextView
-                        android:id="@+id/tv_A0_discount03_hour"
+                        android:id="@+id/time13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
@@ -392,7 +392,7 @@
                         android:textSize="10sp" />
 
                     <TextView
-                        android:id="@+id/tv_A0_discount03_minute"
+                        android:id="@+id/time14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
@@ -403,7 +403,7 @@
                         android:textSize="10sp" />
 
                     <TextView
-                        android:id="@+id/tv_A0_discount03_second"
+                        android:id="@+id/time15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"

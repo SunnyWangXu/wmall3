@@ -72,6 +72,16 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private TextView time4;
     private TextView time5;
     private TextView time6;
+    private TextView time7;
+    private TextView time8;
+    private TextView time9;
+    private TextView time10;
+    private TextView time11;
+    private TextView time12;
+    private TextView time13;
+    private TextView time14;
+    private TextView time15;
+
     private TextView tv_home_click;
     private TextView tv_home_name;
     private ImageView iv_home_group_purchase;
@@ -212,6 +222,15 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         tv_discount01_name = (TextView) Discountlayout.findViewById(R.id.tv_discount01_name);
         tv_discount01_price = (TextView) Discountlayout.findViewById(R.id.tv_discount01_price);
         tv_discount01_groupbuy_price = (TextView) Discountlayout.findViewById(R.id.tv_discount01_groupbuy_price);
+        time7 = (TextView) Discountlayout.findViewById(R.id.time7);
+        time8 = (TextView) Discountlayout.findViewById(R.id.time8);
+        time9 = (TextView) Discountlayout.findViewById(R.id.time9);
+        time10 = (TextView) Discountlayout.findViewById(R.id.time10);
+        time11 = (TextView) Discountlayout.findViewById(R.id.time11);
+        time12 = (TextView) Discountlayout.findViewById(R.id.time12);
+        time13 = (TextView) Discountlayout.findViewById(R.id.time13);
+        time14 = (TextView) Discountlayout.findViewById(R.id.time14);
+        time15 = (TextView) Discountlayout.findViewById(R.id.time15);
 
         iv_discount02_iamge = (ImageView) Discountlayout.findViewById(R.id.iv_discount02_image);
         tv_discount02_name = (TextView) Discountlayout.findViewById(R.id.tv_discount02_name);
@@ -465,18 +484,22 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                             tv_discount01_name.setText(groupBuy_data.get(0).goods_name);
                             tv_discount01_price.setText("¥" + groupBuy_data.get(0).goods_price);
                             tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(0).groupbuy_price);
+                            secToTime(groupBuy_data.get(0).count_down, 2);
+
 
                             String imagUrl2 = groupBuy_data.get(1).groupbuy_image;
                             APP.getApp().getImageLoader().displayImage(imagUrl2, iv_discount02_iamge);
                             tv_discount02_name.setText(groupBuy_data.get(1).goods_name);
                             tv_discount02_price.setText("¥" + groupBuy_data.get(1).goods_price);
                             tv_discount02_groupbuy_price.setText("¥" + groupBuy_data.get(1).groupbuy_price);
+                            secToTime(groupBuy_data.get(1).count_down, 3);
 
                             String imagUrl3 = groupBuy_data.get(2).groupbuy_image;
                             APP.getApp().getImageLoader().displayImage(imagUrl3, iv_discount03_iamge);
                             tv_discount03_name.setText(groupBuy_data.get(2).goods_name);
                             tv_discount03_price.setText("¥" + groupBuy_data.get(2).goods_price);
                             tv_discount03_groupbuy_price.setText("¥" + groupBuy_data.get(2).groupbuy_price);
+                            secToTime(groupBuy_data.get(2).count_down, 4);
                         }
 
                     }
@@ -561,6 +584,21 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 df = new DecimalFormat("00");
                 time5.setText(df.format(seconds));
                 time6.setText(df.format(minutes));
+            }else if (s == 2) {
+                time7.setText(df.format(hours));
+                df = new DecimalFormat("00");
+                time8.setText(df.format(seconds));
+                time9.setText(df.format(minutes));
+            }else if (s == 3) {
+                time10.setText(df.format(hours));
+                df = new DecimalFormat("00");
+                time11.setText(df.format(seconds));
+                time12.setText(df.format(minutes));
+            }else if (s == 4) {
+                time13.setText(df.format(hours));
+                df = new DecimalFormat("00");
+                time14.setText(df.format(seconds));
+                time15.setText(df.format(minutes));
             }
 
         } else {
@@ -572,6 +610,18 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 time4.setText("000");
                 time5.setText("00");
                 time6.setText("00");
+            }else if (s == 2) {
+                time7.setText("000");
+                time8.setText("00");
+                time9.setText("00");
+            }else if (s == 3) {
+                time10.setText("000");
+                time11.setText("00");
+                time12.setText("00");
+            }else if (s == 4) {
+                time13.setText("000");
+                time14.setText("00");
+                time15.setText("00");
             }
         }
     }

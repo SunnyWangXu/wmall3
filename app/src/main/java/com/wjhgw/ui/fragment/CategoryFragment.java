@@ -113,7 +113,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
      */
     private void goods_class1() {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", "b961e533cb73bb5f9b4dce25e38a6f76");
+        params.addBodyParameter("key", "3996efbde147ab4fad52fe9ad68fffcd");
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Goods_class, params, new RequestCallBack<String>() {
 
             @Override
@@ -145,7 +145,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
      */
     private void goods_class2(String gc_id) {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", "b961e533cb73bb5f9b4dce25e38a6f76");
+        params.addBodyParameter("key", "3996efbde147ab4fad52fe9ad68fffcd");
         params.addBodyParameter("gc_id", gc_id);
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Goods_class1, params, new RequestCallBack<String>() {
 
