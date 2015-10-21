@@ -123,6 +123,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private TextView tv_guessLike04_price;
 
     private Auction_super_value auction_super_value;
+    private TextView tvRefresh;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -271,6 +272,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         tv_guessLike04_name = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like04_name);
         tv_guessLike04_price = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like04_price);
 
+        tvRefresh = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_refresh);
 
         tv = (TextView) Discountlayout.findViewById(R.id.tv_discount01_groupbuy_price);
         tv1 = (TextView) Discountlayout.findViewById(R.id.tv_discount02_groupbuy_price);
@@ -314,6 +316,8 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         ll_discount01.setOnClickListener(this);
         ll_discount02.setOnClickListener(this);
         ll_discount03.setOnClickListener(this);
+
+        tvRefresh.setOnClickListener(this);
     }
 
     /**
@@ -363,6 +367,11 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 intent.setClass(getActivity(), PrductDetail.class);
                 startActivity(intent);
                 break;
+            case R.id.tv_guess_refresh:
+
+                loadGuessLike();
+                break;
+
             default:
                 break;
 
