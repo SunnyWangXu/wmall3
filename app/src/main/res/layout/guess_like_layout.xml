@@ -7,18 +7,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="94dp"
-        android:layout_marginRight="94dp"
         android:background="@android:color/transparent"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="70dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
             android:scaleType="fitXY"
-            android:layout_marginBottom="8dp"
             android:src="@mipmap/ic_guess_like" />
 
         <TextView
@@ -28,8 +27,20 @@
             android:layout_margin="10dp"
             android:gravity="center"
             android:text="猜你喜欢"
-            android:textColor="@color/lightgray"
+            android:textColor="@color/light_gray"
             android:textSize="15sp" />
+
+       <!-- <view
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:text="换一批看看"
+            android:textSize="15sp" />-->
     </LinearLayout>
 
     <View

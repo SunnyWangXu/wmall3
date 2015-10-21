@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="距结束"
-                android:textColor="@color/lightgray" />
+                android:textColor="@color/light_gray" />
 
             <TextView
                 android:id="@+id/time1"
@@ -128,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="距开始"
-                android:textColor="@color/lightgray" />
+                android:textColor="@color/light_gray" />
             <TextView
                 android:id="@+id/time4"
                 android:layout_width="36dp"

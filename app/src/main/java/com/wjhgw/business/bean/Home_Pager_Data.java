@@ -1,7 +1,7 @@
 package com.wjhgw.business.bean;
 
 /**
- * Created by Administrator on 2015/10/12 0012.
+ * 首頁焦点图详情
  */
 public class Home_Pager_Data {
     public  String adv_pic;

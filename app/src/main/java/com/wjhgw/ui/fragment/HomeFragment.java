@@ -161,6 +161,9 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             }
         };
 
+        /**
+         * 给ListView添加视图
+         */
         listAddHeader();
 
         mListView.setPullLoadEnable(false);
@@ -453,25 +456,29 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
                     if (groupBuys.status.code == 10000) {
                         groupBuy_data.clear();
-                        groupBuy_data.addAll(groupBuys.datas);
 
-                        String imagUrl = groupBuy_data.get(0).groupbuy_image;
-                        APP.getApp().getImageLoader().displayImage(imagUrl, iv_discount01_image);
-                        tv_discount01_name.setText(groupBuy_data.get(0).goods_name);
-                        tv_discount01_price.setText("¥" + groupBuy_data.get(0).goods_price);
-                        tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(0).groupbuy_price);
+                        if (groupBuys.datas != null) {
+                            groupBuy_data.addAll(groupBuys.datas);
 
-                        String imagUrl2 = groupBuy_data.get(1).groupbuy_image;
-                        APP.getApp().getImageLoader().displayImage(imagUrl2, iv_discount02_iamge);
-                        tv_discount02_name.setText(groupBuy_data.get(1).goods_name);
-                        tv_discount02_price.setText("¥" + groupBuy_data.get(1).goods_price);
-                        tv_discount02_groupbuy_price.setText("¥" + groupBuy_data.get(1).groupbuy_price);
+                            String imagUrl = groupBuy_data.get(0).groupbuy_image;
+                            APP.getApp().getImageLoader().displayImage(imagUrl, iv_discount01_image);
+                            tv_discount01_name.setText(groupBuy_data.get(0).goods_name);
+                            tv_discount01_price.setText("¥" + groupBuy_data.get(0).goods_price);
+                            tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(0).groupbuy_price);
 
-                        String imagUrl3 = groupBuy_data.get(2).groupbuy_image;
-                        APP.getApp().getImageLoader().displayImage(imagUrl3, iv_discount03_iamge);
-                        tv_discount03_name.setText(groupBuy_data.get(2).goods_name);
-                        tv_discount03_price.setText("¥" + groupBuy_data.get(2).goods_price);
-                        tv_discount03_groupbuy_price.setText("¥" + groupBuy_data.get(2).groupbuy_price);
+                            String imagUrl2 = groupBuy_data.get(1).groupbuy_image;
+                            APP.getApp().getImageLoader().displayImage(imagUrl2, iv_discount02_iamge);
+                            tv_discount02_name.setText(groupBuy_data.get(1).goods_name);
+                            tv_discount02_price.setText("¥" + groupBuy_data.get(1).goods_price);
+                            tv_discount02_groupbuy_price.setText("¥" + groupBuy_data.get(1).groupbuy_price);
+
+                            String imagUrl3 = groupBuy_data.get(2).groupbuy_image;
+                            APP.getApp().getImageLoader().displayImage(imagUrl3, iv_discount03_iamge);
+                            tv_discount03_name.setText(groupBuy_data.get(2).goods_name);
+                            tv_discount03_price.setText("¥" + groupBuy_data.get(2).goods_price);
+                            tv_discount03_groupbuy_price.setText("¥" + groupBuy_data.get(2).groupbuy_price);
+                        }
+
                     }
                 }
             }
@@ -499,23 +506,27 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
                     if (guess_like != null && guess_like.status.code == 10000) {
                         guess_like_datases.clear();
-                        guess_like_datases.addAll(guess_like.datas);
 
-                        APP.getApp().getImageLoader().displayImage(guess_like_datases.get(0).goods_image, iv_guessLike01_image);
-                        tv_guessLike01_name.setText(guess_like_datases.get(0).goods_name);
-                        tv_guessLike01_price.setText(guess_like_datases.get(0).goods_price);
+                        if (guess_like.datas != null) {
+                            guess_like_datases.addAll(guess_like.datas);
 
-                        APP.getApp().getImageLoader().displayImage(guess_like_datases.get(1).goods_image, iv_guessLike02_image);
-                        tv_guessLike02_name.setText(guess_like_datases.get(1).goods_name);
-                        tv_guessLike02_price.setText(guess_like_datases.get(1).goods_price);
+                            APP.getApp().getImageLoader().displayImage(guess_like_datases.get(0).goods_image, iv_guessLike01_image);
+                            tv_guessLike01_name.setText(guess_like_datases.get(0).goods_name);
+                            tv_guessLike01_price.setText(guess_like_datases.get(0).goods_price);
 
-                        APP.getApp().getImageLoader().displayImage(guess_like_datases.get(2).goods_image, iv_guessLike03_image);
-                        tv_guessLike03_name.setText(guess_like_datases.get(2).goods_name);
-                        tv_guessLike03_price.setText(guess_like_datases.get(2).goods_price);
+                            APP.getApp().getImageLoader().displayImage(guess_like_datases.get(1).goods_image, iv_guessLike02_image);
+                            tv_guessLike02_name.setText(guess_like_datases.get(1).goods_name);
+                            tv_guessLike02_price.setText(guess_like_datases.get(1).goods_price);
 
-                        APP.getApp().getImageLoader().displayImage(guess_like_datases.get(3).goods_image, iv_guessLike04_image);
-                        tv_guessLike04_name.setText(guess_like_datases.get(3).goods_name);
-                        tv_guessLike04_price.setText(guess_like_datases.get(3).goods_price);
+                            APP.getApp().getImageLoader().displayImage(guess_like_datases.get(2).goods_image, iv_guessLike03_image);
+                            tv_guessLike03_name.setText(guess_like_datases.get(2).goods_name);
+                            tv_guessLike03_price.setText(guess_like_datases.get(2).goods_price);
+
+                            APP.getApp().getImageLoader().displayImage(guess_like_datases.get(3).goods_image, iv_guessLike04_image);
+                            tv_guessLike04_name.setText(guess_like_datases.get(3).goods_name);
+                            tv_guessLike04_price.setText(guess_like_datases.get(3).goods_price);
+                        }
+
 
                     }
                 }
