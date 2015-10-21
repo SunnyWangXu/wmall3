@@ -41,7 +41,10 @@ import com.wjhgw.ui.view.listview.adapter.HomePagerAdapter;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HomeFragment extends Fragment implements IXListViewListener,
         View.OnClickListener, ViewPager.OnPageChangeListener {
@@ -124,6 +127,50 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
     private Auction_super_value auction_super_value;
     private TextView tvRefresh;
+    private Timer timer;
+    private static Long countdown1;
+    private static Long countdown2;
+    private static Long countdown3;
+    private static Long countdown4;
+    private static Long countdown5;
+    private Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+                    if (countdown1 > 0) {
+                        countdown1--;
+                        secToTime(countdown1, 1);
+                    }
+                    break;
+                case 2:
+                    if (countdown2 > 0) {
+                        countdown2--;
+                        secToTime(countdown2, 2);
+                    }
+                    break;
+                case 3:
+                    if (countdown3 > 0) {
+                        countdown3--;
+                        secToTime(countdown3, 3);
+                    }
+                    break;
+                case 4:
+                    if (countdown4 > 0) {
+                        countdown4--;
+                        secToTime(countdown4, 4);
+                    }
+                    break;
+                case 5:
+                    if (countdown5 > 0) {
+                        countdown5--;
+                        secToTime(countdown5, 5);
+                    }
+                    break;
+                default:
+                    // 所做的操作
+            }
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -455,10 +502,12 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                     if (auction_super_value.status.code == 10000) {
                         APP.getApp().getImageLoader().displayImage(auction_super_value.datas.super_value_goods.ap_ad_image, iv_home_group_purchase, APP.getApp().getImageOptions());
                         APP.getApp().getImageLoader().displayImage(auction_super_value.datas.auction_goods.goods_image, iv_home_auction, APP.getApp().getImageOptions());
-                        secToTime(auction_super_value.datas.auction_goods.count_dowm_time, 0);
-                        secToTime(auction_super_value.datas.auction_goods.count_dowm_time, 1);
+                        countdown1 = auction_super_value.datas.super_value_goods.count_dowm_time;
+                        countdown2 = auction_super_value.datas.auction_goods.count_dowm_time;
                         tv_home_click.setText(auction_super_value.datas.auction_goods.goods_click + "次围观");
                         tv_home_name.setText(auction_super_value.datas.auction_goods.goods_name);
+                        Countdown(1);
+                        Countdown(2);
                     }
                 }
             }
@@ -493,7 +542,8 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                             tv_discount01_name.setText(groupBuy_data.get(0).goods_name);
                             tv_discount01_price.setText("¥" + groupBuy_data.get(0).goods_price);
                             tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(0).groupbuy_price);
-                            secToTime(groupBuy_data.get(0).count_down, 2);
+                            countdown3 = groupBuy_data.get(0).count_down;
+                            Countdown(3);
 
 
                             String imagUrl2 = groupBuy_data.get(1).groupbuy_image;
@@ -501,14 +551,16 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                             tv_discount02_name.setText(groupBuy_data.get(1).goods_name);
                             tv_discount02_price.setText("¥" + groupBuy_data.get(1).goods_price);
                             tv_discount02_groupbuy_price.setText("¥" + groupBuy_data.get(1).groupbuy_price);
-                            secToTime(groupBuy_data.get(1).count_down, 3);
+                            countdown4 = groupBuy_data.get(1).count_down;
+                            Countdown(4);
 
                             String imagUrl3 = groupBuy_data.get(2).groupbuy_image;
                             APP.getApp().getImageLoader().displayImage(imagUrl3, iv_discount03_iamge);
                             tv_discount03_name.setText(groupBuy_data.get(2).goods_name);
                             tv_discount03_price.setText("¥" + groupBuy_data.get(2).goods_price);
                             tv_discount03_groupbuy_price.setText("¥" + groupBuy_data.get(2).groupbuy_price);
-                            secToTime(groupBuy_data.get(2).count_down, 4);
+                            countdown5 = groupBuy_data.get(2).count_down;
+                            Countdown(5);
                         }
 
                     }
@@ -558,11 +610,8 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                             tv_guessLike04_name.setText(guess_like_datases.get(3).goods_name);
                             tv_guessLike04_price.setText(guess_like_datases.get(3).goods_price);
                         }
-
-
                     }
                 }
-
             }
 
             @Override
@@ -572,9 +621,26 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         });
     }
 
+    public void Countdown(final int i) {
+       /* if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }*/
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                Message msg = mHandler.obtainMessage();
+                msg.what = i;
+                mHandler.sendMessage(msg);
+            }
+        }, new Date(), 1000);
+    }
+
     /**
      * @param timeStr
-     * @param s       0代表团购，1代表拍卖
+     * @param s       1代表团购，2代表拍卖,3为折扣街商品1,4为折扣街商品2，5为折扣街商品3
      */
     public void secToTime(long timeStr, int s) {
         if (timeStr > 0) {
@@ -583,51 +649,50 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             long seconds = Math
                     .abs((timeStr - hours * 60 * 60 - minutes * 60));
             DecimalFormat df = new DecimalFormat("000");
-            if (s == 0) {
+            if (s == 1) {
                 time1.setText(df.format(hours));
                 df = new DecimalFormat("00");
                 time2.setText(df.format(minutes));
                 time3.setText(df.format(seconds));
-            } else if (s == 1) {
+            } else if (s == 2) {
                 time4.setText(df.format(hours));
                 df = new DecimalFormat("00");
-                time5.setText(df.format(seconds));
-                time6.setText(df.format(minutes));
-            }else if (s == 2) {
+                time5.setText(df.format(minutes));
+                time6.setText(df.format(seconds));
+            } else if (s == 3) {
                 time7.setText(df.format(hours));
                 df = new DecimalFormat("00");
-                time8.setText(df.format(seconds));
-                time9.setText(df.format(minutes));
-            }else if (s == 3) {
+                time8.setText(df.format(minutes));
+                time9.setText(df.format(seconds));
+            } else if (s == 4) {
                 time10.setText(df.format(hours));
                 df = new DecimalFormat("00");
-                time11.setText(df.format(seconds));
-                time12.setText(df.format(minutes));
-            }else if (s == 4) {
+                time11.setText(df.format(minutes));
+                time12.setText(df.format(seconds));
+            } else if (s == 5) {
                 time13.setText(df.format(hours));
                 df = new DecimalFormat("00");
-                time14.setText(df.format(seconds));
-                time15.setText(df.format(minutes));
+                time14.setText(df.format(minutes));
+                time15.setText(df.format(seconds));
             }
-
         } else {
-            if (s == 0) {
+            if (s == 1) {
                 time1.setText("000");
                 time3.setText("00");
                 time2.setText("00");
-            } else if (s == 1) {
+            } else if (s == 2) {
                 time4.setText("000");
                 time5.setText("00");
                 time6.setText("00");
-            }else if (s == 2) {
+            } else if (s == 3) {
                 time7.setText("000");
                 time8.setText("00");
                 time9.setText("00");
-            }else if (s == 3) {
+            } else if (s == 4) {
                 time10.setText("000");
                 time11.setText("00");
                 time12.setText("00");
-            }else if (s == 4) {
+            } else if (s == 5) {
                 time13.setText("000");
                 time14.setText("00");
                 time15.setText("00");
