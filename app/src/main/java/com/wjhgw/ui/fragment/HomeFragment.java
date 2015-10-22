@@ -32,6 +32,7 @@ import com.wjhgw.business.bean.Guess_Like;
 import com.wjhgw.business.bean.Guess_Like_Datas;
 import com.wjhgw.business.bean.Home_Pager;
 import com.wjhgw.business.bean.Home_Pager_Data;
+import com.wjhgw.business.bean.Theme_street;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.PrductDetail;
@@ -85,6 +86,27 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private TextView time14;
     private TextView time15;
 
+    private TextView theme_name1;
+    private TextView theme_name2;
+    private TextView theme_name3;
+    private TextView theme_name4;
+    private TextView theme_name5;
+    private TextView theme_name6;
+
+    private TextView theme_desc1;
+    private TextView theme_desc2;
+    private TextView theme_desc3;
+    private TextView theme_desc4;
+    private TextView theme_desc5;
+    private TextView theme_desc6;
+
+    private ImageView theme_image1;
+    private ImageView theme_image2;
+    private ImageView theme_image3;
+    private ImageView theme_image4;
+    private ImageView theme_image5;
+    private ImageView theme_image6;
+
     private TextView tv_home_click;
     private TextView tv_home_name;
     private ImageView iv_home_group_purchase;
@@ -112,6 +134,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private TextView tv_discount03_groupbuy_price;
     private Guess_Like guess_like;
     private List<Guess_Like_Datas> guess_like_datases = new ArrayList<>();
+    private Theme_street theme_street;
     private ImageView iv_guessLike01_image;
     private TextView tv_guessLike01_name;
     private TextView tv_guessLike01_price;
@@ -203,6 +226,11 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         loadGroupBuy();
 
         /**
+         * 主题街数据请求
+         */
+        theme_street();
+
+        /**
          *  请求猜你喜欢数据
          */
         loadGuessLike();
@@ -280,6 +308,27 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         time13 = (TextView) Discountlayout.findViewById(R.id.time13);
         time14 = (TextView) Discountlayout.findViewById(R.id.time14);
         time15 = (TextView) Discountlayout.findViewById(R.id.time15);
+
+        theme_name1 = (TextView) Themelayout.findViewById(R.id.tv_theme_name1);
+        theme_name2 = (TextView) Themelayout.findViewById(R.id.tv_theme_name2);
+        theme_name3 = (TextView) Themelayout.findViewById(R.id.tv_theme_name3);
+        theme_name4 = (TextView) Themelayout.findViewById(R.id.tv_theme_name4);
+        theme_name5 = (TextView) Themelayout.findViewById(R.id.tv_theme_name5);
+        theme_name6 = (TextView) Themelayout.findViewById(R.id.tv_theme_name6);
+
+        theme_desc1 = (TextView) Themelayout.findViewById(R.id.tv_theme_desc1);
+        theme_desc2 = (TextView) Themelayout.findViewById(R.id.tv_theme_desc2);
+        theme_desc3 = (TextView) Themelayout.findViewById(R.id.tv_theme_desc3);
+        theme_desc4 = (TextView) Themelayout.findViewById(R.id.tv_theme_desc4);
+        theme_desc5 = (TextView) Themelayout.findViewById(R.id.tv_theme_desc5);
+        theme_desc6 = (TextView) Themelayout.findViewById(R.id.tv_theme_desc6);
+
+        theme_image1 = (ImageView) Themelayout.findViewById(R.id.iv_theme_image1);
+        theme_image2 = (ImageView) Themelayout.findViewById(R.id.iv_theme_image2);
+        theme_image3 = (ImageView) Themelayout.findViewById(R.id.iv_theme_image3);
+        theme_image4 = (ImageView) Themelayout.findViewById(R.id.iv_theme_image4);
+        theme_image5 = (ImageView) Themelayout.findViewById(R.id.iv_theme_image5);
+        theme_image6 = (ImageView) Themelayout.findViewById(R.id.iv_theme_image6);
 
         iv_discount02_iamge = (ImageView) Discountlayout.findViewById(R.id.iv_discount02_image);
         tv_discount02_name = (TextView) Discountlayout.findViewById(R.id.tv_discount02_name);
@@ -397,6 +446,11 @@ public class HomeFragment extends Fragment implements IXListViewListener,
          * 请求折扣街数据
          */
         loadGroupBuy();
+
+        /**
+         * 主题街数据请求
+         */
+        theme_street();
 
         /**
          *  请求猜你喜欢数据
@@ -597,6 +651,52 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             @Override
             public void onFailure(HttpException e, String s) {
                 Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * 主题街数据请求
+     */
+    private void theme_street() {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Theme_street, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    theme_street = gson.fromJson(responseInfo.result, Theme_street.class);
+
+                    if (theme_street.status.code == 10000) {
+                        theme_name1.setText(theme_street.datas.get(0).theme_name);
+                        theme_desc1.setText(theme_street.datas.get(0).theme_desc);
+                        APP.getApp().getImageLoader().displayImage(theme_street.datas.get(0).theme_image, theme_image1, APP.getApp().getImageOptions());
+
+                        theme_name2.setText(theme_street.datas.get(1).theme_name);
+                        theme_desc2.setText(theme_street.datas.get(1).theme_desc);
+                        APP.getApp().getImageLoader().displayImage(theme_street.datas.get(1).theme_image, theme_image2, APP.getApp().getImageOptions());
+
+                        theme_name3.setText(theme_street.datas.get(2).theme_name);
+                        theme_desc3.setText(theme_street.datas.get(2).theme_desc);
+                        APP.getApp().getImageLoader().displayImage(theme_street.datas.get(2).theme_image, theme_image3, APP.getApp().getImageOptions());
+
+                        theme_name4.setText(theme_street.datas.get(3).theme_name);
+                        theme_desc4.setText(theme_street.datas.get(3).theme_desc);
+                        APP.getApp().getImageLoader().displayImage(theme_street.datas.get(3).theme_image, theme_image4, APP.getApp().getImageOptions());
+
+                        theme_name5.setText(theme_street.datas.get(4).theme_name);
+                        theme_desc5.setText(theme_street.datas.get(4).theme_desc);
+                        APP.getApp().getImageLoader().displayImage(theme_street.datas.get(4).theme_image, theme_image5, APP.getApp().getImageOptions());
+
+                        theme_name6.setText(theme_street.datas.get(5).theme_name);
+                        theme_desc6.setText(theme_street.datas.get(5).theme_desc);
+                        APP.getApp().getImageLoader().displayImage(theme_street.datas.get(5).theme_image, theme_image6, APP.getApp().getImageOptions());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
             }
         });
     }

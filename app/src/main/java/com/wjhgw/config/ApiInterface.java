@@ -13,7 +13,10 @@ public class ApiInterface {
     /**
      *折扣街
      */
-    public static final String Group_Buy = "/mobile/index.php?act=index&op=groupbuy_list";
+    public static final String Group_Buy = "/mobile/index.php?act=index&op=groupbuy_list";/**
+     *主题街
+     */
+    public static final String Theme_street = "/mobile/index.php?act=index&op=theme_street";
     /**
      * 猜你喜欢接口
      */
