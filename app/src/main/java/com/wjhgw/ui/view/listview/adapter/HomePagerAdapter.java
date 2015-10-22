@@ -48,7 +48,7 @@ public class HomePagerAdapter extends PagerAdapter {
 
         ImageView image = new ImageView(context);
         String imageUrl = data.get(position % imageSize).adv_pic;
-        APP.getApp().getImageLoader().displayImage(imageUrl, image);
+        APP.getApp().getImageLoader().displayImage(imageUrl, image, APP.getApp().getImageOptions());
         container.addView(image);
         return image;
     }

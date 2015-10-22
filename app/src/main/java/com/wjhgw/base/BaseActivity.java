@@ -10,7 +10,7 @@ import com.wjhgw.R;
 /**
  * Created by Lance on 15/8/19.
  */
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +21,59 @@ public class BaseActivity extends AppCompatActivity {
         this.getSupportActionBar().hide();
     }
 
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+
+        // 调用顺序
+        onInit();
+        onFindViews();
+        onInitViewData();
+        onBindListener();
+    }
+    /**
+     * 初始化 优先顺序：<br/>
+     * <font color=red>onInit();</font><br/>
+     * onFindViews();<br/>
+     * onInitViewData();<br/>
+     * onBindListener();<br/>
+     */
+    public abstract void onInit();
+
+    /**
+     * 查找控件 <br/>
+     * 优先顺序：<br/>
+     * onInit();<br/>
+     * <font color=red>onFindViews();</font><br/>
+     * onInitViewData();<br/>
+     * onBindListener();<br/>
+     */
+    public abstract void onFindViews();
+
+    /**
+     * 初始化控件内容 优先顺序：<br/>
+     * onInit();<br/>
+     * onFindViews();<br/>
+     * <font color=red>onInitViewData();</font><br/>
+     * onBindListener();<br/>
+     */
+    public abstract void onInitViewData();
+
+    /**
+     * 注册控件事件 优先顺序：<br/>
+     * onInit();<br/>
+     * onFindViews();<br/>
+     * onInitViewData();<br/>
+     * <font color=red>onBindListener();</font><br/>
+     */
+    public abstract void onBindListener();
+
+    /**
+     * 打开滑动退出此Activity的功能 <功能详细描述>
+     *
+     * @param isOpen
+     * @see [类、类#方法、类#成员]
+     */
     @Override
     protected void onStart() {
         super.onStart();

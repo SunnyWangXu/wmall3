@@ -51,27 +51,10 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a0_login_layout);
-        iv_title_back = (ImageView) findViewById(R.id.iv_title_back);
-        tv_title_name = (TextView) findViewById(R.id.tv_title_name);
-
-        et_name = (EditText) findViewById(R.id.et_a0_name);
-        et_password = (EditText) findViewById(R.id.et_a0_password);
-        iv_delete = (ImageView) findViewById(R.id.iv_a0_delete);
-        iv_delete1 = (ImageView) findViewById(R.id.iv_a0_delete1);
-        tv_next = (TextView) findViewById(R.id.tv_a0_next);
-        tv_registered = (TextView) findViewById(R.id.tv_a0_registered);
-        tv_a0_tback = (TextView) findViewById(R.id.tv_a0_tback);
-        tv_back = (TextView) findViewById(R.id.tv_a0_tback);
 
         tv_title_name.setText("登录");
 
-        iv_delete.setOnClickListener(this);
-        iv_delete1.setOnClickListener(this);
-        tv_next.setOnClickListener(this);
-        tv_registered.setOnClickListener(this);
-        tv_back.setOnClickListener(this);
-        iv_title_back.setOnClickListener(this);
-        tv_a0_tback.setOnClickListener(this);
+
         et_name.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -116,6 +99,44 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
             public void afterTextChanged(Editable s) {
             }
         });
+    }
+
+    @Override
+    public void onInit() {
+
+    }
+
+    @Override
+    public void onFindViews() {
+        iv_title_back = (ImageView) findViewById(R.id.iv_title_back);
+        tv_title_name = (TextView) findViewById(R.id.tv_title_name);
+
+        et_name = (EditText) findViewById(R.id.et_a0_name);
+        et_password = (EditText) findViewById(R.id.et_a0_password);
+        iv_delete = (ImageView) findViewById(R.id.iv_a0_delete);
+        iv_delete1 = (ImageView) findViewById(R.id.iv_a0_delete1);
+        tv_next = (TextView) findViewById(R.id.tv_a0_next);
+        tv_registered = (TextView) findViewById(R.id.tv_a0_registered);
+        tv_a0_tback = (TextView) findViewById(R.id.tv_a0_tback);
+        tv_back = (TextView) findViewById(R.id.tv_a0_tback);
+
+    }
+
+    @Override
+    public void onInitViewData() {
+
+    }
+
+    @Override
+    public void onBindListener() {
+        iv_delete.setOnClickListener(this);
+        iv_delete1.setOnClickListener(this);
+        tv_next.setOnClickListener(this);
+        tv_registered.setOnClickListener(this);
+        tv_back.setOnClickListener(this);
+        iv_title_back.setOnClickListener(this);
+        tv_a0_tback.setOnClickListener(this);
+
     }
 
     @Override

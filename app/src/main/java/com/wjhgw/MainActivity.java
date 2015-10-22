@@ -48,20 +48,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         setContentView(R.layout.activity_main);
 
-        initViews();
         fragmentManager = getSupportFragmentManager();
         setTabSelection(0);
     }
 
-    /**
-     * 在这里获取到每个需要用到的控件的实例，并给它们设置好必要的点击事件。
-     */
-    private void initViews() {
+    @Override
+    public void onInit() {
         index_Layout = findViewById(R.id.index_layout);
         classification_layout = findViewById(R.id.classification_layout);
         contacts_Layout = findViewById(R.id.contacts_layout);
         shopping_car_Layout = findViewById(R.id.shopping_car_layout);
         setting_Layout = findViewById(R.id.setting_layout);
+    }
+
+    @Override
+    public void onFindViews() {
         indexImage = (ImageView) findViewById(R.id.index_image);
         classification_image = (ImageView) findViewById(R.id.classification_image);
         contactsImage = (ImageView) findViewById(R.id.contacts_image);
@@ -72,6 +73,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         contactsText = (TextView) findViewById(R.id.contacts_text);
         shopping_car_text = (TextView) findViewById(R.id.shopping_car_text);
         settingText = (TextView) findViewById(R.id.setting_text);
+    }
+
+    @Override
+    public void onInitViewData() {
+
+    }
+
+    @Override
+    public void onBindListener() {
         index_Layout.setOnClickListener(this);
         classification_layout.setOnClickListener(this);
         contacts_Layout.setOnClickListener(this);

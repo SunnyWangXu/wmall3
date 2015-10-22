@@ -210,7 +210,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
          * 初始化控件
          */
         initView();
-        homePager = (ViewPager) homeViewPageLayout.findViewById(R.id.pager);
 
         /**
          * 请求首页焦点图
@@ -290,7 +289,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
         homePager = (ViewPager) homeViewPageLayout.findViewById(R.id.pager);
         ll_Point = (LinearLayout) homeViewPageLayout.findViewById(R.id.ll_home_point);
-
 
         ll_discount01 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_01);
         ll_discount02 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_02);
@@ -614,10 +612,10 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                             groupBuy_data.addAll(groupBuys.datas);
 
                             String imagUrl = groupBuy_data.get(0).groupbuy_image;
-                            APP.getApp().getImageLoader().displayImage(imagUrl, iv_discount01_image);
+                            APP.getApp().getImageLoader().displayImage(imagUrl, iv_discount01_image, APP.getApp().getImageOptions());
                             tv_discount01_name.setText(groupBuy_data.get(0).goods_name);
-                            tv_discount01_price.setText("¥" + groupBuy_data.get(0).goods_price);
-                            tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(0).groupbuy_price);
+                            tv_discount01_price.setText("¥" + groupBuy_data.get(0).groupbuy_price);
+                            tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(0).goods_price);
                             countdown3 = groupBuy_data.get(0).count_down;
                             if(START == 1) {
                                 Countdown(3);
@@ -625,19 +623,19 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
 
                             String imagUrl2 = groupBuy_data.get(1).groupbuy_image;
-                            APP.getApp().getImageLoader().displayImage(imagUrl2, iv_discount02_iamge);
+                            APP.getApp().getImageLoader().displayImage(imagUrl2, iv_discount02_iamge, APP.getApp().getImageOptions());
                             tv_discount02_name.setText(groupBuy_data.get(1).goods_name);
-                            tv_discount02_price.setText("¥" + groupBuy_data.get(1).goods_price);
-                            tv_discount02_groupbuy_price.setText("¥" + groupBuy_data.get(1).groupbuy_price);
+                            tv_discount02_price.setText("¥" + groupBuy_data.get(1).groupbuy_price);
+                            tv_discount02_groupbuy_price.setText("¥" + groupBuy_data.get(1).goods_price);
                             countdown4 = groupBuy_data.get(1).count_down;
                             if(START == 1) {
                                 Countdown(4);
                             }
                             String imagUrl3 = groupBuy_data.get(2).groupbuy_image;
-                            APP.getApp().getImageLoader().displayImage(imagUrl3, iv_discount03_iamge);
+                            APP.getApp().getImageLoader().displayImage(imagUrl3, iv_discount03_iamge, APP.getApp().getImageOptions());
                             tv_discount03_name.setText(groupBuy_data.get(2).goods_name);
-                            tv_discount03_price.setText("¥" + groupBuy_data.get(2).goods_price);
-                            tv_discount03_groupbuy_price.setText("¥" + groupBuy_data.get(2).groupbuy_price);
+                            tv_discount03_price.setText("¥" + groupBuy_data.get(2).groupbuy_price);
+                            tv_discount03_groupbuy_price.setText("¥" + groupBuy_data.get(2).goods_price);
                             countdown5 = groupBuy_data.get(2).count_down;
                             if(START == 1) {
                                 Countdown(5);
@@ -651,6 +649,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             @Override
             public void onFailure(HttpException e, String s) {
                 Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
+                APP.getApp().getImageLoader().getDiskCache();
             }
         });
     }

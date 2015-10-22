@@ -46,18 +46,9 @@ public class VerificationCodeActivity extends BaseActivity implements BusinessRe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.verification_code_layout);
-        iv_title_back = (ImageView) findViewById(R.id.iv_title_back);
-        tv_title_name = (TextView) findViewById(R.id.tv_title_name);
-        et_editText = (EditText) findViewById(R.id.et_editext);
-        tv_verificationcode = (TextView) findViewById(R.id.tv_verificationcode);
-        iv_delete = (ImageView) findViewById(R.id.iv_delete);
-        tv_state = (TextView) findViewById(R.id.tv_state);
-        tv_next = (TextView) findViewById(R.id.tv_next);
+
         tv_title_name.setText("验证验证码");
-        iv_delete.setOnClickListener(this);
-        tv_next.setOnClickListener(this);
-        tv_verificationcode.setOnClickListener(this);
-        iv_title_back.setOnClickListener(this);
+
         et_editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -91,6 +82,35 @@ public class VerificationCodeActivity extends BaseActivity implements BusinessRe
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("member_mobile", Number);
         Request.Verification_code(hashMap, BaseQuery.serviceUrl() + ApiInterface.VerificationCode);
+    }
+
+    @Override
+    public void onInit() {
+
+    }
+
+    @Override
+    public void onFindViews() {
+        iv_title_back = (ImageView) findViewById(R.id.iv_title_back);
+        tv_title_name = (TextView) findViewById(R.id.tv_title_name);
+        et_editText = (EditText) findViewById(R.id.et_editext);
+        tv_verificationcode = (TextView) findViewById(R.id.tv_verificationcode);
+        iv_delete = (ImageView) findViewById(R.id.iv_delete);
+        tv_state = (TextView) findViewById(R.id.tv_state);
+        tv_next = (TextView) findViewById(R.id.tv_next);
+    }
+
+    @Override
+    public void onInitViewData() {
+
+    }
+
+    @Override
+    public void onBindListener() {
+        iv_delete.setOnClickListener(this);
+        tv_next.setOnClickListener(this);
+        tv_verificationcode.setOnClickListener(this);
+        iv_title_back.setOnClickListener(this);
     }
 
     @Override

@@ -36,16 +36,9 @@ public class A1_RegisterActivity1 extends BaseActivity implements BusinessRespon
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a1_register_layout1);
-        iv_title_back = (ImageView) findViewById(R.id.iv_title_back);
-        tv_title_name = (TextView) findViewById(R.id.tv_title_name);
-        et_name = (EditText) findViewById(R.id.et_a1_name);
-        iv_delete = (ImageView) findViewById(R.id.iv_a1_delete);
-        tv_next = (TextView) findViewById(R.id.tv_a1_next);
+
         tv_title_name.setText("注册");
 
-        iv_delete.setOnClickListener(this);
-        tv_next.setOnClickListener(this);
-        iv_title_back.setOnClickListener(this);
         et_name.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -70,6 +63,33 @@ public class A1_RegisterActivity1 extends BaseActivity implements BusinessRespon
         });
         Request = new Registered_Request(this);
         Request.addResponseListener(this);
+    }
+
+    @Override
+    public void onInit() {
+
+    }
+
+    @Override
+    public void onFindViews() {
+        iv_title_back = (ImageView) findViewById(R.id.iv_title_back);
+        tv_title_name = (TextView) findViewById(R.id.tv_title_name);
+        et_name = (EditText) findViewById(R.id.et_a1_name);
+        iv_delete = (ImageView) findViewById(R.id.iv_a1_delete);
+        tv_next = (TextView) findViewById(R.id.tv_a1_next);
+    }
+
+    @Override
+    public void onInitViewData() {
+
+    }
+
+    @Override
+    public void onBindListener() {
+        iv_delete.setOnClickListener(this);
+        tv_next.setOnClickListener(this);
+        iv_title_back.setOnClickListener(this);
+
     }
 
     @Override
