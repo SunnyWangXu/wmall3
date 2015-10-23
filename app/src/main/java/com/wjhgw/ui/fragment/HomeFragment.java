@@ -666,7 +666,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 if (responseInfo != null) {
                     theme_street = gson.fromJson(responseInfo.result, Theme_street.class);
 
-                    if (theme_street.status.code == 10000) {
+                    if (theme_street.status.code == 10000 && theme_street.datas.size() == 6) {
                         theme_name1.setText(theme_street.datas.get(0).theme_name);
                         theme_desc1.setText(theme_street.datas.get(0).theme_desc);
                         APP.getApp().getImageLoader().displayImage(theme_street.datas.get(0).theme_image, theme_image1, APP.getApp().getImageOptions());
