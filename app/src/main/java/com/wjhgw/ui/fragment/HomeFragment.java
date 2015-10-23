@@ -552,7 +552,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                     }
                 }
 
-
                 handler.sendEmptyMessageDelayed(HANDLERID, 3000);
             }
 
