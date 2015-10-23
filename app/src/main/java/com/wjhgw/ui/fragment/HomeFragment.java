@@ -233,8 +233,8 @@ public class HomeFragment extends Fragment implements IXListViewListener,
          *  请求猜你喜欢数据
          */
         loadGuessLike();
-        homePager.addOnPageChangeListener(this);
 
+        homePager.addOnPageChangeListener(this);
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -246,6 +246,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 }
             }
         };
+
 
         /**
          * 给ListView添加视图
@@ -546,10 +547,13 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                     /**
                      * 添加圆点
                      */
-                    if(START == 1){
+                    if(START == 1 && data != null){
                         addPoints();
                     }
                 }
+
+
+                handler.sendEmptyMessageDelayed(HANDLERID, 3000);
             }
 
             @Override
@@ -829,7 +833,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     @Override
     public void onResume() {
         super.onResume();
-        handler.sendEmptyMessageDelayed(HANDLERID, 3000);
+
     }
 
     @Override
