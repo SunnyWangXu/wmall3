@@ -646,6 +646,8 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                         }
 
                     }
+                    mListView.stopRefresh();
+                    mListView.setRefreshTime();
                 }
             }
 
