@@ -1,7 +1,6 @@
 package com.wjhgw.ui.fragment;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -195,7 +194,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             }
         }
     };
-    String imagUrl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -501,11 +499,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
     @Override
     public void onPageSelected(int position) {
-//
-//        if(data != null ){
-//            point.setBackgroundResource(R.mipmap.dot_unselect);
-//            ll_Point.getChildAt(position % data.size()).setBackgroundResource(R.mipmap.dot_select);
-//        }
 
         for (int i = 0; i < ll_Point.getChildCount(); i++) {
             if (i == position % data.size()) {
@@ -730,6 +723,8 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                     if (START == 1) {
                         Countdown(5);
                     }
+                    mListView.stopRefresh();
+                    mListView.setRefreshTime();
                 }
 
             }
