@@ -88,15 +88,14 @@ private void initUniversalImageLoader()
         // /data/data/com.wjhgw/wjhgw/imageCache
     }
 
-
+    System.out.println("----------------------"+diskCachePath);
     // 设置内存缓存
-    //
     int cacheSize = (int) Runtime.getRuntime().maxMemory() / 8;
 
     configuration =
             new ImageLoaderConfiguration
                     .Builder(getApplicationContext())
-                    .threadPoolSize(5) // 设置线程池线程大小
+                    .threadPoolSize(3) // 设置线程池线程大小
                             // 磁盘缓存位置
                     .diskCache(new UnlimitedDiskCache(new File(diskCachePath)))
                     .diskCacheSize(60 * 1024 * 1024) // 磁盘缓存的大小 60M
@@ -105,7 +104,6 @@ private void initUniversalImageLoader()
                             //.memoryCache(new LruMemoryCache(5 * 1024 * 1024))
                     .memoryCacheSize(cacheSize) // 设置内存缓存大小
                     .build();
-
 
     // init configuration
     mImageLoader.init(configuration);
@@ -119,6 +117,8 @@ private void initUniversalImageLoader()
                     .showImageOnFail(R.mipmap.default_image) // 加载失败显示的图片
                     .bitmapConfig(Bitmap.Config.ARGB_8888) // 设置图片样式 RGB_565 无效，4.0后无效
                     .build();
+
+//            .bitmapConfig(Bitmap.Config.RGB_565)
 }
 
     public static APP getApp() {

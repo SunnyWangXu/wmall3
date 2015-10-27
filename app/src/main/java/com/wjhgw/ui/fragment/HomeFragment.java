@@ -1,6 +1,7 @@
 package com.wjhgw.ui.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -114,7 +115,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
     private LinearLayout ll_Point;
     private ImageView point;
-    private ImageView[] points;
 
     private Home_Pager home_pager;
     private List<Home_Pager_Data> data = new ArrayList<>();
@@ -195,6 +195,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             }
         }
     };
+    String imagUrl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -218,16 +219,15 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         /**
          * 请求拍卖和团购数据
          */
-        auction_super_value();
+        load_auction_super_value();
         /**
          * 请求折扣街数据
          */
         loadGroupBuy();
-
         /**
          * 主题街数据请求
          */
-        theme_street();
+        load_theme_street();
 
         /**
          *  请求猜你喜欢数据
@@ -383,20 +383,16 @@ public class HomeFragment extends Fragment implements IXListViewListener,
      */
     private void addPoints() {
         int size = data.size();
-        points = new ImageView[size];
 
-        for (int i = 0; i < points.length; i++) {
+        for (int i = 0; i < size; i++) {
             point = new ImageView(getActivity());
 
             point.setLayoutParams(new LinearLayout.LayoutParams(20, 20));
-            points[i] = point;
 
             if (i == 0) {
-                points[i]
-                        .setBackgroundResource(R.mipmap.dot_select);
+                point.setBackgroundResource(R.mipmap.dot_select);
             } else {
-                points[i]
-                        .setBackgroundResource(R.mipmap.dot_unselect);
+                point.setBackgroundResource(R.mipmap.dot_unselect);
             }
             // 添加圆点到容器
             ll_Point.addView(point);
@@ -440,16 +436,17 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         /**
          * 请求拍卖和团购数据
          */
-        auction_super_value();
+        load_auction_super_value();
         /**
          * 请求折扣街数据
          */
         loadGroupBuy();
 
+
         /**
          * 主题街数据请求
          */
-        theme_street();
+        load_theme_street();
 
         /**
          *  请求猜你喜欢数据
@@ -504,12 +501,17 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
     @Override
     public void onPageSelected(int position) {
+//
+//        if(data != null ){
+//            point.setBackgroundResource(R.mipmap.dot_unselect);
+//            ll_Point.getChildAt(position % data.size()).setBackgroundResource(R.mipmap.dot_select);
+//        }
 
-        for (int i = 0; i < points.length; i++) {
+        for (int i = 0; i < ll_Point.getChildCount(); i++) {
             if (i == position % data.size()) {
-                points[i].setBackgroundResource(R.mipmap.dot_select);
+                ll_Point.getChildAt(i).setBackgroundResource(R.mipmap.dot_select);
             } else {
-                points[i].setBackgroundResource(R.mipmap.dot_unselect);
+                ll_Point.getChildAt(i).setBackgroundResource(R.mipmap.dot_unselect);
             }
         }
     }
@@ -523,34 +525,38 @@ public class HomeFragment extends Fragment implements IXListViewListener,
      * 请求首页焦点图
      */
     private void loadHomePager() {
+        /**
+         * 取出本地緩存数据
+         */
+        SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_pager", getActivity().MODE_PRIVATE);
+        String homePagerData = preferences.getString("home_pager", "");
+        if (homePagerData != null && homePagerData != "") {
+            /**
+             * 解析首頁焦点图数据，并适配ViewPager
+             */
+            parseHomePagerData(homePagerData);
+            /**
+             * 添加圆点
+             */
+            if (START == 1 && data != null) {
+                addPoints();
+            }
+
+        }
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Home_pager, new RequestCallBack<String>() {
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-                Gson gson = new Gson();
-                if (responseInfo != null) {
-                    home_pager = gson.fromJson(responseInfo.result, Home_Pager.class);
-
-                    if (home_pager.status.code == 10000) {
-                        data.clear();
-
-                        if (home_pager.datas != null) {
-                            data.addAll(home_pager.datas);
-                        }
-                    }
-                }
-                if (data.size() != 0 && data != null) {
-
-                    //适配首页焦点图
-                    mPagerAdapter = new HomePagerAdapter(getActivity(), data);
-                    homePager.setAdapter(mPagerAdapter);
-                    /**
-                     * 添加圆点
-                     */
-                    if(START == 1 && data != null){
-                        addPoints();
-                    }
-                }
+                /**
+                 * 存入数据到本地
+                 */
+                SharedPreferences sf = getActivity().getSharedPreferences("wjhgw_pager", getActivity().MODE_PRIVATE);
+                SharedPreferences.Editor edit = sf.edit();
+                edit.putString("home_pager", responseInfo.result).commit();
+                /**
+                 * 解析首頁焦点图数据，并适配ViewPager
+                 */
+                parseHomePagerData(responseInfo.result);
 
                 handler.sendEmptyMessageDelayed(HANDLERID, 3000);
             }
@@ -563,30 +569,57 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     }
 
     /**
+     * 解析首頁焦点图数据，并适配ViewPager
+     */
+    private void parseHomePagerData(String responseInfoResult) {
+        Gson gson = new Gson();
+        if (responseInfoResult != null) {
+            home_pager = gson.fromJson(responseInfoResult, Home_Pager.class);
+
+            if (home_pager.status.code == 10000) {
+                data.clear();
+
+                if (home_pager.datas != null) {
+                    data.addAll(home_pager.datas);
+                }
+            }
+        }
+        if (data.size() != 0 && data != null) {
+
+            //适配首页焦点图
+            mPagerAdapter = new HomePagerAdapter(getActivity(), data);
+            homePager.setAdapter(mPagerAdapter);
+        }
+    }
+
+    /**
      * 拍卖和团购请求
      */
-    private void auction_super_value() {
+    private void load_auction_super_value() {
+        /**
+         * 取出本地緩存数据
+         */
+        SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_auction", getActivity().MODE_PRIVATE);
+        String auctionSuperValueData = preferences.getString("home_auction_super_value", "");
+        if (auctionSuperValueData != null && auctionSuperValueData != "") {
+            /**
+             * 解析团购和拍卖
+             */
+            parseAuctionSuperValue(auctionSuperValueData);
+        }
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Auction_super_value, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-
-                Gson gson = new Gson();
-                if (responseInfo != null) {
-                    auction_super_value = gson.fromJson(responseInfo.result, Auction_super_value.class);
-
-                    if (auction_super_value.status.code == 10000) {
-                        APP.getApp().getImageLoader().displayImage(auction_super_value.datas.super_value_goods.ap_ad_image, iv_home_group_purchase, APP.getApp().getImageOptions());
-                        APP.getApp().getImageLoader().displayImage(auction_super_value.datas.auction_goods.goods_image, iv_home_auction, APP.getApp().getImageOptions());
-                        countdown1 = auction_super_value.datas.super_value_goods.count_dowm_time;
-                        countdown2 = auction_super_value.datas.auction_goods.count_dowm_time;
-                        tv_home_click.setText(auction_super_value.datas.auction_goods.goods_click + "次围观");
-                        tv_home_name.setText(auction_super_value.datas.auction_goods.goods_name);
-                        if(START == 1){
-                            Countdown(1);
-                            Countdown(2);
-                        }
-                    }
-                }
+                /**
+                 * 存入数据到本地
+                 */
+                SharedPreferences sf = getActivity().getSharedPreferences("wjhgw_auction", getActivity().MODE_PRIVATE);
+                SharedPreferences.Editor edit = sf.edit();
+                edit.putString("home_auction_super_value", responseInfo.result).commit();
+                /**
+                 * 解析团购和拍卖
+                 */
+                parseAuctionSuperValue(responseInfo.result);
             }
 
             @Override
@@ -594,113 +627,186 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
             }
         });
+    }
+
+    /**
+     * 解析团购和拍卖
+     */
+    private void parseAuctionSuperValue(String responseInfoResult) {
+        Gson gson = new Gson();
+        if (responseInfoResult != null) {
+            auction_super_value = gson.fromJson(responseInfoResult, Auction_super_value.class);
+
+            if (auction_super_value.status.code == 10000) {
+                APP.getApp().getImageLoader().displayImage(auction_super_value.datas.super_value_goods.ap_ad_image, iv_home_group_purchase, APP.getApp().getImageOptions());
+                APP.getApp().getImageLoader().displayImage(auction_super_value.datas.auction_goods.goods_image, iv_home_auction, APP.getApp().getImageOptions());
+                countdown1 = auction_super_value.datas.super_value_goods.count_dowm_time;
+                countdown2 = auction_super_value.datas.auction_goods.count_dowm_time;
+                tv_home_click.setText(auction_super_value.datas.auction_goods.goods_click + "次围观");
+                tv_home_name.setText(auction_super_value.datas.auction_goods.goods_name);
+                if (START == 1) {
+                    Countdown(1);
+                    Countdown(2);
+                }
+            }
+        }
     }
 
     /**
      * 请求折扣街数据
      */
     private void loadGroupBuy() {
+        /**
+         * 取出本地緩存数据
+         */
+        SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_groupBuy", getActivity().MODE_PRIVATE);
+        String groupBuy_Data = preferences.getString("home_groupBuy", "");
+        if (groupBuy_Data != null && groupBuy_Data != "") {
+            parseGroupBuyData(groupBuy_Data);
+        }
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Group_Buy, new RequestCallBack<String>() {
+
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-
-                Gson gson = new Gson();
-                if (responseInfo != null) {
-                    groupBuys = gson.fromJson(responseInfo.result, GroupBuy.class);
-
-                    if (groupBuys.status.code == 10000) {
-                        groupBuy_data.clear();
-
-                        if (groupBuys.datas != null) {
-                            groupBuy_data.addAll(groupBuys.datas);
-
-                            String imagUrl = groupBuy_data.get(0).groupbuy_image;
-                            APP.getApp().getImageLoader().displayImage(imagUrl, iv_discount01_image, APP.getApp().getImageOptions());
-                            tv_discount01_name.setText(groupBuy_data.get(0).goods_name);
-                            tv_discount01_price.setText("¥" + groupBuy_data.get(0).groupbuy_price);
-                            tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(0).goods_price);
-                            countdown3 = groupBuy_data.get(0).count_down;
-                            if(START == 1) {
-                                Countdown(3);
-                            }
-
-
-                            String imagUrl2 = groupBuy_data.get(1).groupbuy_image;
-                            APP.getApp().getImageLoader().displayImage(imagUrl2, iv_discount02_iamge, APP.getApp().getImageOptions());
-                            tv_discount02_name.setText(groupBuy_data.get(1).goods_name);
-                            tv_discount02_price.setText("¥" + groupBuy_data.get(1).groupbuy_price);
-                            tv_discount02_groupbuy_price.setText("¥" + groupBuy_data.get(1).goods_price);
-                            countdown4 = groupBuy_data.get(1).count_down;
-                            if(START == 1) {
-                                Countdown(4);
-                            }
-                            String imagUrl3 = groupBuy_data.get(2).groupbuy_image;
-                            APP.getApp().getImageLoader().displayImage(imagUrl3, iv_discount03_iamge, APP.getApp().getImageOptions());
-                            tv_discount03_name.setText(groupBuy_data.get(2).goods_name);
-                            tv_discount03_price.setText("¥" + groupBuy_data.get(2).groupbuy_price);
-                            tv_discount03_groupbuy_price.setText("¥" + groupBuy_data.get(2).goods_price);
-                            countdown5 = groupBuy_data.get(2).count_down;
-                            if(START == 1) {
-                                Countdown(5);
-                            }
-                        }
-
-                    }
-                }
+                /**
+                 * 存入数据到本地
+                 */
+                SharedPreferences sf = getActivity().getSharedPreferences("wjhgw_groupBuy", getActivity().MODE_PRIVATE);
+                SharedPreferences.Editor edit = sf.edit();
+                edit.putString("home_groupBuy", responseInfo.result).commit();
+                /**
+                 * 解析折扣街数据
+                 */
+                parseGroupBuyData(responseInfo.result);
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
                 Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
-                APP.getApp().getImageLoader().getDiskCache();
             }
         });
     }
 
     /**
+     * 解析折扣街数据
+     */
+    private void parseGroupBuyData(String groupBuy_Data) {
+        Gson gson = new Gson();
+        if (groupBuy_Data != null) {
+            groupBuys = gson.fromJson(groupBuy_Data, GroupBuy.class);
+
+            if (groupBuys.status.code == 10000) {
+                groupBuy_data.clear();
+
+                if (groupBuys.datas != null) {
+                    groupBuy_data.addAll(groupBuys.datas);
+
+                    imagUrl = groupBuy_data.get(0).groupbuy_image;
+                    APP.getApp().getImageLoader().displayImage(imagUrl, iv_discount01_image, APP.getApp().getImageOptions());
+                    tv_discount01_name.setText(groupBuy_data.get(0).goods_name);
+                    tv_discount01_price.setText("¥" + groupBuy_data.get(0).groupbuy_price);
+                    tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(0).goods_price);
+                    countdown3 = groupBuy_data.get(0).count_down;
+                    if (START == 1) {
+                        Countdown(3);
+                    }
+
+
+                    String imagUrl2 = groupBuy_data.get(1).groupbuy_image;
+                    APP.getApp().getImageLoader().displayImage(imagUrl2, iv_discount02_iamge, APP.getApp().getImageOptions());
+                    tv_discount02_name.setText(groupBuy_data.get(1).goods_name);
+                    tv_discount02_price.setText("¥" + groupBuy_data.get(1).groupbuy_price);
+                    tv_discount02_groupbuy_price.setText("¥" + groupBuy_data.get(1).goods_price);
+                    countdown4 = groupBuy_data.get(1).count_down;
+                    if (START == 1) {
+                        Countdown(4);
+                    }
+                    String imagUrl3 = groupBuy_data.get(2).groupbuy_image;
+                    APP.getApp().getImageLoader().displayImage(imagUrl3, iv_discount03_iamge, APP.getApp().getImageOptions());
+                    tv_discount03_name.setText(groupBuy_data.get(2).goods_name);
+                    tv_discount03_price.setText("¥" + groupBuy_data.get(2).groupbuy_price);
+                    tv_discount03_groupbuy_price.setText("¥" + groupBuy_data.get(2).goods_price);
+                    countdown5 = groupBuy_data.get(2).count_down;
+                    if (START == 1) {
+                        Countdown(5);
+                    }
+                }
+
+            }
+        }
+    }
+
+    /**
      * 主题街数据请求
      */
-    private void theme_street() {
+    private void load_theme_street() {
+        /**
+         * 取出本地数据
+         */
+        SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_theme_street", getActivity().MODE_PRIVATE);
+        String homeThemeStreetData = preferences.getString("home_theme_street", "");
+        if (homeThemeStreetData != null && homeThemeStreetData != "") {
+            parseThemeStreetData(homeThemeStreetData);
+        }
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Theme_street, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-
-                Gson gson = new Gson();
-                if (responseInfo != null) {
-                    theme_street = gson.fromJson(responseInfo.result, Theme_street.class);
-
-                    if (theme_street.status.code == 10000 && theme_street.datas.size() == 6) {
-                        theme_name1.setText(theme_street.datas.get(0).theme_name);
-                        theme_desc1.setText(theme_street.datas.get(0).theme_desc);
-                        APP.getApp().getImageLoader().displayImage(theme_street.datas.get(0).theme_image, theme_image1, APP.getApp().getImageOptions());
-
-                        theme_name2.setText(theme_street.datas.get(1).theme_name);
-                        theme_desc2.setText(theme_street.datas.get(1).theme_desc);
-                        APP.getApp().getImageLoader().displayImage(theme_street.datas.get(1).theme_image, theme_image2, APP.getApp().getImageOptions());
-
-                        theme_name3.setText(theme_street.datas.get(2).theme_name);
-                        theme_desc3.setText(theme_street.datas.get(2).theme_desc);
-                        APP.getApp().getImageLoader().displayImage(theme_street.datas.get(2).theme_image, theme_image3, APP.getApp().getImageOptions());
-
-                        theme_name4.setText(theme_street.datas.get(3).theme_name);
-                        theme_desc4.setText(theme_street.datas.get(3).theme_desc);
-                        APP.getApp().getImageLoader().displayImage(theme_street.datas.get(3).theme_image, theme_image4, APP.getApp().getImageOptions());
-
-                        theme_name5.setText(theme_street.datas.get(4).theme_name);
-                        theme_desc5.setText(theme_street.datas.get(4).theme_desc);
-                        APP.getApp().getImageLoader().displayImage(theme_street.datas.get(4).theme_image, theme_image5, APP.getApp().getImageOptions());
-
-                        theme_name6.setText(theme_street.datas.get(5).theme_name);
-                        theme_desc6.setText(theme_street.datas.get(5).theme_desc);
-                        APP.getApp().getImageLoader().displayImage(theme_street.datas.get(5).theme_image, theme_image6, APP.getApp().getImageOptions());
-                    }
-                }
+                /**
+                 * 存入本地数据
+                 */
+                SharedPreferences sf = getActivity().getSharedPreferences("wjhgw_theme_street", getActivity().MODE_PRIVATE);
+                SharedPreferences.Editor editor = sf.edit();
+                editor.putString("home_theme_street", responseInfo.result).commit();
+                /**
+                 * 解析主题街数据
+                 * @param responseInfoResult
+                 */
+                parseThemeStreetData(responseInfo.result);
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
+
             }
         });
+    }
+
+    /**
+     * 解析主题街数据
+     *
+     * @param responseInfoResult
+     */
+    private void parseThemeStreetData(String responseInfoResult) {
+        Gson gson = new Gson();
+        if (responseInfoResult != null) {
+            theme_street = gson.fromJson(responseInfoResult, Theme_street.class);
+
+            if (theme_street.status.code == 10000 && theme_street.datas.size() == 6) {
+                theme_name1.setText(theme_street.datas.get(0).theme_name);
+                theme_desc1.setText(theme_street.datas.get(0).theme_desc);
+                APP.getApp().getImageLoader().displayImage(theme_street.datas.get(0).theme_image, theme_image1, APP.getApp().getImageOptions());
+
+                theme_name2.setText(theme_street.datas.get(1).theme_name);
+                theme_desc2.setText(theme_street.datas.get(1).theme_desc);
+                APP.getApp().getImageLoader().displayImage(theme_street.datas.get(1).theme_image, theme_image2, APP.getApp().getImageOptions());
+
+                theme_name3.setText(theme_street.datas.get(2).theme_name);
+                theme_desc3.setText(theme_street.datas.get(2).theme_desc);
+                APP.getApp().getImageLoader().displayImage(theme_street.datas.get(2).theme_image, theme_image3, APP.getApp().getImageOptions());
+
+                theme_name4.setText(theme_street.datas.get(3).theme_name);
+                theme_desc4.setText(theme_street.datas.get(3).theme_desc);
+                APP.getApp().getImageLoader().displayImage(theme_street.datas.get(3).theme_image, theme_image4, APP.getApp().getImageOptions());
+
+                theme_name5.setText(theme_street.datas.get(4).theme_name);
+                theme_desc5.setText(theme_street.datas.get(4).theme_desc);
+                APP.getApp().getImageLoader().displayImage(theme_street.datas.get(4).theme_image, theme_image5, APP.getApp().getImageOptions());
+
+                theme_name6.setText(theme_street.datas.get(5).theme_name);
+                theme_desc6.setText(theme_street.datas.get(5).theme_desc);
+                APP.getApp().getImageLoader().displayImage(theme_street.datas.get(5).theme_image, theme_image6, APP.getApp().getImageOptions());
+            }
+        }
     }
 
     /**
