@@ -1,6 +1,7 @@
 package com.wjhgw.ui.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -661,6 +662,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+
                 /**
                  * 存入数据到本地
                  */
@@ -671,6 +673,8 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                  * 解析折扣街数据
                  */
                 parseGroupBuyData(responseInfo.result);
+                mListView.stopRefresh();
+                mListView.setRefreshTime();
             }
 
             @Override
@@ -694,7 +698,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 if (groupBuys.datas != null) {
                     groupBuy_data.addAll(groupBuys.datas);
 
-                    imagUrl = groupBuy_data.get(0).groupbuy_image;
+                   String imagUrl = groupBuy_data.get(0).groupbuy_image;
                     APP.getApp().getImageLoader().displayImage(imagUrl, iv_discount01_image, APP.getApp().getImageOptions());
                     tv_discount01_name.setText(groupBuy_data.get(0).goods_name);
                     tv_discount01_price.setText("¥" + groupBuy_data.get(0).groupbuy_price);
@@ -723,8 +727,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                     if (START == 1) {
                         Countdown(5);
                     }
-                    mListView.stopRefresh();
-                    mListView.setRefreshTime();
                 }
 
             }
