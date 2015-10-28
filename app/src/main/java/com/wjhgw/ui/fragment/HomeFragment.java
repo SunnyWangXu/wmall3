@@ -50,6 +50,7 @@ import java.util.TimerTask;
 
 public class HomeFragment extends Fragment implements IXListViewListener,
         View.OnClickListener, ViewPager.OnPageChangeListener {
+
     private View homeLayout;
     private LinearLayout MenuLayout;
     private LinearLayout Eventlayout;
@@ -698,7 +699,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 if (groupBuys.datas != null) {
                     groupBuy_data.addAll(groupBuys.datas);
 
-                   String imagUrl = groupBuy_data.get(0).groupbuy_image;
+                    String imagUrl = groupBuy_data.get(0).groupbuy_image;
                     APP.getApp().getImageLoader().displayImage(imagUrl, iv_discount01_image, APP.getApp().getImageOptions());
                     tv_discount01_name.setText(groupBuy_data.get(0).goods_name);
                     tv_discount01_price.setText("¥" + groupBuy_data.get(0).groupbuy_price);

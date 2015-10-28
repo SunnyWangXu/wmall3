@@ -59,67 +59,59 @@ public class APP extends Application {
 
     }
 
-//    File cacheDir = StorageUtils.getOwnCacheDirectory(getApplicationContext(), "imageloader/Cache");
-//    .diskCache(new UnlimitedDiskCache(cacheDir))
-private void initUniversalImageLoader()
-{
-    // 创建ImageLoader,使用getInstance()
-    mImageLoader = ImageLoader.getInstance();
+    private void initUniversalImageLoader() {
+        // 创建ImageLoader,使用getInstance()
+        mImageLoader = ImageLoader.getInstance();
 
-    /**
-     * BitmapUtils初始化
-     */
-    // 获取SDCard目录路径
-    String diskCachePath = null;
-    if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
-    {
-        diskCachePath = new StringBuffer()
-                .append(Environment.getExternalStorageDirectory())
-                .append(File.separator)
-                .append("wjhgw/imageCache").toString();
-        // /mnt/sdcard/wjhgw/imageCache
+        /**
+         * BitmapUtils初始化
+         */
+        // 获取SDCard目录路径
+        String diskCachePath = null;
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            diskCachePath = new StringBuffer()
+                    .append(Environment.getExternalStorageDirectory())
+                    .append(File.separator)
+                    .append("wjhgw/imageCache").toString();
+            // /mnt/sdcard/wjhgw/imageCache
+        } else {
+            diskCachePath = new StringBuffer().append(Environment.getDataDirectory())
+                    .append(File.separator)
+                    .append(this.getPackageName())
+                    .append("wjhgw/imageCache").toString();
+            // /data/data/com.wjhgw/wjhgw/imageCache
+        }
+
+        // 设置内存缓存
+        int cacheSize = (int) Runtime.getRuntime().maxMemory() / 8;
+
+        configuration =
+                new ImageLoaderConfiguration
+                        .Builder(getApplicationContext())
+                        .threadPoolSize(3) // 设置线程池线程大小
+                                // 磁盘缓存位置
+                        .diskCache(new UnlimitedDiskCache(new File(diskCachePath)))
+                        .diskCacheSize(60 * 1024 * 1024) // 磁盘缓存的大小 60M
+                        .diskCacheFileCount(200) // 磁盘缓存的文件数量
+                                // 可以设置自定义内存缓存，并且自定义缓存大小
+                                //.memoryCache(new LruMemoryCache(5 * 1024 * 1024))
+                        .memoryCacheSize(cacheSize) // 设置内存缓存大小
+                        .build();
+
+        // init configuration
+        mImageLoader.init(configuration);
+
+        // 在全局设置图片显示选项
+        options =
+                new DisplayImageOptions.Builder()
+                        .cacheInMemory(true) // 是否缓存到内存
+                        .cacheOnDisk(true) // 是否缓存到磁盘
+                        .showImageOnLoading(R.mipmap.default_image) // 加载显示的图片
+                        .showImageOnFail(R.mipmap.default_image) // 加载失败显示的图片
+                        .bitmapConfig(Bitmap.Config.ARGB_8888) // 设置图片样式 RGB_565 无效，4.0后无效
+                        .build();
+
     }
-    else
-    {
-        diskCachePath = new StringBuffer().append(Environment.getDataDirectory())
-                .append(File.separator)
-                .append(this.getPackageName())
-                .append("wjhgw/imageCache").toString();
-        // /data/data/com.wjhgw/wjhgw/imageCache
-    }
-
-    System.out.println("----------------------"+diskCachePath);
-    // 设置内存缓存
-    int cacheSize = (int) Runtime.getRuntime().maxMemory() / 8;
-
-    configuration =
-            new ImageLoaderConfiguration
-                    .Builder(getApplicationContext())
-                    .threadPoolSize(3) // 设置线程池线程大小
-                            // 磁盘缓存位置
-                    .diskCache(new UnlimitedDiskCache(new File(diskCachePath)))
-                    .diskCacheSize(60 * 1024 * 1024) // 磁盘缓存的大小 60M
-                    .diskCacheFileCount(200) // 磁盘缓存的文件数量
-                            // 可以设置自定义内存缓存，并且自定义缓存大小
-                            //.memoryCache(new LruMemoryCache(5 * 1024 * 1024))
-                    .memoryCacheSize(cacheSize) // 设置内存缓存大小
-                    .build();
-
-    // init configuration
-    mImageLoader.init(configuration);
-
-    // 在全局设置图片显示选项
-    options =
-            new DisplayImageOptions.Builder()
-                    .cacheInMemory(true) // 是否缓存到内存
-                    .cacheOnDisk(true) // 是否缓存到磁盘
-                    .showImageOnLoading(R.mipmap.default_image) // 加载显示的图片
-                    .showImageOnFail(R.mipmap.default_image) // 加载失败显示的图片
-                    .bitmapConfig(Bitmap.Config.ARGB_8888) // 设置图片样式 RGB_565 无效，4.0后无效
-                    .build();
-
-//            .bitmapConfig(Bitmap.Config.RGB_565)
-}
 
     public static APP getApp() {
         return application;
