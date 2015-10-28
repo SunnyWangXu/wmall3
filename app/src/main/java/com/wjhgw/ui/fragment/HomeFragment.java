@@ -618,7 +618,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
             @Override
             public void onFailure(HttpException e, String s) {
-
+                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -763,7 +763,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
             @Override
             public void onFailure(HttpException e, String s) {
-
+                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
             }
         });
     }
