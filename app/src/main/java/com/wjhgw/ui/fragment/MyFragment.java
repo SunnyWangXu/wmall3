@@ -17,6 +17,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private LinearLayout MyAssetsLayout;
     private LinearLayout MyMessageLayout;
     private LinearLayout MySetHelpLayout;
+    private LinearLayout MyOrderLayout;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
 
     private void setInflaterView() {
         MyMessageLayout =  (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.my_message_layout, null);
+        MyOrderLayout =  (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.my_order_layout, null);
         MyAssetsLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.my_assets_layout, null);
         MySetHelpLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.my_set_help_layout, null);
     }
@@ -52,9 +54,9 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private void listAddHeader() {
         mListView = (MyListView) MyLayout.findViewById(R.id.my_listview);
         mListView.addHeaderView(MyMessageLayout);
+        mListView.addHeaderView(MyOrderLayout);
         mListView.addHeaderView(MyAssetsLayout);
         mListView.addHeaderView(MySetHelpLayout);
-
     }
 
     /**
@@ -68,6 +70,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
      * 初始化视图
      */
     private void initView() {
+
     }
 
     @Override

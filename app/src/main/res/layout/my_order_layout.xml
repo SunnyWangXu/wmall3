@@ -20,13 +20,13 @@
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_marginLeft="13dp"
-            android:src="@mipmap/ic_my_assets" />
+            android:src="@mipmap/ic_order" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="13dp"
-            android:text="我的资产"
+            android:text="我的订单"
             android:textColor="@color/title_color"
             android:textSize="16sp" />
 
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:text="资产一览"
+            android:text="订单一览"
             android:textColor="@color/spec_text_color"
             android:textSize="14sp" />
 
@@ -53,8 +53,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_marginLeft="11dp"
         android:layout_height="1dp"
+        android:layout_marginLeft="11dp"
         android:background="@color/line_bg" />
 
     <LinearLayout
@@ -69,18 +69,16 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="99999999"
-                android:textColor="@color/title_color"
-                android:textSize="16sp" />
+            <ImageView
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:src="@mipmap/ic_obligation" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-              android:text="余额"
+                android:text="代付款"
                 android:textColor="@color/filter_text_color"
                 android:textSize="12sp" />
 
@@ -93,18 +91,16 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="236"
-                android:textColor="@color/title_color"
-                android:textSize="16sp" />
+            <ImageView
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:src="@mipmap/ic_receiver_goods" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="欢购币"
+                android:text="待收货"
                 android:textColor="@color/filter_text_color"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -116,18 +112,16 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="56"
-                android:textColor="@color/title_color"
-                android:textSize="16sp" />
+            <ImageView
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:src="@mipmap/ic_evaluate" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="优惠券"
+                android:text="待评价"
                 android:textColor="@color/filter_text_color"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -140,18 +134,16 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="666"
-                android:textColor="@color/title_color"
-                android:textSize="16sp" />
+            <ImageView
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:src="@mipmap/ic_after_sale" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="酒柜"
+                android:text="售后"
                 android:textColor="@color/filter_text_color"
                 android:textSize="12sp" />
         </LinearLayout>
