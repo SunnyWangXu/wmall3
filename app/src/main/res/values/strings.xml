@@ -44,12 +44,6 @@
 	<string name="Sales_volume">销量</string>
 	<string name="Price">价格</string>
 	<string name="Commission">佣金</string>
-	
-	<string name="e0_string1">待发货</string>
-	<string name="e0_string2">未付款</string>
-	<string name="e0_string3">未收货</string>
-	<string name="e0_string4">已取消</string>
-	<string name="e0_string5">已完成</string>
     
 
 </resources>

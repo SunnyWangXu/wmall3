@@ -44,8 +44,8 @@
             android:textSize="14sp" />
 
         <ImageView
-            android:layout_width="9dp"
-            android:layout_height="17dp"
+            android:layout_width="15dp"
+            android:layout_height="20dp"
             android:layout_marginRight="13dp"
             android:src="@mipmap/ic_arrow_right" />
 
