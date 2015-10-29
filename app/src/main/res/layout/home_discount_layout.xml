@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="240dp"
-    android:background="@color/discovery_line_bg"
+    android:background="@color/line_bg"
     android:orientation="vertical">
 
 
@@ -64,7 +64,7 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/discovery_line_bg" />
+                android:background="@color/line_bg" />
 
 
             <LinearLayout
@@ -77,7 +77,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/discovery_line_bg" />
+                    android:background="@color/line_bg" />
 
                 <ImageView
                     android:id="@+id/iv_discount01_iamge"
@@ -185,14 +185,14 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/discovery_line_bg" />
+                    android:background="@color/line_bg" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/discovery_line_bg" />
+                android:background="@color/line_bg" />
 
             <View
                 android:layout_width="6dp"
@@ -202,7 +202,7 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/discovery_line_bg" />
+                android:background="@color/line_bg" />
 
 
             <LinearLayout
@@ -216,7 +216,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/discovery_line_bg" />
+                    android:background="@color/line_bg" />
 
                 <ImageView
                     android:id="@+id/iv_discount02_image"
@@ -323,13 +323,13 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/discovery_line_bg" />
+                    android:background="@color/line_bg" />
             </LinearLayout>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/discovery_line_bg" />
+                android:background="@color/line_bg" />
 
             <View
                 android:layout_width="6dp"
@@ -339,7 +339,7 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/discovery_line_bg" />
+                android:background="@color/line_bg" />
 
             <LinearLayout
                 android:id="@+id/ll_discount_03"
@@ -351,7 +351,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/discovery_line_bg" />
+                    android:background="@color/line_bg" />
 
                 <ImageView
                     android:id="@+id/iv_discount03_image"
@@ -457,12 +457,12 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/discovery_line_bg" />
+                    android:background="@color/line_bg" />
             </LinearLayout>
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/discovery_line_bg" />
+                android:background="@color/line_bg" />
 
             <View
                 android:layout_width="9dp"

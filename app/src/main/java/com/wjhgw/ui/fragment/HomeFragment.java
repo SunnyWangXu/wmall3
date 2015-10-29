@@ -853,6 +853,10 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         });
     }
 
+    /**
+     * 倒计时
+     * @param i
+     */
     public void Countdown(final int i) {
        /* if (timer != null) {
             timer.cancel();

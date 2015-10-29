@@ -15,7 +15,7 @@
     <color name="blue">#ff0000ff</color>
     <color name="white">#ffffffff</color>
     <color name="discovery_bg">#f1f1f1</color>
-    <color name="discovery_line_bg">#eeeeee</color>
+    <color name="line_bg">#eeeeee</color>
     <color name="title_color">#333333</color>
     <color name="light_gray">#666666</color>
     <color name="gray">#cccccc</color>
