@@ -73,7 +73,7 @@
             <LinearLayout
                 android:id="@+id/linearLayout1"
                 android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_height="40dp"
                 android:layout_alignTop="@+id/statistics1"
                 android:layout_centerHorizontal="true"
                 android:gravity="center">
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/linearLayout1"
-                android:layout_marginRight="7dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
                 android:text="待付款"
                 android:textColor="#666666"
@@ -121,7 +121,7 @@
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_height="40dp"
                 android:layout_alignTop="@+id/statistics2"
                 android:layout_centerHorizontal="true"
                 android:gravity="center">
@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/linearLayout2"
-                android:layout_marginRight="7dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
                 android:text="待收货"
                 android:textColor="#666666"
@@ -169,7 +169,7 @@
             <LinearLayout
                 android:id="@+id/linearLayout3"
                 android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_height="40dp"
                 android:layout_alignTop="@+id/statistics3"
                 android:layout_centerHorizontal="true"
                 android:gravity="center">
@@ -187,7 +187,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/linearLayout3"
-                android:layout_marginRight="7dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
                 android:text="待评价"
                 android:textColor="#666666"
@@ -217,7 +217,7 @@
             <LinearLayout
                 android:id="@+id/linearLayout4"
                 android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_height="40dp"
                 android:layout_alignTop="@+id/statistics4"
                 android:layout_centerHorizontal="true"
                 android:gravity="center">
@@ -235,7 +235,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/linearLayout4"
-                android:layout_marginRight="7dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
                 android:text="售后"
                 android:textColor="#666666"
