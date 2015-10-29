@@ -35,7 +35,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
      * 给ListView添加视图
      */
     private void listAddHeader() {
-        mListView = (MyListView) MyLayout.findViewById(R.id.home_listview);
+        mListView = (MyListView) MyLayout.findViewById(R.id.my_listview);
         //mListView.addHeaderView(homeViewPageLayout);
     }
 
