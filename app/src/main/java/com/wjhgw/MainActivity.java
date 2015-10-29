@@ -12,7 +12,7 @@ import com.wjhgw.base.BaseActivity;
 import com.wjhgw.ui.fragment.CategoryFragment;
 import com.wjhgw.ui.fragment.DiscoveryFragment;
 import com.wjhgw.ui.fragment.HomeFragment;
-import com.wjhgw.ui.fragment.MineFragment;
+import com.wjhgw.ui.fragment.MyFragment;
 import com.wjhgw.ui.fragment.ShoppingCartFragment;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -20,7 +20,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private CategoryFragment categoryFragment; //分类
     private HomeFragment homeFragment;    //首页
     private DiscoveryFragment discoveryFragment;    //发现
-    private MineFragment mineFragment;     //我的
+    private MyFragment mineFragment;     //我的
     private View index_Layout;
     private View contacts_Layout;
     private View shopping_car_Layout;
@@ -170,7 +170,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 settingImage.setImageResource(R.mipmap.ic_mine_select);
                 settingText.setTextColor(Color.parseColor("#ba0e2f"));
                 if (mineFragment == null) {
-                    mineFragment = new MineFragment();
+                    mineFragment = new MyFragment();
                     transaction.add(R.id.content, mineFragment);
                 } else {
                     transaction.show(mineFragment);
