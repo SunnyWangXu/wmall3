@@ -39,6 +39,20 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         //mListView.addHeaderView(homeViewPageLayout);
     }
 
+    /**
+     * 设置监听事件
+     */
+    private void setClick() {
+
+    }
+
+    /**
+     * 初始化视图
+     */
+    private void initView() {
+
+    }
+
     @Override
     public void onRefresh(int id) {
       /*  mListView.stopRefresh();
