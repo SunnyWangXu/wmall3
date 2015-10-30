@@ -22,7 +22,7 @@
                 android:orientation="vertical">
 
                 <com.wjhgw.ui.image.RoundImageView
-                    android:id="@+id/attack"
+                    android:id="@+id/my_avatar"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:src="@mipmap/profile_no_avarta_icon" />

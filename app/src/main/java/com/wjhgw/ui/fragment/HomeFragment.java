@@ -35,7 +35,6 @@ import com.wjhgw.business.bean.Home_Pager;
 import com.wjhgw.business.bean.Home_Pager_Data;
 import com.wjhgw.business.bean.Theme_street;
 import com.wjhgw.config.ApiInterface;
-import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.PrductDetail;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView.IXListViewListener;
@@ -462,10 +461,10 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
-            case R.id.group_purchase_layout:
+          /*  case R.id.group_purchase_layout:
                 intent.setClass(getActivity(), A0_LoginActivity.class);
                 startActivity(intent);
-                break;
+                break;*/
             case R.id.ll_discount_01:
 
                 intent.setClass(getActivity(), PrductDetail.class);

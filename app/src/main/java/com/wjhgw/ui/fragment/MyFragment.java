@@ -1,23 +1,27 @@
 package com.wjhgw.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.wjhgw.R;
+import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 
-public class MyFragment extends Fragment implements XListView.IXListViewListener {
+public class MyFragment extends Fragment implements XListView.IXListViewListener, View.OnClickListener {
     private View MyLayout;
     private MyListView mListView;
     private LinearLayout MyAssetsLayout;
     private LinearLayout MyMessageLayout;
     private LinearLayout MySetHelpLayout;
     private LinearLayout MyOrderLayout;
+    private ImageView myAvatar;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -27,6 +31,16 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
          * 加载视图
          */
         setInflaterView();
+
+        /**
+         * 初始化视图
+         */
+        initView();
+
+        /**
+         * 设置监听事件
+         */
+        setClick();
 
         /**
          * 给ListView添加视图
@@ -42,8 +56,8 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     }
 
     private void setInflaterView() {
-        MyMessageLayout =  (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.my_message_layout, null);
-        MyOrderLayout =  (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.my_order_layout, null);
+        MyMessageLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.my_message_layout, null);
+        MyOrderLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.my_order_layout, null);
         MyAssetsLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.my_assets_layout, null);
         MySetHelpLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.my_set_help_layout, null);
     }
@@ -60,17 +74,17 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     }
 
     /**
-     * 设置监听事件
-     */
-    private void setClick() {
-
-    }
-
-    /**
      * 初始化视图
      */
     private void initView() {
+        myAvatar = (ImageView) MyMessageLayout.findViewById(R.id.my_avatar);
+    }
 
+    /**
+     * 设置监听事件
+     */
+    private void setClick() {
+        myAvatar.setOnClickListener(this);
     }
 
     @Override
@@ -83,5 +97,18 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     @Override
     public void onLoadMore(int id) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent();
+        switch (v.getId()) {
+            case R.id.my_avatar:
+                intent.setClass(getActivity(), A0_LoginActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
     }
 }
