@@ -3,6 +3,7 @@ package com.wjhgw.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,9 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                              Bundle savedInstanceState) {
         MyLayout = inflater.inflate(R.layout.my_layout, container, false);
 
+        int count = 4 + ((25+125+(5*5*5*5))*4*5)+10 ;
+        Log.e("----------------------",count + "");
+        System.out.println("========================"+count);
         /**
          * 加载视图
          */
