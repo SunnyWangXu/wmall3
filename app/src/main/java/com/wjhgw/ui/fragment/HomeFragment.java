@@ -430,10 +430,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         START++;
 
         /**
-         * 请求首页焦点图
-         */
-        loadHomePager();
-        /**
          * 请求拍卖和团购数据
          */
         load_auction_super_value();
@@ -539,17 +535,17 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             @Override
             public void onFailure(HttpException e, String s) {
                 Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
-            /**
-             * 取出本地緩存数据
-             */
-            SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_pager", getActivity().MODE_PRIVATE);
-            String homePagerData = preferences.getString("home_pager", "");
-            if (homePagerData != null && homePagerData != "") {
                 /**
-                 * 解析首頁焦点图数据，并适配ViewPager
+                 * 取出本地緩存数据
                  */
-                parseHomePagerData(homePagerData);
-            }
+                SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_pager", getActivity().MODE_PRIVATE);
+                String homePagerData = preferences.getString("home_pager", "");
+                if (homePagerData != null && homePagerData != "") {
+                    /**
+                     * 解析首頁焦点图数据，并适配ViewPager
+                     */
+                    parseHomePagerData(homePagerData);
+                }
             }
         });
     }
@@ -860,6 +856,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
     /**
      * 倒计时
+     *
      * @param i
      */
     public void Countdown(final int i) {
