@@ -211,6 +211,8 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                         startActivity(intent);
                         Toast.makeText(A0_LoginActivity.this, "登录成功！", Toast.LENGTH_LONG).show();
                         finish(false);
+                    }else {
+                        Toast.makeText(A0_LoginActivity.this, "账号或密码错误", Toast.LENGTH_LONG).show();
                     }
                 }
             }
