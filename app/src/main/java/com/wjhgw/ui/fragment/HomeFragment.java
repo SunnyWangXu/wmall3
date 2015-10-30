@@ -117,7 +117,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private ImageView point;
 
     private Home_Pager home_pager;
-    private List<Home_Pager_Data> data = new ArrayList<>();
+    private List<Home_Pager_Data> pager_data = new ArrayList<>();
     private GroupBuy groupBuys;
     private List<GroupBuy_Data> groupBuy_data = new ArrayList<>();
     private ImageView iv_discount01_image;
@@ -381,7 +381,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
      * 添加圆点
      */
     private void addPoints() {
-        int size = data.size();
+        int size = pager_data.size();
 
         for (int i = 0; i < size; i++) {
             point = new ImageView(getActivity());
@@ -501,7 +501,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     public void onPageSelected(int position) {
 
         for (int i = 0; i < ll_Point.getChildCount(); i++) {
-            if (i == position % data.size()) {
+            if (i == position % pager_data.size()) {
                 ll_Point.getChildAt(i).setBackgroundResource(R.mipmap.dot_select);
             } else {
                 ll_Point.getChildAt(i).setBackgroundResource(R.mipmap.dot_unselect);
@@ -518,24 +518,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
      * 请求首页焦点图
      */
     private void loadHomePager() {
-        /**
-         * 取出本地緩存数据
-         */
-        SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_pager", getActivity().MODE_PRIVATE);
-        String homePagerData = preferences.getString("home_pager", "");
-        if (homePagerData != null && homePagerData != "") {
-            /**
-             * 解析首頁焦点图数据，并适配ViewPager
-             */
-            parseHomePagerData(homePagerData);
-            /**
-             * 添加圆点
-             */
-            if (START == 1 && data != null) {
-                addPoints();
-            }
 
-        }
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Home_pager, new RequestCallBack<String>() {
 
             @Override
@@ -550,13 +533,22 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                  * 解析首頁焦点图数据，并适配ViewPager
                  */
                 parseHomePagerData(responseInfo.result);
-
-                handler.sendEmptyMessageDelayed(HANDLERID, 3000);
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
                 Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
+                /**
+                 * 取出本地緩存数据
+                 */
+                SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_pager", getActivity().MODE_PRIVATE);
+                String homePagerData = preferences.getString("home_pager", "");
+                if (homePagerData != null && homePagerData != "") {
+                    /**
+                     * 解析首頁焦点图数据，并适配ViewPager
+                     */
+                    parseHomePagerData(homePagerData);
+                }
             }
         });
     }
@@ -570,18 +562,27 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             home_pager = gson.fromJson(responseInfoResult, Home_Pager.class);
 
             if (home_pager.status.code == 10000) {
-                data.clear();
+                pager_data.clear();
 
                 if (home_pager.datas != null) {
-                    data.addAll(home_pager.datas);
+                    pager_data.addAll(home_pager.datas);
                 }
             }
         }
-        if (data.size() != 0 && data != null) {
+        if (pager_data.size() != 0 && pager_data != null) {
 
             //适配首页焦点图
-            mPagerAdapter = new HomePagerAdapter(getActivity(), data);
+            mPagerAdapter = new HomePagerAdapter(getActivity(), pager_data);
             homePager.setAdapter(mPagerAdapter);
+        }
+
+        /**
+         * 添加圆点发送消息，轮播ViewPager
+         */
+        if (START == 1 && pager_data != null) {
+            addPoints();
+
+            handler.sendEmptyMessageDelayed(HANDLERID, 3000);
         }
     }
 
@@ -589,17 +590,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
      * 拍卖和团购请求
      */
     private void load_auction_super_value() {
-        /**
-         * 取出本地緩存数据
-         */
-        SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_auction", getActivity().MODE_PRIVATE);
-        String auctionSuperValueData = preferences.getString("home_auction_super_value", "");
-        if (auctionSuperValueData != null && auctionSuperValueData != "") {
-            /**
-             * 解析团购和拍卖
-             */
-            parseAuctionSuperValue(auctionSuperValueData);
-        }
+
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Auction_super_value, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -622,6 +613,17 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             @Override
             public void onFailure(HttpException e, String s) {
                 Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
+                /**
+                 * 取出本地緩存数据
+                 */
+                SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_auction", getActivity().MODE_PRIVATE);
+                String auctionSuperValueData = preferences.getString("home_auction_super_value", "");
+                if (auctionSuperValueData != null && auctionSuperValueData != "") {
+                    /**
+                     * 解析团购和拍卖
+                     */
+                    parseAuctionSuperValue(auctionSuperValueData);
+                }
             }
         });
     }
@@ -650,14 +652,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
      * 请求折扣街数据
      */
     private void loadGroupBuy() {
-        /**
-         * 取出本地緩存数据
-         */
-        SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_groupBuy", getActivity().MODE_PRIVATE);
-        String groupBuy_Data = preferences.getString("home_groupBuy", "");
-        if (groupBuy_Data != null && groupBuy_Data != "") {
-            parseGroupBuyData(groupBuy_Data);
-        }
+
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Group_Buy, new RequestCallBack<String>() {
 
             @Override
@@ -686,6 +681,14 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             @Override
             public void onFailure(HttpException e, String s) {
                 Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
+                /**
+                 * 取出本地緩存数据
+                 */
+                SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_groupBuy", getActivity().MODE_PRIVATE);
+                String groupBuy_Data = preferences.getString("home_groupBuy", "");
+                if (groupBuy_Data != null && groupBuy_Data != "") {
+                    parseGroupBuyData(groupBuy_Data);
+                }
             }
         });
     }
@@ -736,14 +739,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
      * 主题街数据请求
      */
     private void load_theme_street() {
-        /**
-         * 取出本地数据
-         */
-        SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_theme_street", getActivity().MODE_PRIVATE);
-        String homeThemeStreetData = preferences.getString("home_theme_street", "");
-        if (homeThemeStreetData != null && homeThemeStreetData != "") {
-            parseThemeStreetData(homeThemeStreetData);
-        }
+
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Theme_street, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -763,8 +759,17 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             @Override
             public void onFailure(HttpException e, String s) {
                 Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
+                /**
+                 * 取出本地数据
+                 */
+                SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_theme_street", getActivity().MODE_PRIVATE);
+                String homeThemeStreetData = preferences.getString("home_theme_street", "");
+                if (homeThemeStreetData != null && homeThemeStreetData != "") {
+                    parseThemeStreetData(homeThemeStreetData);
+                }
             }
         });
+
     }
 
     /**
@@ -854,6 +859,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
     /**
      * 倒计时
+     *
      * @param i
      */
     public void Countdown(final int i) {
@@ -938,13 +944,13 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     @Override
     public void onResume() {
         super.onResume();
-
+        //   handler.sendEmptyMessage(HANDLERID) ;
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        handler.removeMessages(HANDLERID);
+        // handler.removeMessages(HANDLERID);
     }
 
     @Override
