@@ -428,7 +428,10 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     @Override
     public void onRefresh(int id) {
         START++;
-
+        /**
+         * 请求首页焦点图
+         */
+        loadHomePager();
         /**
          * 请求拍卖和团购数据
          */
@@ -941,12 +944,13 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     @Override
     public void onResume() {
         super.onResume();
+        //   handler.sendEmptyMessage(HANDLERID) ;
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        handler.removeMessages(HANDLERID);
+        // handler.removeMessages(HANDLERID);
     }
 
     @Override
