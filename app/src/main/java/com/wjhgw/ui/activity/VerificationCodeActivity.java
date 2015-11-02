@@ -31,8 +31,6 @@ public class VerificationCodeActivity extends BaseActivity implements BusinessRe
     private TextView tv_next;
     private TextView tv_verificationcode;
     private TextView tv_state;
-    private ImageView iv_title_back;
-    private TextView tv_title_name;
 
     private Registered_Request Request;
     private String Number;
@@ -46,8 +44,6 @@ public class VerificationCodeActivity extends BaseActivity implements BusinessRe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.verification_code_layout);
-
-        tv_title_name.setText("验证验证码");
 
         et_editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -86,13 +82,13 @@ public class VerificationCodeActivity extends BaseActivity implements BusinessRe
 
     @Override
     public void onInit() {
+        setUp();
+        setTitle("验证验证码");
 
     }
 
     @Override
     public void onFindViews() {
-        iv_title_back = (ImageView) findViewById(R.id.iv_title_back);
-        tv_title_name = (TextView) findViewById(R.id.tv_title_name);
         et_editText = (EditText) findViewById(R.id.et_editext);
         tv_verificationcode = (TextView) findViewById(R.id.tv_verificationcode);
         iv_delete = (ImageView) findViewById(R.id.iv_delete);
@@ -110,7 +106,6 @@ public class VerificationCodeActivity extends BaseActivity implements BusinessRe
         iv_delete.setOnClickListener(this);
         tv_next.setOnClickListener(this);
         tv_verificationcode.setOnClickListener(this);
-        iv_title_back.setOnClickListener(this);
     }
 
     @Override

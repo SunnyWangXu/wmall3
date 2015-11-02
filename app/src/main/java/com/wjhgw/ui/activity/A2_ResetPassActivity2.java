@@ -27,8 +27,6 @@ public class A2_ResetPassActivity2 extends BaseActivity implements BusinessRespo
     private EditText et_cipher;
     private ImageView iv_delete;
     private TextView tv_next;
-    private ImageView iv_title_back;
-    private TextView tv_title_name;
 
     private Registered_Request Request;
     private String Number;
@@ -38,8 +36,6 @@ public class A2_ResetPassActivity2 extends BaseActivity implements BusinessRespo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a2_reset_pass_layout2);
-
-        tv_title_name.setText("密码找回");
 
         et_cipher.addTextChangedListener(new TextWatcher() {
             @Override
@@ -72,6 +68,8 @@ public class A2_ResetPassActivity2 extends BaseActivity implements BusinessRespo
 
     @Override
     public void onInit() {
+        setUp();
+        setTitle("密码找回");
 
     }
 
@@ -79,8 +77,6 @@ public class A2_ResetPassActivity2 extends BaseActivity implements BusinessRespo
     public void onFindViews() {
         et_cipher = (EditText) findViewById(R.id.et_a2_cipher);
         iv_delete = (ImageView) findViewById(R.id.iv_a2_delete1);
-        iv_title_back = (ImageView) findViewById(R.id.iv_title_back);
-        tv_title_name = (TextView) findViewById(R.id.tv_title_name);
         tv_next = (TextView) findViewById(R.id.tv_a2_next1);
 
     }
@@ -94,7 +90,6 @@ public class A2_ResetPassActivity2 extends BaseActivity implements BusinessRespo
     public void onBindListener() {
         iv_delete.setOnClickListener(this);
         tv_next.setOnClickListener(this);
-        iv_title_back.setOnClickListener(this);
 
     }
 
