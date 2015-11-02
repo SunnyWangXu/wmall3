@@ -31,8 +31,6 @@ public class A1_RegisterActivity2 extends BaseActivity implements BusinessRespon
     private EditText et_cipher;
     private ImageView iv_delete;
     private TextView tv_next;
-    private ImageView iv_title_back;
-    private TextView tv_title_name;
 
     private Registered_Request Request;
     private String Number;
@@ -43,8 +41,6 @@ public class A1_RegisterActivity2 extends BaseActivity implements BusinessRespon
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a1_register_layout2);
-
-        tv_title_name.setText("注册");
 
         et_cipher.addTextChangedListener(new TextWatcher() {
             @Override
@@ -77,13 +73,13 @@ public class A1_RegisterActivity2 extends BaseActivity implements BusinessRespon
 
     @Override
     public void onInit() {
+        setTitle("注册");
+        setUp();
 
     }
 
     @Override
     public void onFindViews() {
-        iv_title_back = (ImageView) findViewById(R.id.iv_title_back);
-        tv_title_name = (TextView) findViewById(R.id.tv_title_name);
         et_cipher = (EditText) findViewById(R.id.et_a1_cipher);
         iv_delete = (ImageView) findViewById(R.id.iv_a1_delete);
         //a2_return = (ImageView)findViewById(R.id.a2_return);
@@ -100,7 +96,6 @@ public class A1_RegisterActivity2 extends BaseActivity implements BusinessRespon
     public void onBindListener() {
         iv_delete.setOnClickListener(this);
         tv_next.setOnClickListener(this);
-        iv_title_back.setOnClickListener(this);
     }
 
     @Override
