@@ -3,6 +3,8 @@ package com.wjhgw.base;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wjhgw.R;
@@ -19,6 +21,31 @@ public abstract class BaseActivity extends AppCompatActivity {
          * 隐藏自带标题栏
          */
         this.getSupportActionBar().hide();
+    }
+
+    public void setUp() {
+        setUpOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish(false);
+            }
+        });
+    }
+
+    public void setUpOnClickListener(View.OnClickListener listener) {
+        View up = findViewById(R.id.iv_title_back);
+        if (up != null) {
+            up.setVisibility(View.VISIBLE);
+            up.setOnClickListener(listener);
+        }
+    }
+
+    public void setTitle(String title) {
+        TextView tvTitle = (TextView) findViewById(R.id.tv_title_name);
+        if (tvTitle != null) {
+            tvTitle.setText(title);
+        }
     }
 
     @Override
@@ -125,7 +152,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void finish(boolean animation) {
         super.finish();
         if (animation) {
-            overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
+            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
         }
     }
 

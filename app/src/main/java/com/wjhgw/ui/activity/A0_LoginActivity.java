@@ -36,8 +36,6 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
     private EditText et_password;
     private ImageView iv_delete;
     private ImageView iv_delete1;
-    private ImageView iv_title_back;
-    private TextView tv_title_name;
     private TextView tv_next;
     private TextView tv_registered;
     private TextView tv_back;
@@ -51,8 +49,6 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a0_login_layout);
-
-        tv_title_name.setText("登录");
 
 
         et_name.addTextChangedListener(new TextWatcher() {
@@ -104,13 +100,13 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
     @Override
     public void onInit() {
 
+        setUp();
+        setTitle("登录");
+
     }
 
     @Override
     public void onFindViews() {
-        iv_title_back = (ImageView) findViewById(R.id.iv_title_back);
-        tv_title_name = (TextView) findViewById(R.id.tv_title_name);
-
         et_name = (EditText) findViewById(R.id.et_a0_name);
         et_password = (EditText) findViewById(R.id.et_a0_password);
         iv_delete = (ImageView) findViewById(R.id.iv_a0_delete);
@@ -134,7 +130,6 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
         tv_next.setOnClickListener(this);
         tv_registered.setOnClickListener(this);
         tv_back.setOnClickListener(this);
-        iv_title_back.setOnClickListener(this);
         tv_a0_tback.setOnClickListener(this);
 
     }
@@ -212,7 +207,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                         Toast.makeText(A0_LoginActivity.this, "登录成功！", Toast.LENGTH_LONG).show();
                         finish(false);
                     }else {
-                        Toast.makeText(A0_LoginActivity.this, "账号或密码错误", Toast.LENGTH_LONG).show();
+                        Toast.makeText(A0_LoginActivity.this, login.status.msg, Toast.LENGTH_LONG).show();
                     }
                 }
             }

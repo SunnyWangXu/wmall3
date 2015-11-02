@@ -708,27 +708,32 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                     groupBuy_data.addAll(groupBuys.datas);
 
                     String imagUrl = groupBuy_data.get(0).groupbuy_image;
-                    APP.getApp().getImageLoader().displayImage(imagUrl, iv_discount01_image, APP.getApp().getImageOptions());
-                    tv_discount01_name.setText(groupBuy_data.get(0).goods_name);
-                    tv_discount01_price.setText("¥" + groupBuy_data.get(0).groupbuy_price);
-                    tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(0).goods_price);
-                    countdown3 = groupBuy_data.get(0).count_down;
+                    if (imagUrl != null) {
+                        APP.getApp().getImageLoader().displayImage(imagUrl, iv_discount01_image, APP.getApp().getImageOptions());
+                        tv_discount01_name.setText(groupBuy_data.get(0).goods_name);
+                        tv_discount01_price.setText("¥" + groupBuy_data.get(0).groupbuy_price);
+                        tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(0).goods_price);
+                        countdown3 = groupBuy_data.get(0).count_down;
+                    }
 
 
                     String imagUrl2 = groupBuy_data.get(1).groupbuy_image;
-                    APP.getApp().getImageLoader().displayImage(imagUrl2, iv_discount02_iamge, APP.getApp().getImageOptions());
-                    tv_discount02_name.setText(groupBuy_data.get(1).goods_name);
-                    tv_discount02_price.setText("¥" + groupBuy_data.get(1).groupbuy_price);
-                    tv_discount02_groupbuy_price.setText("¥" + groupBuy_data.get(1).goods_price);
-                    countdown4 = groupBuy_data.get(1).count_down;
+                    if (imagUrl2 != null) {
+                        APP.getApp().getImageLoader().displayImage(imagUrl2, iv_discount02_iamge, APP.getApp().getImageOptions());
+                        tv_discount02_name.setText(groupBuy_data.get(1).goods_name);
+                        tv_discount02_price.setText("¥" + groupBuy_data.get(1).groupbuy_price);
+                        tv_discount02_groupbuy_price.setText("¥" + groupBuy_data.get(1).goods_price);
+                        countdown4 = groupBuy_data.get(1).count_down;
+                    }
 
                     String imagUrl3 = groupBuy_data.get(2).groupbuy_image;
-                    APP.getApp().getImageLoader().displayImage(imagUrl3, iv_discount03_iamge, APP.getApp().getImageOptions());
-                    tv_discount03_name.setText(groupBuy_data.get(2).goods_name);
-                    tv_discount03_price.setText("¥" + groupBuy_data.get(2).groupbuy_price);
-                    tv_discount03_groupbuy_price.setText("¥" + groupBuy_data.get(2).goods_price);
-                    countdown5 = groupBuy_data.get(2).count_down;
-
+                    if (imagUrl3 != null) {
+                        APP.getApp().getImageLoader().displayImage(imagUrl3, iv_discount03_iamge, APP.getApp().getImageOptions());
+                        tv_discount03_name.setText(groupBuy_data.get(2).goods_name);
+                        tv_discount03_price.setText("¥" + groupBuy_data.get(2).groupbuy_price);
+                        tv_discount03_groupbuy_price.setText("¥" + groupBuy_data.get(2).goods_price);
+                        countdown5 = groupBuy_data.get(2).count_down;
+                    }
                 }
 
             }

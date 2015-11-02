@@ -3,15 +3,16 @@ package com.wjhgw.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.wjhgw.R;
 import com.wjhgw.ui.activity.A0_LoginActivity;
+import com.wjhgw.ui.activity.MyLockBoxActivity;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 
@@ -23,14 +24,12 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private LinearLayout MySetHelpLayout;
     private LinearLayout MyOrderLayout;
     private ImageView myAvatar;
+    private TextView ivLockBox;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         MyLayout = inflater.inflate(R.layout.my_layout, container, false);
 
-        int count = 4 + ((25+125+(5*5*5*5))*4*5)+10 ;
-        Log.e("----------------------",count + "");
-        System.out.println("========================"+count);
         /**
          * 加载视图
          */
@@ -81,14 +80,19 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
      * 初始化视图
      */
     private void initView() {
+
         myAvatar = (ImageView) MyMessageLayout.findViewById(R.id.my_avatar);
+        ivLockBox = (TextView) MyMessageLayout.findViewById(R.id.iv_lockBox);
+
     }
 
     /**
      * 设置监听事件
      */
     private void setClick() {
+
         myAvatar.setOnClickListener(this);
+        ivLockBox.setOnClickListener(this);
     }
 
     @Override
@@ -109,6 +113,10 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         switch (v.getId()) {
             case R.id.my_avatar:
                 intent.setClass(getActivity(), A0_LoginActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.iv_lockBox:
+                intent.setClass(getActivity(), MyLockBoxActivity.class);
                 startActivity(intent);
                 break;
             default:
