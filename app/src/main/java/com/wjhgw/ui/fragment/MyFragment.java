@@ -40,6 +40,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private TextView ivLockBox;
     private TextView member_nickname;
     private String key;
+    private TextView titleName;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         /**
          * 获取网络信息
          */
-        if(!key.equals("0")){
+        if (!key.equals("0")) {
             User_information();
         }
 
@@ -104,6 +105,9 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
      * 初始化视图
      */
     private void initView() {
+        titleName = (TextView) MyLayout.findViewById(R.id.tv_title_name);
+        titleName.setText("我的");
+
         myAvatar = (ImageView) MyMessageLayout.findViewById(R.id.my_avatar);
         member_nickname = (TextView) MyMessageLayout.findViewById(R.id.member_nickname);
         ivLockBox = (TextView) MyMessageLayout.findViewById(R.id.iv_lockBox);
@@ -151,8 +155,8 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
      * 用户信息
      */
     private void User_information() {
-            RequestParams params = new RequestParams();
-            params.addBodyParameter("key",key);
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Get_member_base_info, params, new RequestCallBack<String>() {
             @Override
@@ -183,6 +187,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
             }
         });
     }
+
     /**
      * 解析用户信息
      */

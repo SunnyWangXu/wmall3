@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:id="@+id/title_container"
+    android:layout_width="match_parent"
     android:layout_height="49dp"
     android:background="#ffffff"
     android:orientation="horizontal">
@@ -11,15 +11,16 @@
         android:layout_width="17dp"
         android:layout_height="17dp"
         android:layout_margin="15dp"
-        android:src="@mipmap/ic_arrow_left" />
+        android:src="@mipmap/ic_arrow_left"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/tv_title_name"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:gravity="center"
         android:layout_weight="1"
+        android:gravity="center"
         android:text="标题"
         android:textColor="@color/title_color"
         android:textSize="@dimen/title_size" />
@@ -28,6 +29,7 @@
         android:id="@+id/iv_title_right"
         android:layout_width="17dp"
         android:layout_height="17dp"
+        android:visibility="invisible"
         android:layout_margin="15dp" />
 
 </LinearLayout>
