@@ -191,6 +191,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_auction", getActivity().MODE_PRIVATE);
                 String auctionSuperValueData = preferences.getString("home_auction_super_value", "");
 
+                Analytical(auctionSuperValueData);
             }
         });
     }

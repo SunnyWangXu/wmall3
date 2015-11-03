@@ -8,9 +8,10 @@
 
     <ImageView
         android:id="@+id/iv_title_back"
-        android:layout_width="17dp"
-        android:layout_height="17dp"
-        android:layout_margin="15dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="centerInside"
+        android:padding="15dp"
         android:src="@mipmap/ic_arrow_left"
         android:visibility="invisible" />
 

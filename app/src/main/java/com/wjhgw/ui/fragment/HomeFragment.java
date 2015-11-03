@@ -276,7 +276,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         Eventlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.event_layout, null);
         Discountlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.home_discount_layout, null);
         Themelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.theme_layout, null);
-        Brandlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.brand_layout, null);
+//        Brandlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.brand_layout, null);
         Guesslikelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.guess_like_layout, null);
 
         group_purchase_layout = (LinearLayout) Eventlayout.findViewById(R.id.group_purchase_layout);
@@ -421,7 +421,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         mListView.addHeaderView(Eventlayout);
         mListView.addHeaderView(Discountlayout);
         mListView.addHeaderView(Themelayout);
-        mListView.addHeaderView(Brandlayout);
+//        mListView.addHeaderView(Brandlayout);
         mListView.addHeaderView(Guesslikelayout);
     }
 
