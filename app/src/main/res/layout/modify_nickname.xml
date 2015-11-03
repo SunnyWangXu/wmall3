@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_layout" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:orientation="horizontal"
+        android:background="#ffffff" >
+
+        <EditText
+            android:id="@+id/et_modifynickname"
+            android:layout_width="220dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:background="#ffffff"
+            android:hint="请输入昵称"
+            android:maxLength="10"
+            android:singleLine="true"
+            android:textColor="#333333"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:src="@mipmap/ic_delete"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_next"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:background="#f24f50"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="保存"/>
+
+</LinearLayout>

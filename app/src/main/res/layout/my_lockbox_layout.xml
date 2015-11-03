@@ -98,6 +98,7 @@
         android:background="@color/white" />
 
     <LinearLayout
+        android:id="@+id/ll_nickname"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white"
@@ -119,6 +120,7 @@
             android:background="@color/transparent" />
 
         <TextView
+            android:id="@+id/tv_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="拨开迷雾"

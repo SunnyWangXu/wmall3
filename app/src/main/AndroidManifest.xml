@@ -33,6 +33,7 @@
         <activity android:name=".ui.activity.A2_ResetPassActivity2" />
         <activity android:name=".ui.activity.VerificationCodeActivity" />
         <activity android:name=".ui.activity.MyLockBoxActivity" />
+        <activity android:name=".ui.activity.Modify_nicknameActivity" />
     </application>
 
 </manifest>

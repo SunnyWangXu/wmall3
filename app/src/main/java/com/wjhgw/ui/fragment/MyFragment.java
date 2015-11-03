@@ -124,8 +124,15 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
 
     @Override
     public void onRefresh(int id) {
-      /*  mListView.stopRefresh();
-        mListView.setRefreshTime();*/
+        /**
+         * 获取网络信息
+         */
+        if(!key.equals("0")){
+            User_information();
+        }
+
+        mListView.stopRefresh();
+        mListView.setRefreshTime();
 
     }
 
