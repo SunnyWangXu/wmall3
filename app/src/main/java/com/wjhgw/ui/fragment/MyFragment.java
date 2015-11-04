@@ -37,10 +37,10 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private LinearLayout MyOrderLayout;
     private Userinformation userinformation;
     private ImageView myAvatar;
-    private TextView ivLockBox;
     private TextView member_nickname;
     private String key;
     private TextView titleName;
+    private LinearLayout ll_LockBox;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -110,7 +110,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
 
         myAvatar = (ImageView) MyMessageLayout.findViewById(R.id.my_avatar);
         member_nickname = (TextView) MyMessageLayout.findViewById(R.id.member_nickname);
-        ivLockBox = (TextView) MyMessageLayout.findViewById(R.id.iv_lockBox);
+        ll_LockBox = (LinearLayout) MyMessageLayout.findViewById(R.id.ll_lockbox);
 
     }
 
@@ -119,7 +119,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
      */
     private void setClick() {
         myAvatar.setOnClickListener(this);
-        ivLockBox.setOnClickListener(this);
+        ll_LockBox.setOnClickListener(this);
     }
 
     @Override
@@ -149,7 +149,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 intent.setClass(getActivity(), A0_LoginActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.iv_lockBox:
+            case R.id.ll_lockbox:
                 intent.setClass(getActivity(), MyLockBoxActivity.class);
                 startActivity(intent);
                 break;
