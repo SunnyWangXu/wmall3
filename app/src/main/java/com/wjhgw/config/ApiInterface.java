@@ -69,6 +69,11 @@ public class ApiInterface {
     public static final String Get_member_base_info  ="/mobile/index.php?act=member_info&op=get_member_base_info";
 
     /**
+     * 个人资料 获取用户信息
+     */
+    public static  final String  MyLockBox ="/mobile/index.php?act=member_info&op=get_member_base_info";
+
+    /**
      * 修改昵称
      */
     public static final String Change_nickname  ="/mobile/index.php?act=member_info&op=change_nickname";

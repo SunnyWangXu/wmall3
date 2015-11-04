@@ -42,6 +42,7 @@
             android:orientation="vertical">
 
             <com.wjhgw.ui.image.RoundImageView
+                android:id="@+id/iv_avatar"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:src="@mipmap/ic_mylockbox_avatar" />
@@ -83,6 +84,7 @@
             android:background="@color/transparent" />
 
         <TextView
+            android:id="@+id/tv_usename"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="28dp"
@@ -205,6 +207,7 @@
             android:background="@color/transparent" />
 
         <TextView
+            android:id="@+id/tv_passwd_strength"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="强"
@@ -247,6 +250,7 @@
             android:background="@color/transparent" />
 
         <TextView
+            android:id="@+id/tv_paypwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="未设置"
@@ -289,9 +293,10 @@
             android:background="@color/transparent" />
 
         <TextView
+            android:id="@+id/tv_mobile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1383838438"
+            android:text="01234567891"
             android:textColor="@color/gray"
             android:textSize="14sp" />
 

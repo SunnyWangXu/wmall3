@@ -72,7 +72,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
          * 获取网络信息
          */
         if (!key.equals("0")) {
-            User_information();
+            load_User_information();
         }
 
         mListView.setPullLoadEnable(false);
@@ -128,7 +128,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
          * 获取网络信息
          */
         if(!key.equals("0")){
-            User_information();
+            load_User_information();
         }
 
         mListView.stopRefresh();
@@ -159,9 +159,9 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     }
 
     /**
-     * 用户信息
+     * 请求用户信息
      */
-    private void User_information() {
+    private void load_User_information() {
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
 
