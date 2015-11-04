@@ -39,10 +39,6 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_lockbox_layout);
 
-        /**
-         * 请求个人资料
-         */
-        loadMyLockBox();
     }
 
 
@@ -135,5 +131,14 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
             }
 
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        /**
+         * 请求个人资料
+         */
+        loadMyLockBox();
     }
 }

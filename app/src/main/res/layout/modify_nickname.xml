@@ -11,7 +11,7 @@
         android:layout_height="1dp"
         android:background="@color/line_bg" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="15dp"
@@ -34,13 +34,15 @@
 
         <ImageView
             android:id="@+id/iv_delete"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="5dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:layout_gravity="center"
             android:visibility="gone"
             android:src="@mipmap/ic_delete"/>
-    </LinearLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_next"
