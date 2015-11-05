@@ -246,6 +246,8 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
                         }
                         tv_Mobile.setText(myLockBoxData.member_mobile);
 
+                    } else {
+                        showToastShort("用户未登陆");
                     }
 
                 }

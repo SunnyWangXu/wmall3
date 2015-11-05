@@ -25,18 +25,19 @@ import com.wjhgw.config.ApiInterface;
 /**
  * 修改昵称Activity
  */
-public class Modify_nicknameActivity extends BaseActivity implements View.OnClickListener{
+public class Modify_nicknameActivity extends BaseActivity implements View.OnClickListener {
 
     private EditText et_modifynickname;
     private ImageView iv_delete;
     private TextView tv_next;
     private String modifynickname;
     private Nickname nickname;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.modify_nickname);
-        et_modifynickname = (EditText)findViewById(R.id.et_modifynickname);
+        et_modifynickname = (EditText) findViewById(R.id.et_modifynickname);
 
         et_modifynickname.addTextChangedListener(new TextWatcher() {
             @Override
@@ -76,8 +77,8 @@ public class Modify_nicknameActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onInitViewData() {
-        iv_delete = (ImageView)findViewById(R.id.iv_delete);
-        tv_next = (TextView)findViewById(R.id.tv_next);
+        iv_delete = (ImageView) findViewById(R.id.iv_delete);
+        tv_next = (TextView) findViewById(R.id.tv_next);
     }
 
     @Override
@@ -88,14 +89,14 @@ public class Modify_nicknameActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_delete:
                 et_modifynickname.setText("");
                 iv_delete.setVisibility(View.GONE);
                 break;
             case R.id.tv_next:
                 modifynickname = et_modifynickname.getText().toString();
-                if(!modifynickname.equals("")){
+                if (!modifynickname.equals("")) {
                     User_information();
                 }
                 break;
@@ -109,8 +110,8 @@ public class Modify_nicknameActivity extends BaseActivity implements View.OnClic
      */
     private void User_information() {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key",this.getSharedPreferences("key", MODE_APPEND).getString("key", "0"));
-        params.addBodyParameter("member_nickname",modifynickname);
+        params.addBodyParameter("key", this.getSharedPreferences("key", MODE_APPEND).getString("key", "0"));
+        params.addBodyParameter("member_nickname", modifynickname);
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Change_nickname, params, new RequestCallBack<String>() {
             @Override
@@ -122,7 +123,7 @@ public class Modify_nicknameActivity extends BaseActivity implements View.OnClic
                     if (nickname.status.code == 10000) {
                         finish(false);
                         Toast.makeText(Modify_nicknameActivity.this, nickname.status.msg, Toast.LENGTH_LONG).show();
-                    }else {
+                    } else {
                         Toast.makeText(Modify_nicknameActivity.this, nickname.status.msg, Toast.LENGTH_LONG).show();
                     }
                 }

@@ -40,7 +40,7 @@
                     android:id="@+id/member_nickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="未登录"
+                    android:text="点击登陆"
                     android:textColor="#ffffff"
                     android:textSize="18sp" />
 
@@ -48,10 +48,9 @@
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="......"
+                    android:text="用户等级"
                     android:textColor="#ffffff"
-                    android:textSize="14dp" />
-
+                    android:textSize="14sp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
