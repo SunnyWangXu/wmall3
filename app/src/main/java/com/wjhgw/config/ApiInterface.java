@@ -77,6 +77,10 @@ public class ApiInterface {
      * 修改昵称
      */
     public static final String Change_nickname  ="/mobile/index.php?act=member_info&op=change_nickname";
+    /**
+     * 上传图片
+     */
+    public static final String Member_image  ="/mobile/index.php?act=upload&op=member_image";
 
 
 

@@ -13,6 +13,7 @@
         android:background="@color/line_bg" />
 
     <LinearLayout
+        android:id="@+id/ll_picture"
         android:layout_width="match_parent"
         android:layout_height="83dp"
         android:background="@color/white"

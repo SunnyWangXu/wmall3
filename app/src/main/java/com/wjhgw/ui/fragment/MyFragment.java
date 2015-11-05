@@ -173,7 +173,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                  */
                 SharedPreferences sf = getActivity().getSharedPreferences("wjhgw_auction", getActivity().MODE_PRIVATE);
                 SharedPreferences.Editor edit = sf.edit();
-                edit.putString("home_auction_super_value", responseInfo.result).commit();
+                edit.putString("userinformation_datas_member_avatar", responseInfo.result).commit();
 
                 /**
                  * 解析
@@ -185,11 +185,11 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
             @Override
             public void onFailure(HttpException e, String s) {
                 Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
-                /**
+               /* *//**
                  * 取出本地緩存数据
                  */
                 SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_auction", getActivity().MODE_PRIVATE);
-                String auctionSuperValueData = preferences.getString("home_auction_super_value", "");
+                String auctionSuperValueData = preferences.getString("userinformation_datas_member_avatar", "");
 
                 Analytical(auctionSuperValueData);
             }
@@ -205,9 +205,8 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
             userinformation = gson.fromJson(responseInfoResult, Userinformation.class);
 
             if (userinformation.status.code == 10000) {
-                APP.getApp().getImageLoader().displayImage(userinformation.datas.member_avatar, myAvatar, APP.getApp().getImageOptions());
+                APP.getApp().getImageLoader().displayImage(userinformation.datas.member_avatar, myAvatar);
                 member_nickname.setText(userinformation.datas.member_nickname);
-
             }
         }
     }
