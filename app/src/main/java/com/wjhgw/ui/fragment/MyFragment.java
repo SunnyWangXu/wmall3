@@ -146,12 +146,22 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.my_avatar:
+                if(key.equals("0")){
+
+                }else {
+
+                }
                 intent.setClass(getActivity(), A0_LoginActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_lockbox:
-                intent.setClass(getActivity(), MyLockBoxActivity.class);
-                startActivity(intent);
+                if(key.equals("0")){
+                    intent.setClass(getActivity(), A0_LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getActivity(), MyLockBoxActivity.class);
+                    startActivity(intent);
+                }
                 break;
             default:
                 break;
