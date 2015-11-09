@@ -145,6 +145,7 @@
         android:background="@color/white" />
 
     <LinearLayout
+        android:id="@+id/ll_manage_address"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white"

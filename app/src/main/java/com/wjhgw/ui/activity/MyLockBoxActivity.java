@@ -44,8 +44,6 @@ import java.util.Calendar;
 public class MyLockBoxActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout ll_nickname;
     private LinearLayout ll_picture;
-    private TextView tv_nickname;
-    private ImageView riv_avatar;
     private TextView tv_Nickname;
     private Intent intent;
     private GalleryDialog Dialog;
@@ -56,6 +54,7 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
     private TextView tv_Passwd_Strength;
     private TextView tv_Paypwd;
     private TextView tv_Mobile;
+    private LinearLayout ll_Manage_Addres;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,22 +74,25 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onFindViews() {
+        ll_nickname = (LinearLayout) findViewById(R.id.ll_nickname);
+        ll_picture = (LinearLayout) findViewById(R.id.ll_picture);
+        ll_nickname = (LinearLayout) findViewById(R.id.ll_nickname);
+
+        ll_Manage_Addres = (LinearLayout) findViewById(R.id.ll_manage_address);
+
         iv_Avatar = (ImageView) findViewById(R.id.iv_avatar);
         tv_UseName = (TextView) findViewById(R.id.tv_usename);
+        tv_Nickname = (TextView) findViewById(R.id.tv_nickname);
         tv_Passwd_Strength = (TextView) findViewById(R.id.tv_passwd_strength);
         tv_Paypwd = (TextView) findViewById(R.id.tv_paypwd);
         tv_Mobile = (TextView) findViewById(R.id.tv_mobile);
+
 
     }
 
     @Override
     public void onInitViewData() {
-        ll_nickname = (LinearLayout) findViewById(R.id.ll_nickname);
-        ll_picture = (LinearLayout) findViewById(R.id.ll_picture);
-        tv_nickname = (TextView) findViewById(R.id.tv_nickname);
-        riv_avatar = (ImageView) findViewById(R.id.iv_avatar);
-        ll_nickname = (LinearLayout) findViewById(R.id.ll_nickname);
-        tv_Nickname = (TextView) findViewById(R.id.tv_nickname);
+
 
     }
 
@@ -98,6 +100,7 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
     public void onBindListener() {
         ll_nickname.setOnClickListener(this);
         ll_picture.setOnClickListener(this);
+        ll_Manage_Addres.setOnClickListener(this);
     }
 
     @Override
@@ -107,6 +110,12 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
                 intent = new Intent(this, Modify_nicknameActivity.class);
                 startActivity(intent);
                 break;
+
+            case R.id.ll_manage_address:
+                intent = new Intent(this, Manage_Address_Activity.class);
+                startActivity(intent);
+                break;
+
             case R.id.ll_picture:
                 Dialog.Get_pictures_Dialog();
                 break;
@@ -142,7 +151,7 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
                     Uri.fromFile(new File(thePath)));
         } else if (requestCode == GalleryConstants.INTENT_CROP) {
             Bitmap bitmap = data.getParcelableExtra("data");
-            riv_avatar.setImageBitmap(bitmap);
+            iv_Avatar.setImageBitmap(bitmap);
             //member_image();
 
             File temp = new File(Environment.getExternalStorageDirectory()

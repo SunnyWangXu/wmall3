@@ -161,31 +161,31 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    if (countdown1 > 0) {
+                    if (countdown1 > 0 && countdown1 != null) {
                         countdown1--;
                         secToTime(countdown1, 1);
                     }
                     break;
                 case 2:
-                    if (countdown2 > 0) {
+                    if (countdown2 > 0 && countdown2 != null) {
                         countdown2--;
                         secToTime(countdown2, 2);
                     }
                     break;
                 case 3:
-                    if (countdown3 > 0) {
+                    if (countdown3 > 0  && countdown3 != null) {
                         countdown3--;
                         secToTime(countdown3, 3);
                     }
                     break;
                 case 4:
-                    if (countdown4 > 0) {
+                    if (countdown4 > 0 && countdown4 != null) {
                         countdown4--;
                         secToTime(countdown4, 4);
                     }
                     break;
                 case 5:
-                    if (countdown5 > 0) {
+                    if (countdown5 > 0 && countdown5 != null) {
                         countdown5--;
                         secToTime(countdown5, 5);
                     }
