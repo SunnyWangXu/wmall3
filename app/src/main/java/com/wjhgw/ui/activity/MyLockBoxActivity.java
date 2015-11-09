@@ -44,6 +44,7 @@ import java.util.Calendar;
 public class MyLockBoxActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout ll_nickname;
     private LinearLayout ll_picture;
+    private LinearLayout ll_change_password;
     private TextView tv_Nickname;
     private Intent intent;
     private GalleryDialog Dialog;
@@ -77,7 +78,8 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
         ll_nickname = (LinearLayout) findViewById(R.id.ll_nickname);
         ll_picture = (LinearLayout) findViewById(R.id.ll_picture);
         ll_nickname = (LinearLayout) findViewById(R.id.ll_nickname);
-
+        ll_change_password = (LinearLayout) findViewById(R.id.ll_change_password);
+        
         ll_Manage_Addres = (LinearLayout) findViewById(R.id.ll_manage_address);
 
         iv_Avatar = (ImageView) findViewById(R.id.iv_avatar);
@@ -101,6 +103,7 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
         ll_nickname.setOnClickListener(this);
         ll_picture.setOnClickListener(this);
         ll_Manage_Addres.setOnClickListener(this);
+        ll_change_password.setOnClickListener(this);
     }
 
     @Override
@@ -108,6 +111,10 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.ll_nickname:
                 intent = new Intent(this, Modify_nicknameActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_change_password:
+                intent = new Intent(this, ChangePasswordActivity.class);
                 startActivity(intent);
                 break;
 

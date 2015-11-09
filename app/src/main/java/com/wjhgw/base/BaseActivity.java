@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.wjhgw.R;
 
 /**
- * Created by Lance on 15/8/19.
+ * Activity基类
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -46,6 +46,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (tvTitle != null) {
             tvTitle.setText(title);
         }
+    }
+
+    public String getKey() {
+        return this.getSharedPreferences("key", this.MODE_APPEND).getString("key", "0");
     }
 
     @Override
@@ -98,7 +102,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 打开滑动退出此Activity的功能 <功能详细描述>
      *
-     * @param isOpen
+     * @param
      * @see [类、类#方法、类#成员]
      */
     @Override

@@ -81,6 +81,14 @@ public class ApiInterface {
      * 上传图片
      */
     public static final String Member_image  ="/mobile/index.php?act=upload&op=member_image";
+    /**
+     *校验登录密码
+     */
+    public static final String Check_password  ="/mobile/index.php?act=member_info&op=check_password";
+    /**
+     *修改登录密码
+     */
+    public static final String Change_pwd  ="/mobile/index.php?act=member_info&op=change_pwd";
 
 
 
