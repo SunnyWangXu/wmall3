@@ -159,7 +159,6 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
         } else if (requestCode == GalleryConstants.INTENT_CROP) {
             Bitmap bitmap = data.getParcelableExtra("data");
             iv_Avatar.setImageBitmap(bitmap);
-            //member_image();
 
             File temp = new File(Environment.getExternalStorageDirectory()
                     .getPath() + "/wjhg/");// 自已缓存文件夹
@@ -180,7 +179,10 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
                     RequestParams params = new RequestParams();
                     params.addBodyParameter("key", this.getSharedPreferences("key", MODE_APPEND).getString("key", "0"));
                     params.addBodyParameter("data", input, tempFile.length(), sur);
-                    member_image(params);
+                    /**
+                     * 上传用户头像
+                     */
+                    load_member_image(params);
                 }
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -191,7 +193,7 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
     /**
      * 上传用户头像
      */
-    private void member_image(RequestParams params) {
+    private void load_member_image(RequestParams params) {
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Member_image, params, new RequestCallBack<String>() {
             @Override
