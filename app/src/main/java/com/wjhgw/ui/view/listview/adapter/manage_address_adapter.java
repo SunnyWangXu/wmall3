@@ -15,6 +15,7 @@ package com.wjhgw.ui.view.listview.adapter;
 //
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 import com.wjhgw.R;
 import com.wjhgw.business.api.Address_del_Request;
 import com.wjhgw.business.bean.address_data;
+import com.wjhgw.ui.activity.AddressDetailActvity;
 import com.wjhgw.ui.dialog.MyDialog;
 
 import java.util.List;
@@ -163,6 +165,8 @@ public class manage_address_adapter extends BaseAdapter {
                         if (!(Math.abs(currentX - lastX) > 16 || Math.abs(currentY - lastY) > 16)) {
                             Toast.makeText(v.getContext(), "Item点击", Toast.LENGTH_SHORT).show();
 
+                            Intent intent = new Intent(mContext, AddressDetailActvity.class);
+                            mContext.startActivity(intent);
                         }
                     default:
                         break;
