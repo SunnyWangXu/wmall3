@@ -45,6 +45,7 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
     private LinearLayout ll_nickname;
     private LinearLayout ll_picture;
     private LinearLayout ll_change_password;
+    private LinearLayout ll_payment_password;
     private TextView tv_Nickname;
     private Intent intent;
     private GalleryDialog Dialog;
@@ -56,6 +57,7 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
     private TextView tv_Paypwd;
     private TextView tv_Mobile;
     private LinearLayout ll_Manage_Addres;
+    private String Number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,7 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
         ll_picture = (LinearLayout) findViewById(R.id.ll_picture);
         ll_nickname = (LinearLayout) findViewById(R.id.ll_nickname);
         ll_change_password = (LinearLayout) findViewById(R.id.ll_change_password);
+        ll_payment_password = (LinearLayout) findViewById(R.id.ll_payment_password);
 
         ll_Manage_Addres = (LinearLayout) findViewById(R.id.ll_manage_address);
 
@@ -104,6 +107,7 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
         ll_picture.setOnClickListener(this);
         ll_Manage_Addres.setOnClickListener(this);
         ll_change_password.setOnClickListener(this);
+        ll_payment_password.setOnClickListener(this);
     }
 
     @Override
@@ -117,12 +121,17 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
                 intent = new Intent(this, ChangePasswordActivity.class);
                 startActivity(intent);
                 break;
-
             case R.id.ll_manage_address:
                 intent = new Intent(this, Manage_Address_Activity.class);
                 startActivity(intent);
                 break;
-
+            case R.id.ll_payment_password:
+                Intent intent = new Intent(this, VerificationCodeActivity.class);
+                //Intent intent = new Intent(this, PaymentPasswordActivity.class);
+                intent.putExtra("Number", Number);
+                intent.putExtra("use", "2");
+                startActivity(intent);
+                break;
             case R.id.ll_picture:
                 Dialog.Get_pictures_Dialog();
                 break;
@@ -245,7 +254,7 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
                     MyLockBox myLockBox = gson.fromJson(responseInfo.result, MyLockBox.class);
                     if (myLockBox.status.code == 10000) {
                         MyLockBoxData myLockBoxData = myLockBox.datas;
-
+                        Number = myLockBoxData.member_mobile;
                         APP.getApp().getImageLoader().displayImage(myLockBoxData.member_avatar, iv_Avatar);
                         tv_UseName.setText(myLockBoxData.member_name);
                         tv_Nickname.setText(myLockBoxData.member_nickname);

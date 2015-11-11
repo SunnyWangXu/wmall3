@@ -115,6 +115,7 @@ public class ChangePasswordActivity extends BaseActivity implements OnClickListe
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (start > 0) {
                     iv_delete3.setVisibility(View.VISIBLE);
+                    ll_password3.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 } else {
                     if (start == 0 && count > 0) {
                         iv_delete3.setVisibility(View.VISIBLE);
@@ -130,16 +131,6 @@ public class ChangePasswordActivity extends BaseActivity implements OnClickListe
 
             @Override
             public void afterTextChanged(Editable s) {
-            }
-        });
-        et_password3.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    ll_password3.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                } else {
-                }
             }
         });
     }

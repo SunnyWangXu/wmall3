@@ -64,7 +64,7 @@ public class ApiInterface {
     public static final String ResetPassword  ="/mobile/index.php?act=reset_password";
 
     /**
-     * 重置密码接口
+     *获取用户信息
      */
     public static final String Get_member_base_info  ="/mobile/index.php?act=member_info&op=get_member_base_info";
 

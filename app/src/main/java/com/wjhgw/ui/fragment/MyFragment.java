@@ -21,7 +21,7 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseQuery;
-import com.wjhgw.business.bean.Userinformation;
+import com.wjhgw.business.bean.MyLockBox;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.MyLockBoxActivity;
@@ -35,7 +35,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private LinearLayout MyMessageLayout;
     private LinearLayout MySetHelpLayout;
     private LinearLayout MyOrderLayout;
-    private Userinformation userinformation;
+    private MyLockBox userinformation;
     private ImageView myAvatar;
     private TextView member_nickname;
     private String key;
@@ -212,7 +212,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private void Analytical(String responseInfoResult) {
         Gson gson = new Gson();
         if (responseInfoResult != null) {
-            userinformation = gson.fromJson(responseInfoResult, Userinformation.class);
+            userinformation = gson.fromJson(responseInfoResult, MyLockBox.class);
 
             if (userinformation.status.code == 10000) {
                 APP.getApp().getImageLoader().displayImage(userinformation.datas.member_avatar, myAvatar);

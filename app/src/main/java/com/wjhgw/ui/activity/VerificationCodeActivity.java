@@ -37,7 +37,6 @@ public class VerificationCodeActivity extends BaseActivity implements BusinessRe
     private String Verification_code;
     private TimeCount time;
     Intent intent;
-    private int Lock = 0;
     String key;
 
     @Override
@@ -76,7 +75,12 @@ public class VerificationCodeActivity extends BaseActivity implements BusinessRe
         tv_verificationcode.setBackgroundColor(0xff666666);
         key = this.getSharedPreferences("key", MODE_PRIVATE).getString("key", "0");
         HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("member_mobile", Number);
+
+        if (getIntent().getStringExtra("use").equals("2") && key != "0") {
+            hashMap.put("key", key);
+        } else {
+            hashMap.put("member_mobile", Number);
+        }
         Request.Verification_code(hashMap, BaseQuery.serviceUrl() + ApiInterface.VerificationCode);
     }
 
@@ -127,6 +131,9 @@ public class VerificationCodeActivity extends BaseActivity implements BusinessRe
                     tv_next.setClickable(false);
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("sms_code", Verification_code);
+                    if (key != "0") {
+                        hashMap.put("key", key);
+                    }
                     Request.Number_Verification_code(hashMap, BaseQuery.serviceUrl() + ApiInterface.VerificationNumber);
                 }
                 break;
@@ -158,26 +165,30 @@ public class VerificationCodeActivity extends BaseActivity implements BusinessRe
             }
         } else if (url.equals(BaseQuery.serviceUrl() + ApiInterface.VerificationNumber)) {
             if (status.getString("code").equals("10000")) {
-                if(getIntent().getStringExtra("use").equals("0")){
+                if (getIntent().getStringExtra("use").equals("0")) {
                     intent = new Intent(this, A2_ResetPassActivity2.class);
                     intent.putExtra("Number", Number);
                     startActivity(intent);
                     finish(false);
-                }else if(getIntent().getStringExtra("use").equals("1")){
+                } else if (getIntent().getStringExtra("use").equals("1")) {
                     intent = new Intent(this, A1_RegisterActivity2.class);
+                    intent.putExtra("Number", Number);
+                    startActivity(intent);
+                    finish(false);
+                } else if (getIntent().getStringExtra("use").equals("2")) {
+                    intent = new Intent(this, PaymentPasswordActivity.class);
                     intent.putExtra("Number", Number);
                     startActivity(intent);
                     finish(false);
                 }
 
                 Toast.makeText(this, status.getString("msg"), Toast.LENGTH_LONG).show();
-            } else if (status.getString("code").equals("100300")) {
-                Toast.makeText(this, status.getString("msg"), Toast.LENGTH_LONG).show();
-            } else if (status.getString("code").equals("100300")) {
+            } else {
                 Toast.makeText(this, status.getString("msg"), Toast.LENGTH_LONG).show();
             }
         }
     }
+
     class TimeCount extends CountDownTimer {
         public TimeCount(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);//参数依次为总时长,和计时的时间间隔
