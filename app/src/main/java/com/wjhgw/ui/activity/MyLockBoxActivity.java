@@ -79,7 +79,7 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
         ll_picture = (LinearLayout) findViewById(R.id.ll_picture);
         ll_nickname = (LinearLayout) findViewById(R.id.ll_nickname);
         ll_change_password = (LinearLayout) findViewById(R.id.ll_change_password);
-        
+
         ll_Manage_Addres = (LinearLayout) findViewById(R.id.ll_manage_address);
 
         iv_Avatar = (ImageView) findViewById(R.id.iv_avatar);

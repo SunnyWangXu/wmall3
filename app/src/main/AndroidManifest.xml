@@ -34,8 +34,8 @@
         <activity android:name=".ui.activity.VerificationCodeActivity" />
         <activity android:name=".ui.activity.MyLockBoxActivity" />
         <activity android:name=".ui.activity.Modify_nicknameActivity" />
-        <activity android:name=".ui.activity.Manage_Address_Activity" />
         <activity android:name=".ui.activity.ChangePasswordActivity" />
+        <activity android:name=".ui.activity.Manage_Address_Activity" />
     </application>
 
 </manifest>

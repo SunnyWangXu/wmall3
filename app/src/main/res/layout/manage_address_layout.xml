@@ -1,23 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
-    <include layout="@layout/title_layout"/>
-
-
-    <Button
+    <com.wjhgw.utils.SwipeLayout
+        android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="20dp"
-        android:background="#f25252"
-        android:gravity="center"
-        android:text="新增收货地址"
-        android:textColor="@color/white"
-        android:textSize="21sp"
-        android:layout_alignParentBottom="true"/>
+        android:layout_height="88dp"
+        android:descendantFocusability="blocksDescendants">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:orientation="vertical"
+            android:background="#ffffff">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:background="#ffffff">
+
+                <TextView
+                    android:id="@+id/tv_true_name"
+                    android:text="花心老板"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#666666"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/tv_mob_phone"
+                    android:text="13432804970"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#666666"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/tv_is_default"
+                    android:text="默认地址"
+                    android:textSize="13sp"
+                    android:textColor="#999999"
+                    android:gravity="right"
+                    android:visibility="gone"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:text="@string/hello_world"
+                    android:textSize="13sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#999999"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="2"
+                    android:layout_height="47dp"/>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:layout_gravity="bottom"
+                android:background="#d7d7d7"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/default_button"
+                android:clickable="true"
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="#ffc457">
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="默认"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/delete_button"
+                android:clickable="true"
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:background="#f25252">
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="删除"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+    </com.wjhgw.utils.SwipeLayout>
 </RelativeLayout>

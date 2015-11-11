@@ -89,6 +89,22 @@ public class ApiInterface {
      *修改登录密码
      */
     public static final String Change_pwd  ="/mobile/index.php?act=member_info&op=change_pwd";
+    /**
+     *设置支付密码
+     */
+    public static final String Set_paypwd  ="/mobile/index.php?act=member_info&op=set_paypwd";
+    /**
+     *地址列表接口
+     */
+    public static final String Address_list  ="/mobile/index.php?act=member_address&op=address_list";
+    /**
+     *地址列表接口
+     */
+    public static final String Address_del  ="/mobile/index.php?act=member_address&op=address_del";
+    /**
+     *地址列表接口
+     */
+    public static final String Set_add_def  ="/mobile/index.php?act=member_address&op=set_add_def";
 
 
 
