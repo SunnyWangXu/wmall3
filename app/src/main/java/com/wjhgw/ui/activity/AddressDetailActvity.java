@@ -7,22 +7,17 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
+import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.CityActivity;
 import com.wjhgw.utils.widget.OnWheelChangedListener;
 import com.wjhgw.utils.widget.WheelView;
 import com.wjhgw.utils.widget.adapters.ArrayWheelAdapter;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class AddressDetailActvity extends CityActivity implements OnClickListener, OnWheelChangedListener {
     private WheelView mViewProvince;
@@ -178,19 +173,21 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
         params.addBodyParameter("address", address);
         params.addBodyParameter("mob_phone", mob_phone);
 
-//        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, url, params, new RequestCallBack<String>() {
-//            @Override
-//            public void onSuccess(ResponseInfo<String> responseInfo) {
-//                Toast.makeText(getApplicationContext(),"返回成功", Toast.LENGTH_LONG).show();
-//            }
-//
-//            @Override
-//            public void onFailure(HttpException e, String s) {
-//
-//            }
-//        });
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, url, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
 
-        RequestQueue mQueue = Volley.newRequestQueue(AddressDetailActvity.this);
+                Toast.makeText(getApplicationContext(), "区域选择成功", Toast.LENGTH_LONG).show();
+
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+            }
+        });
+
+       /* RequestQueue mQueue = Volley.newRequestQueue(AddressDetailActvity.this);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url,SuccessfulResponse,FailureResponse){
             @Override
@@ -220,7 +217,7 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
         @Override
         public void onResponse(String response) {
 
-            Toast.makeText(getApplicationContext(), "返回成功", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "区域选择成功", Toast.LENGTH_LONG).show();
 
         }
     };
@@ -229,7 +226,7 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
         @Override
         public void onErrorResponse(VolleyError error) {
 
-        }
+        }*/
     };
 
 }
