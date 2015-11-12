@@ -1,10 +1,15 @@
 package com.wjhgw.ui.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lidroid.xutils.exception.HttpException;
@@ -23,11 +28,17 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
     private WheelView mViewProvince;
     private WheelView mViewCity;
     private WheelView mViewDistrict;
-    private Button mBtnConfirm;
-    private Button mBtnCancel;
+    private TextView mTvConfirm;
     private LinearLayout llPickCity;
     private LinearLayout llZone;
     private Button mBtnSave;
+    private View viewShutter;
+    private ImageView back;
+    private TextView title;
+    private EditText edName;
+    private EditText edPhone;
+    private TextView tvAddressInfo;
+    private EditText edAddressDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +47,34 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
         setUpViews();
         setUpListener();
         setUpData();
+
+
     }
 
     private void setUpViews() {
-        llZone = (LinearLayout)findViewById(R.id.ll_zone);
+        back = (ImageView) findViewById(R.id.iv_title_back);
+        back.setVisibility(View.VISIBLE);
+        title = (TextView) findViewById(R.id.tv_title_name);
+        title.setText("收货地址管理");
+
+        edName = (EditText) findViewById(R.id.ed_name);
+        edName.setText(getIntent().getStringExtra("name"));
+        edPhone = (EditText) findViewById(R.id.ed_phone);
+        edPhone.setText(getIntent().getStringExtra("phone"));
+        tvAddressInfo = (TextView) findViewById(R.id.tv_address_info);
+        tvAddressInfo.setText(getIntent().getStringExtra("info"));
+        edAddressDetail = (EditText) findViewById(R.id.ed_address_detail);
+        edAddressDetail.setText(getIntent().getStringExtra("addressDetail"));
+
+
+        llZone = (LinearLayout) findViewById(R.id.ll_zone);
+
+        viewShutter = (View) findViewById(R.id.view_shutter);
 
         mViewProvince = (WheelView) findViewById(R.id.id_province);
         mViewCity = (WheelView) findViewById(R.id.id_city);
         mViewDistrict = (WheelView) findViewById(R.id.id_district);
-        mBtnConfirm = (Button) findViewById(R.id.btn_confirm);
-        mBtnCancel = (Button) findViewById(R.id.btn_cancel);
+        mTvConfirm = (TextView) findViewById(R.id.tv_confirm);
         mBtnSave = (Button) findViewById(R.id.btn_save);
 
         llPickCity = (LinearLayout) findViewById(R.id.ll_pick_city);
@@ -59,9 +88,9 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
         // 添加change事件
         mViewDistrict.addChangingListener(this);
         // 添加onclick事件
-        mBtnConfirm.setOnClickListener(this);
+        mTvConfirm.setOnClickListener(this);
 
-        mBtnCancel.setOnClickListener(this);
+        back.setOnClickListener(this);
         mBtnSave.setOnClickListener(this);
 
         llZone.setOnClickListener(this);
@@ -132,21 +161,28 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_confirm:
+            case R.id.tv_confirm:
                 showSelectedResult();
+                viewShutter.setVisibility(View.GONE);
                 llPickCity.setVisibility(View.INVISIBLE);
                 mBtnSave.setVisibility(View.VISIBLE);
                 break;
 
-            case R.id.btn_cancel:
-                llPickCity.setVisibility(View.INVISIBLE);
-                mBtnSave.setVisibility(View.VISIBLE);
+            case R.id.iv_title_back:
+                finish();
                 break;
 
             case R.id.ll_zone:
+                viewShutter.setVisibility(View.VISIBLE);
                 llPickCity.setVisibility(View.VISIBLE);
                 mBtnSave.setVisibility(View.GONE);
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if(imm != null) {
+                    imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+                }
                 break;
+
             case R.id.btn_save:
 
                 break;

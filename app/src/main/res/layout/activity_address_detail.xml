@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E9E9E9"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <include layout="@layout/title_layout" />
@@ -12,257 +12,292 @@
         android:layout_height="1dp"
         android:background="@color/line_bg" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:orientation="horizontal">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="11dp"
-            android:gravity="center"
-            android:text="收货人"
-            android:textColor="@color/gray"
-            android:textSize="@dimen/title_size" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
-            android:gravity="center"
-            android:text="习大大"
-            android:textColor="@color/light_gray"
-            android:textSize="@dimen/title_size" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:src="@mipmap/ic_arrow_right" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_bg" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:orientation="horizontal">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="11dp"
-            android:gravity="center"
-            android:text="手机号码"
-            android:textColor="@color/gray"
-            android:textSize="@dimen/title_size" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="11dp"
-            android:gravity="center"
-            android:text="188****8888"
-            android:textColor="@color/light_gray"
-            android:textSize="@dimen/title_size" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:src="@mipmap/ic_arrow_right" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_bg" />
-
-
-    <LinearLayout
-        android:id="@+id/ll_zone"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:orientation="horizontal">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="11dp"
-            android:gravity="center"
-            android:text="所在区域"
-            android:textColor="@color/gray"
-            android:textSize="@dimen/title_size" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="11dp"
-            android:gravity="center"
-            android:text="大北京中南海"
-            android:textColor="@color/light_gray"
-            android:textSize="@dimen/title_size" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:src="@mipmap/ic_arrow_right" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_bg" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:background="@color/white"
-        android:orientation="horizontal">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="11dp"
-            android:gravity="center"
-            android:text="详细地址"
-            android:textColor="@color/gray"
-            android:textSize="@dimen/title_size" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="11dp"
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="3"
-            android:text="大北京中南海大北京中南海大北京中南海大北京中南海大北京中南海大北京中南海大北京中南海大北京中南海大北京中南海"
-            android:textColor="@color/light_gray"
-            android:textSize="@dimen/title_size" />
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="15dp"
-            android:src="@mipmap/ic_arrow_right" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_bg" />
-
-    <LinearLayout
-    android:id="@+id/ll_pick_city"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-        android:layout_weight="1"
-    android:background="#E9E9E9"
-    android:orientation="vertical"
-    android:paddingTop="20dip" >
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="5dip" >
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dip"
-            android:text="请选择省市区"
-            android:textColor="#000000"
-            android:textSize="20sp" />
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="11dp"
+                    android:gravity="center"
+                    android:text="收货人"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/title_size" />
+
+                <EditText
+                    android:id="@+id/ed_name"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:lines="1"
+                    android:maxLength="20"
+                    android:text="习大大"
+                    android:textColor="@color/light_gray"
+                    android:textSize="@dimen/title_size" />
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/ic_arrow_right" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="11dp"
+                    android:gravity="center"
+                    android:text="手机号码"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/title_size" />
+
+                <EditText
+                    android:id="@+id/ed_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="11dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:lines="1"
+                    android:maxLength="11"
+                    android:text="188****8888"
+                    android:textColor="@color/light_gray"
+                    android:textSize="@dimen/title_size" />
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/ic_arrow_right" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_bg" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_zone"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="11dp"
+                    android:gravity="center"
+                    android:text="所在区域"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/title_size" />
+
+                <TextView
+                    android:id="@+id/tv_address_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="11dp"
+                    android:gravity="center"
+                    android:text="大北京中南海"
+                    android:textColor="@color/light_gray"
+                    android:textSize="@dimen/title_size" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/ic_arrow_right" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_bg" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="11dp"
+                    android:gravity="center"
+                    android:text="详细地址"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/title_size" />
+
+                <EditText
+                    android:id="@+id/ed_address_detail"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="11dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:maxLines="3"
+                    android:layout_marginRight="5dp"
+                    android:ellipsize="end"
+                    android:text="大北京中南海大北京中南海大北京中南海"
+                    android:textColor="@color/light_gray"
+                    android:textSize="@dimen/title_size" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/ic_arrow_right" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_shutter"
+            android:layout_width="match_parent"
+            android:layout_height="245dp"
+            android:alpha="0.5"
+            android:background="#f7f7f7"
+            android:visibility="gone" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <com.wjhgw.utils.widget.WheelView
-            android:id="@+id/id_province"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" >
-        </com.wjhgw.utils.widget.WheelView>
-
-        <com.wjhgw.utils.widget.WheelView
-            android:id="@+id/id_city"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" >
-        </com.wjhgw.utils.widget.WheelView>
-
-        <com.wjhgw.utils.widget.WheelView
-            android:id="@+id/id_district"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" >
-        </com.wjhgw.utils.widget.WheelView>
-    </LinearLayout>
-
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="1dp"
+        android:background="@color/line_bg" />
 
-        <Button
-            android:id="@+id/btn_cancel"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="取消"
-            android:textColor="#000000" />
+    <LinearLayout
+        android:id="@+id/ll_pick_city"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#f7f7f7"
+        android:orientation="vertical"
+        android:visibility="invisible">
 
-        <Button
-            android:id="@+id/btn_confirm"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center_vertical"
+            android:background="#f7f7f7">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:text="请选择省市区"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:text="完成"
+                android:textColor="#f25252"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="确定"
-            android:textColor="#000000" />
+            android:orientation="horizontal">
+
+            <com.wjhgw.utils.widget.WheelView
+                android:id="@+id/id_province"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <com.wjhgw.utils.widget.WheelView
+                android:id="@+id/id_city"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <com.wjhgw.utils.widget.WheelView
+                android:id="@+id/id_district"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <!--  <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal">
+
+            <Button
+                 android:id="@+id/btn_cancel"
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+                 android:gravity="center"
+                 android:text="取消"
+                 android:textColor="#000000" />
+
+            <Button
+                android:id="@+id/btn_confirm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="确定"
+                android:textColor="#000000" />
+        </LinearLayout>-->
     </LinearLayout>
-</LinearLayout>
 
     <Button
         android:id="@+id/btn_save"
@@ -273,8 +308,7 @@
         android:layout_marginRight="40dp"
         android:background="@drawable/btn_address_save_shape"
         android:text="保存"
-        android:visibility="gone"
         android:textColor="@color/white"
-        android:textSize="@dimen/title_size" />
+        android:textSize="@dimen/title_size"/>
 
 </LinearLayout>

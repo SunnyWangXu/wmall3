@@ -166,6 +166,14 @@ public class manage_address_adapter extends BaseAdapter {
                             Toast.makeText(v.getContext(), "Item点击", Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(mContext, AddressDetailActvity.class);
+                            String name = Address_list_data.get(position).true_name;
+                            String phone = Address_list_data.get(position).mob_phone;
+                            String info = Address_list_data.get(position).area_info;
+                            String addressDetail = Address_list_data.get(position).address;
+                            intent.putExtra("name",name);
+                            intent.putExtra("phone",phone);
+                            intent.putExtra("info",info);
+                            intent.putExtra("addressDetail",addressDetail);
                             mContext.startActivity(intent);
                         }
                     default:
