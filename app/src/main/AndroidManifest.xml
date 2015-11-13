@@ -38,6 +38,7 @@
         <activity android:name=".ui.activity.Manage_Address_Activity" />
         <activity android:name=".ui.activity.AddressDetailActvity" />
         <activity android:name=".ui.activity.PaymentPasswordActivity" />
+        <activity android:name=".ui.activity.Change_mobileActivity" />
     </application>
 
 </manifest>

@@ -46,6 +46,7 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
     private LinearLayout ll_picture;
     private LinearLayout ll_change_password;
     private LinearLayout ll_payment_password;
+    private LinearLayout ll_mobile;
     private TextView tv_Nickname;
     private Intent intent;
     private GalleryDialog Dialog;
@@ -81,6 +82,7 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
         ll_picture = (LinearLayout) findViewById(R.id.ll_picture);
         ll_change_password = (LinearLayout) findViewById(R.id.ll_change_password);
         ll_payment_password = (LinearLayout) findViewById(R.id.ll_payment_password);
+        ll_mobile = (LinearLayout) findViewById(R.id.ll_mobile);
 
         ll_Manage_Addres = (LinearLayout) findViewById(R.id.ll_manage_address);
 
@@ -106,6 +108,7 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
         ll_Manage_Addres.setOnClickListener(this);
         ll_change_password.setOnClickListener(this);
         ll_payment_password.setOnClickListener(this);
+        ll_mobile.setOnClickListener(this);
     }
 
     @Override
@@ -124,11 +127,22 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.ll_payment_password:
-                Intent intent = new Intent(this, VerificationCodeActivity.class);
-                //Intent intent = new Intent(this, PaymentPasswordActivity.class);
-                intent.putExtra("Number", Number);
-                intent.putExtra("use", "2");
-                startActivity(intent);
+                if (Number.length() > 0) {
+                    intent = new Intent(this, VerificationCodeActivity.class);
+                    //Intent intent = new Intent(this, PaymentPasswordActivity.class);
+                    intent.putExtra("Number", Number);
+                    intent.putExtra("use", "2");
+                    startActivity(intent);
+                }
+                break;
+            case R.id.ll_mobile:
+                if (Number.length() > 0) {
+                    intent = new Intent(this, VerificationCodeActivity.class);
+                    //Intent intent = new Intent(this, PaymentPasswordActivity.class);
+                    intent.putExtra("Number", Number);
+                    intent.putExtra("use", "3");
+                    startActivity(intent);
+                }
                 break;
             case R.id.ll_picture:
                 Dialog.Get_pictures_Dialog();

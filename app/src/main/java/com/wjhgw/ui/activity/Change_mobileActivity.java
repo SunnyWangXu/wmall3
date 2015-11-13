@@ -26,18 +26,20 @@ import com.wjhgw.business.bean.Status;
 import com.wjhgw.config.ApiInterface;
 
 /**
- * 通用的获取手机验证和
+ * 修改绑定手机号
  */
-public class VerificationCodeActivity extends BaseActivity implements OnClickListener {
+public class Change_mobileActivity extends BaseActivity implements OnClickListener {
 
     private EditText et_editText;
+    private EditText et_mobile;
     private ImageView iv_delete;
+    private ImageView iv_delete1;
     private TextView tv_next;
     private TextView tv_verificationcode;
-    private TextView tv_state;
 
     private String Number;
     private String Verification_code;
+    private int Mark = 0;  //用于判断是否点击获取验证码按钮
     private TimeCount time;
     Intent intent;
     String key;
@@ -45,18 +47,18 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.verification_code_layout);
+        setContentView(R.layout.change_mobile_layout);
 
-        et_editText.addTextChangedListener(new TextWatcher() {
+        et_mobile.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (start > 0) {
-                    iv_delete.setVisibility(View.VISIBLE);
+                    iv_delete1.setVisibility(View.VISIBLE);
                 } else {
                     if (start == 0 && count > 0) {
-                        iv_delete.setVisibility(View.VISIBLE);
+                        iv_delete1.setVisibility(View.VISIBLE);
                     } else {
-                        iv_delete.setVisibility(View.GONE);
+                        iv_delete1.setVisibility(View.GONE);
                     }
                 }
             }
@@ -69,29 +71,50 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
             public void afterTextChanged(Editable s) {
             }
         });
-        Number = getIntent().getStringExtra("Number");
-        tv_state.setText("请输入手机号码 " + Number + " 收到的验证码");
-        time = new TimeCount(60000, 1000);//构造CountDownTimer对象
-        time.start();
-        tv_verificationcode.setBackgroundColor(0xffcccccc);
-        key = getKey();
+        et_editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (start > 0) {
+                    iv_delete.setVisibility(View.VISIBLE);
+                } else {
+                    if (start == 0 && count > 0) {
+                        iv_delete.setVisibility(View.VISIBLE);
+                    } else {
+                        iv_delete.setVisibility(View.GONE);
+                    }
+                }
+                if (Mark != 1) {
+                    Toast.makeText(Change_mobileActivity.this, "请先输入11位手机号并获取短信验证码", Toast.LENGTH_LONG).show();
+                }
+            }
 
-        Verification_code();
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        time = new TimeCount(60000, 1000);//构造CountDownTimer对象
+        key = getKey();
     }
 
     @Override
     public void onInit() {
         setUp();
-        setTitle("验证验证码");
+        setTitle("修改绑定手机号");
 
     }
 
     @Override
     public void onFindViews() {
         et_editText = (EditText) findViewById(R.id.et_editext);
+        et_mobile = (EditText) findViewById(R.id.et_mobile);
         tv_verificationcode = (TextView) findViewById(R.id.tv_verificationcode);
         iv_delete = (ImageView) findViewById(R.id.iv_delete);
-        tv_state = (TextView) findViewById(R.id.tv_state);
+        iv_delete1 = (ImageView) findViewById(R.id.iv_delete1);
         tv_next = (TextView) findViewById(R.id.tv_next);
     }
 
@@ -103,6 +126,7 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
     @Override
     public void onBindListener() {
         iv_delete.setOnClickListener(this);
+        iv_delete1.setOnClickListener(this);
         tv_next.setOnClickListener(this);
         tv_verificationcode.setOnClickListener(this);
     }
@@ -115,21 +139,26 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_delete1:
+                et_mobile.setText("");
+                iv_delete1.setVisibility(View.GONE);
+                break;
             case R.id.iv_delete:
                 et_editText.setText("");
                 iv_delete.setVisibility(View.GONE);
                 break;
             case R.id.tv_next:
                 Verification_code = et_editText.getText().toString();
-                Number = et_editText.getText().toString();
-                if (Verification_code.length() == 4) {
-                    //tv_next.setClickable(false);
+                Number = et_mobile.getText().toString();
+                if (Verification_code.length() == 4 && Number.length() == 11 && Number.substring(0, 1).equals("1")) {
+                    tv_next.setClickable(false);
                     Number_Verification_code();
                 } else {
-                    Toast.makeText(this, "你的输入有误！请重新输入", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "你输入的号码有误！请重新输入", Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.tv_verificationcode:
+                Number = et_mobile.getText().toString();
                 if (Number.length() == 11 && Number.substring(0, 1).equals("1")) {
                     time.start();
                     tv_verificationcode.setBackgroundColor(0xffcccccc);
@@ -146,90 +175,6 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
         }
     }
 
-    /**
-     * 请求发送验证码
-     */
-    private void Verification_code() {
-        RequestParams params = new RequestParams();
-        if (key.length() > 0) {
-            params.addBodyParameter("key", key);
-        } else {
-            params.addBodyParameter("member_mobile", Number);
-        }
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.VerificationCode, params, new RequestCallBack<String>() {
-
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                Gson gson = new Gson();
-                if (responseInfo != null) {
-                    Status status = gson.fromJson(responseInfo.result, Status.class);
-
-                    if (status.status.code == 10000) {
-                        Toast.makeText(VerificationCodeActivity.this, "验证码发送成功", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(VerificationCodeActivity.this, status.status.msg, Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-                //Toast.makeText(this, "请求失败", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    /**
-     * 验证验证码
-     */
-    private void Number_Verification_code() {
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("sms_code", Verification_code);
-        if (key.length() > 0) {
-            params.addBodyParameter("key", key);
-        }
-
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.VerificationNumber, params, new RequestCallBack<String>() {
-
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                Gson gson = new Gson();
-                if (responseInfo != null) {
-                    Status status = gson.fromJson(responseInfo.result, Status.class);
-
-                    if (status.status.code == 10000) {
-                        if (getIntent().getStringExtra("use").equals("0")) {
-                            intent = new Intent(VerificationCodeActivity.this, A2_ResetPassActivity2.class);
-                            intent.putExtra("Number", Number);
-                            startActivity(intent);
-                            finish(false);
-                        } else if (getIntent().getStringExtra("use").equals("1")) {
-                            intent = new Intent(VerificationCodeActivity.this, A1_RegisterActivity2.class);
-                            intent.putExtra("Number", Number);
-                            startActivity(intent);
-                            finish(false);
-                        } else if (getIntent().getStringExtra("use").equals("2")) {
-                            intent = new Intent(VerificationCodeActivity.this, PaymentPasswordActivity.class);
-                            intent.putExtra("Number", Number);
-                            startActivity(intent);
-                            finish(false);
-                        } else if (getIntent().getStringExtra("use").equals("3")) {
-                            intent = new Intent(VerificationCodeActivity.this, Change_mobileActivity.class);
-                            startActivity(intent);
-                            finish(false);
-                        }
-                    } else {
-                        Toast.makeText(VerificationCodeActivity.this, status.status.msg, Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-                //Toast.makeText(this, "请求失败", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     class TimeCount extends CountDownTimer {
         public TimeCount(long millisInFuture, long countDownInterval) {
@@ -248,5 +193,95 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
             tv_verificationcode.setClickable(false);
             tv_verificationcode.setText(millisUntilFinished / 1000 + "秒");
         }
+    }
+
+    /**
+     * 请求发送验证码
+     */
+    private void Verification_code() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("member_mobile", Number);
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.VerificationCode, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+
+                    if (status.status.code == 10000) {
+                        Mark = 1;
+                        Toast.makeText(Change_mobileActivity.this, "验证码以短信形式发送到你的手机，60秒有效", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(Change_mobileActivity.this, status.status.msg, Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                //Toast.makeText(this, "请求失败", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * 验证验证码
+     */
+    private void Number_Verification_code() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("sms_code", Verification_code);
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.VerificationNumber, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+
+                    if (status.status.code == 10000) {
+                        change_mobile();
+                    } else {
+                        Toast.makeText(Change_mobileActivity.this, status.status.msg, Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                //Toast.makeText(this, "请求失败", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * 修改绑定手机号
+     */
+    private void change_mobile() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("member_mobile", Number);
+        params.addBodyParameter("key", key);
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Change_mobile, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+
+                    if (status.status.code == 10000) {
+                        finish(false);
+                        Toast.makeText(Change_mobileActivity.this, status.status.msg, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(Change_mobileActivity.this, status.status.msg, Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                //Toast.makeText(this, "请求失败", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

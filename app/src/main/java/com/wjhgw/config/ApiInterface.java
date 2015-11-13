@@ -98,17 +98,21 @@ public class ApiInterface {
      */
     public static final String Address_list  ="/mobile/index.php?act=member_address&op=address_list";
     /**
-     *地址列表接口
+     *地址删除接口
      */
     public static final String Address_del  ="/mobile/index.php?act=member_address&op=address_del";
     /**
-     *地址列表接口
+     *设置默认地址
      */
     public static final String Set_add_def  ="/mobile/index.php?act=member_address&op=set_add_def";
     /**
      *编辑地址接口
      */
     public static final String Address_edit  ="/mobile/index.php?act=member_address&op=address_edit";
+    /**
+     *修改绑定手机号
+     */
+    public static final String Change_mobile  ="/mobile/index.php?act=member_info&op=change_mobile";
 
 
 
