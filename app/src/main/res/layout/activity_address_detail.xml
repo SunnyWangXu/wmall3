@@ -184,6 +184,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:maxLines="3"
+                    android:maxLength="40"
                     android:layout_marginRight="5dp"
                     android:ellipsize="end"
                     android:text="大北京中南海大北京中南海大北京中南海"

@@ -2,7 +2,6 @@ package com.wjhgw.ui.activity;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -180,6 +179,7 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
                 viewShutter.setVisibility(View.VISIBLE);
                 llPickCity.setVisibility(View.VISIBLE);
                 mBtnSave.setVisibility(View.GONE);
+
                 /**
                  * 隐藏软键盘
                  */
@@ -208,9 +208,7 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
 
         String key = getSharedPreferences("key", this.MODE_APPEND).getString("key", "0");
         String useName = edName.getEditableText().toString();
-        String area_info = tvAddressInfo.getText().toString();
-        String AA = tvAddressInfo.getText().toString().replace(" ","/t");
-        Log.e("AAAAAAAAAAAAAA", AA);
+        String area_info = tvAddressInfo.getText().toString().replace(" ", "	");
 
         String address = edAddressDetail.getText().toString();
         String mob_phone = edPhone.getText().toString();
@@ -224,7 +222,7 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
         params.addBodyParameter("address", address);
         params.addBodyParameter("mob_phone", mob_phone);
 
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl()+ ApiInterface.Address_edit, params, new RequestCallBack<String>() {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Address_edit, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
 
