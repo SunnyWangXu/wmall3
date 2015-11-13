@@ -3346,7 +3346,7 @@
       <district name="其他" zipcode="100000" />
     </city>
   </province>
-  <province name="西藏自治区">
+  <province name="西藏">
     <city name="阿里地区">
       <district name="措勤县" zipcode="859000" />
       <district name="噶尔县" zipcode="859000" />

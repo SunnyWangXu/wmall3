@@ -41,7 +41,7 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
     private EditText edPhone;
     private TextView tvAddressInfo;
     private EditText edAddressDetail;
-    private String name;
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,6 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
         setUpViews();
         setUpListener();
         setUpData();
-
 
     }
 
@@ -81,6 +80,19 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
         mBtnSave = (Button) findViewById(R.id.btn_save);
 
         llPickCity = (LinearLayout) findViewById(R.id.ll_pick_city);
+
+        type =  getIntent().getType();
+
+        /**
+         * 点击新增地址跳转过来的
+         */
+        if(type !=null && type.equals("addAddress")){
+            edName.setHint("输入姓名");
+            edPhone.setHint("输入11位手机号码");
+            tvAddressInfo.setText("点击进行区域选择");
+            edAddressDetail.setHint("输入街道名称等信息");
+
+        }
     }
 
     private void setUpListener() {
@@ -169,6 +181,11 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
                 viewShutter.setVisibility(View.GONE);
                 llPickCity.setVisibility(View.INVISIBLE);
                 mBtnSave.setVisibility(View.VISIBLE);
+
+                edName.setEnabled(true);
+                edPhone.setEnabled(true);
+                edAddressDetail.setEnabled(true);
+
                 break;
 
             case R.id.iv_title_back:
@@ -179,7 +196,9 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
                 viewShutter.setVisibility(View.VISIBLE);
                 llPickCity.setVisibility(View.VISIBLE);
                 mBtnSave.setVisibility(View.GONE);
-
+                edName.setEnabled(false);
+                edPhone.setEnabled(false);
+                edAddressDetail.setEnabled(false);
                 /**
                  * 隐藏软键盘
                  */
@@ -237,7 +256,5 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
         });
 
     }
-
-    ;
 
 }

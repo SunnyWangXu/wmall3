@@ -1,9 +1,11 @@
 package com.wjhgw.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -31,13 +33,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Manage_Address_Activity extends BaseActivity implements BusinessResponse, AdapterView.OnItemClickListener, XListView.IXListViewListener {
+public class Manage_Address_Activity extends BaseActivity implements BusinessResponse, AdapterView.OnItemClickListener, XListView.IXListViewListener, View.OnClickListener {
 
     private ListView mListView;
     private manage_address_adapter listAdapter;
     private String key;
     private Address_del_Request Request;
     private List<address_data> address_list_data = new ArrayList<>();
+    private TextView tvAddAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,7 @@ public class Manage_Address_Activity extends BaseActivity implements BusinessRes
 
     @Override
     public void onFindViews() {
+       tvAddAddress = (TextView)findViewById(R.id.tv_add_address);
 
     }
 
@@ -69,7 +73,7 @@ public class Manage_Address_Activity extends BaseActivity implements BusinessRes
 
     @Override
     public void onBindListener() {
-
+        tvAddAddress.setOnClickListener(this);
     }
 
     /**
@@ -144,5 +148,23 @@ public class Manage_Address_Activity extends BaseActivity implements BusinessRes
          * 请求地址列表
          */
         load_Address_list();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            case R.id.tv_add_address :
+
+                Intent intent = new Intent(this, AddressDetailActvity.class);
+//                intent.putExtra("addAddress", "addAddress");
+                intent.setType("addAddress");
+                startActivity(intent);
+
+                break;
+
+            default:
+                break;
+        }
     }
 }
