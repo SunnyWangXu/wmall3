@@ -23,7 +23,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wjhgw.R;
 import com.wjhgw.business.api.Address_del_Request;
@@ -163,13 +162,15 @@ public class manage_address_adapter extends BaseAdapter {
                         break;
                     case MotionEvent.ACTION_UP:
                         if (!(Math.abs(currentX - lastX) > 16 || Math.abs(currentY - lastY) > 16)) {
-                            Toast.makeText(v.getContext(), "Item点击", Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(mContext, AddressDetailActvity.class);
                             String name = Address_list_data.get(position).true_name;
                             String phone = Address_list_data.get(position).mob_phone;
                             String info = Address_list_data.get(position).area_info;
+                            String addressId = Address_list_data.get(position).address_id;
                             String addressDetail = Address_list_data.get(position).address;
+
+                            intent.putExtra("addressId",addressId);
                             intent.putExtra("name",name);
                             intent.putExtra("phone",phone);
                             intent.putExtra("info",info);

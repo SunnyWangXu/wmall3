@@ -105,6 +105,10 @@ public class ApiInterface {
      *地址列表接口
      */
     public static final String Set_add_def  ="/mobile/index.php?act=member_address&op=set_add_def";
+    /**
+     *编辑地址接口
+     */
+    public static final String Address_edit  ="/mobile/index.php?act=member_address&op=address_edit";
 
 
 

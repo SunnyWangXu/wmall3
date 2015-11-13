@@ -54,7 +54,7 @@ public class Address_del_Request extends BaseRequest {
                             e.printStackTrace();
                         }
 
-                        Toast.makeText(mContext, status.status.msg, Toast.LENGTH_LONG).show();
+//                        Toast.makeText(mContext, status.status.msg, Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(mContext, status.status.msg, Toast.LENGTH_LONG).show();
                     }

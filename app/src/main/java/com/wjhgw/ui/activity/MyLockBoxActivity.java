@@ -79,14 +79,12 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
     public void onFindViews() {
         ll_nickname = (LinearLayout) findViewById(R.id.ll_nickname);
         ll_picture = (LinearLayout) findViewById(R.id.ll_picture);
-        ll_nickname = (LinearLayout) findViewById(R.id.ll_nickname);
         ll_change_password = (LinearLayout) findViewById(R.id.ll_change_password);
         ll_payment_password = (LinearLayout) findViewById(R.id.ll_payment_password);
 
         ll_Manage_Addres = (LinearLayout) findViewById(R.id.ll_manage_address);
 
         iv_Avatar = (ImageView) findViewById(R.id.iv_avatar);
-        tv_UseName = (TextView) findViewById(R.id.tv_usename);
         tv_Nickname = (TextView) findViewById(R.id.tv_nickname);
         tv_Passwd_Strength = (TextView) findViewById(R.id.tv_passwd_strength);
         tv_Paypwd = (TextView) findViewById(R.id.tv_paypwd);
@@ -256,7 +254,6 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
                         MyLockBoxData myLockBoxData = myLockBox.datas;
                         Number = myLockBoxData.member_mobile;
                         APP.getApp().getImageLoader().displayImage(myLockBoxData.member_avatar, iv_Avatar);
-                        tv_UseName.setText(myLockBoxData.member_name);
                         tv_Nickname.setText(myLockBoxData.member_nickname);
                         if (myLockBoxData.passwd_strength.equals("0")) {
                             tv_Passwd_Strength.setText("弱");

@@ -2,6 +2,7 @@ package com.wjhgw.ui.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -19,7 +20,9 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.wjhgw.APP;
 import com.wjhgw.R;
+import com.wjhgw.base.BaseQuery;
 import com.wjhgw.base.CityActivity;
+import com.wjhgw.config.ApiInterface;
 import com.wjhgw.utils.widget.OnWheelChangedListener;
 import com.wjhgw.utils.widget.WheelView;
 import com.wjhgw.utils.widget.adapters.ArrayWheelAdapter;
@@ -39,6 +42,7 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
     private EditText edPhone;
     private TextView tvAddressInfo;
     private EditText edAddressDetail;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,7 +166,7 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_confirm:
-                showSelectedResult();
+                tvAddressInfo.setText(mCurrentProviceName + " " + mCurrentCityName + " " + mCurrentDistrictName);
                 viewShutter.setVisibility(View.GONE);
                 llPickCity.setVisibility(View.INVISIBLE);
                 mBtnSave.setVisibility(View.VISIBLE);
@@ -176,14 +180,21 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
                 viewShutter.setVisibility(View.VISIBLE);
                 llPickCity.setVisibility(View.VISIBLE);
                 mBtnSave.setVisibility(View.GONE);
-
+                /**
+                 * 隐藏软键盘
+                 */
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                if(imm != null) {
+                if (imm != null) {
                     imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
                 }
                 break;
 
             case R.id.btn_save:
+                /**
+                 * 请求修改地址
+                 */
+                showSelectedResult();
+                finish();
 
                 break;
             default:
@@ -195,25 +206,29 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
 //		Toast.makeText(AddressDetailActvity.this, "当前选中："+mCurrentProviceName+","+mCurrentCityName+","
 //				+mCurrentDistrictName+","+mCurrentZipCode, Toast.LENGTH_SHORT).show();
 
-        String key = "de4c81c7ef206bd5dbd825520b97468f";
-        String name = "王旭";
-        String area_info = mCurrentProviceName + "|" + mCurrentCityName + "|" + mCurrentDistrictName;
-        String address = "中南海";
-        String mob_phone = "18205447201";
-        String url = "http://10.10.0.143/mobile/index.php?act=member_address&op=address_add";
+        String key = getSharedPreferences("key", this.MODE_APPEND).getString("key", "0");
+        String useName = edName.getEditableText().toString();
+        String area_info = tvAddressInfo.getText().toString();
+        String AA = tvAddressInfo.getText().toString().replace(" ","/t");
+        Log.e("AAAAAAAAAAAAAA", AA);
+
+        String address = edAddressDetail.getText().toString();
+        String mob_phone = edPhone.getText().toString();
+        String address_id = getIntent().getStringExtra("addressId");
 
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
-        params.addBodyParameter("true_name", name);
+        params.addBodyParameter("address_id", address_id);
+        params.addBodyParameter("true_name", useName);
         params.addBodyParameter("area_info", area_info);
         params.addBodyParameter("address", address);
         params.addBodyParameter("mob_phone", mob_phone);
 
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, url, params, new RequestCallBack<String>() {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl()+ ApiInterface.Address_edit, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
 
-                Toast.makeText(getApplicationContext(), "区域选择成功", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "收货地址修改成功", Toast.LENGTH_LONG).show();
 
             }
 
@@ -223,46 +238,8 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
             }
         });
 
-       /* RequestQueue mQueue = Volley.newRequestQueue(AddressDetailActvity.this);
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,url,SuccessfulResponse,FailureResponse){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                String key = "de4c81c7ef206bd5dbd825520b97468f";
-                String name = "王旭";
-                String area_info = mCurrentProviceName + "|" + mCurrentCityName + "|" + mCurrentDistrictName;
-                String address = "中南海";
-                String mob_phone = "18205447201";
-
-                    Map<String, String> map = new HashMap<String, String>();
-                    map.put("key", key);
-                    map.put("true_name", name);
-                    map.put("area_info", area_info);
-                    map.put("address", address);
-                    map.put("mob_phone", mob_phone);
-                    return map;
-                }
-        };
-
-        mQueue.add(stringRequest);
     }
 
-
-    Response.Listener<String> SuccessfulResponse = new Response.Listener<String>() {
-        @Override
-        public void onResponse(String response) {
-
-            Toast.makeText(getApplicationContext(), "区域选择成功", Toast.LENGTH_LONG).show();
-
-        }
-    };
-
-    Response.ErrorListener FailureResponse = new Response.ErrorListener() {
-        @Override
-        public void onErrorResponse(VolleyError error) {
-
-        }*/
-    };
+    ;
 
 }
