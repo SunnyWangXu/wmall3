@@ -113,7 +113,9 @@ public class ApiInterface {
      *修改绑定手机号
      */
     public static final String Change_mobile  ="/mobile/index.php?act=member_info&op=change_mobile";
-
-
+    /**
+     *新增收货地址接口
+     */
+    public static final String Add_address  ="/mobile/index.php?act=member_address&op=address_add";
 
 }

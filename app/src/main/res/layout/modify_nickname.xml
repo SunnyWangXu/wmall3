@@ -18,7 +18,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:orientation="horizontal"
-        android:background="#ffffff" >
+        android:background="@color/white" >
 
         <EditText
             android:id="@+id/et_modifynickname"
@@ -26,6 +26,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             android:background="#ffffff"
+            android:layout_marginLeft="10dp"
             android:hint="请输入昵称"
             android:maxLength="10"
             android:singleLine="true"

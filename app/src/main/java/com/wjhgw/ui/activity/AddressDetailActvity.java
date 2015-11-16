@@ -81,12 +81,11 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
 
         llPickCity = (LinearLayout) findViewById(R.id.ll_pick_city);
 
-        type =  getIntent().getType();
-
+        type = getIntent().getType();
         /**
-         * 点击新增地址跳转过来的
+         * 判断如果是点击新增地址跳转过来的 执行
          */
-        if(type !=null && type.equals("addAddress")){
+        if (type != null && type.equals("addAddress")) {
             edName.setHint("输入姓名");
             edPhone.setHint("输入11位手机号码");
             tvAddressInfo.setText("点击进行区域选择");
@@ -209,12 +208,25 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
                 break;
 
             case R.id.btn_save:
-                /**
-                 * 请求修改地址
-                 */
-                showSelectedResult();
-                finish();
 
+                if (edName.getEditableText().toString().equals("")) {
+                    Toast.makeText(this, "用户名不能为空", Toast.LENGTH_LONG).show();
+                } else if (edPhone.getEditableText().toString().equals("")) {
+                    Toast.makeText(this, "手机号码不能为空", Toast.LENGTH_LONG).show();
+                } else if (tvAddressInfo.getText().equals("")) {
+                    Toast.makeText(this, "区域不能为空，请选择区域", Toast.LENGTH_LONG).show();
+                } else if (edAddressDetail.getEditableText().toString().equals("")) {
+                    Toast.makeText(this, "详细地址不能为空，请输入详细地址", Toast.LENGTH_LONG).show();
+                }
+
+                if (!edName.getEditableText().toString().equals("") && !edPhone.getEditableText().toString().equals("")
+                        && !tvAddressInfo.getText().equals("") && !edAddressDetail.getEditableText().toString().equals("")) {
+                    /**
+                     * 请求修改地址
+                     */
+                    showSelectedResult();
+                    finish();
+                }
                 break;
             default:
                 break;
@@ -235,23 +247,78 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
 
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
-        params.addBodyParameter("address_id", address_id);
         params.addBodyParameter("true_name", useName);
         params.addBodyParameter("area_info", area_info);
         params.addBodyParameter("address", address);
         params.addBodyParameter("mob_phone", mob_phone);
 
+        /**
+         * 如果是编辑地址 请求编辑地址
+         */
+        if (type == null || !type.equals("addAddress")) {
+            params.addBodyParameter("address_id", address_id);
+
+            /**
+             * 请求编辑地址
+             */
+            loadEditAddress(params);
+
+        }
+
+        /**
+         * 如果是新增地址点击进来 请求新增地址
+         */
+        if (type != null && type.equals("addAddress")) {
+
+            /**
+             * 请求新增地址
+             */
+            loadAddAddress(params);
+
+        }
+
+    }
+
+    /**
+     * 请求编辑地址
+     */
+    private void loadEditAddress(RequestParams params) {
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Address_edit, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
 
-                Toast.makeText(getApplicationContext(), "收货地址修改成功", Toast.LENGTH_LONG).show();
+                if (responseInfo != null) {
+                    Toast.makeText(getApplicationContext(), "收货地址修改成功", Toast.LENGTH_LONG).show();
+                }
 
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
+                Toast.makeText(getApplicationContext(), "网络错误", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 
+    /**
+     * 请求新增地址
+     *
+     * @param params
+     */
+    private void loadAddAddress(RequestParams params) {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Add_address, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+
+                if (responseInfo != null) {
+                    Toast.makeText(getApplicationContext(), "新增收货地址成功", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+                Toast.makeText(getApplicationContext(), "网络错误", Toast.LENGTH_LONG).show();
             }
         });
 

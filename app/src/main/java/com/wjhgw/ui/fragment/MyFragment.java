@@ -195,7 +195,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
             @Override
             public void onFailure(HttpException e, String s) {
                 Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
-               /* *//**
+             /**
                  * 取出本地緩存数据
                  */
                 SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_auction", getActivity().MODE_PRIVATE);
