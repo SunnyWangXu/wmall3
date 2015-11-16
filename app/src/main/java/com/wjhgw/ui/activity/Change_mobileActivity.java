@@ -151,7 +151,6 @@ public class Change_mobileActivity extends BaseActivity implements OnClickListen
                 Verification_code = et_editText.getText().toString();
                 Number = et_mobile.getText().toString();
                 if (Verification_code.length() == 4 && Number.length() == 11 && Number.substring(0, 1).equals("1")) {
-                    tv_next.setClickable(false);
                     Number_Verification_code();
                 } else {
                     Toast.makeText(this, "你输入的号码有误！请重新输入", Toast.LENGTH_LONG).show();
@@ -201,6 +200,7 @@ public class Change_mobileActivity extends BaseActivity implements OnClickListen
     private void Verification_code() {
         RequestParams params = new RequestParams();
         params.addBodyParameter("member_mobile", Number);
+        params.addBodyParameter("key", key);
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.VerificationCode, params, new RequestCallBack<String>() {
 
             @Override
@@ -231,6 +231,7 @@ public class Change_mobileActivity extends BaseActivity implements OnClickListen
     private void Number_Verification_code() {
         RequestParams params = new RequestParams();
         params.addBodyParameter("sms_code", Verification_code);
+        params.addBodyParameter("key", key);
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.VerificationNumber, params, new RequestCallBack<String>() {
 
             @Override
