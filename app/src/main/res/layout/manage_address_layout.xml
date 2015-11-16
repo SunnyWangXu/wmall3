@@ -44,7 +44,7 @@
                     android:id="@+id/tv_is_default"
                     android:text="默认地址"
                     android:textSize="13sp"
-                    android:textColor="#999999"
+                    android:textColor="@color/tv_red"
                     android:gravity="right"
                     android:visibility="gone"
                     android:layout_marginRight="10dp"

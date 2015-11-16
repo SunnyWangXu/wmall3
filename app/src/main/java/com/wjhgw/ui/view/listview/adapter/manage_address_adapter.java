@@ -170,11 +170,11 @@ public class manage_address_adapter extends BaseAdapter {
                             String addressId = Address_list_data.get(position).address_id;
                             String addressDetail = Address_list_data.get(position).address;
 
-                            intent.putExtra("addressId",addressId);
-                            intent.putExtra("name",name);
-                            intent.putExtra("phone",phone);
-                            intent.putExtra("info",info);
-                            intent.putExtra("addressDetail",addressDetail);
+                            intent.putExtra("addressId", addressId);
+                            intent.putExtra("name", name);
+                            intent.putExtra("phone", phone);
+                            intent.putExtra("info", info);
+                            intent.putExtra("addressDetail", addressDetail);
                             mContext.startActivity(intent);
                         }
                     default:
