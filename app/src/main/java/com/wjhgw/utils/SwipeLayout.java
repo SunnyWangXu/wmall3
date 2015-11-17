@@ -17,8 +17,9 @@ public class SwipeLayout extends LinearLayout {
     private View contentView;
     private View actionView;
     private int dragDistance;
-    private final double AUTO_OPEN_SPEED_LIMIT = 800.0;
-    private int draggedX;
+    private final double AUTO_OPEN_SPEED_LIMIT = 1000.0;
+    private int draggedleft;
+    private int draggedX; //用于判断左右滑动
 
     public SwipeLayout(Context context) {
         this(context, null);
@@ -64,7 +65,8 @@ public class SwipeLayout extends LinearLayout {
 
         @Override
         public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
-            draggedX = left;
+            draggedleft = left;
+            draggedX = dx;
             if (changedView == contentView) {
                 actionView.offsetLeftAndRight(dx);
             } else {
@@ -99,16 +101,26 @@ public class SwipeLayout extends LinearLayout {
         @Override
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
             super.onViewReleased(releasedChild, xvel, yvel);
-            boolean settleToOpen = false;
-            if (xvel > AUTO_OPEN_SPEED_LIMIT) {
-                settleToOpen = false;
+            boolean settleToOpen = true;
+            /*if (xvel > AUTO_OPEN_SPEED_LIMIT) {
+                    settleToOpen = false;
             } else if (xvel < -AUTO_OPEN_SPEED_LIMIT) {
-                settleToOpen = true;
-            } else if (draggedX <= -dragDistance / 2) {
-                settleToOpen = true;
-            } else if (draggedX > -dragDistance / 2) {
-                settleToOpen = false;
+                    settleToOpen = true;
+            }*/
+            if (draggedX > 0) {
+                if (draggedleft > -420) {
+                    settleToOpen = false;
+                } else {
+                    settleToOpen = true;
+                }
+            } else if (draggedX < 0) {
+                if (draggedleft < -30) {
+                    settleToOpen = true;
+                } else {
+                    settleToOpen = false;
+                }
             }
+
 
             final int settleDestX = settleToOpen ? -dragDistance : 0;
             viewDragHelper.smoothSlideViewTo(contentView, settleDestX, 0);
@@ -118,7 +130,7 @@ public class SwipeLayout extends LinearLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if(viewDragHelper.shouldInterceptTouchEvent(ev)) {
+        if (viewDragHelper.shouldInterceptTouchEvent(ev)) {
             return true;
         }
         return super.onInterceptTouchEvent(ev);
@@ -139,7 +151,7 @@ public class SwipeLayout extends LinearLayout {
     @Override
     public void computeScroll() {
         super.computeScroll();
-        if(viewDragHelper.continueSettling(true)) {
+        if (viewDragHelper.continueSettling(true)) {
             ViewCompat.postInvalidateOnAnimation(this);
         }
     }
