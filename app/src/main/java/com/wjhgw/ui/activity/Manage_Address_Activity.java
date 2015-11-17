@@ -95,7 +95,7 @@ public class Manage_Address_Activity extends BaseActivity implements BusinessRes
 
                     if (address_list.status.code == 10000) {
                         address_list_data.clear();
-                        if (address_list.datas.size() != 0) {
+                        if (address_list.datas != null) {
                             address_list_data.addAll(address_list.datas);
                             listAdapter = new manage_address_adapter(Manage_Address_Activity.this, address_list_data, Request, key);
                             mListView.setAdapter(listAdapter);
