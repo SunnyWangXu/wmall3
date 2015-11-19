@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_class_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
     android:background="#f2f4f7"
-    android:id="@+id/class_item_layout">
+    android:gravity="center"
+    android:orientation="vertical">
+
     <TextView
         android:id="@+id/goods_class"
-        android:gravity="center"
         android:layout_width="80dp"
         android:layout_height="44dp"
-        android:textSize="16dp"
-        android:textColor="#000000" />
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="16dp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#d7d7d7"/>
+        android:background="#d7d7d7" />
 </LinearLayout>

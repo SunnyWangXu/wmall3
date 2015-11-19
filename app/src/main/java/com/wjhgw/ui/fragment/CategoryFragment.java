@@ -7,8 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -20,62 +21,72 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseQuery;
-import com.wjhgw.business.bean.Goods_class_Pager1;
-import com.wjhgw.business.bean.Goods_class_Pager2;
+import com.wjhgw.business.bean.Goods_attr;
+import com.wjhgw.business.bean.Goods_class1;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.CaptureActivity;
-import com.wjhgw.ui.image.LoadImageByVolley;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
+import com.wjhgw.ui.view.listview.adapter.AttrAdapter;
 import com.wjhgw.ui.view.listview.adapter.goods_class_adapter;
-import com.wjhgw.ui.view.listview.adapter.grid_adapter;
 
 public class CategoryFragment extends Fragment implements XListView.IXListViewListener, View.OnClickListener {
     public static int MAK = 0;
-    private ImageView image;
-    private ImageView qrcode_scanner;
+    private ImageView ivGoods;
+    private TextView qrcode_scanner;
     private MyListView mListView;
     private goods_class_adapter adapter;
-    private grid_adapter adapter1;
-    private GridView grid;
-    private LoadImageByVolley Image;
-    private Goods_class_Pager1 goods_class1;
-    private Goods_class_Pager2 goods_class2;
+    private AttrAdapter attrAdapter;
+    private Goods_class1 goods_class1;
+    private Goods_attr goods_attr;
     View View;
     public static String RESULT_MESSAGE = null; // 接收扫二维码返回数据
+    private String key;
+    private ListView lvAttr;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View = inflater.inflate(R.layout.classification_layout, container, false);
+        key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
+
+        onFindViews();
         /**
-         * 商品一级分类
+         * 请求一级商品分类
          */
-        goods_class1();
+        load_goods_class1();
 
-        grid = (GridView) View.findViewById(R.id.grid);
-        image = (ImageView) View.findViewById(R.id.image);
-        qrcode_scanner = (ImageView) View.findViewById(R.id.qrcode_scanner);
-
-        mListView = (MyListView) View.findViewById(R.id.discovery_listview);
         mListView.setPullLoadEnable(false);
         mListView.setPullRefreshEnable(false);
         mListView.setXListViewListener(this, 1);
         mListView.setRefreshTime();
-        Image = new LoadImageByVolley(getActivity());
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MAK = position - 1;
                 adapter.notifyDataSetChanged();
-                Image.loadImageByVolley(goods_class1.datas.get(position - 1).image, image);
-                goods_class2(goods_class1.datas.get(position - 1).gc_id);
+
+                APP.getApp().getImageLoader().displayImage(goods_class1.datas.get(position - 1).gc_image, ivGoods);
+
+                /**
+                 * 请求商品分类属性
+                 */
+                load_goods_attr(goods_class1.datas.get(position - 1).gc_id);
             }
         });
 
         qrcode_scanner.setOnClickListener(this);
+
         return View;
+    }
+
+    private void onFindViews() {
+        lvAttr = (ListView) View.findViewById(R.id.lv_attr);
+        ivGoods = (ImageView) View.findViewById(R.id.iv_goods_class);
+        qrcode_scanner = (TextView) View.findViewById(R.id.qrcode_scanner);
+
+        mListView = (MyListView) View.findViewById(R.id.discovery_listview);
     }
 
     @Override
@@ -109,25 +120,31 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
     }
 
     /**
-     * 商品一级分类
+     * 请求一级商品分类
      */
-    private void goods_class1() {
+    private void load_goods_class1() {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", "3996efbde147ab4fad52fe9ad68fffcd");
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Goods_class, params, new RequestCallBack<String>() {
+        params.addBodyParameter("key", key);
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Goods_class1, params, new RequestCallBack<String>() {
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Gson gson = new Gson();
                 if (responseInfo != null) {
-                    goods_class1 = gson.fromJson(responseInfo.result, Goods_class_Pager1.class);
+                    goods_class1 = gson.fromJson(responseInfo.result, Goods_class1.class);
 
                     if (goods_class1.status.code == 10000) {
-                        adapter = new goods_class_adapter(getActivity(),goods_class1.datas);
+                        adapter = new goods_class_adapter(getActivity(), goods_class1.datas);
                         mListView.setAdapter(adapter);
-                        if (goods_class1.datas.size() > 0) {
-                            Image.loadImageByVolley(goods_class1.datas.get(0).image, image);
-                            goods_class2(goods_class1.datas.get(0).gc_id);
+                        if (goods_class1.datas.size() > 0 && goods_class1.datas != null) {
+
+                            /**
+                             * 请求商品分类属性，默认选择第一个
+                             * 图片默认第一个
+                             */
+                            load_goods_attr(goods_class1.datas.get(0).gc_id);
+                            APP.getApp().getImageLoader().displayImage(goods_class1.datas.get(0).gc_image, ivGoods);
                         }
                     }
                 }
@@ -141,23 +158,22 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
     }
 
     /**
-     * 指定分类
+     * 请求商品分类属性
      */
-    private void goods_class2(String gc_id) {
+    private void load_goods_attr(String gc_id) {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", "3996efbde147ab4fad52fe9ad68fffcd");
         params.addBodyParameter("gc_id", gc_id);
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Goods_class1, params, new RequestCallBack<String>() {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Goods_attr, params, new RequestCallBack<String>() {
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Gson gson = new Gson();
                 if (responseInfo != null) {
-                    goods_class2 = gson.fromJson(responseInfo.result, Goods_class_Pager2.class);
+                    goods_attr = gson.fromJson(responseInfo.result, Goods_attr.class);
 
-                    if (goods_class2.status.code == 10000) {
-                        adapter1 = new grid_adapter(getActivity(), goods_class2.datas);
-                        grid.setAdapter(adapter1);
+                    if (goods_attr.status.code == 10000) {
+                        attrAdapter = new AttrAdapter(getActivity(), goods_attr.datas);
+                        lvAttr.setAdapter(attrAdapter);
                     }
                 }
             }

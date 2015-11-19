@@ -24,7 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wjhgw.R;
-import com.wjhgw.business.bean.Goods_class_Pager_data1;
+import com.wjhgw.business.bean.Goods_class1_data;
 import com.wjhgw.ui.fragment.CategoryFragment;
 
 import java.util.ArrayList;
@@ -34,24 +34,28 @@ import java.util.ArrayList;
  */
 public class goods_class_adapter extends BaseAdapter {
     private Context mContext;
-    private LayoutInflater mInflater;
-    private ArrayList<Goods_class_Pager_data1> List;
+    private ArrayList<Goods_class1_data> data;
     private ViewHolder vh = new ViewHolder();
 
     private static class ViewHolder {
         private TextView text;
-        private LinearLayout class_item_layout;
+        private LinearLayout ll_class_item;
     }
 
-    public goods_class_adapter(Context c, ArrayList<Goods_class_Pager_data1> list) {
-        //mInflater = LayoutInflater.from(c);
+    public goods_class_adapter(Context c, ArrayList<Goods_class1_data> list) {
         this.mContext = c;
-        this.List = list;
+        this.data = list;
     }
 
     @Override
     public int getCount() {
-        return List.size();
+        return data.size();
+    }
+
+
+    @Override
+    public Object getItem(int position) {
+        return data.get(position);
     }
 
     @Override
@@ -60,21 +64,16 @@ public class goods_class_adapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
-        return position;
-    }
-
-    @Override
     public View getView(int position, View cellView, ViewGroup parent) {
-        cellView = LayoutInflater.from(mContext).inflate(R.layout.discovery_item, null);
-        vh.class_item_layout = (LinearLayout)cellView.findViewById(R.id.class_item_layout);
-        vh.text = (TextView)cellView.findViewById(R.id.goods_class);
+        cellView = LayoutInflater.from(mContext).inflate(R.layout.class_item_layout, null);
+        vh.ll_class_item = (LinearLayout) cellView.findViewById(R.id.ll_class_item);
+        vh.text = (TextView) cellView.findViewById(R.id.goods_class);
         cellView.setTag(vh);
-        vh.text.setText(List.get(position).gc_name);
+        vh.text.setText(data.get(position).gc_name);
 
-        if(position == CategoryFragment.MAK){
+        if (position == CategoryFragment.MAK) {
             vh.text.setTextColor(Color.parseColor("#fff14f4f"));
-            vh.class_item_layout.setBackgroundColor(Color.parseColor("#ffffff"));
+            vh.ll_class_item.setBackgroundColor(Color.parseColor("#ffffff"));
         }
 
         return cellView;

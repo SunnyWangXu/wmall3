@@ -3,10 +3,10 @@ package com.wjhgw.business.bean;
 import java.util.ArrayList;
 
 /**
- * 一级分类
+ * 商品分类属性
  */
-public class Goods_class_Pager1 {
+public class Goods_attr {
     public NetStatus status;
-    public ArrayList<Goods_class_Pager_data1> datas;
+    public ArrayList<Goods_attr_data> datas;
 }
 

@@ -71,7 +71,7 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
 
         llZone = (LinearLayout) findViewById(R.id.ll_zone);
 
-        viewShutter = (View) findViewById(R.id.view_shutter);
+        viewShutter =  findViewById(R.id.view_shutter);
 
         mViewProvince = (WheelView) findViewById(R.id.id_province);
         mViewCity = (WheelView) findViewById(R.id.id_city);
@@ -302,8 +302,6 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
 
     /**
      * 请求新增地址
-     *
-     * @param params
      */
     private void loadAddAddress(RequestParams params) {
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Add_address, params, new RequestCallBack<String>() {

@@ -27,13 +27,13 @@ public class ApiInterface {
      */
     public static final String Goods_list  ="/mobile/index.php?act=goods&op=goods_list";
     /**
-     * 一级分类接口
+     * 一级商品分类
      */
-    public static final String Goods_class  ="/mobile/index.php?act=goods_class&flag=1";
+    public static final String Goods_class1 ="/mobile/index.php?act=goods_class&op=second_class";
     /**
-     * 指定分类接口
+     * 商品分类属性接口
      */
-    public static final String Goods_class1  ="/mobile/index.php?act=goods_class&flag=2";
+    public static final String Goods_attr ="/mobile/index.php?act=goods_class&op=goods_class_attr";
     /**
      * 登录接口
      */
