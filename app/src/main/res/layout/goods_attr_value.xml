@@ -6,17 +6,43 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_goods_attr_name"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:background="@color/gray"/>
+        android:layout_height="39dp"
+        android:gravity="center_vertical"
+        android:background="#fcfcfcfc"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_attr_circle"
+            android:layout_width="9dp"
+            android:layout_height="9dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/attr_orange_shape" />
+
+        <TextView
+            android:id="@+id/tv_goods_attr_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/title_color"
+            android:textSize="14sp" />
+    </LinearLayout>
 
     <com.wjhgw.ui.view.listview.NoScrollGridView
         android:id="@+id/gv_goods_attr_value"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="3"
-        android:horizontalSpacing="10dp"/>
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginRight="28dp"
+        android:horizontalSpacing="10dp"
+        android:numColumns="3" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg"/>
 
 </LinearLayout>

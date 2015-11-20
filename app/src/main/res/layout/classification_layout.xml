@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="center_vertical"
-        android:background="#efefef"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
@@ -34,10 +34,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="34dp"
                 android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
                 android:background="@null"
                 android:hint="搜索"
                 android:maxLength="20"
-                android:layout_margin="10dp"
                 android:singleLine="true"
                 android:textColor="#666666"
                 android:textSize="17sp" />
@@ -64,7 +64,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/spec_text_color"/>
+        android:background="@color/spec_text_color" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -72,15 +72,15 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="100dp"
+            android:layout_width="90dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <com.wjhgw.ui.view.listview.MyListView
                 android:id="@+id/discovery_listview"
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#f1f1f1"
+                android:background="#f3f4f6"
                 android:divider="#00000000"
                 android:fastScrollEnabled="false"
                 android:scrollbars="none" />
@@ -95,21 +95,26 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/iv_goods_class"
                 android:layout_width="match_parent"
-                android:scaleType="fitXY"
-                android:layout_height="150dp" />
+                android:layout_height="73dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="11dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="fitXY" />
 
             <ListView
                 android:id="@+id/lv_attr"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
+                android:background="@color/white"
                 android:scrollbars="none" />
 
         </LinearLayout>

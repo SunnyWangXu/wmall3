@@ -1,18 +1,5 @@
 package com.wjhgw.ui.view.listview.adapter;
 
-//
-//                       __
-//                      /\ \   _
-//    ____    ____   ___\ \ \_/ \           _____    ___     ___
-//   / _  \  / __ \ / __ \ \    <     __   /\__  \  / __ \  / __ \
-//  /\ \_\ \/\  __//\  __/\ \ \\ \   /\_\  \/_/  / /\ \_\ \/\ \_\ \
-//  \ \____ \ \____\ \____\\ \_\\_\  \/_/   /\____\\ \____/\ \____/
-//   \/____\ \/____/\/____/ \/_//_/         \/____/ \/___/  \/___/
-//     /\____/
-//     \/___/
-//
-//  Powered by BeeFramework
-//
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -36,6 +23,7 @@ public class AttrAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<Goods_attr_data> data;
     private ViewHolder vh = new ViewHolder();
+    private TextView tvAttrCiecle;
 
     private static class ViewHolder {
         private TextView text;
@@ -74,6 +62,18 @@ public class AttrAdapter extends BaseAdapter {
             goodsName.setText(data.get(position).name);
 
             goodsValueGV = (GridView) convertView.findViewById(R.id.gv_goods_attr_value);
+
+            tvAttrCiecle = (TextView) convertView.findViewById(R.id.tv_attr_circle);
+
+         if((position % 5) == 1){
+             tvAttrCiecle.setBackgroundResource(R.drawable.attr_rose_shape);
+            }else if((position % 5) == 2){
+             tvAttrCiecle.setBackgroundResource(R.drawable.attr_purple_shape);
+            }else if((position % 5) == 3){
+             tvAttrCiecle.setBackgroundResource(R.drawable.attr_blue_shape);
+            }else if((position % 5) == 4){
+             tvAttrCiecle.setBackgroundResource(R.drawable.attr_yellow_shape);
+            }
 
             //如果是第一条 热门品牌查询的字段不一样 专门设置适配器，其他的设置另外的适配器
             if (position == 0) {

@@ -1,11 +1,13 @@
 package com.wjhgw.ui.view.listview.adapter;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.wjhgw.R;
 import com.wjhgw.business.bean.Goods_attr_data_value;
 
 import java.util.List;
@@ -42,11 +44,11 @@ public class AttrValueGVAdapter1 extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView tvValue = new TextView(mContext);
+        convertView = LayoutInflater.from(mContext).inflate(R.layout.attr_gv_item, null);
+        TextView tvValue = (TextView) convertView.findViewById(R.id.tv_attr_value);
         tvValue.setText(dataValues.get(position).brand_name);
-
         String brandId = dataValues.get(position).brand_id;
-//        parent.addView(tvValue);
-        return tvValue;
+
+        return convertView;
     }
 }

@@ -9,11 +9,11 @@
 
     <TextView
         android:id="@+id/goods_class"
-        android:layout_width="80dp"
-        android:layout_height="44dp"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
         android:gravity="center"
-        android:textColor="#000000"
-        android:textSize="16dp" />
+        android:textColor="@color/title_color"
+        android:textSize="14sp" />
 
     <View
         android:layout_width="match_parent"
