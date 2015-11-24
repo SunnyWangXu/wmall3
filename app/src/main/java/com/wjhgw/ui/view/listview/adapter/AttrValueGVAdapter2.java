@@ -48,6 +48,14 @@ public class AttrValueGVAdapter2 extends BaseAdapter{
         tvValue.setText(dataValues.get(position).attr_value_name);
         String attrValueID = dataValues.get(position).attr_value_id;
 
+        tvValue.setClickable(true);
+        tvValue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
         return convertView;
     }
 }

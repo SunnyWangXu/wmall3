@@ -12,6 +12,6 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:maxLines="1"
-        android:textSize="12sp" />
+        android:textSize="13sp" />
 
 </LinearLayout>

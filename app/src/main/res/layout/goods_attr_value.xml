@@ -35,9 +35,10 @@
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:layout_marginLeft="28dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginRight="28dp"
-        android:horizontalSpacing="10dp"
+        android:horizontalSpacing="15dp"
+        android:verticalSpacing="25dp"
         android:numColumns="3" />
 
     <View

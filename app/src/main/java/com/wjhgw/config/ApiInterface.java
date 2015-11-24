@@ -118,4 +118,9 @@ public class ApiInterface {
      */
     public static final String Add_address  ="/mobile/index.php?act=member_address&op=address_add";
 
+    /**
+     *退出登录接口
+     */
+    public static final String Exit_login  ="/mobile/index.php?act=logout";
+
 }

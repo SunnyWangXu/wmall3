@@ -13,7 +13,7 @@
         android:layout_height="55dp"
         android:gravity="center"
         android:textColor="@color/title_color"
-        android:textSize="14sp" />
+        android:textSize="15sp" />
 
     <View
         android:layout_width="match_parent"

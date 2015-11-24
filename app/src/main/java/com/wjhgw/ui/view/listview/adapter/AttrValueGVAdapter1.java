@@ -49,6 +49,15 @@ public class AttrValueGVAdapter1 extends BaseAdapter {
         tvValue.setText(dataValues.get(position).brand_name);
         String brandId = dataValues.get(position).brand_id;
 
+        tvValue.setClickable(true);
+        tvValue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
+
         return convertView;
     }
 }

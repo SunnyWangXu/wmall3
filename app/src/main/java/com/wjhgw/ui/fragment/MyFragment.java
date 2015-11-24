@@ -25,6 +25,7 @@ import com.wjhgw.business.bean.MyLockBox;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.MyLockBoxActivity;
+import com.wjhgw.ui.activity.SetActivity;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 
@@ -41,6 +42,8 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private String key;
     private TextView titleName;
     private LinearLayout ll_LockBox;
+    private LinearLayout ll_Set;
+    private String memberName;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,12 +71,6 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
          */
         listAddHeader();
 
-        /**
-         * 获取网络信息
-         */
-        if (!key.equals("0")) {
-            load_User_information();
-        }
 
         mListView.setPullLoadEnable(false);
         mListView.setPullRefreshEnable(true);
@@ -112,6 +109,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         member_nickname = (TextView) MyMessageLayout.findViewById(R.id.member_nickname);
         ll_LockBox = (LinearLayout) MyMessageLayout.findViewById(R.id.ll_lockbox);
 
+        ll_Set = (LinearLayout) MySetHelpLayout.findViewById(R.id.ll_set);
     }
 
     /**
@@ -120,6 +118,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private void setClick() {
         myAvatar.setOnClickListener(this);
         ll_LockBox.setOnClickListener(this);
+        ll_Set.setOnClickListener(this);
     }
 
     @Override
@@ -127,7 +126,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         /**
          * 获取网络信息
          */
-        if(!key.equals("0")){
+        if (!key.equals("0")) {
             load_User_information();
         }
 
@@ -146,23 +145,35 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.my_avatar:
-                if(key.equals("0")){
-
-                }else {
-
-                }
-                intent.setClass(getActivity(), A0_LoginActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.ll_lockbox:
-                if(key.equals("0")){
+                if (key.equals("0")) {
                     intent.setClass(getActivity(), A0_LoginActivity.class);
                     startActivity(intent);
-                }else {
+
+                } else {
+
+                }
+
+                break;
+            case R.id.ll_lockbox:
+                if (key.equals("0")) {
+                    intent.setClass(getActivity(), A0_LoginActivity.class);
+                    startActivity(intent);
+                } else {
                     intent.setClass(getActivity(), MyLockBoxActivity.class);
                     startActivity(intent);
                 }
                 break;
+            case R.id.ll_set:
+                if(key.equals("0")|| key == null){
+                    intent.setClass(getActivity(), A0_LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getActivity(), SetActivity.class);
+                    intent.putExtra("memberName", memberName);
+                    startActivity(intent);
+                }
+                break;
+
             default:
                 break;
         }
@@ -195,7 +206,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
             @Override
             public void onFailure(HttpException e, String s) {
                 Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
-             /**
+                /**
                  * 取出本地緩存数据
                  */
                 SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_auction", getActivity().MODE_PRIVATE);
@@ -217,7 +228,21 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
             if (userinformation.status.code == 10000) {
                 APP.getApp().getImageLoader().displayImage(userinformation.datas.member_avatar, myAvatar);
                 member_nickname.setText(userinformation.datas.member_nickname);
+
+                memberName = userinformation.datas.member_name;
             }
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        /**
+         * 获取网络信息
+         */
+        if (!key.equals("0")) {
+            load_User_information();
+        }
+    }
+
 }
