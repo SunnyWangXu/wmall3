@@ -18,8 +18,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -40,6 +39,7 @@
         <activity android:name=".ui.activity.AddressDetailActvity" />
         <activity android:name=".ui.activity.PaymentPasswordActivity" />
         <activity android:name=".ui.activity.Change_mobileActivity" />
+        <activity android:name=".ui.activity.B1_SearchActivity" />
         //设置Activity
         <activity android:name=".ui.activity.SetActivity"
             android:screenOrientation="portrait"/>
