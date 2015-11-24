@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
@@ -28,7 +27,7 @@ import com.wjhgw.config.ApiInterface;
 /**
  * 开启支付密码
  */
-public class PaymentPasswordActivity extends BaseActivity implements OnClickListener {
+public class M4_PaymentPasswordActivity extends BaseActivity implements OnClickListener {
 
     private LinearLayout ll_password3;
     private EditText et_password2;
@@ -41,7 +40,7 @@ public class PaymentPasswordActivity extends BaseActivity implements OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.payment_password_layout);
+        setContentView(R.layout.m4_payment_password_layout);
 
         et_password2.addTextChangedListener(new TextWatcher() {
             @Override
@@ -160,10 +159,10 @@ public class PaymentPasswordActivity extends BaseActivity implements OnClickList
                         params.addBodyParameter("key", key);
                         Set_paypwd(params);
                     } else {
-                        Toast.makeText(PaymentPasswordActivity.this, "未登录", Toast.LENGTH_LONG).show();
+                        showToastShort("未登录");
                     }
                 } else {
-                    Toast.makeText(PaymentPasswordActivity.this, "密码长度太短、新密码不一致、原密码验证失败或错误", Toast.LENGTH_LONG).show();
+                    showToastShort("密码长度太短、新密码不一致、原密码验证失败或错误");
                     ll_password3.setBackgroundResource(R.drawable.background_red);
                 }
 
@@ -189,16 +188,16 @@ public class PaymentPasswordActivity extends BaseActivity implements OnClickList
 
                     if (status.status.code == 10000) {
                         finish(false);
-                        Toast.makeText(PaymentPasswordActivity.this, status.status.msg, Toast.LENGTH_LONG).show();
+                        showToastShort(status.status.msg);
                     } else {
-                        Toast.makeText(PaymentPasswordActivity.this, status.status.msg, Toast.LENGTH_LONG).show();
+                        showToastShort(status.status.msg);
                     }
                 }
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(PaymentPasswordActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                showToastShort("请求失败");
             }
         });
     }

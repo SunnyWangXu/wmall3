@@ -1,8 +1,6 @@
 package com.wjhgw.ui.activity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,9 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.wjhgw.MainActivity;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
@@ -26,6 +22,9 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+/**
+ * 注册
+ */
 public class A1_RegisterActivity2 extends BaseActivity implements BusinessResponse, OnClickListener {
 
     private EditText et_cipher;
@@ -137,7 +136,7 @@ public class A1_RegisterActivity2 extends BaseActivity implements BusinessRespon
         tv_next.setClickable(true);
         if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Registered)) {
             if (status.getString("code").equals("10000")) {
-                preferences = getSharedPreferences("key", MODE_PRIVATE);
+                /*preferences = getSharedPreferences("key", MODE_PRIVATE);
                 Editor editor = preferences.edit();
                 //存入数据
                 editor.putString("key", new JSONObject(new JSONObject(response).getString("datas")).getString("key"));
@@ -148,22 +147,12 @@ public class A1_RegisterActivity2 extends BaseActivity implements BusinessRespon
                 preferences.getString("key", "0");
                 preferences.getString("username", "0");
                 Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                startActivity(intent);*/
                 finish(false);
-                Toast.makeText(this, status.getString("msg"), Toast.LENGTH_LONG).show();
+                showToastShort(status.getString("msg"));
                 // Lock = 0;
-            } else if (status.getString("code").equals("100400")) {
-                Toast.makeText(this, status.getString("msg"), Toast.LENGTH_LONG).show();
-            } else if (status.getString("code").equals("100401")) {
-                Toast.makeText(this, status.getString("msg"), Toast.LENGTH_LONG).show();
-            } else if (status.getString("code").equals("100402")) {
-                Toast.makeText(this, status.getString("msg"), Toast.LENGTH_LONG).show();
-            } else if (status.getString("code").equals("100403")) {
-                Toast.makeText(this, status.getString("msg"), Toast.LENGTH_LONG).show();
-            } else if (status.getString("code").equals("100404")) {
-                Toast.makeText(this, status.getString("msg"), Toast.LENGTH_LONG).show();
-            } else if (status.getString("code").equals("100405")) {
-                Toast.makeText(this, status.getString("msg"), Toast.LENGTH_LONG).show();
+            } else {
+                showToastShort(status.getString("msg"));
             }
         }
     }

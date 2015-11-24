@@ -8,7 +8,6 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
@@ -22,6 +21,9 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+/**
+ * 重置密码
+ */
 public class A2_ResetPassActivity2 extends BaseActivity implements BusinessResponse, OnClickListener {
 
     private EditText et_cipher;
@@ -132,13 +134,9 @@ public class A2_ResetPassActivity2 extends BaseActivity implements BusinessRespo
         if (url.equals(BaseQuery.serviceUrl() + ApiInterface.ResetPassword)) {
             if (status.getString("code").equals("10000")) {
                 finish(false);
-                Toast.makeText(this, status.getString("msg"), Toast.LENGTH_LONG).show();
-            } else if (status.getString("code").equals("300100")) {
-                Toast.makeText(this, status.getString("msg"), Toast.LENGTH_LONG).show();
-            } else if (status.getString("code").equals("300101")) {
-                Toast.makeText(this, status.getString("msg"), Toast.LENGTH_LONG).show();
-            } else if (status.getString("code").equals("300102")) {
-                Toast.makeText(this, status.getString("msg"), Toast.LENGTH_LONG).show();
+                showToastShort(status.getString("msg"));
+            } else {
+                showToastShort(status.getString("msg"));
             }
         }
     }

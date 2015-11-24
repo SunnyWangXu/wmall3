@@ -41,7 +41,7 @@ import java.util.Arrays;
 /**
  * 搜索
  */
-public class B1_SearchActivity extends BaseActivity implements OnClickListener {
+public class SearchActivity extends BaseActivity implements OnClickListener {
     public static final String SEARCH_HISTORY = "search_history";
     private TextView search;
     private TextView d2_eliminate;
@@ -57,7 +57,7 @@ public class B1_SearchActivity extends BaseActivity implements OnClickListener {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.b1_search_layout);
+        setContentView(R.layout.search_layout);
         init();
         if (mSearchAutoAdapter.DATA == 1) {
             d2_eliminate.setText("暂无历史记录");
@@ -109,7 +109,7 @@ public class B1_SearchActivity extends BaseActivity implements OnClickListener {
                         auto_complete(search_name.getText().toString().trim());
                         d2_delete.setVisibility(View.VISIBLE);
                     } else {
-                        mSearchAutoAdapter = new SearchAutoAdapter(B1_SearchActivity.this, 10, null);
+                        mSearchAutoAdapter = new SearchAutoAdapter(SearchActivity.this, 10, null);
                         mAutoListView.setAdapter(mSearchAutoAdapter);
                         if (mSearchAutoAdapter.DATA == 1) {
                             d2_eliminate.setText("暂无历史记录");
@@ -208,7 +208,7 @@ public class B1_SearchActivity extends BaseActivity implements OnClickListener {
             case R.id.search:
                 saveSearchHistory();
                 mSearchAutoAdapter.initSearchHistory();
-                Toast.makeText(this, "搜索", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "搜索", Toast.LENGTH_SHORT).show();
                 /*intent = new Intent(this,B1_SearchResultActivity.class);
                 intent.putExtra("label", label);
 				startActivity(intent);*/
@@ -221,7 +221,7 @@ public class B1_SearchActivity extends BaseActivity implements OnClickListener {
                 break;
             case R.id.d2_eliminate:
                 SharedPreferences sp = this.getSharedPreferences(
-                        B1_SearchActivity.SEARCH_HISTORY, 0);
+                        SearchActivity.SEARCH_HISTORY, 0);
                 sp.edit().clear().commit();
                 mSearchAutoAdapter.initSearchHistory();
                 mSearchAutoAdapter.performFiltering(null);
@@ -253,7 +253,7 @@ public class B1_SearchActivity extends BaseActivity implements OnClickListener {
 
                     if (auto_complete.status.code == 10000) {
                         lv_listview.setVisibility(View.VISIBLE);
-                        mSearchAutoAdapter = new SearchAutoAdapter(B1_SearchActivity.this, 10, auto_complete.datas);
+                        mSearchAutoAdapter = new SearchAutoAdapter(SearchActivity.this, 10, auto_complete.datas);
                         lv_listview.setAdapter(mSearchAutoAdapter);
                         //mAutoListView.setAdapter(mSearchAutoAdapter);
                     }
@@ -262,7 +262,7 @@ public class B1_SearchActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(B1_SearchActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                showToastShort("请求失败");
             }
         });
     }
@@ -280,7 +280,7 @@ public class B1_SearchActivity extends BaseActivity implements OnClickListener {
                     auto_complete = gson.fromJson(responseInfo.result, Auto_complete_Pager.class);
 
                     if (auto_complete.status.code == 10000) {
-                        Hot_searchAdapter hot_searchAdapter = new Hot_searchAdapter(B1_SearchActivity.this, auto_complete.datas);
+                        Hot_searchAdapter hot_searchAdapter = new Hot_searchAdapter(SearchActivity.this, auto_complete.datas);
                         hot_searc.setAdapter(hot_searchAdapter);
                     }
                 }
@@ -288,7 +288,7 @@ public class B1_SearchActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(B1_SearchActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                showToastShort("请求失败");
             }
         });
     }
@@ -301,27 +301,17 @@ public class B1_SearchActivity extends BaseActivity implements OnClickListener {
         @Override
 
         public boolean onKey(View v, int keyCode, KeyEvent event) {
-
-            // TODO Auto-generated method stub
-
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 saveSearchHistory();
                 mSearchAutoAdapter.initSearchHistory();
-                Toast.makeText(B1_SearchActivity.this, "已保存搜索历史记录", Toast.LENGTH_LONG).show();
                 InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
                 if (imm.isActive()) {
-
                     imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
-
                 }
-
                 return true;
-
             }
-
             return false;
-
         }
 
     };

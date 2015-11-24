@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
@@ -32,8 +31,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class Manage_Address_Activity extends BaseActivity implements BusinessResponse, AdapterView.OnItemClickListener, XListView.IXListViewListener, View.OnClickListener {
+/**
+ * 收货地址管理—地址列表
+ */
+public class M2_Manage_Address_Activity extends BaseActivity implements BusinessResponse, AdapterView.OnItemClickListener, XListView.IXListViewListener, View.OnClickListener {
 
     private ListView mListView;
     private manage_address_adapter listAdapter;
@@ -45,7 +46,7 @@ public class Manage_Address_Activity extends BaseActivity implements BusinessRes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.manage_address_item);
+        setContentView(R.layout.m2_manage_address_item);
         mListView = (ListView) findViewById(R.id.home_listview1);
         key = getKey();
         //mListView.setVerticalScrollBarEnabled(true);
@@ -97,26 +98,24 @@ public class Manage_Address_Activity extends BaseActivity implements BusinessRes
                         address_list_data.clear();
                         if (address_list.datas != null) {
                             address_list_data.addAll(address_list.datas);
-                            listAdapter = new manage_address_adapter(Manage_Address_Activity.this, address_list_data, Request, key);
+                            listAdapter = new manage_address_adapter(M2_Manage_Address_Activity.this, address_list_data, Request, key);
                             mListView.setAdapter(listAdapter);
-//                            Toast.makeText(Manage_Address_Activity.this, address_list.status.msg, Toast.LENGTH_LONG).show();
                         }
                     } else {
-                        Toast.makeText(Manage_Address_Activity.this, address_list.status.msg, Toast.LENGTH_LONG).show();
+                        showToastShort(address_list.status.msg);
                     }
                 }
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(Manage_Address_Activity.this, "失败", Toast.LENGTH_SHORT).show();
+                showToastShort("请求失败");
             }
         });
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(Manage_Address_Activity.this, "hdskgja", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -156,7 +155,7 @@ public class Manage_Address_Activity extends BaseActivity implements BusinessRes
 
             case R.id.tv_add_address :
 
-                Intent intent = new Intent(this, AddressDetailActvity.class);
+                Intent intent = new Intent(this, M2_AddressDetailActvity.class);
 //                intent.putExtra("addAddress", "addAddress");
                 intent.setType("addAddress");
                 startActivity(intent);

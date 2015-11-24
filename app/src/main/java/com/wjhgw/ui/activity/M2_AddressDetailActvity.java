@@ -26,7 +26,10 @@ import com.wjhgw.utils.widget.OnWheelChangedListener;
 import com.wjhgw.utils.widget.WheelView;
 import com.wjhgw.utils.widget.adapters.ArrayWheelAdapter;
 
-public class AddressDetailActvity extends CityActivity implements OnClickListener, OnWheelChangedListener {
+/**
+ * 收货地址管理_编辑
+ */
+public class M2_AddressDetailActvity extends CityActivity implements OnClickListener, OnWheelChangedListener {
     private WheelView mViewProvince;
     private WheelView mViewCity;
     private WheelView mViewDistrict;
@@ -46,7 +49,7 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_address_detail);
+        setContentView(R.layout.m2_activity_address_detail);
         setUpViews();
         setUpListener();
         setUpData();
@@ -112,7 +115,7 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
 
     private void setUpData() {
         initProvinceDatas();
-        mViewProvince.setViewAdapter(new ArrayWheelAdapter<String>(AddressDetailActvity.this, mProvinceDatas));
+        mViewProvince.setViewAdapter(new ArrayWheelAdapter<String>(M2_AddressDetailActvity.this, mProvinceDatas));
         // 设置可见条目数量
         mViewProvince.setVisibleItems(7);
         mViewCity.setVisibleItems(7);
@@ -210,13 +213,13 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
             case R.id.btn_save:
 
                 if (edName.getEditableText().toString().equals("")) {
-                    Toast.makeText(this, "用户名不能为空", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "用户名不能为空", Toast.LENGTH_SHORT).show();
                 } else if (edPhone.getEditableText().toString().equals("")) {
-                    Toast.makeText(this, "手机号码不能为空", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "手机号码不能为空", Toast.LENGTH_SHORT).show();
                 } else if (tvAddressInfo.getText().equals("")) {
-                    Toast.makeText(this, "区域不能为空，请选择区域", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "区域不能为空，请选择区域", Toast.LENGTH_SHORT).show();
                 } else if (edAddressDetail.getEditableText().toString().equals("")) {
-                    Toast.makeText(this, "详细地址不能为空，请输入详细地址", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "详细地址不能为空，请输入详细地址", Toast.LENGTH_SHORT).show();
                 }
 
                 if (!edName.getEditableText().toString().equals("") && !edPhone.getEditableText().toString().equals("")
@@ -234,9 +237,6 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
     }
 
     private void showSelectedResult() {
-//		Toast.makeText(AddressDetailActvity.this, "当前选中："+mCurrentProviceName+","+mCurrentCityName+","
-//				+mCurrentDistrictName+","+mCurrentZipCode, Toast.LENGTH_SHORT).show();
-
         String key = getSharedPreferences("key", this.MODE_APPEND).getString("key", "0");
         String useName = edName.getEditableText().toString();
         String area_info = tvAddressInfo.getText().toString().replace(" ", "	");
@@ -288,14 +288,14 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
             public void onSuccess(ResponseInfo<String> responseInfo) {
 
                 if (responseInfo != null) {
-                    Toast.makeText(getApplicationContext(), "收货地址修改成功", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "收货地址修改成功", Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(getApplicationContext(), "网络错误", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "网络错误", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -309,14 +309,13 @@ public class AddressDetailActvity extends CityActivity implements OnClickListene
             public void onSuccess(ResponseInfo<String> responseInfo) {
 
                 if (responseInfo != null) {
-                    Toast.makeText(getApplicationContext(), "新增收货地址成功", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "新增收货地址成功", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-
-                Toast.makeText(getApplicationContext(), "网络错误", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "网络错误", Toast.LENGTH_SHORT).show();
             }
         });
 

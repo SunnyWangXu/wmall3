@@ -9,7 +9,6 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
@@ -21,6 +20,9 @@ import com.wjhgw.config.ApiInterface;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * 忘记密码时验证手机号码是否正确和手机号码是否没注册
+ */
 public class A2_ResetPassActivity1 extends BaseActivity implements BusinessResponse, OnClickListener {
 
     private EditText et_name;
@@ -107,7 +109,7 @@ public class A2_ResetPassActivity1 extends BaseActivity implements BusinessRespo
                     tv_next.setClickable(false);
                     Request.VerificationNumber(Number);
                 } else {
-                    Toast.makeText(A2_ResetPassActivity1.this, "你输入的号码有误！请重新输入", Toast.LENGTH_LONG).show();
+                    showToastShort("你输入的号码有误！请重新输入");
                 }
                 break;
             case R.id.iv_title_back:
@@ -134,10 +136,8 @@ public class A2_ResetPassActivity1 extends BaseActivity implements BusinessRespo
                 intent.putExtra("use", "0");
                 startActivity(intent);
                 finish(false);
-            } else if (status.getString("code").equals("100100")) {
-                Toast.makeText(this, status.getString("msg"), Toast.LENGTH_LONG).show();
-            } else if (status.getString("code").equals("100102")) {
-                Toast.makeText(this, status.getString("msg"), Toast.LENGTH_LONG).show();
+            } else {
+                showToastShort(status.getString("msg"));
             }
         }
     }

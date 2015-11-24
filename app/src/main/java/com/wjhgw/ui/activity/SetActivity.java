@@ -22,7 +22,7 @@ import com.wjhgw.utils.FileUtils;
 import java.io.File;
 
 /**
- * 设置的Activity  2015/11/24 0024.
+ * 设置的Activity
  */
 public class SetActivity extends BaseActivity implements View.OnClickListener {
 

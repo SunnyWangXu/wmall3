@@ -24,7 +24,7 @@ import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.MyLockBox;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
-import com.wjhgw.ui.activity.MyLockBoxActivity;
+import com.wjhgw.ui.activity.M0_MyLockBoxActivity;
 import com.wjhgw.ui.activity.SetActivity;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
@@ -159,7 +159,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                     intent.setClass(getActivity(), A0_LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    intent.setClass(getActivity(), MyLockBoxActivity.class);
+                    intent.setClass(getActivity(), M0_MyLockBoxActivity.class);
                     startActivity(intent);
                 }
                 break;

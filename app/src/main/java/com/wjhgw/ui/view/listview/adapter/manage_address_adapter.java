@@ -27,7 +27,7 @@ import android.widget.TextView;
 import com.wjhgw.R;
 import com.wjhgw.business.api.Address_del_Request;
 import com.wjhgw.business.bean.address_data;
-import com.wjhgw.ui.activity.AddressDetailActvity;
+import com.wjhgw.ui.activity.M2_AddressDetailActvity;
 import com.wjhgw.ui.dialog.MyDialog;
 
 import java.util.List;
@@ -163,7 +163,7 @@ public class manage_address_adapter extends BaseAdapter {
                     case MotionEvent.ACTION_UP:
                         if (!(Math.abs(currentX - lastX) > 16 || Math.abs(currentY - lastY) > 16)) {
 
-                            Intent intent = new Intent(mContext, AddressDetailActvity.class);
+                            Intent intent = new Intent(mContext, M2_AddressDetailActvity.class);
                             String name = Address_list_data.get(position).true_name;
                             String phone = Address_list_data.get(position).mob_phone;
                             String info = Address_list_data.get(position).area_info;

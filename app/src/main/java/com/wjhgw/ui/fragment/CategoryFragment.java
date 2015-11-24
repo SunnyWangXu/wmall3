@@ -24,7 +24,7 @@ import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.Goods_attr;
 import com.wjhgw.business.bean.Goods_class1;
 import com.wjhgw.config.ApiInterface;
-import com.wjhgw.ui.activity.B1_SearchActivity;
+import com.wjhgw.ui.activity.SearchActivity;
 import com.wjhgw.ui.activity.CaptureActivity;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
@@ -113,7 +113,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
                 getActivity().startActivity(intent);
                 break;
             case R.id.ll_search:
-                intent = new Intent(getActivity(), B1_SearchActivity.class);
+                intent = new Intent(getActivity(), SearchActivity.class);
                 getActivity().startActivity(intent);
                 break;
             default:

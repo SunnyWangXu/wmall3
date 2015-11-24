@@ -11,7 +11,6 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
@@ -20,7 +19,6 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.wjhgw.APP;
-import com.wjhgw.MainActivity;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
@@ -156,7 +154,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                 if (Number.length() == 11 && Number.substring(0, 1).equals("1")) {
                     login();
                 } else {
-                    Toast.makeText(A0_LoginActivity.this, "你输入的号码有误！请重新输入", Toast.LENGTH_LONG).show();
+                    showToastShort("你输入的号码有误！请重新输入");
                 }
                 break;
             case R.id.tv_a0_registered:
@@ -200,21 +198,21 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                         editor.putString("key", login.datas.key);
                         //提交修改
                         editor.commit();
-                        //读取出来
+                        /*//读取出来
                         preferences.getString("key", "0");
                         intent = new Intent(A0_LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        Toast.makeText(A0_LoginActivity.this, "登录成功！", Toast.LENGTH_LONG).show();
+                        startActivity(intent);*/
+                        showToastShort("登录成功");
                         finish(false);
                     }else {
-                        Toast.makeText(A0_LoginActivity.this, login.status.msg, Toast.LENGTH_LONG).show();
+                        showToastShort(login.status.msg);
                     }
                 }
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(A0_LoginActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                showToastShort("请求失败");
             }
         });
     }

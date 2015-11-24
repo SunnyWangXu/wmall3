@@ -24,6 +24,9 @@ import com.wjhgw.utils.Zxing.view.ViewfinderView;
 import java.io.IOException;
 import java.util.Vector;
 
+/**
+ * 扫码界面
+ */
 public class CaptureActivity extends Activity implements Callback {
 
     private CaptureActivityHandler handler;

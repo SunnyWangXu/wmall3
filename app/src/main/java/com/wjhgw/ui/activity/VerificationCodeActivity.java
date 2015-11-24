@@ -10,7 +10,6 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
@@ -126,7 +125,7 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
                     //tv_next.setClickable(false);
                     Number_Verification_code();
                 } else {
-                    Toast.makeText(this, "你的输入有误！请重新输入", Toast.LENGTH_LONG).show();
+                    showToastShort("你的输入有误！请重新输入");
                 }
                 break;
             case R.id.tv_verificationcode:
@@ -135,7 +134,7 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
                     tv_verificationcode.setBackgroundColor(0xffcccccc);
                     Verification_code();
                 } else {
-                    Toast.makeText(this, "请先输入正确的11位手机号获取短信验证码", Toast.LENGTH_LONG).show();
+                    showToastShort("请先输入正确的11位手机号获取短信验证码");
                 }
                 break;
             case R.id.iv_title_back:
@@ -165,16 +164,16 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
                     Status status = gson.fromJson(responseInfo.result, Status.class);
 
                     if (status.status.code == 10000) {
-                        Toast.makeText(VerificationCodeActivity.this, "验证码发送成功", Toast.LENGTH_LONG).show();
+                        showToastShort("验证码以短信形式发送到你的手机，60秒有效");
                     } else {
-                        Toast.makeText(VerificationCodeActivity.this, status.status.msg, Toast.LENGTH_LONG).show();
+                        showToastShort(status.status.msg);
                     }
                 }
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-                //Toast.makeText(this, "请求失败", Toast.LENGTH_SHORT).show();
+                showToastShort("请求失败");
             }
         });
     }
@@ -209,24 +208,24 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
                             startActivity(intent);
                             finish(false);
                         } else if (getIntent().getStringExtra("use").equals("2")) {
-                            intent = new Intent(VerificationCodeActivity.this, PaymentPasswordActivity.class);
+                            intent = new Intent(VerificationCodeActivity.this, M4_PaymentPasswordActivity.class);
                             intent.putExtra("Number", Number);
                             startActivity(intent);
                             finish(false);
                         } else if (getIntent().getStringExtra("use").equals("3")) {
-                            intent = new Intent(VerificationCodeActivity.this, Change_mobileActivity.class);
+                            intent = new Intent(VerificationCodeActivity.this, M5_Change_mobileActivity.class);
                             startActivity(intent);
                             finish(false);
                         }
                     } else {
-                        Toast.makeText(VerificationCodeActivity.this, status.status.msg, Toast.LENGTH_LONG).show();
+                        showToastShort(status.status.msg);
                     }
                 }
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-                //Toast.makeText(this, "请求失败", Toast.LENGTH_SHORT).show();
+                showToastShort("请求失败");
             }
         });
     }

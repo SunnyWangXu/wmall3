@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
@@ -30,7 +29,7 @@ import java.util.regex.Pattern;
 /**
  * 修改密码
  */
-public class ChangePasswordActivity extends BaseActivity implements OnClickListener {
+public class M3_ChangePasswordActivity extends BaseActivity implements OnClickListener {
 
     private LinearLayout ll_password1;
     private LinearLayout ll_password2;
@@ -47,7 +46,7 @@ public class ChangePasswordActivity extends BaseActivity implements OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.change_password_layout);
+        setContentView(R.layout.m3_change_password_layout);
 
         et_password1.addTextChangedListener(new TextWatcher() {
             @Override
@@ -77,10 +76,8 @@ public class ChangePasswordActivity extends BaseActivity implements OnClickListe
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    // Toast.makeText(ChangePasswordActivity.this,"获得焦点",Toast.LENGTH_SHORT).show();
                     ll_password1.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 } else {
-                    // Toast.makeText(ChangePasswordActivity.this,"失去焦点",Toast.LENGTH_SHORT).show();
                     String password1 = et_password1.getText().toString();
                     if (password1.length() > 5) {
                         load_check_passwor(password1);
@@ -215,10 +212,10 @@ public class ChangePasswordActivity extends BaseActivity implements OnClickListe
                         params.addBodyParameter("key", key);
                         change_pwd(params);
                     } else {
-                        Toast.makeText(ChangePasswordActivity.this, "未登录", Toast.LENGTH_LONG).show();
+                        showToastShort("为登录");
                     }
                 } else {
-                    Toast.makeText(ChangePasswordActivity.this, "密码长度太短、新密码不一致、原密码验证失败或错误", Toast.LENGTH_LONG).show();
+                    showToastShort("密码长度太短、新密码不一致、原密码验证失败或错误");
                     ll_password3.setBackgroundResource(R.drawable.background_red);
                 }
 
@@ -249,17 +246,16 @@ public class ChangePasswordActivity extends BaseActivity implements OnClickListe
 
                     if (status.status.code == 10000) {
                         password = et_password1.getText().toString();
-                        Toast.makeText(ChangePasswordActivity.this, "成功！", Toast.LENGTH_LONG).show();
                     } else {
                         ll_password1.setBackgroundResource(R.drawable.background_red);
-                        Toast.makeText(ChangePasswordActivity.this, status.status.msg, Toast.LENGTH_LONG).show();
+                        showToastShort(status.status.msg);
                     }
                 }
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(ChangePasswordActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                showToastShort("请求失败");
             }
         });
     }
@@ -279,16 +275,16 @@ public class ChangePasswordActivity extends BaseActivity implements OnClickListe
 
                     if (status.status.code == 10000) {
                         finish(false);
-                        Toast.makeText(ChangePasswordActivity.this, "成功！", Toast.LENGTH_LONG).show();
+                        showToastShort(status.status.msg);
                     } else {
-                        Toast.makeText(ChangePasswordActivity.this, status.status.msg, Toast.LENGTH_LONG).show();
+                        showToastShort(status.status.msg);
                     }
                 }
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(ChangePasswordActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                showToastShort("请求失败");
             }
         });
     }

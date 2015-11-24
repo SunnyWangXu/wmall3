@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
@@ -25,7 +24,7 @@ import com.wjhgw.config.ApiInterface;
 /**
  * 修改昵称Activity
  */
-public class Modify_nicknameActivity extends BaseActivity implements View.OnClickListener {
+public class M1_Modify_nicknameActivity extends BaseActivity implements View.OnClickListener {
 
     private EditText et_modifynickname;
     private ImageView iv_delete;
@@ -36,7 +35,7 @@ public class Modify_nicknameActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.modify_nickname);
+        setContentView(R.layout.m1_modify_nickname);
         et_modifynickname = (EditText) findViewById(R.id.et_modifynickname);
 
         et_modifynickname.addTextChangedListener(new TextWatcher() {
@@ -122,9 +121,8 @@ public class Modify_nicknameActivity extends BaseActivity implements View.OnClic
 
                     if (nickname.status.code == 10000) {
                         finish(false);
-                        Toast.makeText(Modify_nicknameActivity.this, nickname.status.msg, Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(Modify_nicknameActivity.this, nickname.status.msg, Toast.LENGTH_LONG).show();
+                        showToastShort(nickname.status.msg);
                     }
                 }
 

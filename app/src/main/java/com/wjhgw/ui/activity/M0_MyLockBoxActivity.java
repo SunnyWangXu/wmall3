@@ -41,7 +41,7 @@ import java.util.Calendar;
 /**
  * 个人资料管理Activity
  */
-public class MyLockBoxActivity extends BaseActivity implements View.OnClickListener {
+public class M0_MyLockBoxActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout ll_nickname;
     private LinearLayout ll_picture;
     private LinearLayout ll_change_password;
@@ -63,7 +63,7 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_lockbox_layout);
+        setContentView(R.layout.m0_my_lockbox_layout);
 
         Dialog = new GalleryDialog(this);
 
@@ -115,21 +115,20 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_nickname:
-                intent = new Intent(this, Modify_nicknameActivity.class);
+                intent = new Intent(this, M1_Modify_nicknameActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_change_password:
-                intent = new Intent(this, ChangePasswordActivity.class);
+                intent = new Intent(this, M3_ChangePasswordActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_manage_address:
-                intent = new Intent(this, Manage_Address_Activity.class);
+                intent = new Intent(this, M2_Manage_Address_Activity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_payment_password:
                 if (Number.length() > 0) {
                     intent = new Intent(this, VerificationCodeActivity.class);
-                    //Intent intent = new Intent(this, PaymentPasswordActivity.class);
                     intent.putExtra("Number", Number);
                     intent.putExtra("use", "2");
                     startActivity(intent);
@@ -138,7 +137,6 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
             case R.id.ll_mobile:
                 if (Number.length() > 0) {
                     intent = new Intent(this, VerificationCodeActivity.class);
-                    //Intent intent = new Intent(this, PaymentPasswordActivity.class);
                     intent.putExtra("Number", Number);
                     intent.putExtra("use", "3");
                     startActivity(intent);
@@ -287,14 +285,11 @@ public class MyLockBoxActivity extends BaseActivity implements View.OnClickListe
                     } else {
                         showToastShort("用户未登陆");
                     }
-
                 }
-
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-
                 showToastShort("网络错误");
             }
 

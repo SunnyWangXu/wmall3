@@ -10,7 +10,6 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
@@ -28,7 +27,7 @@ import com.wjhgw.config.ApiInterface;
 /**
  * 修改绑定手机号
  */
-public class Change_mobileActivity extends BaseActivity implements OnClickListener {
+public class M5_Change_mobileActivity extends BaseActivity implements OnClickListener {
 
     private EditText et_editText;
     private EditText et_mobile;
@@ -47,7 +46,7 @@ public class Change_mobileActivity extends BaseActivity implements OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.change_mobile_layout);
+        setContentView(R.layout.m5change_mobile_layout);
 
         et_mobile.addTextChangedListener(new TextWatcher() {
             @Override
@@ -84,7 +83,7 @@ public class Change_mobileActivity extends BaseActivity implements OnClickListen
                     }
                 }
                 if (Mark != 1) {
-                    Toast.makeText(Change_mobileActivity.this, "请先输入11位手机号并获取短信验证码", Toast.LENGTH_LONG).show();
+                    showToastShort("请先输入11位手机号并获取短信验证码");
                 }
             }
 
@@ -153,7 +152,7 @@ public class Change_mobileActivity extends BaseActivity implements OnClickListen
                 if (Verification_code.length() == 4 && Number.length() == 11 && Number.substring(0, 1).equals("1")) {
                     Number_Verification_code();
                 } else {
-                    Toast.makeText(this, "你输入的号码有误！请重新输入", Toast.LENGTH_LONG).show();
+                    showToastShort("你输入的号码有误！请重新输入");
                 }
                 break;
             case R.id.tv_verificationcode:
@@ -163,7 +162,7 @@ public class Change_mobileActivity extends BaseActivity implements OnClickListen
                     tv_verificationcode.setBackgroundColor(0xffcccccc);
                     Verification_code();
                 } else {
-                    Toast.makeText(this, "请先输入正确的11位手机号获取短信验证码", Toast.LENGTH_LONG).show();
+                    showToastShort("请先输入正确的11位手机号获取短信验证码");
                 }
                 break;
             case R.id.iv_title_back:
@@ -211,16 +210,15 @@ public class Change_mobileActivity extends BaseActivity implements OnClickListen
 
                     if (status.status.code == 10000) {
                         Mark = 1;
-                        Toast.makeText(Change_mobileActivity.this, "验证码以短信形式发送到你的手机，60秒有效", Toast.LENGTH_LONG).show();
+                        showToastShort("验证码以短信形式发送到你的手机，60秒有效");
                     } else {
-                        Toast.makeText(Change_mobileActivity.this, status.status.msg, Toast.LENGTH_LONG).show();
+                        showToastShort(status.status.msg);
                     }
                 }
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-                //Toast.makeText(this, "请求失败", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -243,14 +241,14 @@ public class Change_mobileActivity extends BaseActivity implements OnClickListen
                     if (status.status.code == 10000) {
                         change_mobile();
                     } else {
-                        Toast.makeText(Change_mobileActivity.this, status.status.msg, Toast.LENGTH_LONG).show();
+                        showToastShort(status.status.msg);
                     }
                 }
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-                //Toast.makeText(this, "请求失败", Toast.LENGTH_SHORT).show();
+                showToastShort("请求失败");
             }
         });
     }
@@ -272,16 +270,16 @@ public class Change_mobileActivity extends BaseActivity implements OnClickListen
 
                     if (status.status.code == 10000) {
                         finish(false);
-                        Toast.makeText(Change_mobileActivity.this, status.status.msg, Toast.LENGTH_LONG).show();
+                        showToastShort(status.status.msg);
                     } else {
-                        Toast.makeText(Change_mobileActivity.this, status.status.msg, Toast.LENGTH_LONG).show();
+                        showToastShort(status.status.msg);
                     }
                 }
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-                //Toast.makeText(this, "请求失败", Toast.LENGTH_SHORT).show();
+                showToastShort("请求失败");
             }
         });
     }

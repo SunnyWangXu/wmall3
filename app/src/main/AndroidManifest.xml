@@ -32,14 +32,14 @@
         <activity android:name=".ui.activity.A2_ResetPassActivity1" />
         <activity android:name=".ui.activity.A2_ResetPassActivity2" />
         <activity android:name=".ui.activity.VerificationCodeActivity" />
-        <activity android:name=".ui.activity.MyLockBoxActivity" />
-        <activity android:name=".ui.activity.Modify_nicknameActivity" />
-        <activity android:name=".ui.activity.ChangePasswordActivity" />
-        <activity android:name=".ui.activity.Manage_Address_Activity" />
-        <activity android:name=".ui.activity.AddressDetailActvity" />
-        <activity android:name=".ui.activity.PaymentPasswordActivity" />
-        <activity android:name=".ui.activity.Change_mobileActivity" />
-        <activity android:name=".ui.activity.B1_SearchActivity" />
+        <activity android:name=".ui.activity.M0_MyLockBoxActivity" />
+        <activity android:name=".ui.activity.M1_Modify_nicknameActivity" />
+        <activity android:name=".ui.activity.M3_ChangePasswordActivity" />
+        <activity android:name=".ui.activity.M2_Manage_Address_Activity" />
+        <activity android:name=".ui.activity.M2_AddressDetailActvity" />
+        <activity android:name=".ui.activity.M4_PaymentPasswordActivity" />
+        <activity android:name=".ui.activity.M5_Change_mobileActivity" />
+        <activity android:name=".ui.activity.SearchActivity" />
         //设置Activity
         <activity android:name=".ui.activity.SetActivity"
             android:screenOrientation="portrait"/>

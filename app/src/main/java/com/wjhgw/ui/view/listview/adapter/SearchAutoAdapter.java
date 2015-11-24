@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.wjhgw.R;
 import com.wjhgw.business.bean.Auto_complete_data;
-import com.wjhgw.ui.activity.B1_SearchActivity;
+import com.wjhgw.ui.activity.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,8 +77,8 @@ public class SearchAutoAdapter extends BaseAdapter {
      * 读取历史搜索记录
      */
     public void initSearchHistory() {
-        SharedPreferences sp = mContext.getSharedPreferences(B1_SearchActivity.SEARCH_HISTORY, 0);
-        String longhistory = sp.getString(B1_SearchActivity.SEARCH_HISTORY, "");
+        SharedPreferences sp = mContext.getSharedPreferences(SearchActivity.SEARCH_HISTORY, 0);
+        String longhistory = sp.getString(SearchActivity.SEARCH_HISTORY, "");
         String[] hisArrays = longhistory.split(",");
         mOriginalValues = new ArrayList<>();
         if (hisArrays[0].equals("")) {
