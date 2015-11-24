@@ -117,6 +117,14 @@ public class ApiInterface {
      *新增收货地址接口
      */
     public static final String Add_address  ="/mobile/index.php?act=member_address&op=address_add";
+    /**
+     *讯搜
+     */
+    public static final String Auto_complete  ="/mobile/index.php?act=xs&op=auto_complete";
+    /**
+     *热点词汇
+     */
+    public static final String Hot_search  ="/mobile/index.php?act=search&op=hot_search";
 
     /**
      *退出登录接口

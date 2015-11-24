@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -24,6 +24,7 @@ import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.Goods_attr;
 import com.wjhgw.business.bean.Goods_class1;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.activity.B1_SearchActivity;
 import com.wjhgw.ui.activity.CaptureActivity;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
@@ -33,15 +34,17 @@ import com.wjhgw.ui.view.listview.adapter.goods_class_adapter;
 public class CategoryFragment extends Fragment implements XListView.IXListViewListener, View.OnClickListener {
     public static int MAK = 0;
     private ImageView ivGoods;
-    private TextView qrcode_scanner;
+    private ImageView qrcode_scanner;
     private MyListView mListView;
     private goods_class_adapter adapter;
     private AttrAdapter attrAdapter;
     private Goods_class1 goods_class1;
     private Goods_attr goods_attr;
+    private LinearLayout ll_search;
     View View;
     public static String RESULT_MESSAGE = null; // 接收扫二维码返回数据
     private String key;
+    private Intent intent;
     private ListView lvAttr;
 
     @Override
@@ -77,6 +80,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
         });
 
         qrcode_scanner.setOnClickListener(this);
+        ll_search.setOnClickListener(this);
 
         return View;
     }
@@ -84,7 +88,8 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
     private void onFindViews() {
         lvAttr = (ListView) View.findViewById(R.id.lv_attr);
         ivGoods = (ImageView) View.findViewById(R.id.iv_goods_class);
-        qrcode_scanner = (TextView) View.findViewById(R.id.qrcode_scanner);
+        qrcode_scanner = (ImageView) View.findViewById(R.id.qrcode_scanner);
+        ll_search = (LinearLayout) View.findViewById(R.id.ll_search);
 
         mListView = (MyListView) View.findViewById(R.id.discovery_listview);
     }
@@ -104,8 +109,14 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.qrcode_scanner:
-                Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                intent = new Intent(getActivity(), CaptureActivity.class);
                 getActivity().startActivity(intent);
+                break;
+            case R.id.ll_search:
+                intent = new Intent(getActivity(), B1_SearchActivity.class);
+                getActivity().startActivity(intent);
+                break;
+            default:
                 break;
         }
     }
