@@ -103,7 +103,9 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/gray" />
+
     <LinearLayout
+        android:id="@+id/ll_clear_cache"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white"
@@ -121,11 +123,11 @@
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/tv_cache"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="20dp"
             android:gravity="center_vertical"
-            android:text="0KB"
             android:textColor="@color/spec_text_color"
             android:textSize="16sp" />
 

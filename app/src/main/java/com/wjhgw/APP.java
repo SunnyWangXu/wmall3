@@ -64,23 +64,10 @@ public class APP extends Application {
         mImageLoader = ImageLoader.getInstance();
 
         /**
-         * BitmapUtils初始化
+         * 设置缓存路径
+         *
          */
-        // 获取SDCard目录路径
-        String diskCachePath = null;
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            diskCachePath = new StringBuffer()
-                    .append(Environment.getExternalStorageDirectory())
-                    .append(File.separator)
-                    .append("wjhgw/imageCache").toString();
-            // /mnt/sdcard/wjhgw/imageCache
-        } else {
-            diskCachePath = new StringBuffer().append(Environment.getDataDirectory())
-                    .append(File.separator)
-                    .append(this.getPackageName())
-                    .append("wjhgw/imageCache").toString();
-            // /data/data/com.wjhgw/wjhgw/imageCache
-        }
+        String diskCachePath = getAppCache();
 
         // 设置内存缓存
         int cacheSize = (int) Runtime.getRuntime().maxMemory() / 8;
@@ -112,6 +99,30 @@ public class APP extends Application {
                         .build();
 
     }
+
+    /**
+     * 设置缓存路径
+     * @return
+     */
+    public  String getAppCache() {
+        // 获取SDCard目录路径
+        String diskCachePath = null;
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            diskCachePath = new StringBuffer()
+                    .append(Environment.getExternalStorageDirectory())
+                    .append(File.separator)
+                    .append("wjhgw/imageCache").toString();
+            // /mnt/sdcard/wjhgw/imageCache
+        } else {
+            diskCachePath = new StringBuffer().append(Environment.getDataDirectory())
+                    .append(File.separator)
+                    .append(this.getPackageName())
+                    .append("wjhgw/imageCache").toString();
+            // /data/data/com.wjhgw/wjhgw/imageCache
+        }
+        return diskCachePath;
+    }
+
 
     public static APP getApp() {
         return application;

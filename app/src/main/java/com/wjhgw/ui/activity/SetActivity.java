@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -15,6 +17,9 @@ import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.utils.FileUtils;
+
+import java.io.File;
 
 /**
  * 设置的Activity  2015/11/24 0024.
@@ -26,6 +31,9 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
     private int PushCount = 1;
     private Button btnExit;
     private String memberName;
+    private LinearLayout llClearCache;
+    private String cachePath;
+    private TextView tvCache;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +45,9 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
     public void onInit() {
         setUp();
         setTitle("设置");
-        memberName =  getIntent().getStringExtra("memberName");
+        memberName = getIntent().getStringExtra("memberName");
+
+        cachePath = APP.getApp().getAppCache();
     }
 
     @Override
@@ -45,18 +55,27 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
         ivShare = (ImageView) findViewById(R.id.iv_title_right);
         ivPush = (ImageView) findViewById(R.id.iv_push);
         btnExit = (Button) findViewById(R.id.btn_exit);
+        tvCache = (TextView) findViewById(R.id.tv_cache);
+        llClearCache = (LinearLayout) findViewById(R.id.ll_clear_cache);
     }
 
     @Override
     public void onInitViewData() {
         ivShare.setImageResource(R.mipmap.ic_share);
         ivShare.setVisibility(View.VISIBLE);
+
+        Long dirSize = FileUtils.getDirSize(new File(cachePath));
+        String cacheSize = FileUtils.getFileSize(dirSize);
+
+        tvCache.setText(cacheSize);
+
     }
 
     @Override
     public void onBindListener() {
         ivPush.setOnClickListener(this);
         btnExit.setOnClickListener(this);
+        llClearCache.setOnClickListener(this);
     }
 
     @Override
@@ -70,8 +89,21 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
                     ivPush.setImageResource(R.mipmap.ic_push_on);
                 }
                 break;
+
+            case R.id.ll_clear_cache:
+                /**
+                 * 删除缓存的文件
+                 */
+                FileUtils.clearAppCache(cachePath);
+                tvCache.setText("0KB");
+                showToastShort("清除缓存成功");
+                break;
+
             case R.id.btn_exit:
-                 exitLogin();
+                /**
+                 * 退出登录
+                 */
+                exitLogin();
 
                 break;
 
@@ -85,9 +117,9 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
      */
     private void exitLogin() {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("member_name",memberName);
-        params.addBodyParameter("key",getKey());
-        params.addBodyParameter("client","android");
+        params.addBodyParameter("member_name", memberName);
+        params.addBodyParameter("key", getKey());
+        params.addBodyParameter("client", "android");
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Exit_login, params, new RequestCallBack<String>() {
             @Override
