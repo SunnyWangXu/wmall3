@@ -53,6 +53,7 @@ public class M3_ChangePasswordActivity extends BaseActivity implements OnClickLi
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (start != 0) {
                     iv_delete1.setVisibility(View.VISIBLE);
+                    ll_password1.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 } else {
                     if (start == 0 && count > 0) {
                         iv_delete1.setVisibility(View.VISIBLE);
@@ -76,11 +77,13 @@ public class M3_ChangePasswordActivity extends BaseActivity implements OnClickLi
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    ll_password1.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 } else {
                     String password1 = et_password1.getText().toString();
                     if (password1.length() > 5) {
                         load_check_passwor(password1);
+                    } else {
+                        ll_password1.setBackgroundResource(R.drawable.background_red);
+                        showToastShort("原登录密码输入有误");
                     }
                 }
             }
@@ -90,6 +93,7 @@ public class M3_ChangePasswordActivity extends BaseActivity implements OnClickLi
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (start > 0) {
                     iv_delete2.setVisibility(View.VISIBLE);
+                    ll_password2.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 } else {
                     if (start == 0 && count > 0) {
                         iv_delete2.setVisibility(View.VISIBLE);
@@ -105,6 +109,22 @@ public class M3_ChangePasswordActivity extends BaseActivity implements OnClickLi
 
             @Override
             public void afterTextChanged(Editable s) {
+            }
+        });
+        et_password2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                } else {
+                    String password1 = et_password2.getText().toString();
+                    if (password1.length() > 5 && !password1.equals(password)) {
+
+                    } else {
+                        showToastShort("新登录密码输入有误");
+                        ll_password2.setBackgroundResource(R.drawable.background_red);
+                    }
+                }
             }
         });
         et_password3.addTextChangedListener(new TextWatcher() {
@@ -193,31 +213,42 @@ public class M3_ChangePasswordActivity extends BaseActivity implements OnClickLi
                 String password3 = et_password3.getText().toString();
                 //保存密码强度
                 String strength = null;
-                if (!password.equals("") && password2.equals(password3) && et_password3.length() >= 6) {
-                    if (Pattern.compile("^[A-Za-z0-9]+").matcher(password3).matches()) {
-                        if (Pattern.compile("^\\d+$").matcher(password3).matches()) {
-                            strength = "0";
-                        } else if (Pattern.compile("^[A-Za-z]+$").matcher(password3).matches()) {
-                            strength = "1";
+                if (!password.equals("")) {
+                    if (password2.length() > 5 && !password2.equals(password)) {
+                        if (password2.equals(password3) && et_password3.length() >= 6) {
+                            if (Pattern.compile("^[A-Za-z0-9]+").matcher(password3).matches()) {
+                                if (Pattern.compile("^\\d+$").matcher(password3).matches()) {
+                                    strength = "0";
+                                } else if (Pattern.compile("^[A-Za-z]+$").matcher(password3).matches()) {
+                                    strength = "1";
+                                } else {
+                                    strength = "2";
+                                }
+                            }
+                            String key = getKey();
+                            RequestParams params = new RequestParams();
+                            if (!key.equals("0")) {
+                                params.addBodyParameter("passwd_strength", strength);
+                                params.addBodyParameter("member_old_password", password);
+                                params.addBodyParameter("member_new_password", password2);
+                                params.addBodyParameter("key", key);
+                                change_pwd(params);
+                            } else {
+                                showToastShort("未登录");
+                            }
                         } else {
-                            strength = "2";
+                            showToastShort("确认新登录密码输入有误");
+                            ll_password3.setBackgroundResource(R.drawable.background_red);
                         }
-                    }
-                    String key = getKey();
-                    RequestParams params = new RequestParams();
-                    if (!key.equals("0")) {
-                        params.addBodyParameter("passwd_strength", strength);
-                        params.addBodyParameter("member_old_password", password);
-                        params.addBodyParameter("member_new_password", password2);
-                        params.addBodyParameter("key", key);
-                        change_pwd(params);
                     } else {
-                        showToastShort("为登录");
+                        ll_password2.setBackgroundResource(R.drawable.background_red);
+                        showToastShort("原登录密码输入有误");
                     }
                 } else {
-                    showToastShort("密码长度太短、新密码不一致、原密码验证失败或错误");
-                    ll_password3.setBackgroundResource(R.drawable.background_red);
+                    ll_password1.setBackgroundResource(R.drawable.background_red);
+                    showToastShort("原登录密码输入有误");
                 }
+
 
                 break;
             default:
@@ -248,7 +279,7 @@ public class M3_ChangePasswordActivity extends BaseActivity implements OnClickLi
                         password = et_password1.getText().toString();
                     } else {
                         ll_password1.setBackgroundResource(R.drawable.background_red);
-                        showToastShort(status.status.msg);
+                        showToastShort("原登录密码输入有误");
                     }
                 }
             }
@@ -261,7 +292,7 @@ public class M3_ChangePasswordActivity extends BaseActivity implements OnClickLi
     }
 
     /**
-     * 校验登录密码
+     * 修改登录密码
      */
     private void change_pwd(RequestParams params) {
 
