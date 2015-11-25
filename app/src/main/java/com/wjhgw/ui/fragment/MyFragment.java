@@ -49,8 +49,6 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                              Bundle savedInstanceState) {
         MyLayout = inflater.inflate(R.layout.my_layout, container, false);
 
-        key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
-
         /**
          * 加载视图
          */
@@ -237,6 +235,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     @Override
     public void onResume() {
         super.onResume();
+        key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
         /**
          * 获取网络信息
          */

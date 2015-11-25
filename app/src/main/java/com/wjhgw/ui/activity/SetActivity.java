@@ -1,5 +1,6 @@
 package com.wjhgw.ui.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -132,6 +133,11 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 showToastShort("已退出登录");
+                SharedPreferences preferences = getSharedPreferences("key", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                //存入数据
+                editor.putString("key", "0");
+                editor.commit();
                 finish();
             }
 
