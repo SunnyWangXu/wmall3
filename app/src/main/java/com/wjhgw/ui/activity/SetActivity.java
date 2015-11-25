@@ -131,6 +131,7 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Exit_login, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+
                 showToastShort("已退出登录");
                 finish();
             }

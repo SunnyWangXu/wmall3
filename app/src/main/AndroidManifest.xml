@@ -26,7 +26,8 @@
             </intent-filter>
         </activity>
         <activity android:name="com.wjhgw.ui.activity.CaptureActivity" />
-        <activity android:name="com.wjhgw.ui.activity.A0_LoginActivity" />
+        <activity android:name="com.wjhgw.ui.activity.A0_LoginActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.PrductDetail" />
         <activity android:name=".ui.activity.A1_RegisterActivity1" />
         <activity android:name=".ui.activity.A1_RegisterActivity2" />
@@ -42,8 +43,9 @@
         <activity android:name=".ui.activity.M5_Change_mobileActivity" />
         <activity android:name=".ui.activity.SearchActivity" />
         //设置Activity
-        <activity android:name=".ui.activity.SetActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.SetActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

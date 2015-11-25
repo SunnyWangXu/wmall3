@@ -71,6 +71,9 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
          */
         listAddHeader();
 
+        if (!key.equals("0")) {
+            load_User_information();
+        }
 
         mListView.setPullLoadEnable(false);
         mListView.setPullRefreshEnable(true);
@@ -146,12 +149,12 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         switch (v.getId()) {
             case R.id.my_avatar:
                 if (key.equals("0")) {
-                    intent.setClass(getActivity(), A0_LoginActivity.class);
-                    startActivity(intent);
 
                 } else {
 
                 }
+                intent.setClass(getActivity(), A0_LoginActivity.class);
+                startActivity(intent);
 
                 break;
             case R.id.ll_lockbox:
@@ -234,15 +237,15 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         }
     }
 
-    @Override
+   /* @Override
     public void onResume() {
         super.onResume();
-        /**
+        *//**
          * 获取网络信息
-         */
+         *//*
         if (!key.equals("0")) {
             load_User_information();
         }
-    }
+    }*/
 
 }
