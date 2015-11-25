@@ -34,6 +34,7 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout llClearCache;
     private String cachePath;
     private TextView tvCache;
+    private LinearLayout llCheckVersion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
         btnExit = (Button) findViewById(R.id.btn_exit);
         tvCache = (TextView) findViewById(R.id.tv_cache);
         llClearCache = (LinearLayout) findViewById(R.id.ll_clear_cache);
+        llCheckVersion = (LinearLayout) findViewById(R.id.ll_check_version);
     }
 
     @Override
@@ -76,6 +78,7 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
         ivPush.setOnClickListener(this);
         btnExit.setOnClickListener(this);
         llClearCache.setOnClickListener(this);
+        llCheckVersion.setOnClickListener(this);
     }
 
     @Override
@@ -105,6 +108,10 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
                  */
                 exitLogin();
 
+                break;
+            case R.id.ll_check_version:
+
+                showToastShort("当前已经是最新版本");
                 break;
 
             default:
