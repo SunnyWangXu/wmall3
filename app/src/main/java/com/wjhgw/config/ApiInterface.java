@@ -130,5 +130,11 @@ public class ApiInterface {
      *退出登录接口
      */
     public static final String Exit_login  ="/mobile/index.php?act=logout";
+    /**
+     *平台查询
+     */
+    public static final String Act_search  ="/mobile/index.php?act=search";
+
+
 
 }

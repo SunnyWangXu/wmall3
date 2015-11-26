@@ -1,6 +1,7 @@
 package com.wjhgw.base;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -21,6 +22,8 @@ public abstract class BaseActivity extends AppCompatActivity {
          * 隐藏自带标题栏
          */
         this.getSupportActionBar().hide();
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//固定竖屏
     }
 
     public void setUp() {
