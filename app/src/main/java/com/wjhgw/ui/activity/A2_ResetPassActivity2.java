@@ -9,28 +9,30 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
+import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
-import com.wjhgw.business.api.Registered_Request;
-import com.wjhgw.business.response.BusinessResponse;
+import com.wjhgw.business.bean.Status;
 import com.wjhgw.config.ApiInterface;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
+import java.util.regex.Pattern;
 
 /**
  * 重置密码
  */
-public class A2_ResetPassActivity2 extends BaseActivity implements BusinessResponse, OnClickListener {
+public class A2_ResetPassActivity2 extends BaseActivity implements OnClickListener {
 
     private EditText et_cipher;
     private ImageView iv_delete;
     private TextView tv_next;
 
-    private Registered_Request Request;
     private String Number;
     private String cipher;
 
@@ -62,8 +64,6 @@ public class A2_ResetPassActivity2 extends BaseActivity implements BusinessRespo
             }
         });
 
-        Request = new Registered_Request(this);
-        Request.addResponseListener(this);
         Number = getIntent().getStringExtra("Number");
 
     }
@@ -98,7 +98,6 @@ public class A2_ResetPassActivity2 extends BaseActivity implements BusinessRespo
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Request.removeResponseListener(this);
     }
 
     @Override
@@ -109,13 +108,21 @@ public class A2_ResetPassActivity2 extends BaseActivity implements BusinessRespo
                 iv_delete.setVisibility(View.GONE);
                 break;
             case R.id.tv_a2_next1:
+                String strength = null;
                 cipher = et_cipher.getText().toString();
-                if (!cipher.equals("")) {
-                    tv_next.setClickable(false);
-                    HashMap<String, String> hashMap = new HashMap<>();
-                    hashMap.put("member_mobile", Number);
-                    hashMap.put("password", cipher);
-                    Request.ResetPassword(hashMap, BaseQuery.serviceUrl() + ApiInterface.ResetPassword);
+                if (cipher.length() > 5) {
+                    if (Pattern.compile("^[A-Za-z0-9]+").matcher(cipher).matches()) {
+                        if (Pattern.compile("^\\d+$").matcher(cipher).matches()) {
+                            strength = "0";
+                        } else if (Pattern.compile("^[A-Za-z]+$").matcher(cipher).matches()) {
+                            strength = "1";
+                        } else {
+                            strength = "2";
+                        }
+                    }
+                    ResetPassword(strength);
+                } else {
+                    showToastShort("密码输入有误");
                 }
                 break;
             case R.id.iv_title_back:
@@ -128,16 +135,35 @@ public class A2_ResetPassActivity2 extends BaseActivity implements BusinessRespo
 
     }
 
-    @Override
-    public void OnMessageResponse(String url, String response, JSONObject status) throws JSONException {
-        tv_next.setClickable(true);
-        if (url.equals(BaseQuery.serviceUrl() + ApiInterface.ResetPassword)) {
-            if (status.getString("code").equals("10000")) {
-                finish(false);
-                showToastShort(status.getString("msg"));
-            } else {
-                showToastShort(status.getString("msg"));
+    /**
+     * 重设密码
+     */
+    private void ResetPassword(String strength) {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("member_mobile", Number);
+        params.addBodyParameter("password", cipher);
+        params.addBodyParameter("passwd_strength", strength);
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.ResetPassword, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+
+                    if (status.status.code == 10000) {
+                        showToastShort(status.status.msg);
+                        finish(false);
+                    } else {
+                        showToastShort(status.status.msg);
+                    }
+                }
             }
-        }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                showToastShort("请求失败");
+            }
+        });
     }
 }

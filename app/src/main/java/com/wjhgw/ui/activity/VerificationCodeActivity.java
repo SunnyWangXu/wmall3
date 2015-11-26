@@ -120,7 +120,6 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
                 break;
             case R.id.tv_next:
                 Verification_code = et_editText.getText().toString();
-                Number = et_editText.getText().toString();
                 if (Verification_code.length() == 4) {
                     //tv_next.setClickable(false);
                     Number_Verification_code();
@@ -150,7 +149,7 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
      */
     private void Verification_code() {
         RequestParams params = new RequestParams();
-        if (key.length() > 0) {
+        if (key.length() > 1) {
             params.addBodyParameter("key", key);
         } else {
             params.addBodyParameter("member_mobile", Number);
@@ -184,7 +183,7 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
     private void Number_Verification_code() {
         RequestParams params = new RequestParams();
         params.addBodyParameter("sms_code", Verification_code);
-        if (key.length() > 0) {
+        if (key.length() > 1) {
             params.addBodyParameter("key", key);
         }
 

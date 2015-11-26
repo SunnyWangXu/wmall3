@@ -106,7 +106,6 @@ public class A2_ResetPassActivity1 extends BaseActivity implements BusinessRespo
             case R.id.tv_a2_next:
                 Number = et_name.getText().toString();
                 if (Number.length() == 11 && Number.substring(0, 1).equals("1")) {
-                    tv_next.setClickable(false);
                     Request.VerificationNumber(Number);
                 } else {
                     showToastShort("你输入的号码有误！请重新输入");
@@ -128,7 +127,6 @@ public class A2_ResetPassActivity1 extends BaseActivity implements BusinessRespo
     @Override
     public void OnMessageResponse(String url, String response, JSONObject status)
             throws JSONException {
-        tv_next.setClickable(true);
         if (url.equals(BaseQuery.serviceUrl() + ApiInterface.VerificationRegistered)) {
             if (status.getString("code").equals("100101")) {
                 Intent intent = new Intent(this, VerificationCodeActivity.class);
