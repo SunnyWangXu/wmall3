@@ -1,5 +1,6 @@
 package com.wjhgw.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -277,6 +278,10 @@ public class M3_ChangePasswordActivity extends BaseActivity implements OnClickLi
 
                     if (status.status.code == 10000) {
                         password = et_password1.getText().toString();
+                    }else if(status.status.code == 200103 || status.status.code == 200104) {
+                        showToastShort(status.status.msg);
+                        getSharedPreferences("key", MODE_APPEND).edit().putString("key","0").commit();
+                        startActivity(new Intent(M3_ChangePasswordActivity.this, A0_LoginActivity.class));
                     } else {
                         ll_password1.setBackgroundResource(R.drawable.background_red);
                         showToastShort("原登录密码输入有误");

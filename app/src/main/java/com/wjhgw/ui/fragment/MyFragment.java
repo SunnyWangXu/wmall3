@@ -25,7 +25,7 @@ import com.wjhgw.business.bean.MyLockBox;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.M0_MyLockBoxActivity;
-import com.wjhgw.ui.activity.SetActivity;
+import com.wjhgw.ui.activity.M6_SetActivity;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 
@@ -143,13 +143,13 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.my_avatar:
-                if (key.equals("0")) {
+              /*  if (key.equals("0")) {
                     intent.setClass(getActivity(), A0_LoginActivity.class);
                     startActivity(intent);
 
                 } else {
 
-                }
+                }*/
 
                 break;
             case R.id.ll_lockbox:
@@ -162,11 +162,11 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 }
                 break;
             case R.id.ll_set:
-                if(key.equals("0")|| key == null){
+                if (key.equals("0") || key == null) {
                     intent.setClass(getActivity(), A0_LoginActivity.class);
                     startActivity(intent);
-                }else {
-                    intent.setClass(getActivity(), SetActivity.class);
+                } else {
+                    intent.setClass(getActivity(), M6_SetActivity.class);
                     intent.putExtra("memberName", memberName);
                     startActivity(intent);
                 }

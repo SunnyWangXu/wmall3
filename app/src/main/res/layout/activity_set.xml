@@ -180,6 +180,7 @@
         android:layout_height="50dp"
         android:background="@color/btn_red"
         android:text="退出登录"
+        android:visibility="invisible"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"

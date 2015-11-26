@@ -63,7 +63,7 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
 
     @Override
     public void onFindViews() {
-       tvAddAddress = (TextView)findViewById(R.id.tv_add_address);
+        tvAddAddress = (TextView) findViewById(R.id.tv_add_address);
 
     }
 
@@ -84,7 +84,7 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
 
         RequestParams params = new RequestParams();
         if (!key.equals("0")) {
-            params.addBodyParameter( "key", key);
+            params.addBodyParameter("key", key);
         }
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Address_list, params, new RequestCallBack<String>() {
 
@@ -101,6 +101,10 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
                             listAdapter = new manage_address_adapter(M2_Manage_Address_Activity.this, address_list_data, Request, key);
                             mListView.setAdapter(listAdapter);
                         }
+                    } else if (address_list.status.code == 200103 || address_list.status.code == 200104) {
+                        showToastShort(address_list.status.msg);
+                        getSharedPreferences("key", MODE_APPEND).edit().putString("key", "0").commit();
+                        startActivity(new Intent(M2_Manage_Address_Activity.this, A0_LoginActivity.class));
                     } else {
                         showToastShort(address_list.status.msg);
                     }
@@ -153,7 +157,7 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.tv_add_address :
+            case R.id.tv_add_address:
 
                 Intent intent = new Intent(this, M2_AddressDetailActvity.class);
 //                intent.putExtra("addAddress", "addAddress");

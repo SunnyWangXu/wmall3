@@ -240,6 +240,10 @@ public class M5_Change_mobileActivity extends BaseActivity implements OnClickLis
 
                     if (status.status.code == 10000) {
                         change_mobile();
+                    }else if (status.status.code == 200103 || status.status.code == 200104) {
+                        showToastShort(status.status.msg);
+                        getSharedPreferences("key", MODE_APPEND).edit().putString("key", "0").commit();
+                        startActivity(new Intent(M5_Change_mobileActivity.this, A0_LoginActivity.class));
                     } else {
                         showToastShort(status.status.msg);
                     }

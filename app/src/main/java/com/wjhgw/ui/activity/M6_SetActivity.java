@@ -25,7 +25,7 @@ import java.io.File;
 /**
  * 设置的Activity
  */
-public class SetActivity extends BaseActivity implements View.OnClickListener {
+public class M6_SetActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView ivShare;
     private ImageView ivPush;
@@ -48,8 +48,9 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
         setUp();
         setTitle("设置");
         memberName = getIntent().getStringExtra("memberName");
-
+       //获取缓存的路径
         cachePath = APP.getApp().getAppCache();
+
     }
 
     @Override
@@ -66,6 +67,10 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
     public void onInitViewData() {
         ivShare.setImageResource(R.mipmap.ic_share);
         ivShare.setVisibility(View.VISIBLE);
+
+        if(!getKey().equals("0")){
+        btnExit.setVisibility(View.VISIBLE);
+        }
 
         Long dirSize = FileUtils.getDirSize(new File(cachePath));
         String cacheSize = FileUtils.getFileSize(dirSize);
@@ -144,8 +149,10 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void onFailure(HttpException e, String s) {
+
                 showToastShort("网络错误");
             }
         });
     }
+
 }

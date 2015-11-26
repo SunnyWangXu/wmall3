@@ -1,5 +1,6 @@
 package com.wjhgw.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -189,6 +190,10 @@ public class M4_PaymentPasswordActivity extends BaseActivity implements OnClickL
                     if (status.status.code == 10000) {
                         finish(false);
                         showToastShort(status.status.msg);
+                    }else if (status.status.code == 200103 || status.status.code == 200104) {
+                        showToastShort(status.status.msg);
+                        getSharedPreferences("key", MODE_APPEND).edit().putString("key", "0").commit();
+                        startActivity(new Intent(M4_PaymentPasswordActivity.this, A0_LoginActivity.class));
                     } else {
                         showToastShort(status.status.msg);
                     }
