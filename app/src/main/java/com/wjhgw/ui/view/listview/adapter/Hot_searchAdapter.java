@@ -1,11 +1,13 @@
 package com.wjhgw.ui.view.listview.adapter;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.wjhgw.R;
 import com.wjhgw.business.bean.Auto_complete_data;
 
 import java.util.List;
@@ -42,9 +44,10 @@ public class Hot_searchAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView tvValue = new TextView(mContext);
+        convertView = LayoutInflater.from(mContext).inflate(R.layout.gridview_item, parent, false);
+        TextView tvValue = (TextView)convertView.findViewById(R.id.tv_item);
         tvValue.setText(dataValues.get(position).value);
 
-        return tvValue;
+        return convertView;
     }
 }

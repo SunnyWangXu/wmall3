@@ -5,7 +5,7 @@
     android:background="#ffffff">
 
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="48dp"
         android:background="#ffffff">
@@ -14,16 +14,15 @@
             android:id="@+id/iv_title_back"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
             android:src="@mipmap/ic_arrow_left" />
 
         <LinearLayout
-            android:layout_width="240dp"
+            android:layout_width="230dp"
             android:layout_height="34dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:background="#efefef"
+            android:layout_gravity="center"
+            android:background="#f1f1f1"
             android:orientation="horizontal">
 
             <ImageView
@@ -39,7 +38,7 @@
                 android:layout_height="34dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="3"
-                android:background="#efefef"
+                android:background="#f1f1f1"
                 android:hint="请输入你想要的商品"
                 android:maxLength="20"
                 android:paddingLeft="10dp"
@@ -69,16 +68,16 @@
 
         <TextView
             android:id="@+id/search"
-            android:layout_width="68dp"
-            android:layout_height="34dp"
-            android:layout_gravity="center_vertical"
-            android:background="#cccccc"
-            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
             android:text="搜索"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="14dp"
             android:textColor="#ef4a4a"
-            android:textSize="15dp" />
+            android:textSize="18dp" />
 
-    </LinearLayout>
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -86,24 +85,59 @@
         android:layout_marginTop="48dp"
         android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="25dp"
+        android:gravity="center_vertical"
+        android:background="#f1f1f1">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="17dp"
+            android:gravity="center_vertical"
             android:text="热搜"
-            android:textColor="#000000"
-            android:textSize="20dp" />
+            android:textColor="#666666"
+            android:textSize="12sp" />
+    </LinearLayout>
 
         <GridView
             android:id="@+id/gv_goods_attr_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
+            android:verticalSpacing="25dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:horizontalSpacing="10dp"
             android:numColumns="3" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center_vertical"
+            android:background="#f1f1f1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17dp"
+                android:layout_gravity="center_vertical"
+                android:text="搜索记录"
+                android:textColor="#666666"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/d2_eliminate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="right|center_vertical"
+                android:gravity="center"
+                android:text="清除搜索历史"
+                android:textColor="#666666"
+                android:textSize="14dp" />
+        </FrameLayout>
 
         <ListView
             android:id="@+id/auto_listview"
@@ -112,25 +146,12 @@
             android:divider="#eeeeee"
             android:dividerHeight="0.5dp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#eeeeee" />
-
-        <TextView
-            android:id="@+id/d2_eliminate"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:gravity="center"
-            android:text="清除搜索历史"
-            android:textColor="#999999"
-            android:textSize="15dp" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/lv_listview"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="48dp"
         android:background="#ffffff"
         android:divider="#eeeeee"

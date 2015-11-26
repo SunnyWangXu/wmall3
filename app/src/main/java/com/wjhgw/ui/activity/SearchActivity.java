@@ -158,6 +158,7 @@ public class SearchActivity extends BaseActivity implements OnClickListener {
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int position,
                                     long arg3) {
+                search_name.setText(auto_complete.datas.get(position).value);
                 search.performClick();
             }
         });
@@ -208,7 +209,7 @@ public class SearchActivity extends BaseActivity implements OnClickListener {
             case R.id.search:
                 saveSearchHistory();
                 mSearchAutoAdapter.initSearchHistory();
-                Toast.makeText(this, "搜索", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, search_name.getText().toString().trim(), Toast.LENGTH_SHORT).show();
                 /*intent = new Intent(this,B1_SearchResultActivity.class);
                 intent.putExtra("label", label);
 				startActivity(intent);*/
