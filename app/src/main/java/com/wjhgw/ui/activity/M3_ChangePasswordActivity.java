@@ -122,8 +122,12 @@ public class M3_ChangePasswordActivity extends BaseActivity implements OnClickLi
                     if (password1.length() > 5 && !password1.equals(password)) {
 
                     } else {
-                        showToastShort("新登录密码输入有误");
-                        ll_password2.setBackgroundResource(R.drawable.background_red);
+                        if(password.length() > 5){
+                            showToastShort("新登录密码输入有误");
+                            ll_password2.setBackgroundResource(R.drawable.background_red);
+                        }else {
+                            showToastShort("原登录密码输入有误");
+                        }
                     }
                 }
             }
@@ -243,7 +247,7 @@ public class M3_ChangePasswordActivity extends BaseActivity implements OnClickLi
                         }
                     } else {
                         ll_password2.setBackgroundResource(R.drawable.background_red);
-                        showToastShort("原登录密码输入有误");
+                        showToastShort("新登录密码输入有误");
                     }
                 } else {
                     ll_password1.setBackgroundResource(R.drawable.background_red);

@@ -10,11 +10,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
+import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
-import com.wjhgw.business.api.Registered_Request;
-import com.wjhgw.business.response.BusinessResponse;
+import com.wjhgw.business.bean.Status;
 import com.wjhgw.config.ApiInterface;
 
 import org.json.JSONException;
@@ -23,13 +29,12 @@ import org.json.JSONObject;
 /**
  * 注册用户时验证手机号是否正确和注册
  */
-public class A1_RegisterActivity1 extends BaseActivity implements BusinessResponse, OnClickListener {
+public class A1_RegisterActivity1 extends BaseActivity implements OnClickListener {
 
     private EditText et_name;
     private ImageView iv_delete;
     private TextView tv_next;
 
-    private Registered_Request Request;
     private String Number;
 
     @Override
@@ -59,8 +64,6 @@ public class A1_RegisterActivity1 extends BaseActivity implements BusinessRespon
             public void afterTextChanged(Editable s) {
             }
         });
-        Request = new Registered_Request(this);
-        Request.addResponseListener(this);
     }
 
     @Override
@@ -91,7 +94,6 @@ public class A1_RegisterActivity1 extends BaseActivity implements BusinessRespon
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Request.removeResponseListener(this);
     }
 
     @Override
@@ -104,8 +106,7 @@ public class A1_RegisterActivity1 extends BaseActivity implements BusinessRespon
             case R.id.tv_a1_next:
                 Number = et_name.getText().toString();
                 if (Number.length() == 11 && Number.substring(0, 1).equals("1")) {
-                    //a0_next.setClickable(false);
-                    Request.VerificationNumber(Number);
+                    Number(Number);
                 } else {
                     showToastShort("你输入的号码有误！请重新输入");
                 }
@@ -121,24 +122,62 @@ public class A1_RegisterActivity1 extends BaseActivity implements BusinessRespon
     }
 
     /**
-     * 接口回调
+     * 验证手机号码是否有效
      */
-    @Override
-    public void OnMessageResponse(String url, String response, JSONObject status)
-            throws JSONException {
-        if (url.equals(BaseQuery.serviceUrl() + ApiInterface.VerificationRegistered)) {
-            if (status.getString("code").equals("100100")) {
-                Intent intent = new Intent(this, VerificationCodeActivity.class);
-                intent.putExtra("Number", Number);
-                intent.putExtra("use", "1");
-                startActivity(intent);
-                finish(false);
-                overridePendingTransition(R.anim.push_right_in,
-                        R.anim.push_right_out);
-            } else {
-                showToastShort(status.getString("msg"));
+    private void Number(String number) {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, ApiInterface.Number + number, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                try {
+                    if (responseInfo.result == null || "".equals(responseInfo.result) || responseInfo.result.indexOf("{") < 0
+                            || new JSONObject(responseInfo.result.substring(responseInfo.result.indexOf("{"))).length() == 0) {
+                        showToastShort("手机号码无效");
+                    } else if (new JSONObject(responseInfo.result.substring(responseInfo.result.indexOf("{"))).getString("catName").length() > 0) {
+                        VerificationRegistered(Number);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                showToastShort("请求失败");
+            }
+        });
     }
 
+    /**
+     * 验证手机号是否已经注册
+     */
+    private void VerificationRegistered(String number) {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("member_mobile", number);
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.VerificationRegistered, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+
+                    if (status.status.code == 100100) {
+                        Intent intent = new Intent(A1_RegisterActivity1.this, VerificationCodeActivity.class);
+                        intent.putExtra("Number", Number);
+                        intent.putExtra("use", "1");
+                        startActivity(intent);
+                        finish(false);
+                    } else {
+                        showToastShort(status.status.msg);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                showToastShort("请求失败");
+            }
+        });
+    }
 }

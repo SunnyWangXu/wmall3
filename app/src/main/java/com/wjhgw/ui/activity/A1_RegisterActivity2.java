@@ -1,6 +1,5 @@
 package com.wjhgw.ui.activity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,31 +9,32 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
+import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
-import com.wjhgw.business.api.Registered_Request;
-import com.wjhgw.business.response.BusinessResponse;
+import com.wjhgw.business.bean.Status;
 import com.wjhgw.config.ApiInterface;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
+import java.util.regex.Pattern;
 
 /**
  * 注册
  */
-public class A1_RegisterActivity2 extends BaseActivity implements BusinessResponse, OnClickListener {
+public class A1_RegisterActivity2 extends BaseActivity implements OnClickListener {
 
     private EditText et_cipher;
     private ImageView iv_delete;
     private TextView tv_next;
 
-    private Registered_Request Request;
     private String Number;
     private String cipher;
-    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +64,6 @@ public class A1_RegisterActivity2 extends BaseActivity implements BusinessRespon
             }
         });
 
-        Request = new Registered_Request(this);
-        Request.addResponseListener(this);
         Number = getIntent().getStringExtra("Number");
 
     }
@@ -100,7 +98,6 @@ public class A1_RegisterActivity2 extends BaseActivity implements BusinessRespon
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Request.removeResponseListener(this);
     }
 
     @Override
@@ -115,13 +112,20 @@ public class A1_RegisterActivity2 extends BaseActivity implements BusinessRespon
                 break;
             case R.id.tv_a1_next:
                 cipher = et_cipher.getText().toString();
-                if (!cipher.equals("")) {
-                    tv_next.setClickable(false);
-                    HashMap<String, String> hashMap = new HashMap<>();
-                    hashMap.put("member_mobile", Number);
-                    hashMap.put("password", cipher);
-                    hashMap.put("client", "android");
-                    Request.register(hashMap, BaseQuery.serviceUrl() + ApiInterface.Registered);
+                String strength = null;
+                if (cipher.length() > 5) {
+                    if (Pattern.compile("^[A-Za-z0-9]+").matcher(cipher).matches()) {
+                        if (Pattern.compile("^\\d+$").matcher(cipher).matches()) {
+                            strength = "0";
+                        } else if (Pattern.compile("^[A-Za-z]+$").matcher(cipher).matches()) {
+                            strength = "1";
+                        } else {
+                            strength = "2";
+                        }
+                    }
+                    Registered(strength);
+                } else {
+                    showToastShort("密码输入有误");
                 }
                 break;
 
@@ -131,29 +135,36 @@ public class A1_RegisterActivity2 extends BaseActivity implements BusinessRespon
 
     }
 
-    @Override
-    public void OnMessageResponse(String url, String response, JSONObject status) throws JSONException {
-        tv_next.setClickable(true);
-        if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Registered)) {
-            if (status.getString("code").equals("10000")) {
-                /*preferences = getSharedPreferences("key", MODE_PRIVATE);
-                Editor editor = preferences.edit();
-                //存入数据
-                editor.putString("key", new JSONObject(new JSONObject(response).getString("datas")).getString("key"));
-                editor.putString("username", new JSONObject(new JSONObject(response).getString("datas")).getString("member_name"));
-                //提交修改
-                editor.commit();
-                //读取出来
-                preferences.getString("key", "0");
-                preferences.getString("username", "0");
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);*/
-                finish(false);
-                showToastShort(status.getString("msg"));
-                // Lock = 0;
-            } else {
-                showToastShort(status.getString("msg"));
+    /**
+     * 注册
+     */
+    private void Registered(String strength) {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("member_mobile", Number);
+        params.addBodyParameter("password", cipher);
+        params.addBodyParameter("client", "android");
+        params.addBodyParameter("passwd_strength", strength);
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Registered, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+
+                    if (status.status.code == 10000) {
+                        showToastShort(status.status.msg);
+                        finish(false);
+                    } else {
+                        showToastShort(status.status.msg);
+                    }
+                }
             }
-        }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                showToastShort("请求失败");
+            }
+        });
     }
 }
