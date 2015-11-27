@@ -637,10 +637,15 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             auction_super_value = gson.fromJson(responseInfoResult, Auction_super_value.class);
 
             if (auction_super_value.status.code == 10000) {
-                APP.getApp().getImageLoader().displayImage(auction_super_value.datas.super_value_goods.ap_ad_image, iv_home_group_purchase, APP.getApp().getImageOptions());
-                APP.getApp().getImageLoader().displayImage(auction_super_value.datas.auction_goods.goods_image, iv_home_auction, APP.getApp().getImageOptions());
-                countdown1 = auction_super_value.datas.super_value_goods.count_dowm_time;
-                countdown2 = auction_super_value.datas.auction_goods.count_dowm_time;
+                if(auction_super_value.datas.super_value_goods.count_dowm_time != null){
+                    APP.getApp().getImageLoader().displayImage(auction_super_value.datas.super_value_goods.ap_ad_image, iv_home_group_purchase, APP.getApp().getImageOptions());
+                    countdown1 = auction_super_value.datas.super_value_goods.count_dowm_time;
+                }
+                if(auction_super_value.datas.auction_goods.count_dowm_time != null){
+                    APP.getApp().getImageLoader().displayImage(auction_super_value.datas.auction_goods.goods_image, iv_home_auction, APP.getApp().getImageOptions());
+                    countdown2 = auction_super_value.datas.auction_goods.count_dowm_time;
+                }
+
                 tv_home_click.setText(auction_super_value.datas.auction_goods.goods_click + "次围观");
                 tv_home_name.setText(auction_super_value.datas.auction_goods.goods_name);
 
