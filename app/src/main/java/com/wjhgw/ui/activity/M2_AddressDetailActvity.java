@@ -100,10 +100,10 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
          */
         if (type != null && type.equals("addAddress")) {
             title.setText("新增地址");
-            edName.setHint("输入姓名");
-            edPhone.setHint("输入11位手机号码");
+            edName.setHint("不少于1位");
+            edPhone.setHint("不少于11位");
             tvAddressInfo.setText("北京市 北京市 东城区");
-            edAddressDetail.setHint("输入街道名称等信息");
+            edAddressDetail.setHint("街道名称及楼房门牌号等信息");
 
         }
     }
