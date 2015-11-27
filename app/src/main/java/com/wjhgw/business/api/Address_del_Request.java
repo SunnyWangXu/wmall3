@@ -37,7 +37,7 @@ public class Address_del_Request extends BaseRequest {
      */
     public void Address_del(String address_id, String key) {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", "de4c81c7ef206bd5dbd825520b97468f");
+        params.addBodyParameter("key", key);
         params.addBodyParameter("address_id", address_id);
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Address_del, params, new RequestCallBack<String>() {
 
@@ -73,7 +73,7 @@ public class Address_del_Request extends BaseRequest {
      */
     public void Set_add_def(String address_id, String key) {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", "de4c81c7ef206bd5dbd825520b97468f");
+        params.addBodyParameter("key", key);
         params.addBodyParameter("address_id", address_id);
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Set_add_def, params, new RequestCallBack<String>() {
 
