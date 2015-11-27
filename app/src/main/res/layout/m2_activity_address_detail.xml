@@ -56,13 +56,6 @@
                     android:textColor="@color/light_gray"
                     android:textSize="@dimen/title_size" />
 
-<!--
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="40dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@mipmap/ic_arrow_right" />-->
-
             </LinearLayout>
 
             <View
@@ -100,13 +93,6 @@
                     android:text="188****8888"
                     android:textColor="@color/light_gray"
                     android:textSize="@dimen/title_size" />
-
-
-              <!--  <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="40dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@mipmap/ic_arrow_right" />-->
 
             </LinearLayout>
 
@@ -190,16 +176,9 @@
                     android:maxLength="40"
                     android:layout_marginRight="5dp"
                     android:ellipsize="end"
-                    android:text="大北京中南海大北京中南海大北京中南海"
                     android:textColor="@color/light_gray"
                     android:textSize="@dimen/title_size" />
 
-               <!-- <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginRight="10dp"
-                    android:src="@mipmap/ic_arrow_right" />-->
 
             </LinearLayout>
             <View
@@ -217,13 +196,6 @@
             android:background="@color/black"
             android:visibility="gone" />
     </RelativeLayout>
-
-
-  <!--  <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/white" />-->
 
     <LinearLayout
         android:id="@+id/ll_pick_city"
@@ -286,41 +258,6 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
-        <!--  <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:orientation="horizontal">
-
-            <Button
-                 android:id="@+id/btn_cancel"
-                 android:layout_width="0dp"
-                 android:layout_height="wrap_content"
-                 android:layout_weight="1"
-                 android:gravity="center"
-                 android:text="取消"
-                 android:textColor="#000000" />
-
-            <Button
-                android:id="@+id/btn_confirm"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="确定"
-                android:textColor="#000000" />
-        </LinearLayout>-->
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_save"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="#f25252"
-        android:text="保存"
-        android:textColor="@color/white"
-        android:textSize="@dimen/title_size"/>
 
 </LinearLayout>

@@ -1,11 +1,11 @@
 package com.wjhgw.ui.activity;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,6 +26,8 @@ import com.wjhgw.utils.widget.OnWheelChangedListener;
 import com.wjhgw.utils.widget.WheelView;
 import com.wjhgw.utils.widget.adapters.ArrayWheelAdapter;
 
+import java.util.regex.Pattern;
+
 /**
  * 收货地址管理_编辑
  */
@@ -36,7 +38,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
     private TextView mTvConfirm;
     private LinearLayout llPickCity;
     private LinearLayout llZone;
-    private Button mBtnSave;
+    private TextView mTVSave;
     private View viewShutter;
     private ImageView back;
     private TextView title;
@@ -50,6 +52,8 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.m2_activity_address_detail);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//固定竖屏
+
         setUpViews();
         setUpListener();
         setUpData();
@@ -74,13 +78,15 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
 
         llZone = (LinearLayout) findViewById(R.id.ll_zone);
 
-        viewShutter =  findViewById(R.id.view_shutter);
+        viewShutter = findViewById(R.id.view_shutter);
 
         mViewProvince = (WheelView) findViewById(R.id.id_province);
         mViewCity = (WheelView) findViewById(R.id.id_city);
         mViewDistrict = (WheelView) findViewById(R.id.id_district);
         mTvConfirm = (TextView) findViewById(R.id.tv_confirm);
-        mBtnSave = (Button) findViewById(R.id.btn_save);
+        mTVSave = (TextView) findViewById(R.id.tv_save);
+        mTVSave.setVisibility(View.VISIBLE);
+        mTVSave.setText("保存");
 
         llPickCity = (LinearLayout) findViewById(R.id.ll_pick_city);
 
@@ -91,7 +97,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
         if (type != null && type.equals("addAddress")) {
             edName.setHint("输入姓名");
             edPhone.setHint("输入11位手机号码");
-            tvAddressInfo.setText("点击进行区域选择");
+            tvAddressInfo.setText("北京市 北京市 东城区");
             edAddressDetail.setHint("输入街道名称等信息");
 
         }
@@ -108,7 +114,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
         mTvConfirm.setOnClickListener(this);
 
         back.setOnClickListener(this);
-        mBtnSave.setOnClickListener(this);
+        mTVSave.setOnClickListener(this);
 
         llZone.setOnClickListener(this);
     }
@@ -182,7 +188,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
                 tvAddressInfo.setText(mCurrentProviceName + " " + mCurrentCityName + " " + mCurrentDistrictName);
                 viewShutter.setVisibility(View.GONE);
                 llPickCity.setVisibility(View.INVISIBLE);
-                mBtnSave.setVisibility(View.VISIBLE);
+                mTVSave.setVisibility(View.VISIBLE);
 
                 edName.setEnabled(true);
                 edPhone.setEnabled(true);
@@ -197,7 +203,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
             case R.id.ll_zone:
                 viewShutter.setVisibility(View.VISIBLE);
                 llPickCity.setVisibility(View.VISIBLE);
-                mBtnSave.setVisibility(View.GONE);
+                mTVSave.setVisibility(View.GONE);
                 edName.setEnabled(false);
                 edPhone.setEnabled(false);
                 edAddressDetail.setEnabled(false);
@@ -210,25 +216,36 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
                 }
                 break;
 
-            case R.id.btn_save:
+            case R.id.tv_save:
 
-                if (edName.getEditableText().toString().equals("")) {
-                    Toast.makeText(this, "用户名不能为空", Toast.LENGTH_SHORT).show();
-                } else if (edPhone.getEditableText().toString().equals("")) {
+                String regEx = "^[a-zA-Z\u4e00-\u9fa5]+$";
+                String edNameStr = edName.getEditableText().toString();
+                String edPhoneStr = edPhone.getEditableText().toString();
+                String edAddressDetailStr = edAddressDetail.getEditableText().toString();
+
+                if (edNameStr.equals("")) {
+                    Toast.makeText(this, "收货人不能为空", Toast.LENGTH_SHORT).show();
+                } else if (edNameStr.length() < 2) {
+                    Toast.makeText(this, " 收货人不能输入少于2个字符,请重新输入", Toast.LENGTH_SHORT).show();
+                } else if (!Pattern.compile(regEx).matcher(edNameStr).matches()) {
+                    Toast.makeText(this, " 收货人只能输入字母和汉字，请重新输入", Toast.LENGTH_SHORT).show();
+                } else if (edPhoneStr.equals("")) {
                     Toast.makeText(this, "手机号码不能为空", Toast.LENGTH_SHORT).show();
+                } else if (edPhoneStr.length() < 11) {
+                    Toast.makeText(this, "手机号码为11位，请重新输入", Toast.LENGTH_SHORT).show();
                 } else if (tvAddressInfo.getText().equals("")) {
                     Toast.makeText(this, "区域不能为空，请选择区域", Toast.LENGTH_SHORT).show();
-                } else if (edAddressDetail.getEditableText().toString().equals("")) {
+                } else if (edAddressDetailStr.equals("")) {
                     Toast.makeText(this, "详细地址不能为空，请输入详细地址", Toast.LENGTH_SHORT).show();
                 }
 
-                if (!edName.getEditableText().toString().equals("") && !edPhone.getEditableText().toString().equals("")
-                        && !tvAddressInfo.getText().equals("") && !edAddressDetail.getEditableText().toString().equals("")) {
+                if (!edNameStr.equals("") && !(edNameStr.length() < 2) && Pattern.compile(regEx).matcher(edNameStr).matches() &&
+                        !edPhoneStr.equals("") && !(edPhoneStr.length() < 11) && !tvAddressInfo.getText().equals("") && !edAddressDetailStr.equals("")) {
                     /**
                      * 请求修改地址
                      */
                     showSelectedResult();
-                    finish();
+
                 }
                 break;
             default:
@@ -289,6 +306,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
 
                 if (responseInfo != null) {
                     Toast.makeText(getApplicationContext(), "收货地址修改成功", Toast.LENGTH_SHORT).show();
+                    M2_AddressDetailActvity.this.finish();
                 }
 
             }
