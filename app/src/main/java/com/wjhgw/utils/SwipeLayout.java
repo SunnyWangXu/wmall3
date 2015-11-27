@@ -101,20 +101,20 @@ public class SwipeLayout extends LinearLayout {
         @Override
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
             super.onViewReleased(releasedChild, xvel, yvel);
-            boolean settleToOpen = true;
+            boolean settleToOpen = false;
             /*if (xvel > AUTO_OPEN_SPEED_LIMIT) {
                     settleToOpen = false;
             } else if (xvel < -AUTO_OPEN_SPEED_LIMIT) {
                     settleToOpen = true;
             }*/
             if (draggedX > 0) {
-                if (draggedleft > -420) {
+                if (draggedleft > -410) {
                     settleToOpen = false;
                 } else {
                     settleToOpen = true;
                 }
             } else if (draggedX < 0) {
-                if (draggedleft < -30) {
+                if (draggedleft < -40) {
                     settleToOpen = true;
                 } else {
                     settleToOpen = false;

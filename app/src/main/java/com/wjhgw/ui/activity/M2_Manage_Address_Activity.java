@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -22,6 +21,7 @@ import com.wjhgw.business.bean.Address_list;
 import com.wjhgw.business.bean.address_data;
 import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.manage_address_adapter;
 
@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class M2_Manage_Address_Activity extends BaseActivity implements BusinessResponse, AdapterView.OnItemClickListener, XListView.IXListViewListener, View.OnClickListener {
 
-    private ListView mListView;
+    private MyListView mListView;
     private manage_address_adapter listAdapter;
     private String key;
     private Address_del_Request Request;
@@ -47,12 +47,18 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.m2_manage_address_item);
-        mListView = (ListView) findViewById(R.id.home_listview1);
+        mListView = (MyListView) findViewById(R.id.home_listview1);
         key = getKey();
         //mListView.setVerticalScrollBarEnabled(true);
 
         Request = new Address_del_Request(this);
         Request.addResponseListener(this);
+
+        mListView.setPullLoadEnable(false);
+        mListView.setPullRefreshEnable(false);
+        mListView.setXListViewListener(this, 1);
+        mListView.setRefreshTime();
+        mListView.setAdapter(null);
     }
 
     @Override
