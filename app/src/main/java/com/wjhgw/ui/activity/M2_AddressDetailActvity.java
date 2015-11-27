@@ -47,6 +47,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
     private TextView tvAddressInfo;
     private EditText edAddressDetail;
     private String type;
+    private ImageView ivTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,9 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
         back.setVisibility(View.VISIBLE);
         title = (TextView) findViewById(R.id.tv_title_name);
         title.setText("收货地址管理");
+
+        ivTitle = (ImageView) findViewById(R.id.iv_title_right);
+        ivTitle.setVisibility(View.GONE);
 
         edName = (EditText) findViewById(R.id.ed_name);
         edName.setText(getIntent().getStringExtra("name"));
@@ -242,7 +246,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
                 if (!edNameStr.equals("") && !(edNameStr.length() < 2) && Pattern.compile(regEx).matcher(edNameStr).matches() &&
                         !edPhoneStr.equals("") && !(edPhoneStr.length() < 11) && !tvAddressInfo.getText().equals("") && !edAddressDetailStr.equals("")) {
                     /**
-                     * 请求修改地址
+                     * 请求修改地址和新增地址
                      */
                     showSelectedResult();
 
@@ -328,6 +332,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
 
                 if (responseInfo != null) {
                     Toast.makeText(getApplicationContext(), "新增收货地址成功", Toast.LENGTH_SHORT).show();
+                    M2_AddressDetailActvity.this.finish();
                 }
             }
 
