@@ -65,7 +65,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
         back = (ImageView) findViewById(R.id.iv_title_back);
         back.setVisibility(View.VISIBLE);
         title = (TextView) findViewById(R.id.tv_title_name);
-        title.setText("收货地址管理");
+        title.setText("编辑地址");
 
         ivTitle = (ImageView) findViewById(R.id.iv_title_right);
         ivTitle.setVisibility(View.GONE);
@@ -99,6 +99,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
          * 判断如果是点击新增地址跳转过来的 执行
          */
         if (type != null && type.equals("addAddress")) {
+            title.setText("新增地址");
             edName.setHint("输入姓名");
             edPhone.setHint("输入11位手机号码");
             tvAddressInfo.setText("北京市 北京市 东城区");

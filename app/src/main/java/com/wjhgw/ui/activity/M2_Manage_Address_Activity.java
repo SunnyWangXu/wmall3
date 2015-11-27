@@ -58,7 +58,7 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
     @Override
     public void onInit() {
         setUp();
-        setTitle("收货地址管理");
+        setTitle("地址管理");
     }
 
     @Override
