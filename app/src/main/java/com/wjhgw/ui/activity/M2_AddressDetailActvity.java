@@ -245,7 +245,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
                      * 请求修改地址
                      */
                     showSelectedResult();
-                    finish();
+
                 }
                 break;
             default:
@@ -306,6 +306,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
 
                 if (responseInfo != null) {
                     Toast.makeText(getApplicationContext(), "收货地址修改成功", Toast.LENGTH_SHORT).show();
+                    M2_AddressDetailActvity.this.finish();
                 }
 
             }
