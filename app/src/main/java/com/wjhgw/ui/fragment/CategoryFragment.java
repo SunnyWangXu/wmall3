@@ -1,6 +1,7 @@
 package com.wjhgw.ui.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,8 +25,8 @@ import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.Goods_attr;
 import com.wjhgw.business.bean.Goods_class1;
 import com.wjhgw.config.ApiInterface;
-import com.wjhgw.ui.activity.SearchActivity;
 import com.wjhgw.ui.activity.CaptureActivity;
+import com.wjhgw.ui.activity.SearchActivity;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.AttrAdapter;
@@ -70,7 +71,13 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
                 MAK = position - 1;
                 adapter.notifyDataSetChanged();
 
-                APP.getApp().getImageLoader().displayImage(goods_class1.datas.get(position - 1).gc_image, ivGoods);
+                String imageUrl = goods_class1.datas.get(MAK).gc_image;
+                if (imageUrl != "" && imageUrl != null) {
+
+                    APP.getApp().getImageLoader().displayImage(imageUrl, ivGoods, APP.getApp().getImageOptions());
+                }else{
+                    ivGoods.setVisibility(View.GONE);
+                }
 
                 /**
                  * 请求商品分类属性
@@ -141,31 +148,59 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-                Gson gson = new Gson();
-                if (responseInfo != null) {
-                    goods_class1 = gson.fromJson(responseInfo.result, Goods_class1.class);
+                /**
+                 * 缓存一级商品分类
+                 */
+                SharedPreferences.Editor editor = getActivity().getSharedPreferences("wjhgw_category", getActivity().MODE_PRIVATE).edit();
+                editor.putString("goods_class1", responseInfo.result).commit();
 
-                    if (goods_class1.status.code == 10000) {
-                        adapter = new goods_class_adapter(getActivity(), goods_class1.datas);
-                        mListView.setAdapter(adapter);
-                        if (goods_class1.datas.size() > 0 && goods_class1.datas != null) {
-
-                            /**
-                             * 请求商品分类属性，默认选择第一个
-                             * 图片默认第一个
-                             */
-                            load_goods_attr(goods_class1.datas.get(0).gc_id);
-                            APP.getApp().getImageLoader().displayImage(goods_class1.datas.get(0).gc_image, ivGoods);
-                        }
-                    }
-                }
+                /**
+                 * 解析一级商品分类请求
+                 */
+                parseGoodsClass1(responseInfo.result);
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT).show();
+                /**
+                 * * 取出本地緩存数据
+                 */
+                SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_category", getActivity().MODE_PRIVATE);
+                String goodsClass1Data = preferences.getString("goods_class1", "");
+                if (goodsClass1Data != null && goodsClass1Data != "") {
+                    /**
+                     * 解析一级商品分类请求
+                     */
+                    parseGoodsClass1(goodsClass1Data);
+
+                }
+
             }
         });
+    }
+
+    /**
+     * 解析一级商品分类请求
+     */
+    private void parseGoodsClass1(String responseInfoResult) {
+        Gson gson = new Gson();
+        if (responseInfoResult != null) {
+            goods_class1 = gson.fromJson(responseInfoResult, Goods_class1.class);
+
+            if (goods_class1.status.code == 10000) {
+                adapter = new goods_class_adapter(getActivity(), goods_class1.datas);
+                mListView.setAdapter(adapter);
+                if (goods_class1.datas.size() > 0 && goods_class1.datas != null) {
+                    APP.getApp().getImageLoader().displayImage(goods_class1.datas.get(MAK).gc_image, ivGoods, APP.getApp().getImageOptions());
+                    /**
+                     * 请求商品分类属性，默认选择第一个
+                     * 图片默认第一个
+                     */
+                    load_goods_attr(goods_class1.datas.get(0).gc_id);
+                    APP.getApp().getImageLoader().displayImage(goods_class1.datas.get(0).gc_image, ivGoods);
+                }
+            }
+        }
     }
 
     /**
@@ -178,21 +213,44 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-                Gson gson = new Gson();
-                if (responseInfo != null) {
-                    goods_attr = gson.fromJson(responseInfo.result, Goods_attr.class);
-
-                    if (goods_attr.status.code == 10000) {
-                        attrAdapter = new AttrAdapter(getActivity(), goods_attr.datas);
-                        lvAttr.setAdapter(attrAdapter);
-                    }
-                }
+                /**
+                 * 缓存商品属性
+                 */
+                SharedPreferences.Editor editor = getActivity().getSharedPreferences("wjhgw_category_attr", getActivity().MODE_PRIVATE).edit();
+                editor.putString("goods_attr", responseInfo.result).commit();
+                /**
+                 * 解析商品属性
+                 */
+                parseGoodsAttr(responseInfo.result);
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
+
+                /**
+                 * * 取出本地緩存数据
+                 */
+                SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_category_attr", getActivity().MODE_PRIVATE);
+                String goodsClass1Data = preferences.getString("goods_attr", "");
+
+                parseGoodsAttr(goodsClass1Data);
             }
         });
+    }
+
+    /**
+     * 解析商品属性
+     */
+    private void parseGoodsAttr(String responseInfoResult) {
+        Gson gson = new Gson();
+        if (responseInfoResult != null) {
+            goods_attr = gson.fromJson(responseInfoResult, Goods_attr.class);
+
+            if (goods_attr.status.code == 10000) {
+                attrAdapter = new AttrAdapter(getActivity(), goods_attr.datas);
+                lvAttr.setAdapter(attrAdapter);
+            }
+        }
     }
 }
