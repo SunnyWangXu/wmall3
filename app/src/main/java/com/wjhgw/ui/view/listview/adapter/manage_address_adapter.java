@@ -123,7 +123,6 @@ public class manage_address_adapter extends BaseAdapter {
                         break;
                     case MotionEvent.ACTION_UP:
                         if (!(Math.abs(currentX - lastX) > 16 || Math.abs(currentY - lastY) > 16)) {
-                            //Toast.makeText(v.getContext(), "删除点击", Toast.LENGTH_SHORT).show();
                             mDialog = new MyDialog(mContext, "温馨提示", "删除后不可找回");
                             mDialog.show();
                             mDialog.positive.setOnClickListener(new View.OnClickListener() {

@@ -218,7 +218,7 @@ public class M3_ChangePasswordActivity extends BaseActivity implements OnClickLi
                 String password3 = et_password3.getText().toString();
                 //保存密码强度
                 String strength = null;
-                if (!password.equals("")) {
+                if (password.length() > 5) {
                     if (password2.length() > 5 && !password2.equals(password)) {
                         if (password2.equals(password3) && et_password3.length() >= 6) {
                             if (Pattern.compile("^[A-Za-z0-9]+").matcher(password3).matches()) {
@@ -253,7 +253,6 @@ public class M3_ChangePasswordActivity extends BaseActivity implements OnClickLi
                     ll_password1.setBackgroundResource(R.drawable.background_red);
                     showToastShort("原登录密码输入有误");
                 }
-
 
                 break;
             default:
