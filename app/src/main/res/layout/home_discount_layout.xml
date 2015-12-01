@@ -101,7 +101,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginRight="3dp"
                         android:gravity="center"
                         android:text="距结束"
                         android:textColor="@color/white"
@@ -239,7 +239,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginRight="3dp"
                         android:gravity="center"
                         android:text="距结束"
                         android:textColor="@color/white"
@@ -374,7 +374,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginRight="3dp"
                         android:gravity="center"
                         android:text="距结束"
                         android:textColor="@color/white"
@@ -387,7 +387,7 @@
                         android:layout_marginRight="5dp"
                         android:background="@color/black"
                         android:gravity="center"
-                        android:text="20"
+                        android:text="2000"
                         android:textColor="@color/white"
                         android:textSize="10sp" />
 

@@ -29,7 +29,7 @@ import com.google.zxing.ReaderException;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.wjhgw.R;
-import com.wjhgw.ui.activity.CaptureActivity;
+import com.wjhgw.ui.activity.C1_CaptureActivity;
 import com.wjhgw.utils.Zxing.camera.CameraManager;
 import com.wjhgw.utils.Zxing.camera.PlanarYUVLuminanceSource;
 
@@ -41,11 +41,11 @@ final class DecodeHandler extends Handler
     private static final String TAG = DecodeHandler.class.getSimpleName();
 
 
-    private final CaptureActivity activity;
+    private final C1_CaptureActivity activity;
 
     private final MultiFormatReader multiFormatReader;
 
-    DecodeHandler(CaptureActivity activity,
+    DecodeHandler(C1_CaptureActivity activity,
             Hashtable<DecodeHintType, Object> hints)
     {
         multiFormatReader = new MultiFormatReader();

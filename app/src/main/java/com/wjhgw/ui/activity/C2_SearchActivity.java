@@ -41,7 +41,7 @@ import java.util.Arrays;
 /**
  * 搜索
  */
-public class SearchActivity extends BaseActivity implements OnClickListener {
+public class C2_SearchActivity extends BaseActivity implements OnClickListener {
     public static final String SEARCH_HISTORY = "search_history";
     private TextView search;
     private TextView d2_eliminate;
@@ -109,7 +109,7 @@ public class SearchActivity extends BaseActivity implements OnClickListener {
                         auto_complete(search_name.getText().toString().trim());
                         d2_delete.setVisibility(View.VISIBLE);
                     } else {
-                        mSearchAutoAdapter = new SearchAutoAdapter(SearchActivity.this, 10, null);
+                        mSearchAutoAdapter = new SearchAutoAdapter(C2_SearchActivity.this, 10, null);
                         mAutoListView.setAdapter(mSearchAutoAdapter);
                         if (mSearchAutoAdapter.DATA == 1) {
                             d2_eliminate.setText("暂无历史记录");
@@ -222,7 +222,7 @@ public class SearchActivity extends BaseActivity implements OnClickListener {
                 break;
             case R.id.d2_eliminate:
                 SharedPreferences sp = this.getSharedPreferences(
-                        SearchActivity.SEARCH_HISTORY, 0);
+                        C2_SearchActivity.SEARCH_HISTORY, 0);
                 sp.edit().clear().commit();
                 mSearchAutoAdapter.initSearchHistory();
                 mSearchAutoAdapter.performFiltering(null);
@@ -254,7 +254,7 @@ public class SearchActivity extends BaseActivity implements OnClickListener {
 
                     if (auto_complete.status.code == 10000) {
                         lv_listview.setVisibility(View.VISIBLE);
-                        mSearchAutoAdapter = new SearchAutoAdapter(SearchActivity.this, 10, auto_complete.datas);
+                        mSearchAutoAdapter = new SearchAutoAdapter(C2_SearchActivity.this, 10, auto_complete.datas);
                         lv_listview.setAdapter(mSearchAutoAdapter);
                         //mAutoListView.setAdapter(mSearchAutoAdapter);
                     }
@@ -281,7 +281,7 @@ public class SearchActivity extends BaseActivity implements OnClickListener {
                     auto_complete = gson.fromJson(responseInfo.result, Auto_complete_Pager.class);
 
                     if (auto_complete.status.code == 10000) {
-                        Hot_searchAdapter hot_searchAdapter = new Hot_searchAdapter(SearchActivity.this, auto_complete.datas);
+                        Hot_searchAdapter hot_searchAdapter = new Hot_searchAdapter(C2_SearchActivity.this, auto_complete.datas);
                         hot_searc.setAdapter(hot_searchAdapter);
                     }
                 }

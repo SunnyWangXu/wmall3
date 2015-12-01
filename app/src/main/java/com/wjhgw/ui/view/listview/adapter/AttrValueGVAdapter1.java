@@ -1,23 +1,16 @@
 package com.wjhgw.ui.view.listview.adapter;
 
 import android.content.Context;
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
-import com.wjhgw.APP;
 import com.wjhgw.R;
-import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.Goods_attr_data_value;
-import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.activity.C3_GoodsArraySearch;
 
 import java.util.List;
 
@@ -63,7 +56,12 @@ public class AttrValueGVAdapter1 extends BaseAdapter {
         tvValue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RequestParams params = new RequestParams();
+
+                Intent intent = new Intent(mContext, C3_GoodsArraySearch.class);
+                intent.putExtra("b_id", brandId);
+                mContext.startActivity(intent);
+
+              /*  RequestParams params = new RequestParams();
                 params.addBodyParameter("b_id", brandId);
                 params.addBodyParameter("curpage", "1");
                 params.addBodyParameter("page", "10");
@@ -79,7 +77,7 @@ public class AttrValueGVAdapter1 extends BaseAdapter {
                     public void onFailure(HttpException e, String s) {
 
                     }
-                });
+                });*/
 
             }
         });

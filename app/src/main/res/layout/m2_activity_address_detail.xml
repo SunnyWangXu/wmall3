@@ -199,8 +199,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/white"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@color/white">
 
         <LinearLayout
             android:id="@+id/ll_pick_city"
@@ -269,14 +269,14 @@
             android:id="@+id/btn_save"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="保存"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
             android:background="@color/btn_red"
             android:gravity="center"
-            android:textSize="21sp"
-            android:layout_alignParentBottom="true"
-            android:textColor="@color/white" />
+            android:text="保存"
+            android:textColor="@color/white"
+            android:textSize="21sp" />
     </RelativeLayout>
 </LinearLayout>

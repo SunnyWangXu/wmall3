@@ -25,8 +25,8 @@ import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.Goods_attr;
 import com.wjhgw.business.bean.Goods_class1;
 import com.wjhgw.config.ApiInterface;
-import com.wjhgw.ui.activity.CaptureActivity;
-import com.wjhgw.ui.activity.SearchActivity;
+import com.wjhgw.ui.activity.C1_CaptureActivity;
+import com.wjhgw.ui.activity.C2_SearchActivity;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.AttrAdapter;
@@ -116,11 +116,11 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.qrcode_scanner:
-                intent = new Intent(getActivity(), CaptureActivity.class);
+                intent = new Intent(getActivity(), C1_CaptureActivity.class);
                 getActivity().startActivity(intent);
                 break;
             case R.id.ll_search:
-                intent = new Intent(getActivity(), SearchActivity.class);
+                intent = new Intent(getActivity(), C2_SearchActivity.class);
                 getActivity().startActivity(intent);
                 break;
             default:

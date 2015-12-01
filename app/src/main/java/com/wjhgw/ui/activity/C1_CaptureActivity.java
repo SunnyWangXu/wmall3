@@ -27,7 +27,7 @@ import java.util.Vector;
 /**
  * 扫码界面
  */
-public class CaptureActivity extends Activity implements Callback {
+public class C1_CaptureActivity extends Activity implements Callback {
 
     private CaptureActivityHandler handler;
     private ViewfinderView viewfinderView;
@@ -156,9 +156,6 @@ public class CaptureActivity extends Activity implements Callback {
             finish();
         }
 
-        //Intent intent = new Intent(CaptureActivity.this, IndexActivity.class);
-        //this.startActivity(intent);
-        //this.finish();
     }
 
     /**

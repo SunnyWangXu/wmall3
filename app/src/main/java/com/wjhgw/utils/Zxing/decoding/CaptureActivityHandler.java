@@ -25,7 +25,7 @@ import android.util.Log;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.wjhgw.R;
-import com.wjhgw.ui.activity.CaptureActivity;
+import com.wjhgw.ui.activity.C1_CaptureActivity;
 import com.wjhgw.utils.Zxing.camera.CameraManager;
 import com.wjhgw.utils.Zxing.view.ViewfinderResultPointCallback;
 
@@ -36,7 +36,7 @@ public final class CaptureActivityHandler extends Handler
 
     private static final String TAG = CaptureActivityHandler.class
             .getSimpleName();
-    private final CaptureActivity activity;
+    private final C1_CaptureActivity activity;
     private final DecodeThread decodeThread;
     private State state;
     private enum State
@@ -44,7 +44,7 @@ public final class CaptureActivityHandler extends Handler
         PREVIEW, SUCCESS, DONE
     }
 
-    public CaptureActivityHandler(CaptureActivity activity,
+    public CaptureActivityHandler(C1_CaptureActivity activity,
             Vector<BarcodeFormat> decodeFormats, String characterSet)
     {
         this.activity = activity;
