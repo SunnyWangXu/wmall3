@@ -17,11 +17,11 @@ package com.wjhgw.ui.view.listview.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wjhgw.R;
@@ -69,119 +69,164 @@ public class manage_address_adapter extends BaseAdapter {
     @Override
     public View getView(final int position, View cellView, ViewGroup parent) {
         cellView = mInflater.inflate(R.layout.manage_address_layout, null);
-        RelativeLayout delete_button = (RelativeLayout) cellView.findViewById(R.id.delete_button);
-        RelativeLayout default_button = (RelativeLayout) cellView.findViewById(R.id.default_button);
+        LinearLayout ll_blank = (LinearLayout) cellView.findViewById(R.id.ll_blank);
+        LinearLayout ll_edit = (LinearLayout) cellView.findViewById(R.id.ll_edit);
+        LinearLayout ll_delete1 = (LinearLayout) cellView.findViewById(R.id.ll_delete1);
+        ImageView iv_blank = (ImageView) cellView.findViewById(R.id.iv_blank);
         TextView true_name = (TextView) cellView.findViewById(R.id.tv_true_name);
         TextView address = (TextView) cellView.findViewById(R.id.tv_address);
         TextView mob_phone = (TextView) cellView.findViewById(R.id.tv_mob_phone);
-        TextView is_default = (TextView) cellView.findViewById(R.id.tv_is_default);
 
         true_name.setText(Address_list_data.get(position).true_name);
         address.setText(Address_list_data.get(position).area_info + Address_list_data.get(position).address);
         mob_phone.setText(Address_list_data.get(position).mob_phone);
         if (Address_list_data.get(position).is_default.equals("1")) {
-            is_default.setVisibility(View.VISIBLE);
+            iv_blank.setImageResource(R.mipmap.ic_default);
         }
-
-        default_button.setOnTouchListener(new View.OnTouchListener() {
-            float lastX;
-            float lastY;
-
+        ll_blank.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                float currentX = event.getX();
-                float currentY = event.getY();
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        lastX = currentX;
-                        lastY = currentY;
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        if (!(Math.abs(currentX - lastX) > 16 || Math.abs(currentY - lastY) > 16)) {
-                            Request.Set_add_def(Address_list_data.get(position).address_id, key);
-                            // Toast.makeText(v.getContext(), "默认点击", Toast.LENGTH_SHORT).show();
-
-                        }
-                    default:
-                        break;
-                }
-                return false;
+            public void onClick(View v) {
+                Request.Set_add_def(Address_list_data.get(position).address_id, key);
             }
         });
-        delete_button.setOnTouchListener(new View.OnTouchListener() {
-            float lastX;
-            float lastY;
-
+        ll_edit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                float currentX = event.getX();
-                float currentY = event.getY();
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        lastX = currentX;
-                        lastY = currentY;
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        if (!(Math.abs(currentX - lastX) > 16 || Math.abs(currentY - lastY) > 16)) {
-                            mDialog = new MyDialog(mContext, "温馨提示", "删除后不可找回");
-                            mDialog.show();
-                            mDialog.positive.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Request.Address_del(Address_list_data.get(position).address_id, key);
-                                    mDialog.dismiss();
-                                }
-                            });
-                            mDialog.negative.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    mDialog.dismiss();
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, M2_AddressDetailActvity.class);
+                String name = Address_list_data.get(position).true_name;
+                String phone = Address_list_data.get(position).mob_phone;
+                String info = Address_list_data.get(position).area_info;
+                String addressId = Address_list_data.get(position).address_id;
+                String addressDetail = Address_list_data.get(position).address;
 
-                                }
-                            });
-                        }
-                    default:
-                        break;
-                }
-                return false;
+                intent.putExtra("addressId", addressId);
+                intent.putExtra("name", name);
+                intent.putExtra("phone", phone);
+                intent.putExtra("info", info);
+                intent.putExtra("addressDetail", addressDetail);
+                mContext.startActivity(intent);
             }
         });
-        cellView.findViewById(R.id.swipeLayout).setOnTouchListener(new View.OnTouchListener() {
-            float lastX;
-            float lastY;
-
+        ll_delete1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                float currentX = event.getX();
-                float currentY = event.getY();
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        lastX = currentX;
-                        lastY = currentY;
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        if (!(Math.abs(currentX - lastX) > 16 || Math.abs(currentY - lastY) > 16)) {
-
-                            Intent intent = new Intent(mContext, M2_AddressDetailActvity.class);
-                            String name = Address_list_data.get(position).true_name;
-                            String phone = Address_list_data.get(position).mob_phone;
-                            String info = Address_list_data.get(position).area_info;
-                            String addressId = Address_list_data.get(position).address_id;
-                            String addressDetail = Address_list_data.get(position).address;
-
-                            intent.putExtra("addressId", addressId);
-                            intent.putExtra("name", name);
-                            intent.putExtra("phone", phone);
-                            intent.putExtra("info", info);
-                            intent.putExtra("addressDetail", addressDetail);
-                            mContext.startActivity(intent);
-                        }
-                    default:
-                        break;
-                }
-                return false;
+            public void onClick(View v) {
+                mDialog = new MyDialog(mContext, "温馨提示", "删除后不可找回");
+                mDialog.show();
+                mDialog.positive.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Request.Address_del(Address_list_data.get(position).address_id, key);
+                        mDialog.dismiss();
+                    }
+                });
+                mDialog.negative.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDialog.dismiss();
+                    }
+                });
             }
         });
+
+//        default_button.setOnTouchListener(new View.OnTouchListener() {
+//            float lastX;
+//            float lastY;
+//
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                float currentX = event.getX();
+//                float currentY = event.getY();
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        lastX = currentX;
+//                        lastY = currentY;
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                        if (!(Math.abs(currentX - lastX) > 16 || Math.abs(currentY - lastY) > 16)) {
+//                            Request.Set_add_def(Address_list_data.get(position).address_id, key);
+//                            // Toast.makeText(v.getContext(), "默认点击", Toast.LENGTH_SHORT).show();
+//
+//                        }
+//                    default:
+//                        break;
+//                }
+//                return false;
+//            }
+//        });
+//        delete_button.setOnTouchListener(new View.OnTouchListener() {
+//            float lastX;
+//            float lastY;
+//
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                float currentX = event.getX();
+//                float currentY = event.getY();
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        lastX = currentX;
+//                        lastY = currentY;
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                        if (!(Math.abs(currentX - lastX) > 16 || Math.abs(currentY - lastY) > 16)) {
+//                            mDialog = new MyDialog(mContext, "温馨提示", "删除后不可找回");
+//                            mDialog.show();
+//                            mDialog.positive.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    Request.Address_del(Address_list_data.get(position).address_id, key);
+//                                    mDialog.dismiss();
+//                                }
+//                            });
+//                            mDialog.negative.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    mDialog.dismiss();
+//
+//                                }
+//                            });
+//                        }
+//                    default:
+//                        break;
+//                }
+//                return false;
+//            }
+//        });
+//        cellView.findViewById(R.id.swipeLayout).setOnTouchListener(new View.OnTouchListener() {
+//            float lastX;
+//            float lastY;
+//
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                float currentX = event.getX();
+//                float currentY = event.getY();
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        lastX = currentX;
+//                        lastY = currentY;
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                        if (!(Math.abs(currentX - lastX) > 16 || Math.abs(currentY - lastY) > 16)) {
+//
+//                            Intent intent = new Intent(mContext, M2_AddressDetailActvity.class);
+//                            String name = Address_list_data.get(position).true_name;
+//                            String phone = Address_list_data.get(position).mob_phone;
+//                            String info = Address_list_data.get(position).area_info;
+//                            String addressId = Address_list_data.get(position).address_id;
+//                            String addressDetail = Address_list_data.get(position).address;
+//
+//                            intent.putExtra("addressId", addressId);
+//                            intent.putExtra("name", name);
+//                            intent.putExtra("phone", phone);
+//                            intent.putExtra("info", info);
+//                            intent.putExtra("addressDetail", addressDetail);
+//                            mContext.startActivity(intent);
+//                        }
+//                    default:
+//                        break;
+//                }
+//                return false;
+//            }
+//        });
         return cellView;
     }
 }
