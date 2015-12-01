@@ -12,6 +12,7 @@ public class MyLockBoxData {
     public String level;
     public String bankcard_bind;
     public String paypwd;
+    public String available_predeposit;
 
 
 }

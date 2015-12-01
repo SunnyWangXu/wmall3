@@ -134,5 +134,9 @@ public class ApiInterface {
      *平台查询
      */
     public static final String Act_search  ="/mobile/index.php?act=search";
+    /**
+     *获取未完成处理的订单数量
+     */
+    public static final String Order_amount  ="/mobile/index.php?act=member_order&op=order_amount";
 
 }

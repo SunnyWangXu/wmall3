@@ -74,7 +74,7 @@
                 android:id="@+id/linearLayout1"
                 android:layout_width="45dp"
                 android:layout_height="40dp"
-                android:layout_alignTop="@+id/statistics1"
+                android:layout_alignTop="@+id/tv_statistics1"
                 android:layout_centerHorizontal="true"
                 android:gravity="center">
 
@@ -98,13 +98,14 @@
                 android:textSize="12dp" />
 
             <TextView
-                android:id="@+id/statistics1"
+                android:id="@+id/tv_statistics1"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignRight="@+id/linearLayout1"
                 android:background="@drawable/background_fillet_white_rad"
                 android:gravity="center"
+                android:visibility="gone"
                 android:text="1"
                 android:textColor="#ffffff"
                 android:textSize="12dp" />
@@ -122,7 +123,7 @@
                 android:id="@+id/linearLayout2"
                 android:layout_width="45dp"
                 android:layout_height="40dp"
-                android:layout_alignTop="@+id/statistics2"
+                android:layout_alignTop="@+id/tv_statistics2"
                 android:layout_centerHorizontal="true"
                 android:gravity="center">
 
@@ -146,13 +147,14 @@
                 android:textSize="12dp" />
 
             <TextView
-                android:id="@+id/statistics2"
+                android:id="@+id/tv_statistics2"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignRight="@+id/linearLayout2"
                 android:background="@drawable/background_fillet_white_rad"
                 android:gravity="center"
+                android:visibility="gone"
                 android:text="1"
                 android:textColor="#ffffff"
                 android:textSize="12dp" />
@@ -170,7 +172,7 @@
                 android:id="@+id/linearLayout3"
                 android:layout_width="45dp"
                 android:layout_height="40dp"
-                android:layout_alignTop="@+id/statistics3"
+                android:layout_alignTop="@+id/tv_statistics3"
                 android:layout_centerHorizontal="true"
                 android:gravity="center">
 
@@ -194,13 +196,14 @@
                 android:textSize="12dp" />
 
             <TextView
-                android:id="@+id/statistics3"
+                android:id="@+id/tv_statistics3"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignRight="@+id/linearLayout3"
                 android:background="@drawable/background_fillet_white_rad"
                 android:gravity="center"
+                android:visibility="gone"
                 android:text="1"
                 android:textColor="#ffffff"
                 android:textSize="12dp" />
@@ -218,7 +221,7 @@
                 android:id="@+id/linearLayout4"
                 android:layout_width="45dp"
                 android:layout_height="40dp"
-                android:layout_alignTop="@+id/statistics4"
+                android:layout_alignTop="@+id/tv_statistics4"
                 android:layout_centerHorizontal="true"
                 android:gravity="center">
 
@@ -242,13 +245,14 @@
                 android:textSize="12dp" />
 
             <TextView
-                android:id="@+id/statistics4"
+                android:id="@+id/tv_statistics4"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignRight="@+id/linearLayout4"
                 android:background="@drawable/background_fillet_white_rad"
                 android:gravity="center"
+                android:visibility="gone"
                 android:text="1"
                 android:textColor="#ffffff"
                 android:textSize="12dp" />

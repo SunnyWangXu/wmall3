@@ -22,6 +22,7 @@ import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.MyLockBox;
+import com.wjhgw.business.bean.OrderAmount;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.M0_MyLockBoxActivity;
@@ -39,6 +40,11 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private MyLockBox userinformation;
     private ImageView myAvatar;
     private TextView member_nickname;
+    private TextView available_predeposit;
+    private TextView tv_statistics1;
+    private TextView tv_statistics2;
+    private TextView tv_statistics3;
+    private TextView tv_statistics4;
     private String key;
     private TextView titleName;
     private LinearLayout ll_LockBox;
@@ -105,6 +111,11 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
 
         myAvatar = (ImageView) MyMessageLayout.findViewById(R.id.my_avatar);
         member_nickname = (TextView) MyMessageLayout.findViewById(R.id.member_nickname);
+        tv_statistics1 = (TextView) MyOrderLayout.findViewById(R.id.tv_statistics1);
+        tv_statistics2 = (TextView) MyOrderLayout.findViewById(R.id.tv_statistics2);
+        tv_statistics3 = (TextView) MyOrderLayout.findViewById(R.id.tv_statistics3);
+        tv_statistics4 = (TextView) MyOrderLayout.findViewById(R.id.tv_statistics4);
+        available_predeposit = (TextView) MyAssetsLayout.findViewById(R.id.tv_available_predeposit);
         ll_LockBox = (LinearLayout) MyMessageLayout.findViewById(R.id.ll_lockbox);
 
         ll_Set = (LinearLayout) MySetHelpLayout.findViewById(R.id.ll_set);
@@ -178,6 +189,59 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     }
 
     /**
+     * 获取未完成处理的订单数量
+     */
+    private void order_amount() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Order_amount, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo.result != null) {
+                    OrderAmount orderAmount = gson.fromJson(responseInfo.result, OrderAmount.class);
+
+                    if (orderAmount.status.code == 10000) {
+                        if (orderAmount.datas.un_pay.equals("0")) {
+                            tv_statistics1.setVisibility(View.GONE);
+                        }else {
+                            tv_statistics1.setVisibility(View.VISIBLE);
+                            tv_statistics1.setText(orderAmount.datas.un_pay);
+                        }
+
+                        if (orderAmount.datas.un_receive.equals("0")) {
+                            tv_statistics2.setVisibility(View.GONE);
+                        }else {
+                            tv_statistics2.setVisibility(View.VISIBLE);
+                            tv_statistics2.setText(orderAmount.datas.un_receive);
+                        }
+
+                        if (orderAmount.datas.un_evaluate.equals("0")) {
+                            tv_statistics3.setVisibility(View.GONE);
+                        }else {
+                            tv_statistics3.setVisibility(View.VISIBLE);
+                            tv_statistics3.setText(orderAmount.datas.un_evaluate);
+                        }
+
+                        if (orderAmount.datas.un_done_fefund.equals("0")) {
+                            tv_statistics4.setVisibility(View.GONE);
+                        }else {
+                            tv_statistics4.setVisibility(View.VISIBLE);
+                            tv_statistics4.setText(orderAmount.datas.un_done_fefund);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
      * 请求用户信息
      */
     private void load_User_information() {
@@ -226,6 +290,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
             if (userinformation.status.code == 10000) {
                 APP.getApp().getImageLoader().displayImage(userinformation.datas.member_avatar, myAvatar);
                 member_nickname.setText(userinformation.datas.member_nickname);
+                available_predeposit.setText(userinformation.datas.available_predeposit);
 
                 memberName = userinformation.datas.member_name;
             }
@@ -241,6 +306,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
          */
         if (!key.equals("0")) {
             load_User_information();
+            order_amount();
         }
     }
 
