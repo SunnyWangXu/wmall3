@@ -304,7 +304,10 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         /**
          * 获取网络信息
          */
-        if (!key.equals("0")) {
+        if (key.equals("0")) {
+            myAvatar.setImageResource(R.mipmap.ic_default_avatar);
+            member_nickname.setText("点击登录");
+        }else {
             load_User_information();
             order_amount();
         }

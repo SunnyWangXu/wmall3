@@ -144,7 +144,7 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
                 //存入数据
                 editor.putString("key", "0");
                 editor.commit();
-                finish();
+                finish(false);
             }
 
             @Override
