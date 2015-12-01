@@ -38,7 +38,7 @@
            android:layout_gravity="center_vertical"
            android:background="#ffffff"
            android:hint="@string/login_username"
-           android:maxLength="20"
+           android:maxLength="11"
            android:paddingLeft="10dp"
            android:paddingRight="10dp"
            android:singleLine="true"
