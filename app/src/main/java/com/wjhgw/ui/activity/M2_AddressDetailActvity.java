@@ -116,7 +116,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
             tvAddressInfo.setText("北京市 北京市 东城区");
             edAddressDetail.setHint("街道名称及楼房门牌号等信息");
 
-            mTVEdit.setVisibility(View.GONE);
+            mTVEdit.setVisibility(View.INVISIBLE);
         }
 
     }
