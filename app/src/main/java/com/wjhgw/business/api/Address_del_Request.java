@@ -85,14 +85,10 @@ public class Address_del_Request extends BaseRequest {
 
                     if (status.status.code == 10000) {
                         try {
-                            OnMessageResponse(BaseQuery.serviceUrl() + ApiInterface.Address_del, responseInfo.result, null);
+                            OnMessageResponse(BaseQuery.serviceUrl() + ApiInterface.Set_add_def, responseInfo.result, null);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-                        Toast.makeText(mContext, status.status.msg, Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(mContext, status.status.msg, Toast.LENGTH_LONG).show();
                     }
                 }
             }

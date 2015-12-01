@@ -144,6 +144,7 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
             //刷新列表
             load_Address_list();
         } else if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Set_add_def)) {
+            showToastShort("设置默认地址成功");
             //刷新列表
             load_Address_list();
         }
