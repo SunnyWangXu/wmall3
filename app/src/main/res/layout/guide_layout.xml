@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/touch"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+
+    <com.wjhgw.guide.GuideScrollLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ScrollLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@mipmap/guide02"></FrameLayout>
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@mipmap/guide01">
+
+            <ImageView
+                android:id="@+id/shop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="60dp"
+                android:src="@mipmap/guide03_button" />
+        </FrameLayout>
+    </com.wjhgw.guide.GuideScrollLayout>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="40dp"
+        android:layout_height="40sp"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="10dp"
+        android:text="跳过"
+        android:textColor="#ff6162" />
+
+
+</RelativeLayout>
+
