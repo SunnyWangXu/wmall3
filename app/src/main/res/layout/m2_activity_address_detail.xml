@@ -28,9 +28,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/white"
-                android:gravity="center_vertical"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
 
@@ -50,9 +50,8 @@
                     android:layout_marginLeft="30dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:singleLine="true"
                     android:maxLength="20"
-                    android:text="习大大"
+                    android:singleLine="true"
                     android:textColor="@color/light_gray"
                     android:textSize="@dimen/title_size" />
 
@@ -87,9 +86,9 @@
                     android:layout_marginLeft="11dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:singleLine="true"
-                    android:numeric="integer"
                     android:maxLength="11"
+                    android:numeric="integer"
+                    android:singleLine="true"
                     android:text="188****8888"
                     android:textColor="@color/light_gray"
                     android:textSize="@dimen/title_size" />
@@ -126,7 +125,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="11dp"
                     android:gravity="center"
-                    android:text="大北京中南海"
                     android:textColor="@color/light_gray"
                     android:textSize="@dimen/title_size" />
 
@@ -170,17 +168,18 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="11dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:maxLines="3"
-                    android:maxLength="40"
-                    android:layout_marginRight="5dp"
                     android:ellipsize="end"
+                    android:maxLength="40"
+                    android:maxLines="3"
                     android:textColor="@color/light_gray"
                     android:textSize="@dimen/title_size" />
 
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -197,67 +196,87 @@
             android:visibility="gone" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_pick_city"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="215dp"
-        android:background="#f7f7f7"
-        android:orientation="vertical"
-        android:visibility="invisible">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:gravity="center_vertical"
-            android:background="#f7f7f7">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:text="请选择省市区"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tv_confirm"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
-                android:text="完成"
-                android:textColor="#f25252"
-                android:textSize="18sp" />
-        </RelativeLayout>
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:layout_weight="1">
 
         <LinearLayout
+            android:id="@+id/ll_pick_city"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="horizontal">
+            android:layout_height="215dp"
+            android:background="#f7f7f7"
+            android:orientation="vertical"
+            android:visibility="invisible">
 
-            <com.wjhgw.utils.widget.WheelView
-                android:id="@+id/id_province"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="#f7f7f7"
+                android:gravity="center_vertical">
 
-            <com.wjhgw.utils.widget.WheelView
-                android:id="@+id/id_city"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:text="请选择省市区"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
 
-            <com.wjhgw.utils.widget.WheelView
-                android:id="@+id/id_district"
-                android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tv_confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:text="完成"
+                    android:textColor="#f25252"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <com.wjhgw.utils.widget.WheelView
+                    android:id="@+id/id_province"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <com.wjhgw.utils.widget.WheelView
+                    android:id="@+id/id_city"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <com.wjhgw.utils.widget.WheelView
+                    android:id="@+id/id_district"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
-
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="保存"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/btn_red"
+            android:gravity="center"
+            android:textSize="21sp"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/white" />
+    </RelativeLayout>
 </LinearLayout>

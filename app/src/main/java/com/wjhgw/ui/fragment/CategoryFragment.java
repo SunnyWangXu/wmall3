@@ -75,7 +75,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
                 if (imageUrl != "" && imageUrl != null) {
 
                     APP.getApp().getImageLoader().displayImage(imageUrl, ivGoods, APP.getApp().getImageOptions());
-                }else{
+                } else {
                     ivGoods.setVisibility(View.GONE);
                 }
 

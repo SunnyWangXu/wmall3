@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,7 +39,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
     private TextView mTvConfirm;
     private LinearLayout llPickCity;
     private LinearLayout llZone;
-    private TextView mTVSave;
+    private TextView mTVEdit;
     private View viewShutter;
     private ImageView back;
     private TextView title;
@@ -48,6 +49,12 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
     private EditText edAddressDetail;
     private String type;
     private ImageView ivTitle;
+    private Button mBtnSave;
+    private String edNameStr;
+    private String edPhoneStr;
+    private String edAddressDetailStr;
+    private String key;
+    private String address_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +66,8 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
         setUpListener();
         setUpData();
 
+        key = getSharedPreferences("key", this.MODE_APPEND).getString("key", "0");
+        address_id = getIntent().getStringExtra("addressId");
     }
 
     private void setUpViews() {
@@ -88,9 +97,11 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
         mViewCity = (WheelView) findViewById(R.id.id_city);
         mViewDistrict = (WheelView) findViewById(R.id.id_district);
         mTvConfirm = (TextView) findViewById(R.id.tv_confirm);
-        mTVSave = (TextView) findViewById(R.id.tv_save);
-        mTVSave.setVisibility(View.VISIBLE);
-        mTVSave.setText("保存");
+        mTVEdit = (TextView) findViewById(R.id.tv_edit);
+        mTVEdit.setVisibility(View.VISIBLE);
+        mTVEdit.setText("删除");
+
+        mBtnSave = (Button) findViewById(R.id.btn_save);
 
         llPickCity = (LinearLayout) findViewById(R.id.ll_pick_city);
 
@@ -105,7 +116,9 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
             tvAddressInfo.setText("北京市 北京市 东城区");
             edAddressDetail.setHint("街道名称及楼房门牌号等信息");
 
+            mTVEdit.setVisibility(View.GONE);
         }
+
     }
 
     private void setUpListener() {
@@ -119,9 +132,11 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
         mTvConfirm.setOnClickListener(this);
 
         back.setOnClickListener(this);
-        mTVSave.setOnClickListener(this);
+        mTVEdit.setOnClickListener(this);
 
         llZone.setOnClickListener(this);
+
+        mBtnSave.setOnClickListener(this);
     }
 
     private void setUpData() {
@@ -193,22 +208,29 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
                 tvAddressInfo.setText(mCurrentProviceName + " " + mCurrentCityName + " " + mCurrentDistrictName);
                 viewShutter.setVisibility(View.GONE);
                 llPickCity.setVisibility(View.INVISIBLE);
-                mTVSave.setVisibility(View.VISIBLE);
+                mTVEdit.setVisibility(View.VISIBLE);
+                mBtnSave.setVisibility(View.VISIBLE);
 
                 edName.setEnabled(true);
                 edPhone.setEnabled(true);
                 edAddressDetail.setEnabled(true);
 
                 break;
+            case R.id.tv_edit:
+                /**
+                 * 删除编辑地址
+                 */
+                deleteAddressDetail();
 
+                break;
             case R.id.iv_title_back:
                 finish();
                 break;
 
             case R.id.ll_zone:
+                mBtnSave.setVisibility(View.GONE);
                 viewShutter.setVisibility(View.VISIBLE);
                 llPickCity.setVisibility(View.VISIBLE);
-                mTVSave.setVisibility(View.GONE);
                 edName.setEnabled(false);
                 edPhone.setEnabled(false);
                 edAddressDetail.setEnabled(false);
@@ -221,12 +243,12 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
                 }
                 break;
 
-            case R.id.tv_save:
+            case R.id.btn_save:
 
                 String regEx = "^[a-zA-Z\u4e00-\u9fa5]+$";
-                String edNameStr = edName.getEditableText().toString();
-                String edPhoneStr = edPhone.getEditableText().toString();
-                String edAddressDetailStr = edAddressDetail.getEditableText().toString();
+                edNameStr = edName.getEditableText().toString();
+                edPhoneStr = edPhone.getEditableText().toString();
+                edAddressDetailStr = edAddressDetail.getEditableText().toString();
 
                 if (edNameStr.equals("")) {
                     Toast.makeText(this, "收货人不能为空", Toast.LENGTH_SHORT).show();
@@ -258,14 +280,37 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
         }
     }
 
+    /**
+     * 删除编辑地址
+     */
+    private void deleteAddressDetail() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+        params.addBodyParameter("address_id",address_id);
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Address_del, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Toast.makeText(getApplicationContext(), "删除地址成功", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Toast.makeText(getApplicationContext(), "删除地址失败", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * 请求修改地址和新增地址
+     */
     private void showSelectedResult() {
-        String key = getSharedPreferences("key", this.MODE_APPEND).getString("key", "0");
+
         String useName = edName.getEditableText().toString();
         String area_info = tvAddressInfo.getText().toString().replace(" ", "	");
-
         String address = edAddressDetail.getText().toString();
         String mob_phone = edPhone.getText().toString();
-        String address_id = getIntent().getStringExtra("addressId");
 
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);

@@ -135,6 +135,4 @@ public class ApiInterface {
      */
     public static final String Act_search  ="/mobile/index.php?act=search";
 
-
-
 }
