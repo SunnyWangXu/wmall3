@@ -149,7 +149,6 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                 iv_delete1.setVisibility(View.GONE);
                 break;
             case R.id.tv_a0_next:
-                super.StartLoading();
                 Number = et_name.getText().toString();
                 password = et_password.getText().toString();
                 if (Number.length() == 11 && Number.substring(0, 1).equals("1")) {
