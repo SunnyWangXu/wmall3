@@ -227,6 +227,7 @@ public class M5_Change_mobileActivity extends BaseActivity implements OnClickLis
      * 验证验证码
      */
     private void Number_Verification_code() {
+        super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("sms_code", Verification_code);
         params.addBodyParameter("key", key);
@@ -237,7 +238,7 @@ public class M5_Change_mobileActivity extends BaseActivity implements OnClickLis
                 Gson gson = new Gson();
                 if (responseInfo != null) {
                     Status status = gson.fromJson(responseInfo.result, Status.class);
-
+                    M5_Change_mobileActivity.super.Dismiss();
                     if (status.status.code == 10000) {
                         change_mobile();
                     }else if (status.status.code == 200103 || status.status.code == 200104) {

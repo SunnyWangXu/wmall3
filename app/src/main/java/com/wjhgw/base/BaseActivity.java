@@ -9,11 +9,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wjhgw.R;
+import com.wjhgw.ui.dialog.LoadDialog;
 
 /**
  * Activity基类
  */
 public abstract class BaseActivity extends AppCompatActivity {
+
+    private LoadDialog Dialog = new LoadDialog(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,6 +158,23 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void finish() {
         this.finish(true);
     }
+
+    /**
+     * 关闭进度条
+     */
+    public  void Dismiss()
+    {
+        Dialog.dismiss();
+    }
+
+    /**
+     * 开启进度条
+     */
+    public void StartLoading()
+    {
+        Dialog.ProgressDialog();
+    }
+
 
     public void finish(boolean animation) {
         super.finish();

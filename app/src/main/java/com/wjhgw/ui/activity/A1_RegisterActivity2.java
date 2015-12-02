@@ -139,6 +139,7 @@ public class A1_RegisterActivity2 extends BaseActivity implements OnClickListene
      * 注册
      */
     private void Registered(String strength) {
+        super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("member_mobile", Number);
         params.addBodyParameter("password", cipher);
@@ -148,6 +149,7 @@ public class A1_RegisterActivity2 extends BaseActivity implements OnClickListene
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                A1_RegisterActivity2.super.Dismiss();
                 Gson gson = new Gson();
                 if (responseInfo != null) {
                     Status status = gson.fromJson(responseInfo.result, Status.class);

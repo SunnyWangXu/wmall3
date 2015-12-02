@@ -36,6 +36,7 @@ import com.wjhgw.business.bean.Home_Pager_Data;
 import com.wjhgw.business.bean.Theme_street;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.PrductDetail;
+import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView.IXListViewListener;
 import com.wjhgw.ui.view.listview.adapter.HomePagerAdapter;
@@ -152,6 +153,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private TextView tvRefresh;
     private Timer timer;
     private int START = 1;
+    private LoadDialog Dialog;
     private static Long countdown1;
     private static Long countdown2;
     private static Long countdown3;
@@ -198,7 +200,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        Dialog = new LoadDialog(getActivity());
         homeLayout = inflater.inflate(R.layout.home_layout, container, false);
 
         /**
@@ -518,7 +520,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
      * 请求首页焦点图
      */
     private void loadHomePager() {
-
+        Dialog.ProgressDialog();
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Home_pager, new RequestCallBack<String>() {
 
             @Override
@@ -529,10 +531,12 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 SharedPreferences sf = getActivity().getSharedPreferences("wjhgw_pager", getActivity().MODE_PRIVATE);
                 SharedPreferences.Editor edit = sf.edit();
                 edit.putString("home_pager", responseInfo.result).commit();
+
                 /**
                  * 解析首頁焦点图数据，并适配ViewPager
                  */
                 parseHomePagerData(responseInfo.result);
+                Dialog.dismiss();
             }
 
             @Override

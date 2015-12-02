@@ -303,11 +303,12 @@ public class M3_ChangePasswordActivity extends BaseActivity implements OnClickLi
      * 修改登录密码
      */
     private void change_pwd(RequestParams params) {
-
+        super.StartLoading();
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Change_pwd, params, new RequestCallBack<String>() {
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                M3_ChangePasswordActivity.super.Dismiss();
                 Gson gson = new Gson();
                 if (responseInfo != null) {
                     Status status = gson.fromJson(responseInfo.result, Status.class);

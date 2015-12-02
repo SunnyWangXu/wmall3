@@ -153,12 +153,14 @@ public class A2_ResetPassActivity1 extends BaseActivity implements OnClickListen
      * 验证手机号是否已经注册
      */
     private void VerificationRegistered(String number) {
+        super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("member_mobile", number);
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.VerificationRegistered, params, new RequestCallBack<String>() {
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                A2_ResetPassActivity1.super.Dismiss();
                 Gson gson = new Gson();
                 if (responseInfo != null) {
                     Status status = gson.fromJson(responseInfo.result, Status.class);

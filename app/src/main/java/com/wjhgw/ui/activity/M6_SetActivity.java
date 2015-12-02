@@ -129,6 +129,7 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
      * 退出登录
      */
     private void exitLogin() {
+        super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("member_name", memberName);
         params.addBodyParameter("key", getKey());
@@ -137,7 +138,7 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Exit_login, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-
+                M6_SetActivity.super.Dismiss();
                 showToastShort("已退出登录");
                 SharedPreferences preferences = getSharedPreferences("key", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();

@@ -23,6 +23,7 @@ import com.wjhgw.R;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.base.CityActivity;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.utils.widget.OnWheelChangedListener;
 import com.wjhgw.utils.widget.WheelView;
 import com.wjhgw.utils.widget.adapters.ArrayWheelAdapter;
@@ -55,10 +56,12 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
     private String edAddressDetailStr;
     private String key;
     private String address_id;
+    private LoadDialog Dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Dialog = new LoadDialog(this);
         setContentView(R.layout.m2_activity_address_detail);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//固定竖屏
 
@@ -287,10 +290,12 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
         params.addBodyParameter("address_id",address_id);
+        Dialog.ProgressDialog();
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Address_del, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                Dialog.dismiss();
                 Toast.makeText(getApplicationContext(), "删除地址成功", Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -350,10 +355,11 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
      * 请求编辑地址
      */
     private void loadEditAddress(RequestParams params) {
+        Dialog.ProgressDialog();
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Address_edit, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-
+                Dialog.dismiss();
                 if (responseInfo != null) {
                     Toast.makeText(getApplicationContext(), "收货地址修改成功", Toast.LENGTH_SHORT).show();
                     M2_AddressDetailActvity.this.finish();
@@ -372,10 +378,11 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
      * 请求新增地址
      */
     private void loadAddAddress(RequestParams params) {
+        Dialog.ProgressDialog();
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Add_address, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-
+                Dialog.dismiss();
                 if (responseInfo != null) {
                     Toast.makeText(getApplicationContext(), "新增收货地址成功", Toast.LENGTH_SHORT).show();
                     M2_AddressDetailActvity.this.finish();

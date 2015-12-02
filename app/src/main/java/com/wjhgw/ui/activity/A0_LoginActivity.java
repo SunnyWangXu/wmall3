@@ -149,6 +149,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                 iv_delete1.setVisibility(View.GONE);
                 break;
             case R.id.tv_a0_next:
+                super.StartLoading();
                 Number = et_name.getText().toString();
                 password = et_password.getText().toString();
                 if (Number.length() == 11 && Number.substring(0, 1).equals("1")) {
@@ -179,6 +180,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
      * 登录网络请求
      */
     private void login() {
+        super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("member_mobile", Number);
         params.addBodyParameter("password", password);
@@ -187,6 +189,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                A0_LoginActivity.super.Dismiss();
                 Gson gson = new Gson();
                 if (responseInfo != null) {
                     Login_Pager login = gson.fromJson(responseInfo.result, Login_Pager.class);
