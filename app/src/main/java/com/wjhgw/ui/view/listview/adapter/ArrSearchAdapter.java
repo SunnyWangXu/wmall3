@@ -57,8 +57,8 @@ public class ArrSearchAdapter extends BaseAdapter {
         String imageUrl = actSearch_datas.get(position).goods_image_url;
         APP.getApp().getImageLoader().displayImage(imageUrl,ivSearchGoods);
         tvSearchName.setText(actSearch_datas.get(position).goods_name);
-        tvSearchPice.setText(actSearch_datas.get(position).goods_price);
-        tvSearchSale.setText(actSearch_datas.get(position).goods_salenum);
+        tvSearchPice.setText("¥ " + actSearch_datas.get(position).goods_price);
+        tvSearchSale.setText("销量 " + actSearch_datas.get(position).goods_salenum);
 
         return convertView;
     }

@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:textSize="17sp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="14dp"
             android:textColor="@color/tv_red"
             android:text="¥ 1680.00"/>
 
@@ -54,7 +54,8 @@
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="16dp"
             android:textColor="@color/spec_text_color"
             android:text="销量"/>
 

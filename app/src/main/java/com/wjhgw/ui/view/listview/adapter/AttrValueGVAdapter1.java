@@ -46,11 +46,10 @@ public class AttrValueGVAdapter1 extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.attr_gv_item, null);
-        TextView tvValue = (TextView) convertView.findViewById(R.id.tv_attr_value);
+        final TextView tvValue = (TextView) convertView.findViewById(R.id.tv_attr_value);
         tvValue.setText(dataValues.get(position).brand_name);
-        brandId = dataValues.get(position).brand_id;
 
         tvValue.setClickable(true);
         tvValue.setOnClickListener(new View.OnClickListener() {
@@ -58,26 +57,8 @@ public class AttrValueGVAdapter1 extends BaseAdapter {
             public void onClick(View v) {
 
                 Intent intent = new Intent(mContext, C3_GoodsArraySearch.class);
-                intent.putExtra("b_id", brandId);
+                intent.putExtra("b_id", dataValues.get(position).brand_id);
                 mContext.startActivity(intent);
-
-              /*  RequestParams params = new RequestParams();
-                params.addBodyParameter("b_id", brandId);
-                params.addBodyParameter("curpage", "1");
-                params.addBodyParameter("page", "10");
-
-                APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Act_search, params, new RequestCallBack<String>() {
-                    @Override
-                    public void onSuccess(ResponseInfo<String> responseInfo) {
-
-                        Log.e("responseInfo", responseInfo.result);
-                    }
-
-                    @Override
-                    public void onFailure(HttpException e, String s) {
-
-                    }
-                });*/
 
             }
         });
