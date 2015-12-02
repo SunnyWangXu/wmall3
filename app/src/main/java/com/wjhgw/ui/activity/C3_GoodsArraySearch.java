@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,7 +32,7 @@ import java.util.List;
 /**
  * 商品排列查询
  */
-public class C3_GoodsArraySearch extends BaseActivity implements XListView.IXListViewListener, View.OnClickListener {
+public class C3_GoodsArraySearch extends BaseActivity implements XListView.IXListViewListener, View.OnClickListener, AbsListView.OnScrollListener {
     private ImageView IvBack;
     private LinearLayout ll_search;
     private MyListView mListView;
@@ -47,6 +48,10 @@ public class C3_GoodsArraySearch extends BaseActivity implements XListView.IXLis
     private ArrSearchAdapter arrSearchAdapter;
     private TextView tvSearchDef;
     private TextView tvPriceArr;
+    private int PriceCount = 0;
+    private ImageView ivPriceArrow;
+    //ListView 是刷新状态还是加载更多状态
+    private Boolean isSetAdapter = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +60,9 @@ public class C3_GoodsArraySearch extends BaseActivity implements XListView.IXLis
 
         b_id = getIntent().getStringExtra("b_id");
         a_id = getIntent().getStringExtra("a_id");
+
         /**
-         * 请求默认排序
+         * 请求商品排序进来为默认排序
          */
         loadSearchGoodsArr();
 
@@ -65,6 +71,8 @@ public class C3_GoodsArraySearch extends BaseActivity implements XListView.IXLis
         mListView.setXListViewListener(this, 1);
         mListView.setRefreshTime();
         mListView.setAdapter(null);
+        mListView.setOnScrollListener(this);
+
     }
 
 
@@ -84,11 +92,13 @@ public class C3_GoodsArraySearch extends BaseActivity implements XListView.IXLis
         llPriceArr = (LinearLayout) findViewById(R.id.ll_price_arr);
         tvPriceArr = (TextView) findViewById(R.id.tv_price_arr);
         tvMoods = (TextView) findViewById(R.id.tv_moods);
+        ivPriceArrow = (ImageView) findViewById(R.id.iv_price_arrow);
 
     }
 
     @Override
     public void onInitViewData() {
+        tvSearchDef.setTextColor(Color.parseColor("#d63235"));
 
     }
 
@@ -116,35 +126,38 @@ public class C3_GoodsArraySearch extends BaseActivity implements XListView.IXLis
                 break;
 
             case R.id.tv_search_default:
-                clearTvColor();
+                clearTvstate();
                 tvSearchDef.setTextColor(Color.parseColor("#d63235"));
-                actSearch_datas.clear();
                 loadSearchGoodsArr();
                 break;
 
             case R.id.tv_salenum:
-                clearTvColor();
+                clearTvstate();
                 tvSaleNum.setTextColor(Color.parseColor("#d63235"));
-                actSearch_datas.clear();
                 k = "1";
                 order = "2";
                 loadSearchGoodsArr();
                 break;
 
             case R.id.ll_price_arr:
-                clearTvColor();
+                PriceCount++;
+                clearTvstate();
                 tvPriceArr.setTextColor(Color.parseColor("#d63235"));
-                actSearch_datas.clear();
                 k = "3";
-                order = "2";
+                if (PriceCount % 2 == 1) {
+                    order = "1";
+                    ivPriceArrow.setImageResource(R.mipmap.ic_array_default_up);
+                } else {
+                    order = "2";
+                    ivPriceArrow.setImageResource(R.mipmap.ic_array_default_down);
+                }
                 loadSearchGoodsArr();
 
                 break;
 
             case R.id.tv_moods:
-                clearTvColor();
+                clearTvstate();
                 tvMoods.setTextColor(Color.parseColor("#d63235"));
-                actSearch_datas.clear();
                 k = "2";
                 order = "2";
                 loadSearchGoodsArr();
@@ -155,24 +168,30 @@ public class C3_GoodsArraySearch extends BaseActivity implements XListView.IXLis
         }
     }
 
-    private void clearTvColor() {
+    /**
+     * 清除TextView和价格图片的状态的状态
+     */
+    private void clearTvstate() {
         tvMoods.setTextColor(Color.parseColor("#666666"));
         tvPriceArr.setTextColor(Color.parseColor("#666666"));
         tvSaleNum.setTextColor(Color.parseColor("#666666"));
         tvSearchDef.setTextColor(Color.parseColor("#666666"));
+        ivPriceArrow.setImageResource(R.mipmap.ic_array_default);
     }
 
     @Override
     public void onRefresh(int id) {
-        //清空数据再刷新请求数据
-        actSearch_datas.clear();
+        isSetAdapter = true;
+        /**
+         *刷新再请求
+         */
         loadSearchGoodsArr();
-
 
     }
 
     @Override
     public void onLoadMore(int id) {
+        isSetAdapter = false;
         curpage++;
         loadSearchGoodsArr();
     }
@@ -182,7 +201,7 @@ public class C3_GoodsArraySearch extends BaseActivity implements XListView.IXLis
      * 请求商品排序
      */
     private void loadSearchGoodsArr() {
-      super.StartLoading();
+        super.StartLoading();
         RequestParams params = new RequestParams();
         if (b_id != null) {
             params.addBodyParameter("b_id", b_id);
@@ -192,9 +211,12 @@ public class C3_GoodsArraySearch extends BaseActivity implements XListView.IXLis
         }
         params.addBodyParameter("page", "10");
         params.addBodyParameter("curpage", curpage + "");
-        params.addBodyParameter("k", k);
-        params.addBodyParameter("order", order);
-
+        if (k != null) {
+            params.addBodyParameter("k", k);
+        }
+        if (order != null) {
+            params.addBodyParameter("order", order);
+        }
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Act_search, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -207,14 +229,18 @@ public class C3_GoodsArraySearch extends BaseActivity implements XListView.IXLis
                         mListView.setRefreshTime();
 
                         if (actSearch.datas != null) {
+                            if (actSearch_datas.size() > 0  && isSetAdapter) {
+                                actSearch_datas.clear();
+                            }
                             actSearch_datas.addAll(actSearch.datas);
-                            arrSearchAdapter = new ArrSearchAdapter(C3_GoodsArraySearch.this, actSearch_datas);
-//                            for (int i = 0; i < actSearch_datas.size() ; i++) {
-//                                actSearch_datas.add(actSearch.datas.get(i));
-//                                arrSearchAdapter.notifyDataSetChanged();
 
-                            mListView.setAdapter(arrSearchAdapter);
-//                            }
+                            if (isSetAdapter) {
+                                arrSearchAdapter = new ArrSearchAdapter(C3_GoodsArraySearch.this, actSearch_datas);
+                                mListView.setAdapter(arrSearchAdapter);
+                            } else {
+                                arrSearchAdapter.actSearch_datas = actSearch_datas;
+                                arrSearchAdapter.notifyDataSetChanged();
+                            }
 
                             if (actSearch.pagination.hasmore) {
                                 mListView.setPullLoadEnable(true);
@@ -233,5 +259,28 @@ public class C3_GoodsArraySearch extends BaseActivity implements XListView.IXLis
 
             }
         });
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        switch (scrollState) {
+            case AbsListView.OnScrollListener.SCROLL_STATE_IDLE: //
+                System.out.println("停止...");
+                break;
+            case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
+                System.out.println("正在滑动...");
+                break;
+            case AbsListView.OnScrollListener.SCROLL_STATE_FLING:
+                System.out.println("开始滚动...");
+
+                break;
+        }
+    }
+
+    ;
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
     }
 }

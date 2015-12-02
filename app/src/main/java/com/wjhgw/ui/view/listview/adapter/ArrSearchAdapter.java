@@ -18,7 +18,7 @@ import java.util.List;
  * 排列商品查询ListView适配器
  */
 public class ArrSearchAdapter extends BaseAdapter {
-    private  List<ActSearch_datas> actSearch_datas;
+    public  List<ActSearch_datas> actSearch_datas;
     private  Context mContext;
     private ImageView ivSearchGoods;
     private TextView tvSearchName;
