@@ -139,6 +139,7 @@ public class A2_ResetPassActivity2 extends BaseActivity implements OnClickListen
      * 重设密码
      */
     private void ResetPassword(String strength) {
+        super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("member_mobile", Number);
         params.addBodyParameter("password", cipher);
@@ -147,6 +148,7 @@ public class A2_ResetPassActivity2 extends BaseActivity implements OnClickListen
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                A2_ResetPassActivity2.super.Dismiss();
                 Gson gson = new Gson();
                 if (responseInfo != null) {
                     Status status = gson.fromJson(responseInfo.result, Status.class);

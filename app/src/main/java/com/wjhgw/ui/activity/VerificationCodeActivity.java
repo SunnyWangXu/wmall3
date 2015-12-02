@@ -181,6 +181,7 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
      * 验证验证码
      */
     private void Number_Verification_code() {
+        super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("sms_code", Verification_code);
         if (key.length() > 1) {
@@ -191,6 +192,7 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                VerificationCodeActivity.super.Dismiss();
                 Gson gson = new Gson();
                 if (responseInfo != null) {
                     Status status = gson.fromJson(responseInfo.result, Status.class);

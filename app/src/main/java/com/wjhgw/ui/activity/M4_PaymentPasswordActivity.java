@@ -178,11 +178,12 @@ public class M4_PaymentPasswordActivity extends BaseActivity implements OnClickL
      * 设置支付密码
      */
     private void Set_paypwd(RequestParams params) {
-
+        super.StartLoading();
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Set_paypwd, params, new RequestCallBack<String>() {
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                M4_PaymentPasswordActivity.super.Dismiss();
                 Gson gson = new Gson();
                 if (responseInfo != null) {
                     Status status = gson.fromJson(responseInfo.result, Status.class);

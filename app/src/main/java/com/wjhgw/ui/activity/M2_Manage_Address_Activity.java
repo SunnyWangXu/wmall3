@@ -87,7 +87,7 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
      * 请求地址列表
      */
     public void load_Address_list() {
-
+        super.StartLoading();
         RequestParams params = new RequestParams();
         if (!key.equals("0")) {
             params.addBodyParameter("key", key);
@@ -99,7 +99,7 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
                 Gson gson = new Gson();
                 if (responseInfo != null) {
                     Address_list address_list = gson.fromJson(responseInfo.result, Address_list.class);
-
+                    M2_Manage_Address_Activity.super.Dismiss();
                     if (address_list.status.code == 10000) {
                         address_list_data.clear();
                         if (address_list.datas != null) {

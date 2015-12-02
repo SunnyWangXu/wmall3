@@ -106,9 +106,10 @@ public class M1_Modify_nicknameActivity extends BaseActivity implements View.OnC
     }
 
     /**
-     * 用户信息
+     * 修改昵称
      */
     private void User_information() {
+        super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", this.getSharedPreferences("key", MODE_APPEND).getString("key", "0"));
         params.addBodyParameter("member_nickname", modifynickname);
@@ -116,6 +117,7 @@ public class M1_Modify_nicknameActivity extends BaseActivity implements View.OnC
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Change_nickname, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                M1_Modify_nicknameActivity.super.Dismiss();
                 Gson gson = new Gson();
                 if (responseInfo.result != null) {
                     nickname = gson.fromJson(responseInfo.result, Nickname.class);

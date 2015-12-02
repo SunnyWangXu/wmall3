@@ -125,6 +125,7 @@ public class A1_RegisterActivity1 extends BaseActivity implements OnClickListene
      * 验证手机号码是否有效
      */
     private void Number(String number) {
+        super.StartLoading();
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, ApiInterface.Number + number, new RequestCallBack<String>() {
 
             @Override
@@ -158,6 +159,7 @@ public class A1_RegisterActivity1 extends BaseActivity implements OnClickListene
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                A1_RegisterActivity1.super.Dismiss();
                 Gson gson = new Gson();
                 if (responseInfo != null) {
                     Status status = gson.fromJson(responseInfo.result, Status.class);

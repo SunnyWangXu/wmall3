@@ -179,6 +179,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
      * 登录网络请求
      */
     private void login() {
+        super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("member_mobile", Number);
         params.addBodyParameter("password", password);
@@ -187,6 +188,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                A0_LoginActivity.super.Dismiss();
                 Gson gson = new Gson();
                 if (responseInfo != null) {
                     Login_Pager login = gson.fromJson(responseInfo.result, Login_Pager.class);
