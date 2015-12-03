@@ -125,7 +125,6 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
      * 设置监听事件
      */
     private void setClick() {
-        myAvatar.setOnClickListener(this);
         ll_LockBox.setOnClickListener(this);
         ll_Set.setOnClickListener(this);
     }
@@ -153,16 +152,6 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
-            case R.id.my_avatar:
-              /*  if (key.equals("0")) {
-                    intent.setClass(getActivity(), A0_LoginActivity.class);
-                    startActivity(intent);
-
-                } else {
-
-                }*/
-
-                break;
             case R.id.ll_lockbox:
                 if (key.equals("0")) {
                     intent.setClass(getActivity(), A0_LoginActivity.class);
