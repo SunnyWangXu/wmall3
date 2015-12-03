@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.wjhgw.R;
 import com.wjhgw.business.bean.Goods_attr_data_value;
-import com.wjhgw.ui.activity.C3_GoodsArraySearch;
+import com.wjhgw.ui.activity.C3_GoodsArraySearchActivity;
 
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class AttrValueGVAdapter2 extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(mContext, C3_GoodsArraySearch.class);
+                Intent intent = new Intent(mContext, C3_GoodsArraySearchActivity.class);
                 intent.putExtra("a_id", dataValues.get(position).attr_value_id);
                 mContext.startActivity(intent);
 

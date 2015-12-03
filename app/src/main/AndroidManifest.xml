@@ -26,7 +26,7 @@
         </activity>
         <activity android:name=".ui.activity.C1_CaptureActivity" />
         <activity android:name=".ui.activity.C2_SearchActivity" />
-        <activity android:name=".ui.activity.C3_GoodsArraySearch" />
+        <activity android:name=".ui.activity.C3_GoodsArraySearchActivity" />
         <activity android:name="com.wjhgw.MainActivity" />
         <activity android:name="com.wjhgw.guide.GuideActivity" />
         <activity android:name="com.wjhgw.ui.activity.CaptureActivity" />

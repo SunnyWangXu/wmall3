@@ -96,7 +96,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
         lvAttr = (ListView) View.findViewById(R.id.lv_attr);
         ivGoods = (ImageView) View.findViewById(R.id.iv_goods_class);
         qrcode_scanner = (ImageView) View.findViewById(R.id.qrcode_scanner);
-        ll_search = (LinearLayout) View.findViewById(R.id.ll_search);
+        ll_search = (LinearLayout) View.findViewById(R.id.ll_goods_search);
 
         mListView = (MyListView) View.findViewById(R.id.discovery_listview);
     }
@@ -119,7 +119,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
                 intent = new Intent(getActivity(), C1_CaptureActivity.class);
                 getActivity().startActivity(intent);
                 break;
-            case R.id.ll_search:
+            case R.id.ll_goods_search:
                 intent = new Intent(getActivity(), C2_SearchActivity.class);
                 getActivity().startActivity(intent);
                 break;
