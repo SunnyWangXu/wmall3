@@ -10,6 +10,9 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <uses-sdk android:minSdkVersion="4"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
     <application
         android:name=".APP"
         android:allowBackup="true"
@@ -29,7 +32,6 @@
         <activity android:name=".ui.activity.C3_GoodsArraySearchActivity" />
         <activity android:name="com.wjhgw.MainActivity" />
         <activity android:name="com.wjhgw.guide.GuideActivity" />
-        <activity android:name="com.wjhgw.ui.activity.CaptureActivity" />
         <activity android:name="com.wjhgw.ui.activity.A0_LoginActivity"/>
         <activity android:name=".ui.activity.PrductDetail" />
         <activity android:name=".ui.activity.A1_RegisterActivity1" />
@@ -48,6 +50,9 @@
         //设置Activity
         <activity
             android:name=".ui.activity.M6_SetActivity"/>
+
+        <meta-data android:value="5661310067e58e73d90073d7" android:name="UMENG_APPKEY"></meta-data>
+        <meta-data android:value="360 ID" android:name="UMENG_CHANNEL"/>
     </application>
 
 </manifest>

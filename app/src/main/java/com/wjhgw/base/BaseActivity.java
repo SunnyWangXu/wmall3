@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
 import com.wjhgw.R;
 import com.wjhgw.ui.dialog.LoadDialog;
 
@@ -128,12 +129,22 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+
         super.onResume();
+        /**
+         * 友盟统计
+         */
+        MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
+
         super.onPause();
+        /**
+         * 友盟统计
+         */
+        MobclickAgent.onPause(this);
     }
 
     @Override

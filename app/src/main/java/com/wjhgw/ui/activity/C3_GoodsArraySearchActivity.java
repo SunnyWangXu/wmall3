@@ -34,7 +34,8 @@ import java.util.List;
 /**
  * 商品排列查询
  */
-public class C3_GoodsArraySearchActivity extends BaseActivity implements XListView.IXListViewListener, View.OnClickListener, AbsListView.OnScrollListener, View.OnTouchListener, AdapterView.OnItemLongClickListener {
+public class C3_GoodsArraySearchActivity extends BaseActivity implements XListView.IXListViewListener,
+        View.OnClickListener, AbsListView.OnScrollListener, View.OnTouchListener, AdapterView.OnItemLongClickListener {
     private ImageView IvBack;
     private View ll_GoodsSearch;
     private MyListView mListView;

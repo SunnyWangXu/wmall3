@@ -721,7 +721,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                         tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(0).goods_price);
                         countdown3 = groupBuy_data.get(0).count_down;
                     }
-
+                    
 
                     String imagUrl2 = groupBuy_data.get(1).groupbuy_image;
                     if (imagUrl2 != null) {
