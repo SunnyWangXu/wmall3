@@ -51,6 +51,7 @@
         <activity
             android:name=".ui.activity.M6_SetActivity"/>
 
+        //友盟统计
         <meta-data android:value="5661310067e58e73d90073d7" android:name="UMENG_APPKEY"></meta-data>
         <meta-data android:value="360 ID" android:name="UMENG_CHANNEL"/>
     </application>

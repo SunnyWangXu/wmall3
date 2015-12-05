@@ -746,7 +746,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         }
     }
 
-    /**
+   /**
      * 主题街数据请求
      */
     private void load_theme_street() {

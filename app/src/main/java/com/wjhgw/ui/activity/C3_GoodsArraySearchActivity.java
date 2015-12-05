@@ -24,6 +24,7 @@ import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.ActSearch;
 import com.wjhgw.business.bean.ActSearch_datas;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.dialog.GoodsArrDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.ArrSearchAdapter;
@@ -63,7 +64,6 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
     private Boolean hasMore;
     private float downY;
     private float upY;
-    private LinearLayout llTab;
     private View ll_GoodsSearchTab;
 
     @Override
@@ -86,6 +86,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
         mListView.setAdapter(null);
         mListView.setOnScrollListener(this);
         mListView.setOnTouchListener(this);
+        mListView.setOnItemLongClickListener(this);
 
     }
 
@@ -103,8 +104,6 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
     @Override
     public void onFindViews() {
         IvBack = (ImageView) findViewById(R.id.iv_array_back);
-
-        llTab = (LinearLayout) findViewById(R.id.ll_tab);
 
         tvSearchDef = (TextView) findViewById(R.id.tv_search_default);
         tvSaleNum = (TextView) findViewById(R.id.tv_salenum);
@@ -302,6 +301,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
      */
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        new GoodsArrDialog(this).show();
 
         return false;
     }
