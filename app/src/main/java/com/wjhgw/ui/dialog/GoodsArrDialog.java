@@ -17,8 +17,8 @@ import com.wjhgw.R;
 public class GoodsArrDialog {
 
 
-    private Button btnCollect;
-    private Button btnGoodsarrAddshopcar;
+    public Button btnCollect;
+    public Button btnGoodsarrAddshopcar;
     private Dialog mDialog;
 
     public GoodsArrDialog(Context context, String message1, String message2) {

@@ -198,6 +198,14 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
                 ivArrBack.setVisibility(View.GONE);
                 break;
 
+            case R.id.btn_collect:
+                showToastShort("收藏成功");
+                break;
+
+            case R.id.btn_goodsarr_addshopcar:
+                showToastShort("加入购物车成功");
+                break;
+
             default:
                 break;
         }
@@ -309,7 +317,11 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
         /**
          *对话框
          */
-        new GoodsArrDialog(this,"收藏","加入购物车").show();
+        GoodsArrDialog arrDialog = new GoodsArrDialog(this, "收藏", "加入购物车");
+        arrDialog.show();
+
+        arrDialog.btnCollect.setOnClickListener(this);
+        arrDialog.btnGoodsarrAddshopcar.setOnClickListener(this);
 
         return false;
     }
