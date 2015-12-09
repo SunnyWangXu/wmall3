@@ -95,8 +95,8 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
     public void onInit() {
         mListView = (MyListView) findViewById(R.id.lv_array_search);
 
-        ll_GoodsSearch =  getLayoutInflater().inflate(R.layout.goods_arr_search, null);
-        ll_GoodsSearchTab =  getLayoutInflater().inflate(R.layout.goods_arr_tab, null);
+        ll_GoodsSearch = getLayoutInflater().inflate(R.layout.goods_arr_search, null);
+        ll_GoodsSearchTab = getLayoutInflater().inflate(R.layout.goods_arr_tab, null);
         mListView.addHeaderView(ll_GoodsSearch);
         mListView.addHeaderView(ll_GoodsSearchTab);
     }
@@ -225,6 +225,11 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
 
     }
 
+    /**
+     * 加载更多
+     *
+     * @param id
+     */
     @Override
     public void onLoadMore(int id) {
         isSetAdapter = false;
@@ -253,7 +258,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
                     /**
                      * 向上滑动返回图标显示 并且导航栏消失
                      */
-                    if(upY -downY < 0){
+                    if (upY - downY < 0) {
                         ivArrBack.setVisibility(View.VISIBLE);
                     }
 
@@ -301,7 +306,10 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
      */
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        new GoodsArrDialog(this).show();
+        /**
+         *对话框
+         */
+        new GoodsArrDialog(this,"收藏","加入购物车").show();
 
         return false;
     }
@@ -369,7 +377,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
 
             @Override
             public void onFailure(HttpException e, String s) {
-
+                showToastShort("网络错误");
             }
         });
     }

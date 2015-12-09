@@ -36,7 +36,6 @@
             android:layout_marginRight="25dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/goods_array_dialog_shape"
-            android:text="收藏"
             android:textColor="@color/light_gray"
             android:textSize="18sp" />
 
@@ -48,7 +47,6 @@
             android:layout_marginRight="25dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/goods_array_dialog_shape"
-            android:text="加入购物车"
             android:textColor="@color/light_gray"
             android:textSize="18sp" />
 
