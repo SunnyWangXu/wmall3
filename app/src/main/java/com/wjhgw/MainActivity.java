@@ -121,60 +121,75 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void setTabSelection(int index) {
         clearSelection();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        hideFragments(transaction);
+        // hideFragments(transaction);
         switch (index) {
             case 0:
                 indexImage.setImageResource(R.mipmap.ic_homepage_select);
                 indexText.setTextColor(Color.parseColor("#ba0e2f"));
-                if (homeFragment == null) {
+                homeFragment = new HomeFragment();
+                transaction.replace(R.id.content, homeFragment);
+                /*if (homeFragment == null) {
                     homeFragment = new HomeFragment();
-                    transaction.add(R.id.content, homeFragment);
+                    transaction.replace(R.id.content, homeFragment);
                 } else {
-                    transaction.show(homeFragment);
-                }
+                    //transaction.replace(R.id.content, homeFragment);
+                    transaction.add(R.id.content,homeFragment);
+                }*/
 
                 break;
             case 1:
                 classification_image.setImageResource(R.mipmap.ic_search_select);
                 classification_text.setTextColor(Color.parseColor("#ba0e2f"));
-                if (categoryFragment == null) {
+                categoryFragment = new CategoryFragment();
+                transaction.replace(R.id.content, categoryFragment);
+                /*if (categoryFragment == null) {
                     categoryFragment = new CategoryFragment();
-                    transaction.add(R.id.content, categoryFragment);
+                    transaction.replace(R.id.content, categoryFragment);
                 } else {
-                    transaction.show(categoryFragment);
-                }
+                    //transaction.replace(R.id.content, categoryFragment);
+                    transaction.add(R.id.content, categoryFragment);
+                }*/
 
                 break;
             case 2:
                 contactsImage.setImageResource(R.mipmap.ic_find_select);
                 contactsText.setTextColor(Color.parseColor("#ba0e2f"));
-                if (discoveryFragment == null) {
+                discoveryFragment = new DiscoveryFragment();
+                transaction.add(R.id.content, discoveryFragment);
+                /*if (discoveryFragment == null) {
                     discoveryFragment = new DiscoveryFragment();
                     transaction.add(R.id.content, discoveryFragment);
                 } else {
-                    transaction.show(discoveryFragment);
-                }
+                    //transaction.replace(R.id.content, shoppingCartFragment);
+                    transaction.add(R.id.content,discoveryFragment);
+                }*/
                 break;
             case 3:
                 shopping_car_image.setImageResource(R.mipmap.ic_shopping_cart_select);
                 shopping_car_text.setTextColor(Color.parseColor("#ba0e2f"));
-                if (shoppingCartFragment == null) {
+                shoppingCartFragment = new ShoppingCartFragment();
+                transaction.replace(R.id.content, shoppingCartFragment);
+                /*if (shoppingCartFragment == null) {
                     shoppingCartFragment = new ShoppingCartFragment();
-                    transaction.add(R.id.content, shoppingCartFragment);
+                    transaction.replace(R.id.content, shoppingCartFragment);
                 } else {
-                    transaction.show(shoppingCartFragment);
-                }
+                    //transaction.replace(R.id.content, shoppingCartFragment);
+                    transaction.add(R.id.content,shoppingCartFragment);
+                }*/
                 break;
             case 4:
             default:
                 settingImage.setImageResource(R.mipmap.ic_mine_select);
                 settingText.setTextColor(Color.parseColor("#ba0e2f"));
-                if (mineFragment == null) {
+                mineFragment = new MyFragment();
+                transaction.replace(R.id.content, mineFragment);
+                /*if (mineFragment == null) {
                     mineFragment = new MyFragment();
-                    transaction.add(R.id.content, mineFragment);
+                    transaction.replace(R.id.content, mineFragment);
                 } else {
-                    transaction.show(mineFragment);
-                }
+                    //transaction.replace(R.id.content, mineFragment);
+                    transaction.add(R.id.content,mineFragment);
+                }*/
                 break;
         }
         transaction.commit();
@@ -186,7 +201,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void clearSelection() {
         indexImage.setImageResource(R.mipmap.ic_homepage);
         indexText.setTextColor(Color.parseColor("#ffffff"));
-        classification_image.setImageResource(R.mipmap.ic_search);
+        classification_image.setImageResource(R.mipmap.ic_search2);
         classification_text.setTextColor(Color.parseColor("#ffffff"));
         contactsImage.setImageResource(R.mipmap.ic_find);
         contactsText.setTextColor(Color.parseColor("#ffffff"));
@@ -201,22 +216,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      *
      * @param transaction 用于对Fragment执行操作的事务
      */
-    private void hideFragments(FragmentTransaction transaction) {
+   /* private void hideFragments(FragmentTransaction transaction) {
         if (shoppingCartFragment != null) {
-            transaction.hide(shoppingCartFragment);
+            transaction.remove(shoppingCartFragment);
         }
         if (categoryFragment != null) {
-            transaction.hide(categoryFragment);
+            transaction.remove(categoryFragment);
         }
         if (homeFragment != null) {
-            transaction.hide(homeFragment);
+            transaction.remove(homeFragment);
         }
         if (discoveryFragment != null) {
-            transaction.hide(discoveryFragment);
+            transaction.remove(discoveryFragment);
         }
         if (mineFragment != null) {
-            transaction.hide(mineFragment);
+            transaction.remove(mineFragment);
         }
     }
-
+*/
 }

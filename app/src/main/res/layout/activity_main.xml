@@ -1,14 +1,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" >
-    </FrameLayout>
+        android:layout_weight="1"></FrameLayout>
 
     <View
         android:layout_width="match_parent"
@@ -18,129 +17,129 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#333333" >
+        android:background="#333333">
 
 
-            <LinearLayout
-                android:id="@+id/index_layout"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/index_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/index_image"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/ic_homepage_select" />
+            <ImageView
+                android:id="@+id/index_image"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_homepage_select" />
 
-                <TextView
-                    android:id="@+id/index_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/string_index"
-                    android:textColor="#ffffff" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/index_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/string_index"
+                android:textColor="#ffffff" />
+        </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/classification_layout"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/classification_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/classification_image"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/ic_search" />
+            <ImageView
+                android:id="@+id/classification_image"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_search2" />
 
-                <TextView
-                    android:id="@+id/classification_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="分类"
-                    android:textColor="#ffffff" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/classification_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="分类"
+                android:textColor="#ffffff" />
+        </LinearLayout>
 
 
-            <LinearLayout
-                android:id="@+id/contacts_layout"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical" >
+        <LinearLayout
+            android:id="@+id/contacts_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/contacts_image"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/ic_find" />
+            <ImageView
+                android:id="@+id/contacts_image"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_find" />
 
-                <TextView
-                    android:id="@+id/contacts_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/string_find"
-                    android:textColor="#ffffff" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/contacts_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/string_find"
+                android:textColor="#ffffff" />
+        </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/shopping_car_layout"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/shopping_car_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/shopping_car_image"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/ic_shopping_cart" />
+            <ImageView
+                android:id="@+id/shopping_car_image"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_shopping_cart" />
 
-                <TextView
-                    android:id="@+id/shopping_car_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/string_message"
-                    android:textColor="#ffffff" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/shopping_car_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/string_message"
+                android:textColor="#ffffff" />
+        </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/setting_layout"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical" >
+        <LinearLayout
+            android:id="@+id/setting_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/setting_image"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/ic_mine" />
+            <ImageView
+                android:id="@+id/setting_image"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_mine" />
 
-                <TextView
-                    android:id="@+id/setting_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/string_mine"
-                    android:textColor="#ffffff" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/setting_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/string_mine"
+                android:textColor="#ffffff" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

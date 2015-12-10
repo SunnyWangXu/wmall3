@@ -1,7 +1,6 @@
 package com.wjhgw.ui.fragment;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -27,6 +26,7 @@ import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.M0_MyLockBoxActivity;
 import com.wjhgw.ui.activity.M6_SetActivity;
+import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 
@@ -50,11 +50,12 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private LinearLayout ll_LockBox;
     private LinearLayout ll_Set;
     private String memberName;
+    private LoadDialog Dialog;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         MyLayout = inflater.inflate(R.layout.my_layout, container, false);
-
+        Dialog = new LoadDialog(getActivity());
         /**
          * 加载视图
          */
@@ -234,6 +235,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
      * 请求用户信息
      */
     private void load_User_information() {
+        Dialog.ProgressDialog();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
 
@@ -242,11 +244,11 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 /**
                  * 存入数据到本地
-                 */
+                 *//*
                 SharedPreferences sf = getActivity().getSharedPreferences("wjhgw_auction", getActivity().MODE_PRIVATE);
                 SharedPreferences.Editor edit = sf.edit();
-                edit.putString("userinformation_datas_member_avatar", responseInfo.result).commit();
-
+                edit.putString("userinformation_datas_member_avatar", responseInfo.result).commit();*/
+                Dialog.dismiss();
                 /**
                  * 解析
                  */
@@ -259,11 +261,11 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
                 /**
                  * 取出本地緩存数据
-                 */
+                 *//*
                 SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_auction", getActivity().MODE_PRIVATE);
                 String auctionSuperValueData = preferences.getString("userinformation_datas_member_avatar", "");
 
-                Analytical(auctionSuperValueData);
+                Analytical(auctionSuperValueData);*/
             }
         });
     }

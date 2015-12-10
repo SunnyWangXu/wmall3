@@ -150,5 +150,9 @@ public class ApiInterface {
      *购物车删除接口
      */
     public static final String Cart_del  ="/mobile/index.php?act=member_cart&op=cart_del";
+    /**
+     *收藏添加接口
+     */
+    public static final String Favorites_add  ="/mobile/index.php?act=member_favorites&op=favorites_add";
 
 }

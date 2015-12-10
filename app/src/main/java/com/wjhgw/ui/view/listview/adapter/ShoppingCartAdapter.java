@@ -109,7 +109,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
         tv_goods_name.setText(List.get(position).goods_name);
         tv_goods_price.setText("¥ " + List.get(position).goods_price);
         tv_num.setText(List.get(position).goods_num);
-        APP.getApp().getImageLoader().displayImage(List.get(position).goods_image_url, iv_goods_image_url);
+        APP.getApp().getImageLoader().displayImage(List.get(position).goods_image_url, iv_goods_image_url,APP.getApp().getImageOptions());
 
         if (List.size() != 0 && !goods_id[position].equals("0")) {
             Choice.setImageResource(R.mipmap.ic_default);

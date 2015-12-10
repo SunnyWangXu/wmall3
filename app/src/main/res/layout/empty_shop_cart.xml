@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_empty_shop_cart"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_empty_shop_cart"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:textColor="#999999"
+            android:text="购物车是空的，快去跳选几件心仪的宝贝吧"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_home"
+                android:layout_width="105dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="12dp"
+                android:gravity="center"
+                android:textColor="#666666"
+                android:background="@drawable/bg_gray_white"
+                android:textSize="15dp"
+                android:text="返回首页"
+                />
+            <TextView
+                android:id="@+id/tv_collection"
+                android:layout_width="105dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="12dp"
+                android:gravity="center"
+                android:textColor="#666666"
+                android:background="@drawable/bg_gray_white"
+                android:textSize="15dp"
+                android:text="查看收藏"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

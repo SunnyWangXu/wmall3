@@ -1,5 +1,6 @@
 package com.wjhgw.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.wjhgw.APP;
+import com.wjhgw.MainActivity;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.api.Address_del_Request;
@@ -46,12 +48,16 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
     private ImageView iv_select;
     public ImageView iv_select1;
     public ImageView iv_store_logo;
+    private TextView tv_collection;
+    private TextView tv_home;
     private TextView tv_total;
     private TextView tv_total_num;
     private TextView tv_edit;
     private TextView tv_delete;
+    private LinearLayout ll_empty_shop_cart;
     private LinearLayout ll_select1;
     private LinearLayout ll_select;
+    private LinearLayout ll_settlement;
     private LinearLayout shopping_head;
     private FrameLayout fl_edit;
     private Address_del_Request Request;
@@ -66,18 +72,20 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
     private GoodsArrDialog goodsArrDialog;
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Dialog = new LoadDialog(getActivity());
         rootView = inflater.inflate(R.layout.shopping_layout, container, false);
         key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
-        /**
-         * 购物车列表请求
-         */
-        cart_list();
         initView();
         setClick();
         listAddHeader();
+
         Request = new Address_del_Request(getActivity());
         Request.addResponseListener(this);
 
@@ -94,6 +102,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
         mListView.setXListViewListener(this, 1);
         mListView.setRefreshTime();
         mListView.setAdapter(null);
+        mListView.setVisibility(View.VISIBLE);
 
         mListView.addHeaderView(shopping_head);
 
@@ -108,6 +117,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                 goodsArrDialog.btnCollect.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        favorites_add(listAdapter.List.get(position - 2).goods_id);
                         goodsArrDialog.dismiss();
                     }
                 });
@@ -132,10 +142,14 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
         iv_select1 = (ImageView) rootView.findViewById(R.id.iv_select1);
         iv_store_logo = (ImageView) shopping_head.findViewById(R.id.iv_store_logo);
         tv_edit = (TextView) rootView.findViewById(R.id.tv_edit);
+        ll_settlement = (LinearLayout) rootView.findViewById(R.id.ll_settlement);
         ll_select = (LinearLayout) rootView.findViewById(R.id.ll_select);
         ll_select1 = (LinearLayout) rootView.findViewById(R.id.ll_select1);
+        ll_empty_shop_cart = (LinearLayout) rootView.findViewById(R.id.ll_empty_shop_cart);
         tv_delete = (TextView) rootView.findViewById(R.id.tv_delete);
         tv_total = (TextView) rootView.findViewById(R.id.tv_total);
+        tv_home = (TextView) rootView.findViewById(R.id.tv_home);
+        tv_collection = (TextView) rootView.findViewById(R.id.tv_collection);
         fl_edit = (FrameLayout) rootView.findViewById(R.id.fl_edit);
         tv_total_num = (TextView) rootView.findViewById(R.id.tv_total_num);
         mListView = (MyListView) rootView.findViewById(R.id.lv_list_layout);
@@ -149,6 +163,9 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
         ll_select1.setOnClickListener(this);
         tv_edit.setOnClickListener(this);
         tv_delete.setOnClickListener(this);
+        tv_total.setOnClickListener(this);
+        tv_home.setOnClickListener(this);
+        tv_collection.setOnClickListener(this);
     }
 
     @Override
@@ -241,7 +258,13 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                         mDialog.dismiss();
                     }
                 });
-
+                break;
+            case R.id.tv_home:
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_collection:
+                Toast.makeText(getActivity(), "该功能正在开发中", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
@@ -252,6 +275,10 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
     public void onResume() {
         super.onResume();
         key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
+        /**
+         * 购物车列表请求
+         */
+        cart_list();
     }
 
     /**
@@ -274,6 +301,10 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                         mListView.stopRefresh();
                         mListView.setRefreshTime();
                         tv_edit.setVisibility(View.VISIBLE);
+                        ll_settlement.setVisibility(View.VISIBLE);
+                        shopping_head.setVisibility(View.VISIBLE);
+                        mListView.setVisibility(View.VISIBLE);
+                        ll_empty_shop_cart.setVisibility(View.GONE);
                         if (cartList.datas != null) {
                             shopping_head.setVisibility(View.VISIBLE);
                             if (isSetAdapter) {
@@ -285,18 +316,25 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                             } else {
                                 listAdapter.List = cartList.datas.get(0).goods_list;
                                 if (!Edit) {
-                                    listAdapter.goods_id = null;
-                                    listAdapter.goods_id = new String[listAdapter.List.size()];
-                                    for (int i = 0; i < listAdapter.List.size(); i++) {
-                                        listAdapter.goods_id[i] = "0";
-                                    }
+                                    eliminate1();
+                                }
+                                if (!delete) {
+                                    delete = true;
+                                    eliminate1();
                                 }
                                 listAdapter.notifyDataSetChanged();
                             }
                         } else {
+                            isSetAdapter = true;
+                            Edit = true;
+                            tv_edit.setText("编辑");
                             mListView.setAdapter(null);
                             tv_edit.setVisibility(View.GONE);
                             shopping_head.setVisibility(View.GONE);
+                            fl_edit.setVisibility(View.GONE);
+                            ll_settlement.setVisibility(View.GONE);
+                            mListView.setVisibility(View.GONE);
+                            ll_empty_shop_cart.setVisibility(View.VISIBLE);
                         }
                     }
                 }
@@ -328,9 +366,43 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
 
                     if (status.status.code == 10000) {
                         isSetAdapter = false;
+                        delete = false;
                         //刷新列表
                         cart_list();
                         eliminate();
+                    } else {
+                        Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * 商品收藏
+     */
+    private void favorites_add(String goods_id) {
+        Dialog.ProgressDialog();
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+        params.addBodyParameter("goods_id", goods_id);
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Favorites_add, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Dialog.dismiss();
+                Gson gson = new Gson();
+                if (responseInfo.result != null) {
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+                    if (status.status.code == 10000) {
+                        Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -353,9 +425,12 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
         }
     }
 
+    /**
+     * 清空1
+     */
     private void eliminate() {
         if (listAdapter != null) {
-            delete = true;
+            //delete = true;
             listAdapter.num = 0;
             iv_select1.setImageResource(R.mipmap.ic_blank);
             iv_select.setImageResource(R.mipmap.ic_blank);
@@ -370,4 +445,14 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
 
     }
 
+    /**
+     * 清空2
+     */
+    private void eliminate1() {
+        listAdapter.goods_id = null;
+        listAdapter.goods_id = new String[listAdapter.List.size()];
+        for (int i = 0; i < listAdapter.List.size(); i++) {
+            listAdapter.goods_id[i] = "0";
+        }
+    }
 }
