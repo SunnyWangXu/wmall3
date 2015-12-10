@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.wjhgw.R;
 
-
+/**
+ * 通用对话框
+ */
 public class MyDialog {
 
 	private Dialog mDialog;

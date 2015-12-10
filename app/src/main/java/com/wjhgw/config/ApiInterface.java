@@ -138,5 +138,17 @@ public class ApiInterface {
      *获取未完成处理的订单数量
      */
     public static final String Order_amount  ="/mobile/index.php?act=member_order&op=order_amount";
+    /**
+     *购物车列表接口
+     */
+    public static final String Cart_list  ="/mobile/index.php?act=member_cart&op=cart_list";
+    /**
+     *购物车修改数量接口
+     */
+    public static final String Cart_edit_quantity  ="/mobile/index.php?act=member_cart&op=cart_edit_quantity";
+    /**
+     *购物车删除接口
+     */
+    public static final String Cart_del  ="/mobile/index.php?act=member_cart&op=cart_del";
 
 }
