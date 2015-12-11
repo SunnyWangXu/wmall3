@@ -355,6 +355,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
                     ActSearch actSearch = gson.fromJson(responseInfo.result, ActSearch.class);
                     if (actSearch.status.code == 10000) {
                         mListView.stopRefresh();
+                        mListView.stopLoadMore();
                         mListView.setRefreshTime();
 
                         if (actSearch.datas != null) {
