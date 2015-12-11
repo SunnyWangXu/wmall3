@@ -38,6 +38,9 @@ import com.wjhgw.ui.view.listview.adapter.ShoppingCartAdapter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * 购物车
+ */
 public class ShoppingCartFragment extends Fragment implements BusinessResponse, XListView.IXListViewListener,
         View.OnClickListener {
 
@@ -88,7 +91,6 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
 
         Request = new Address_del_Request(getActivity());
         Request.addResponseListener(this);
-
 
         return rootView;
     }
@@ -235,12 +237,12 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
 
                 break;
             case R.id.tv_delete:
-                mDialog = new MyDialog(getActivity(), "温馨提示", "确定要删除该商品？");
-                mDialog.show();
-                mDialog.positive.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (listAdapter.num > 0) {
+                if (listAdapter.num > 0) {
+                    mDialog = new MyDialog(getActivity(), "温馨提示", "确定要删除该商品？");
+                    mDialog.show();
+                    mDialog.positive.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
                             StringBuffer cart_id = new StringBuffer();
                             for (int i = 0; i < listAdapter.goods_id.length; i++) {
                                 if (!listAdapter.goods_id[i].equals("0")) {
@@ -248,16 +250,18 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                                 }
                             }
                             cart_del(cart_id.toString().substring(0, cart_id.toString().length() - 1));
+                            mDialog.dismiss();
                         }
-                        mDialog.dismiss();
-                    }
-                });
-                mDialog.negative.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mDialog.dismiss();
-                    }
-                });
+                    });
+                    mDialog.negative.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mDialog.dismiss();
+                        }
+                    });
+                } else {
+                    Toast.makeText(getActivity(), "你还没有选择商品哦！", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.tv_home:
                 Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -442,7 +446,6 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                 listAdapter.goods_id[i] = "0";
             }
         }
-
     }
 
     /**
