@@ -61,6 +61,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
     private LinearLayout ll_select1;
     private LinearLayout ll_select;
     private LinearLayout ll_settlement;
+    private LinearLayout ll_to_settle;
     private LinearLayout shopping_head;
     private FrameLayout fl_edit;
     private Address_del_Request Request;
@@ -145,6 +146,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
         iv_store_logo = (ImageView) shopping_head.findViewById(R.id.iv_store_logo);
         tv_edit = (TextView) rootView.findViewById(R.id.tv_edit);
         ll_settlement = (LinearLayout) rootView.findViewById(R.id.ll_settlement);
+        ll_to_settle = (LinearLayout) rootView.findViewById(R.id.ll_to_settle);
         ll_select = (LinearLayout) rootView.findViewById(R.id.ll_select);
         ll_select1 = (LinearLayout) rootView.findViewById(R.id.ll_select1);
         ll_empty_shop_cart = (LinearLayout) rootView.findViewById(R.id.ll_empty_shop_cart);
@@ -168,6 +170,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
         tv_total.setOnClickListener(this);
         tv_home.setOnClickListener(this);
         tv_collection.setOnClickListener(this);
+        ll_to_settle.setOnClickListener(this);
     }
 
     @Override
@@ -269,6 +272,19 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                 break;
             case R.id.tv_collection:
                 Toast.makeText(getActivity(), "该功能正在开发中", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.ll_to_settle:
+                if (listAdapter.num > 0) {
+                    StringBuffer cart_id = new StringBuffer();
+                    for (int i = 0; i < listAdapter.goods_id.length; i++) {
+                        if (!listAdapter.goods_id[i].equals("0")) {
+                            cart_id.append(listAdapter.goods_id[i] + "|" + listAdapter.List.get(i).goods_num + ",");
+                        }
+                    }
+                    buy_step1(cart_id.toString().substring(0, cart_id.toString().length() - 1));
+                }else {
+                    Toast.makeText(getActivity(), "你还没有选择商品哦", Toast.LENGTH_SHORT).show();
+                }
                 break;
             default:
                 break;
@@ -397,6 +413,38 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
         params.addBodyParameter("goods_id", goods_id);
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Favorites_add, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Dialog.dismiss();
+                Gson gson = new Gson();
+                if (responseInfo.result != null) {
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+                    if (status.status.code == 10000) {
+                        Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * 购买第一步接口
+     */
+    private void buy_step1(String cart_id) {
+        Dialog.ProgressDialog();
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+        params.addBodyParameter("cart_id", cart_id);
+        params.addBodyParameter("ifcart", "1");
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Buy_step1, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Dialog.dismiss();

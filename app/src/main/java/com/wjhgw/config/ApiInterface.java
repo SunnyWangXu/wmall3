@@ -154,5 +154,9 @@ public class ApiInterface {
      *收藏添加接口
      */
     public static final String Favorites_add  ="/mobile/index.php?act=member_favorites&op=favorites_add";
+    /**
+     *收藏添加接口
+     */
+    public static final String Buy_step1  ="/mobile/index.php?act=member_buy&op=buy_step1";
 
 }
