@@ -54,6 +54,7 @@ public class C2_SearchActivity extends BaseActivity implements OnClickListener {
     private ListView lv_listview;
     private Intent intent;
     private Auto_complete_Pager auto_complete;
+    private Auto_complete_Pager hot_search;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,7 +159,7 @@ public class C2_SearchActivity extends BaseActivity implements OnClickListener {
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int position,
                                     long arg3) {
-                search_name.setText(auto_complete.datas.get(position).value);
+                search_name.setText(hot_search.datas.get(position).value);
                 search.performClick();
             }
         });
@@ -278,10 +279,10 @@ public class C2_SearchActivity extends BaseActivity implements OnClickListener {
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Gson gson = new Gson();
                 if (responseInfo != null) {
-                    auto_complete = gson.fromJson(responseInfo.result, Auto_complete_Pager.class);
+                    hot_search = gson.fromJson(responseInfo.result, Auto_complete_Pager.class);
 
-                    if (auto_complete.status.code == 10000) {
-                        Hot_searchAdapter hot_searchAdapter = new Hot_searchAdapter(C2_SearchActivity.this, auto_complete.datas);
+                    if (hot_search.status.code == 10000) {
+                        Hot_searchAdapter hot_searchAdapter = new Hot_searchAdapter(C2_SearchActivity.this, hot_search.datas);
                         hot_searc.setAdapter(hot_searchAdapter);
                     }
                 }
