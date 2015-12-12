@@ -38,7 +38,7 @@ import java.util.List;
 public class C3_GoodsArraySearchActivity extends BaseActivity implements XListView.IXListViewListener,
         View.OnClickListener, AbsListView.OnScrollListener, View.OnTouchListener, AdapterView.OnItemLongClickListener {
     private ImageView IvBack;
-    private View ll_GoodsSearch;
+    private LinearLayout ll_GoodsArrSearch;
     private MyListView mListView;
     private String b_id;
     private String a_id;
@@ -64,7 +64,8 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
     private Boolean hasMore;
     private float downY;
     private float upY;
-    private View ll_GoodsSearchTab;
+    private LinearLayout ll_GoodsSearchTab;
+    private LinearLayout llGoodsSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,15 +96,16 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
     public void onInit() {
         mListView = (MyListView) findViewById(R.id.lv_array_search);
 
-        ll_GoodsSearch = getLayoutInflater().inflate(R.layout.goods_arr_search, null);
-        ll_GoodsSearchTab = getLayoutInflater().inflate(R.layout.goods_arr_tab, null);
-        mListView.addHeaderView(ll_GoodsSearch);
+        ll_GoodsArrSearch = (LinearLayout)getLayoutInflater().inflate(R.layout.goods_arr_search, null);
+        ll_GoodsSearchTab = (LinearLayout)getLayoutInflater().inflate(R.layout.goods_arr_tab, null);
+        mListView.addHeaderView(ll_GoodsArrSearch);
         mListView.addHeaderView(ll_GoodsSearchTab);
     }
 
     @Override
     public void onFindViews() {
         IvBack = (ImageView) findViewById(R.id.iv_array_back);
+        llGoodsSearch = (LinearLayout)ll_GoodsArrSearch.findViewById(R.id.ll_goods_search);
 
         tvSearchDef = (TextView) findViewById(R.id.tv_search_default);
         tvSaleNum = (TextView) findViewById(R.id.tv_salenum);
@@ -125,7 +127,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
     @Override
     public void onBindListener() {
         IvBack.setOnClickListener(this);
-        ll_GoodsSearch.setOnClickListener(this);
+        llGoodsSearch.setOnClickListener(this);
         tvSearchDef.setOnClickListener(this);
         tvSaleNum.setOnClickListener(this);
         llPriceArr.setOnClickListener(this);
@@ -140,6 +142,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
     public void onClick(View v) {
 
         switch (v.getId()) {
+
             case R.id.iv_array_back:
                 finish(false);
                 break;

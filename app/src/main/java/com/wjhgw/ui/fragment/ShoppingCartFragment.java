@@ -28,6 +28,7 @@ import com.wjhgw.business.bean.CartList;
 import com.wjhgw.business.bean.Status;
 import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.activity.ConfirmOrderActivity;
 import com.wjhgw.ui.dialog.GoodsArrDialog;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.dialog.MyDialog;
@@ -74,6 +75,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
     private LoadDialog Dialog;
     private MyDialog mDialog;
     private GoodsArrDialog goodsArrDialog;
+    private TextView toConfirmOrder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -157,6 +159,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
         fl_edit = (FrameLayout) rootView.findViewById(R.id.fl_edit);
         tv_total_num = (TextView) rootView.findViewById(R.id.tv_total_num);
         mListView = (MyListView) rootView.findViewById(R.id.lv_list_layout);
+
     }
 
     /**
@@ -171,6 +174,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
         tv_home.setOnClickListener(this);
         tv_collection.setOnClickListener(this);
         ll_to_settle.setOnClickListener(this);
+
     }
 
     @Override
@@ -197,7 +201,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                     eliminate();
                 } else {
                     listAdapter.num = listAdapter.goods_id.length;
-                    iv_select.setImageResource(R.mipmap.ic_default);
+                    iv_select.setImageResource(R.mipmap.ic_order_select);
                     listAdapter.total = 0;
                     for (int i = 0; i < listAdapter.goods_id.length; i++) {
                         listAdapter.goods_id[i] = cartList.datas.get(0).goods_list.get(i).cart_id;
@@ -216,13 +220,13 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                 } else {
                     delete = false;
                     listAdapter.num = listAdapter.goods_id.length;
-                    iv_select1.setImageResource(R.mipmap.ic_default);
+                    iv_select1.setImageResource(R.mipmap.ic_order_select);
                     for (int i = 0; i < listAdapter.List.size(); i++) {
                         listAdapter.goods_id[i] = listAdapter.List.get(i).cart_id;
                     }
 
                 }
-                iv_select.setImageResource(R.mipmap.ic_blank);
+                iv_select.setImageResource(R.mipmap.ic_order_blank);
                 listAdapter.notifyDataSetChanged();
                 break;
             case R.id.tv_edit:
@@ -282,10 +286,12 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                         }
                     }
                     buy_step1(cart_id.toString().substring(0, cart_id.toString().length() - 1));
-                }else {
+                } else {
                     Toast.makeText(getActivity(), "你还没有选择商品哦", Toast.LENGTH_SHORT).show();
                 }
                 break;
+
+
             default:
                 break;
         }
@@ -331,7 +337,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                                 listAdapter = new ShoppingCartAdapter(getActivity(), cartList.datas.get(0).goods_list,
                                         iv_select, iv_select1, tv_total, tv_total_num, Request);
                                 mListView.setAdapter(listAdapter);
-                                iv_select.setImageResource(R.mipmap.ic_default);
+                                iv_select.setImageResource(R.mipmap.ic_order_select);
                                 APP.getApp().getImageLoader().displayImage(cartList.datas.get(0).store_logo, iv_store_logo);
                             } else {
                                 listAdapter.List = cartList.datas.get(0).goods_list;
@@ -453,6 +459,10 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                     Status status = gson.fromJson(responseInfo.result, Status.class);
                     if (status.status.code == 10000) {
                         Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(getActivity(), ConfirmOrderActivity.class);
+                        startActivity(intent);
+
                     } else {
                         Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
                     }
@@ -484,8 +494,8 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
         if (listAdapter != null) {
             //delete = true;
             listAdapter.num = 0;
-            iv_select1.setImageResource(R.mipmap.ic_blank);
-            iv_select.setImageResource(R.mipmap.ic_blank);
+            iv_select1.setImageResource(R.mipmap.ic_order_blank);
+            iv_select.setImageResource(R.mipmap.ic_order_blank);
             listAdapter.total = 0;
             listAdapter.total_num = 0;
             tv_total.setText("¥ " + listAdapter.total);
