@@ -10,7 +10,9 @@ import android.widget.LinearLayout;
 import com.wjhgw.R;
 import com.wjhgw.utils.GalleryUtils;
 
-
+/**
+ * 获取照片对话框
+ */
 public class GalleryDialog {
 	Activity activity;
 	public Dialog dialog1;
