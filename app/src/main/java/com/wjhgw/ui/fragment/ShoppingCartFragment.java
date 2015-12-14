@@ -28,6 +28,7 @@ import com.wjhgw.business.bean.CartList;
 import com.wjhgw.business.bean.Status;
 import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.dialog.GoodsArrDialog;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.dialog.MyDialog;
@@ -74,6 +75,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
     private LoadDialog Dialog;
     private MyDialog mDialog;
     private GoodsArrDialog goodsArrDialog;
+    private Intent intent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,7 +87,6 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                              Bundle savedInstanceState) {
         Dialog = new LoadDialog(getActivity());
         rootView = inflater.inflate(R.layout.shopping_layout, container, false);
-        key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
         initView();
         setClick();
         listAddHeader();
@@ -267,11 +268,20 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                 }
                 break;
             case R.id.tv_home:
-                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
+                getActivity().finish();
+               /* FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                HomeFragment homeFragment = new HomeFragment();
+                transaction.replace(R.id.content, homeFragment).commit();*/
                 break;
             case R.id.tv_collection:
-                Toast.makeText(getActivity(), "该功能正在开发中", Toast.LENGTH_SHORT).show();
+                if(key.equals("0")){
+                    intent = new Intent(getActivity(), A0_LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(getActivity(), "该功能正在开发中", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.ll_to_settle:
                 if (listAdapter.num > 0) {
@@ -292,13 +302,16 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
     }
 
     @Override
-    public void onResume() {
+      public void onResume() {
         super.onResume();
         key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
-        /**
-         * 购物车列表请求
-         */
-        cart_list();
+
+        if (key.equals("0")) {
+            ll_empty_shop_cart.setVisibility(View.VISIBLE);
+            mListView.setVisibility(View.GONE);
+        }else {
+            cart_list();
+        }
     }
 
     /**
