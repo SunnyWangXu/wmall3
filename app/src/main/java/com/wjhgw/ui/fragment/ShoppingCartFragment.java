@@ -201,7 +201,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                     eliminate();
                 } else {
                     listAdapter.num = listAdapter.goods_id.length;
-                    iv_select.setImageResource(R.mipmap.ic_default);
+                    iv_select.setImageResource(R.mipmap.ic_order_select);
                     listAdapter.total = 0;
                     for (int i = 0; i < listAdapter.goods_id.length; i++) {
                         listAdapter.goods_id[i] = cartList.datas.get(0).goods_list.get(i).cart_id;
@@ -220,13 +220,13 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                 } else {
                     delete = false;
                     listAdapter.num = listAdapter.goods_id.length;
-                    iv_select1.setImageResource(R.mipmap.ic_default);
+                    iv_select1.setImageResource(R.mipmap.ic_order_select);
                     for (int i = 0; i < listAdapter.List.size(); i++) {
                         listAdapter.goods_id[i] = listAdapter.List.get(i).cart_id;
                     }
 
                 }
-                iv_select.setImageResource(R.mipmap.ic_blank);
+                iv_select.setImageResource(R.mipmap.ic_order_blank);
                 listAdapter.notifyDataSetChanged();
                 break;
             case R.id.tv_edit:
@@ -506,8 +506,8 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
         if (listAdapter != null) {
             //delete = true;
             listAdapter.num = 0;
-            iv_select1.setImageResource(R.mipmap.ic_blank);
-            iv_select.setImageResource(R.mipmap.ic_blank);
+            iv_select1.setImageResource(R.mipmap.ic_order_blank);
+            iv_select.setImageResource(R.mipmap.ic_order_blank);
             listAdapter.total = 0;
             listAdapter.total_num = 0;
             tv_total.setText("¥ " + listAdapter.total);
