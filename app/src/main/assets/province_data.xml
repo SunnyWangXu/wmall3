@@ -2216,6 +2216,10 @@
             <district name="福田区" zipcode="100000" />
             <district name="罗湖区" zipcode="100000" />
             <district name="龙岗区" zipcode="100000" />
+            <district name="光明新区" zipcode="100000" />
+            <district name="坪山新区" zipcode="100000" />
+            <district name="龙华新区" zipcode="100000" />
+            <district name="大鹏新区" zipcode="100000" />
         </city>
         <city name="珠海市">
             <district name="斗门区" zipcode="100000" />
@@ -2546,9 +2550,11 @@
         <city name="琼中黎族苗族自治县">
             <district name="琼中黎族苗族自治县" zipcode="100000" />
         </city>
-        <city name="西沙群岛"></city>
-        <city name="南沙群岛"></city>
-        <city name="中沙群岛的岛礁及其海域"></city>
+        <city name="三沙市">
+            <district name="西沙群岛" zipcode="100000" />
+            <district name="南沙群岛" zipcode="100000" />
+            <district name="中沙群岛" zipcode="100000" />
+        </city>
     </province>
     <province name="重庆">
         <city name="重庆市">
@@ -2993,7 +2999,9 @@
             <district name="永胜县" zipcode="100000" />
             <district name="玉龙纳西族自治县" zipcode="100000" />
         </city>
-        <city name="思茅市"></city>
+        <city name="思茅市">
+            <district name="思茅市" zipcode="100000" />
+        </city>
         <city name="临沧市">
             <district name="临翔区" zipcode="100000" />
             <district name="云县" zipcode="100000" />
@@ -3067,7 +3075,9 @@
             <district name="盈江县" zipcode="100000" />
             <district name="陇川县" zipcode="100000" />
         </city>
-        <city name="怒江傈僳族自治州"></city>
+        <city name="怒江傈僳族自治州">
+            <district name="怒江傈僳族自治州" zipcode="100000" />
+        </city>
         <city name="迪庆藏族自治州">
             <district name="德钦县" zipcode="100000" />
             <district name="维西傈僳族自治县" zipcode="100000" />
@@ -3642,89 +3652,54 @@
             <district name="五家渠市" zipcode="100000" />
         </city>
     </province>
-    <province name="台湾">
-        <city name="台北市">
-            <district name="" zipcode="100000" />
+    <province name="港澳台">
+        <city name="台湾">
+            <district name="台北市" zipcode="100000" />
+            <district name="高雄市" zipcode="100000" />
+            <district name="基隆市" zipcode="100000" />
+            <district name="台中市" zipcode="100000" />
+            <district name="台南市" zipcode="100000" />
+            <district name="新竹市" zipcode="100000" />
+            <district name="嘉义市" zipcode="100000" />
+            <district name="台北县" zipcode="100000" />
+            <district name="宜兰县" zipcode="100000" />
+            <district name="桃园县" zipcode="100000" />
+            <district name="新竹县" zipcode="100000" />
+            <district name="苗栗县" zipcode="100000" />
+            <district name="台中县" zipcode="100000" />
+            <district name="彰化县" zipcode="100000" />
+            <district name="南投县" zipcode="100000" />
+            <district name="云林县" zipcode="100000" />
+            <district name="嘉义县" zipcode="100000" />
+            <district name="台南县" zipcode="100000" />
+            <district name="高雄县" zipcode="100000" />
+            <district name="屏东县" zipcode="100000" />
+            <district name="澎湖县" zipcode="100000" />
+            <district name="台东县" zipcode="100000" />
+            <district name="花莲县" zipcode="100000" />
         </city>
-        <city name="高雄市"><district name=" " zipcode="100000" /></city>
-        <city name="基隆市"><district name=" " zipcode="100000" /></city>
-        <city name="台中市"><district name=" " zipcode="100000" /></city>
-        <city name="台南市"><district name=" " zipcode="100000" /></city>
-        <city name="新竹市"><district name=" " zipcode="100000" /></city>
-        <city name="嘉义市"><district name=" " zipcode="100000" /></city>
-        <city name="台北县"><district name=" " zipcode="100000" /></city>
-        <city name="宜兰县"><district name=" " zipcode="100000" /></city>
-        <city name="桃园县"><district name=" " zipcode="100000" /></city>
-        <city name="新竹县"><district name=" " zipcode="100000" /></city>
-        <city name="苗栗县"><district name=" " zipcode="100000" /></city>
-        <city name="台中县"><district name=" " zipcode="100000" /></city>
-        <city name="彰化县"><district name=" " zipcode="100000" /></city>
-        <city name="南投县"><district name=" " zipcode="100000" /></city>
-        <city name="云林县"><district name=" " zipcode="100000" /></city>
-        <city name="嘉义县"><district name=" " zipcode="100000" /></city>
-        <city name="台南县"><district name=" " zipcode="100000" /></city>
-        <city name="高雄县"><district name=" " zipcode="100000" /></city>
-        <city name="屏东县"><district name=" " zipcode="100000" /></city>
-        <city name="澎湖县"><district name=" " zipcode="100000" /></city>
-        <city name="台东县"><district name=" " zipcode="100000" /></city>
-        <city name="花莲县"><district name=" " zipcode="100000" /></city>
-    </province>
-    <province name="香港">
-        <city name="中西区"><district name=" " zipcode="100000" /></city>
-        <city name="东区"><district name=" " zipcode="100000" /></city>
-        <city name="九龙城区"><district name=" " zipcode="100000" /></city>
-        <city name="观塘区"><district name=" " zipcode="100000" /></city>
-        <city name="南区"><district name=" " zipcode="100000" /></city>
-        <city name="深水埗区"><district name=" " zipcode="100000" /></city>
-        <city name="黄大仙区"><district name=" " zipcode="100000" /></city>
-        <city name="湾仔区"><district name=" " zipcode="100000" /></city>
-        <city name="油尖旺区"><district name=" " zipcode="100000" /></city>
-        <city name="离岛区"><district name=" " zipcode="100000" /></city>
-        <city name="葵青区"><district name=" " zipcode="100000" /></city>
-        <city name="北区"><district name=" " zipcode="100000" /></city>
-        <city name="西贡区"><district name=" " zipcode="100000" /></city>
-        <city name="沙田区"><district name=" " zipcode="100000" /></city>
-        <city name="屯门区"><district name=" " zipcode="100000" /></city>
-        <city name="大埔区"><district name=" " zipcode="100000" /></city>
-        <city name="荃湾区"><district name=" " zipcode="100000" /></city>
-        <city name="元朗区"><district name=" " zipcode="100000" /></city>
-    </province>
-    <province name="澳门">
-        <city name="澳门特别行政区"><district name=" " zipcode="100000" /></city>
-    </province>
-    <province name="海外">
-        <city name="海外">
-            <district name="美国" zipcode="100000" />
-            <district name="加拿大" zipcode="100000" />
-            <district name="澳大利亚" zipcode="100000" />
-            <district name="新西兰" zipcode="100000" />
-            <district name="英国" zipcode="100000" />
-            <district name="法国" zipcode="100000" />
-            <district name="德国" zipcode="100000" />
-            <district name="捷克" zipcode="100000" />
-            <district name="荷兰" zipcode="100000" />
-            <district name="瑞士" zipcode="100000" />
-            <district name="希腊" zipcode="100000" />
-            <district name="挪威" zipcode="100000" />
-            <district name="瑞典" zipcode="100000" />
-            <district name="丹麦" zipcode="100000" />
-            <district name="芬兰" zipcode="100000" />
-            <district name="爱尔兰" zipcode="100000" />
-            <district name="奥地利" zipcode="100000" />
-            <district name="意大利" zipcode="100000" />
-            <district name="乌克兰" zipcode="100000" />
-            <district name="俄罗斯" zipcode="100000" />
-            <district name="西班牙" zipcode="100000" />
-            <district name="韩国" zipcode="100000" />
-            <district name="新加坡" zipcode="100000" />
-            <district name="马来西亚" zipcode="100000" />
-            <district name="印度" zipcode="100000" />
-            <district name="泰国" zipcode="100000" />
-            <district name="日本" zipcode="100000" />
-            <district name="巴西" zipcode="100000" />
-            <district name="阿根廷" zipcode="100000" />
-            <district name="南非" zipcode="100000" />
-            <district name="埃及" zipcode="100000" />
+        <city name="香港">
+            <district name="中西区" zipcode="100000" />
+            <district name="东区" zipcode="100000" />
+            <district name="九龙城区" zipcode="100000" />
+            <district name="观塘区" zipcode="100000" />
+            <district name="南区" zipcode="100000" />
+            <district name="深水埗区" zipcode="100000" />
+            <district name="黄大仙区" zipcode="100000" />
+            <district name="湾仔区" zipcode="100000" />
+            <district name="油尖旺区" zipcode="100000" />
+            <district name="离岛区" zipcode="100000" />
+            <district name="葵青区" zipcode="100000" />
+            <district name="北区" zipcode="100000" />
+            <district name="西贡区" zipcode="100000" />
+            <district name="沙田区" zipcode="100000" />
+            <district name="屯门区" zipcode="100000" />
+            <district name="大埔区" zipcode="100000" />
+            <district name="荃湾区" zipcode="100000" />
+            <district name="元朗区" zipcode="100000" />
+        </city>
+        <city name="澳门">
+            <district name="澳门特别行政区" zipcode="100000" />
         </city>
     </province>
 </root>

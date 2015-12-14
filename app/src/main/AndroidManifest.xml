@@ -46,6 +46,7 @@
         <activity android:name=".ui.activity.M2_AddressDetailActvity" />
         <activity android:name=".ui.activity.M4_PaymentPasswordActivity" />
         <activity android:name=".ui.activity.M5_Change_mobileActivity" />
+        <activity android:name=".ui.activity.ConfirmOrderActivity" />
 
         //设置Activity
         <activity

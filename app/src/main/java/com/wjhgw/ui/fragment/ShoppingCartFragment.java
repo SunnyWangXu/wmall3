@@ -29,6 +29,7 @@ import com.wjhgw.business.bean.Status;
 import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
+import com.wjhgw.ui.activity.ConfirmOrderActivity;
 import com.wjhgw.ui.dialog.GoodsArrDialog;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.dialog.MyDialog;
@@ -76,6 +77,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
     private MyDialog mDialog;
     private GoodsArrDialog goodsArrDialog;
     private Intent intent;
+    private TextView toConfirmOrder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                              Bundle savedInstanceState) {
         Dialog = new LoadDialog(getActivity());
         rootView = inflater.inflate(R.layout.shopping_layout, container, false);
+        key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
         initView();
         setClick();
         listAddHeader();
@@ -292,10 +295,12 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                         }
                     }
                     buy_step1(cart_id.toString().substring(0, cart_id.toString().length() - 1));
-                }else {
+                } else {
                     Toast.makeText(getActivity(), "你还没有选择商品哦", Toast.LENGTH_SHORT).show();
                 }
                 break;
+
+
             default:
                 break;
         }
@@ -344,7 +349,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                                 listAdapter = new ShoppingCartAdapter(getActivity(), cartList.datas.get(0).goods_list,
                                         iv_select, iv_select1, tv_total, tv_total_num, Request);
                                 mListView.setAdapter(listAdapter);
-                                iv_select.setImageResource(R.mipmap.ic_default);
+                                iv_select.setImageResource(R.mipmap.ic_order_select);
                                 APP.getApp().getImageLoader().displayImage(cartList.datas.get(0).store_logo, iv_store_logo);
                             } else {
                                 listAdapter.List = cartList.datas.get(0).goods_list;
@@ -466,6 +471,10 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                     Status status = gson.fromJson(responseInfo.result, Status.class);
                     if (status.status.code == 10000) {
                         Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(getActivity(), ConfirmOrderActivity.class);
+                        startActivity(intent);
+
                     } else {
                         Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
                     }

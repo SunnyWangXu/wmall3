@@ -112,9 +112,9 @@ public class ShoppingCartAdapter extends BaseAdapter {
         APP.getApp().getImageLoader().displayImage(List.get(position).goods_image_url, iv_goods_image_url,APP.getApp().getImageOptions());
 
         if (List.size() != 0 && !goods_id[position].equals("0")) {
-            Choice.setImageResource(R.mipmap.ic_default);
+            Choice.setImageResource(R.mipmap.ic_order_select);
         } else if (goods_id[position].equals("0")) {
-            Choice.setImageResource(R.mipmap.ic_blank);
+            Choice.setImageResource(R.mipmap.ic_order_blank);
         }
 
         if (List.get(position).goods_num.equals("1")) {
@@ -271,25 +271,25 @@ public class ShoppingCartAdapter extends BaseAdapter {
             public void onClick(View v) {
 
                 if (goods_id[position].equals("0")) {
-                    Choice.setImageResource(R.mipmap.ic_default);
+                    Choice.setImageResource(R.mipmap.ic_order_select);
                     goods_id[position] = List.get(position).cart_id;
 
                     num++;
                     if (num == List.size()) {
-                        iv_select.setImageResource(R.mipmap.ic_default);
-                        iv_select1.setImageResource(R.mipmap.ic_default);
+                        iv_select.setImageResource(R.mipmap.ic_order_select);
+                        iv_select1.setImageResource(R.mipmap.ic_order_select);
                     }
                     total += Double.parseDouble(List.get(position).goods_num) * Double.parseDouble(List.get(position).goods_price);
                     total_num += Double.parseDouble(List.get(position).goods_num);
                     tv_total.setText("¥ " + total);
                     tv_total_num.setText("(" + total_num + ")");
                 } else {
-                    Choice.setImageResource(R.mipmap.ic_blank);
+                    Choice.setImageResource(R.mipmap.ic_order_blank);
                     goods_id[position] = "0";
                     num--;
                     if (num < goods_id.length) {
-                        iv_select.setImageResource(R.mipmap.ic_blank);
-                        iv_select1.setImageResource(R.mipmap.ic_blank);
+                        iv_select.setImageResource(R.mipmap.ic_order_blank);
+                        iv_select1.setImageResource(R.mipmap.ic_order_blank);
                     }
                     total -= Double.parseDouble(List.get(position).goods_num) * Double.parseDouble(List.get(position).goods_price);
                     total_num -= Double.parseDouble(List.get(position).goods_num);

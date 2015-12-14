@@ -81,13 +81,13 @@ public class manage_address_adapter extends BaseAdapter {
         address.setText(Address_list_data.get(position).area_info + Address_list_data.get(position).address);
         mob_phone.setText(Address_list_data.get(position).mob_phone);
         if (Address_list_data.get(position).is_default.equals("1")) {
-            iv_blank.setImageResource(R.mipmap.ic_default);
+            iv_blank.setImageResource(R.mipmap.ic_order_select);
         }
         ll_blank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Request.Set_add_def(Address_list_data.get(position).address_id, key);
-                iv_blank.setImageResource(R.mipmap.ic_default);
+                iv_blank.setImageResource(R.mipmap.ic_order_select);
             }
         });
         ll_edit.setOnClickListener(new View.OnClickListener() {
