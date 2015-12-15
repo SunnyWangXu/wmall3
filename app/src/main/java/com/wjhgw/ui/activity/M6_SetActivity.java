@@ -18,6 +18,7 @@ import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.pay.Alipay.payMethod;
 import com.wjhgw.utils.FileUtils;
 
 import java.io.File;
@@ -48,7 +49,7 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
         setUp();
         setTitle("设置");
         memberName = getIntent().getStringExtra("memberName");
-       //获取缓存的路径
+        //获取缓存的路径
         cachePath = APP.getApp().getAppCache();
 
     }
@@ -68,8 +69,8 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
         ivShare.setImageResource(R.mipmap.ic_share);
         ivShare.setVisibility(View.VISIBLE);
 
-        if(!getKey().equals("0")){
-        btnExit.setVisibility(View.VISIBLE);
+        if (!getKey().equals("0")) {
+            btnExit.setVisibility(View.VISIBLE);
         }
 
         Long dirSize = FileUtils.getDirSize(new File(cachePath));
@@ -116,8 +117,9 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
 
                 break;
             case R.id.ll_check_version:
-
-                showToastShort("当前已经是最新版本");
+                payMethod pay = new payMethod(this, "订单号", "测试的商品", "测试的商品详情", "0.01");
+                pay.pay();
+                // showToastShort("当前已经是最新版本");
                 break;
 
             default:

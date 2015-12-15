@@ -9,9 +9,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <uses-sdk android:minSdkVersion="4"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:name=".APP"
@@ -47,10 +47,18 @@
         <activity android:name=".ui.activity.M4_PaymentPasswordActivity" />
         <activity android:name=".ui.activity.M5_Change_mobileActivity" />
         <activity android:name=".ui.activity.ConfirmOrderActivity" />
+        <activity android:name=".ui.activity.M6_SetActivity"/>
 
-        //设置Activity
+        <!-- alipay sdk begin -->
         <activity
-            android:name=".ui.activity.M6_SetActivity"/>
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+
+        <!-- alipay sdk end -->
 
         //友盟统计
         <meta-data android:value="5661310067e58e73d90073d7" android:name="UMENG_APPKEY"></meta-data>
