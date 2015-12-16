@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+
 
     <uses-sdk android:minSdkVersion="4"/>
 
@@ -27,6 +29,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW"/>
+            <category android:name="android.intent.category.DEFAULT"/>
+            <data android:scheme="wxd930ea5d5a258f4f"/>
+        </intent-filter>
+
         <activity android:name=".ui.activity.C1_CaptureActivity" />
         <activity android:name=".ui.activity.C2_SearchActivity" />
         <activity android:name=".ui.activity.C3_GoodsArraySearchActivity" />
@@ -49,6 +58,10 @@
         <activity android:name=".ui.activity.ConfirmOrderActivity" />
         <activity android:name=".ui.activity.M6_SetActivity"/>
 
+        <activity
+            android:name="com.wjhgw.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"/>
         <!-- alipay sdk begin -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
