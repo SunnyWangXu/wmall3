@@ -163,14 +163,14 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 }
                 break;
             case R.id.ll_set:
-                if (key.equals("0") || key == null) {
-                    intent.setClass(getActivity(), A0_LoginActivity.class);
-                    startActivity(intent);
-                } else {
+//                if (key.equals("0") || key == null) {
+//                    intent.setClass(getActivity(), A0_LoginActivity.class);
+//                    startActivity(intent);
+//                } else {
                     intent.setClass(getActivity(), M6_SetActivity.class);
                     intent.putExtra("memberName", memberName);
                     startActivity(intent);
-                }
+//                }
                 break;
 
             default:
