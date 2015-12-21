@@ -35,6 +35,7 @@ import com.wjhgw.business.bean.Home_Pager;
 import com.wjhgw.business.bean.Home_Pager_Data;
 import com.wjhgw.business.bean.Theme_street;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.activity.C3_GoodsArraySearchActivity;
 import com.wjhgw.ui.activity.PrductDetail;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.view.listview.MyListView;
@@ -87,6 +88,20 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private TextView time13;
     private TextView time14;
     private TextView time15;
+
+    private String cate_id1;
+    private String cate_id2;
+    private String cate_id3;
+    private String cate_id4;
+    private String cate_id5;
+    private String cate_id6;
+
+    private LinearLayout llTheme1;
+    private LinearLayout llTheme2;
+    private LinearLayout llTheme3;
+    private LinearLayout llTheme4;
+    private LinearLayout llTheme5;
+    private LinearLayout llTheme6;
 
     private TextView theme_name1;
     private TextView theme_name2;
@@ -309,6 +324,13 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         time14 = (TextView) Discountlayout.findViewById(R.id.time14);
         time15 = (TextView) Discountlayout.findViewById(R.id.time15);
 
+        llTheme1 = (LinearLayout) Themelayout.findViewById(R.id.ll_theme1);
+        llTheme2 = (LinearLayout) Themelayout.findViewById(R.id.ll_theme2);
+        llTheme3 = (LinearLayout) Themelayout.findViewById(R.id.ll_theme3);
+        llTheme4 = (LinearLayout) Themelayout.findViewById(R.id.ll_theme4);
+        llTheme5 = (LinearLayout) Themelayout.findViewById(R.id.ll_theme5);
+        llTheme6 = (LinearLayout) Themelayout.findViewById(R.id.ll_theme6);
+
         theme_name1 = (TextView) Themelayout.findViewById(R.id.tv_theme_name1);
         theme_name2 = (TextView) Themelayout.findViewById(R.id.tv_theme_name2);
         theme_name3 = (TextView) Themelayout.findViewById(R.id.tv_theme_name3);
@@ -410,6 +432,13 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         ll_discount02.setOnClickListener(this);
         ll_discount03.setOnClickListener(this);
 
+        llTheme1.setOnClickListener(this);
+        llTheme2.setOnClickListener(this);
+        llTheme3.setOnClickListener(this);
+        llTheme4.setOnClickListener(this);
+        llTheme5.setOnClickListener(this);
+        llTheme6.setOnClickListener(this);
+
         tvRefresh.setOnClickListener(this);
     }
 
@@ -467,6 +496,43 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 intent.setClass(getActivity(), A0_LoginActivity.class);
                 startActivity(intent);
                 break;*/
+
+            case R.id.ll_theme1:
+                intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
+                intent.putExtra("cate_id",cate_id1);
+                startActivity(intent);
+                break;
+
+            case R.id.ll_theme2:
+                intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
+                intent.putExtra("cate_id",cate_id2);
+                startActivity(intent);
+                break;
+
+            case R.id.ll_theme3:
+                intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
+                intent.putExtra("cate_id",cate_id3);
+                startActivity(intent);
+                break;
+
+            case R.id.ll_theme4:
+                intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
+                intent.putExtra("cate_id",cate_id4);
+                startActivity(intent);
+                break;
+
+            case R.id.ll_theme5:
+                intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
+                intent.putExtra("cate_id",cate_id5);
+                startActivity(intent);
+                break;
+
+            case R.id.ll_theme6:
+                intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
+                intent.putExtra("cate_id",cate_id6);
+                startActivity(intent);
+                break;
+
             case R.id.ll_discount_01:
 
                 intent.setClass(getActivity(), PrductDetail.class);
@@ -721,7 +787,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                         tv_discount01_groupbuy_price.setText("¥" + groupBuy_data.get(0).goods_price);
                         countdown3 = groupBuy_data.get(0).count_down;
                     }
-                    
+
 
                     String imagUrl2 = groupBuy_data.get(1).groupbuy_image;
                     if (imagUrl2 != null) {
@@ -746,7 +812,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         }
     }
 
-   /**
+    /**
      * 主题街数据请求
      */
     private void load_theme_street() {
@@ -796,26 +862,32 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 theme_name1.setText(theme_street.datas.get(0).theme_name);
                 theme_desc1.setText(theme_street.datas.get(0).theme_desc);
                 APP.getApp().getImageLoader().displayImage(theme_street.datas.get(0).theme_image, theme_image1, APP.getApp().getImageOptions());
+                cate_id1 = theme_street.datas.get(0).gc_id;
 
                 theme_name2.setText(theme_street.datas.get(1).theme_name);
                 theme_desc2.setText(theme_street.datas.get(1).theme_desc);
                 APP.getApp().getImageLoader().displayImage(theme_street.datas.get(1).theme_image, theme_image2, APP.getApp().getImageOptions());
+                cate_id2 = theme_street.datas.get(1).gc_id;
 
                 theme_name3.setText(theme_street.datas.get(2).theme_name);
                 theme_desc3.setText(theme_street.datas.get(2).theme_desc);
                 APP.getApp().getImageLoader().displayImage(theme_street.datas.get(2).theme_image, theme_image3, APP.getApp().getImageOptions());
+                cate_id3 = theme_street.datas.get(2).gc_id;
 
                 theme_name4.setText(theme_street.datas.get(3).theme_name);
                 theme_desc4.setText(theme_street.datas.get(3).theme_desc);
                 APP.getApp().getImageLoader().displayImage(theme_street.datas.get(3).theme_image, theme_image4, APP.getApp().getImageOptions());
+                cate_id4 = theme_street.datas.get(3).gc_id;
 
                 theme_name5.setText(theme_street.datas.get(4).theme_name);
                 theme_desc5.setText(theme_street.datas.get(4).theme_desc);
                 APP.getApp().getImageLoader().displayImage(theme_street.datas.get(4).theme_image, theme_image5, APP.getApp().getImageOptions());
+                cate_id5 = theme_street.datas.get(4).gc_id;
 
                 theme_name6.setText(theme_street.datas.get(5).theme_name);
                 theme_desc6.setText(theme_street.datas.get(5).theme_desc);
                 APP.getApp().getImageLoader().displayImage(theme_street.datas.get(5).theme_image, theme_image6, APP.getApp().getImageOptions());
+                cate_id6 = theme_street.datas.get(5).gc_id;
             }
         }
     }

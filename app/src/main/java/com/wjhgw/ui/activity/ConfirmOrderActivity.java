@@ -34,6 +34,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
     private TextView tvCommitOrder;
     private LinearLayout llDonate;
     private ImageView ivDonate;
+    private LinearLayout llUseMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onFindViews() {
+        llUseMessage = (LinearLayout) findViewById(R.id.ll_usemessage);
         llDonate = (LinearLayout) findViewById(R.id.ll_donate);
         ivDonate = (ImageView) findViewById(R.id.iv_donate);
 
@@ -96,8 +98,10 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                 MAKEDONATE ++;
                 if(MAKEDONATE % 2 == 0){
                     ivDonate.setImageResource(R.mipmap.ic_push_on);
+                    llUseMessage.setVisibility(View.GONE);
                 }else{
                     ivDonate.setImageResource(R.mipmap.ic_push_off);
+                    llUseMessage.setVisibility(View.VISIBLE);
                 }
 
                 break;

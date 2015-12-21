@@ -74,7 +74,6 @@
                 android:textColor="@color/title_color"
                 android:textSize="16sp" />
 
-
             <ImageView
                 android:id="@+id/iv_downline_pay"
                 android:layout_width="20dp"

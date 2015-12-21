@@ -21,6 +21,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/layout_bg"
                 android:orientation="vertical">
 
                 <View
@@ -29,54 +30,75 @@
                     android:background="@color/line_bg" />
 
                 <LinearLayout
+                    android:id="@+id/ll_usemessage"
                     android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:text="收货人："
-                        android:textColor="@color/title_color"
-                        android:textSize="17sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="隔壁老王"
-                        android:textColor="@color/title_color"
-                        android:textSize="17sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:text="收货人："
+                            android:textColor="@color/title_color"
+                            android:textSize="17sp" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="188****8888"
-                        android:textColor="@color/title_color"
-                        android:textSize="16sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="隔壁老王"
+                            android:textColor="@color/title_color"
+                            android:textSize="17sp" />
 
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="188****8888"
+                            android:textColor="@color/title_color"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginRight="12dp"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:lines="2"
+                            android:text="收货地址：广东省深圳市罗湖区红岭中路1002号寰宇大厦裙楼南侧三楼深圳万嘉欢购电子商务有限公司（家乐缘旁）"
+                            android:textColor="@color/title_color"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="15dp"
+                            android:src="@mipmap/ic_arrow_right" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:background="@mipmap/ic_order_line" />
 
                 </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="10dp"
-                    android:ellipsize="end"
-                    android:lines="2"
-                    android:text="收货地址：广东省深圳市罗湖区红岭中路1002号寰宇大厦裙楼南侧三楼深圳万嘉欢购电子商务有限公司（家乐缘旁）"
-                    android:textColor="@color/title_color"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:background="@mipmap/ic_order_line" />
 
                 <View
                     android:layout_width="match_parent"
@@ -93,13 +115,13 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="11dp"
                         android:src="@mipmap/ic_order_logo" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="9dp"
                         android:text="万嘉欢购"
                         android:textColor="@color/title_color"
                         android:textSize="14sp" />
@@ -112,9 +134,9 @@
                     android:background="@color/line_bg" />
 
                 <ListView
+                    android:id="@+id/lv_order_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/green" />
+                    android:layout_height="wrap_content" />
 
                 <View
                     android:layout_width="match_parent"
@@ -133,7 +155,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="14dp"
-                        android:layout_marginRight="10dp"
                         android:text="赠送亲朋"
                         android:textColor="@color/title_color"
                         android:textSize="16sp" />
@@ -142,7 +163,6 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1" />
-
 
                     <ImageView
                         android:id="@+id/iv_donate"
@@ -173,7 +193,7 @@
                         android:layout_marginLeft="14dp"
                         android:layout_marginRight="10dp"
                         android:text="付款方式"
-                        android:textColor="@color/black"
+                        android:textColor="@color/title_color"
                         android:textSize="16sp" />
 
                     <View
@@ -188,14 +208,14 @@
                         android:layout_marginRight="15dp"
                         android:gravity="center"
                         android:text="在线支付"
-                        android:textColor="@color/gray" />
+                        android:textColor="@color/title_color"
+                        android:textSize="14sp" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginRight="15dp"
                         android:src="@mipmap/ic_arrow_right" />
-
 
                 </LinearLayout>
 
@@ -204,7 +224,6 @@
                     android:layout_height="1dp"
                     android:layout_marginLeft="10dp"
                     android:background="@color/gray" />
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -218,10 +237,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="14dp"
                         android:layout_marginRight="10dp"
                         android:text="买家留言"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/title_color"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:layout_width="0dp"
@@ -229,7 +249,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:hint="选填，可填写您和卖家达成的协议"
-                        android:textColor="#cccccc"
+                        android:textColorHint="#cccccc"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -257,7 +277,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
                             android:text="商品金额:"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/title_color" />
 
                         <View
                             android:layout_width="0dp"
@@ -292,7 +312,7 @@
                             android:layout_marginLeft="20dp"
                             android:gravity="center"
                             android:text="订单满100包邮"
-                            android:textColor="@color/gray" />
+                            android:textColorHint="#cccccc" />
 
                         <View
                             android:layout_width="0dp"
@@ -308,7 +328,6 @@
                             android:textColor="@color/tv_red" />
 
                     </LinearLayout>
-
 
                 </LinearLayout>
 
@@ -332,15 +351,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="实付款："
-                android:textColor="@color/white" />
-
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="¥9999.99"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_commit_order"

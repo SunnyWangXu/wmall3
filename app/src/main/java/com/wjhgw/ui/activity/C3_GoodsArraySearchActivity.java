@@ -66,6 +66,8 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
     private float upY;
     private LinearLayout ll_GoodsSearchTab;
     private LinearLayout llGoodsSearch;
+    private String keyword;
+    private String cate_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,10 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
 
         b_id = getIntent().getStringExtra("b_id");
         a_id = getIntent().getStringExtra("a_id");
+
+        keyword = getIntent().getStringExtra("keyword");
+        cate_id = getIntent().getStringExtra("cate_id");
+
 
         /**
          * 请求商品排序进来为默认排序
@@ -96,8 +102,8 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
     public void onInit() {
         mListView = (MyListView) findViewById(R.id.lv_array_search);
 
-        ll_GoodsArrSearch = (LinearLayout)getLayoutInflater().inflate(R.layout.goods_arr_search, null);
-        ll_GoodsSearchTab = (LinearLayout)getLayoutInflater().inflate(R.layout.goods_arr_tab, null);
+        ll_GoodsArrSearch = (LinearLayout) getLayoutInflater().inflate(R.layout.goods_arr_search, null);
+        ll_GoodsSearchTab = (LinearLayout) getLayoutInflater().inflate(R.layout.goods_arr_tab, null);
         mListView.addHeaderView(ll_GoodsArrSearch);
         mListView.addHeaderView(ll_GoodsSearchTab);
     }
@@ -105,7 +111,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
     @Override
     public void onFindViews() {
         IvBack = (ImageView) findViewById(R.id.iv_array_back);
-        llGoodsSearch = (LinearLayout)ll_GoodsArrSearch.findViewById(R.id.ll_goods_search);
+        llGoodsSearch = (LinearLayout) ll_GoodsArrSearch.findViewById(R.id.ll_goods_search);
 
         tvSearchDef = (TextView) findViewById(R.id.tv_search_default);
         tvSaleNum = (TextView) findViewById(R.id.tv_salenum);
@@ -348,6 +354,13 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
         }
         if (order != null) {
             params.addBodyParameter("order", order);
+        }
+
+        if(keyword != null){
+            params.addBodyParameter("keyword",keyword);
+        }
+        if(cate_id != null){
+            params.addBodyParameter("cate_id",cate_id);
         }
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Act_search, params, new RequestCallBack<String>() {
             @Override

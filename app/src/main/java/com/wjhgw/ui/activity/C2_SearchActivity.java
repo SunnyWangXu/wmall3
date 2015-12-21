@@ -18,7 +18,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
@@ -142,6 +141,10 @@ public class C2_SearchActivity extends BaseActivity implements OnClickListener {
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int position,
                                     long arg3) {
+                SharedPreferences sp = getSharedPreferences(C2_SearchActivity.SEARCH_HISTORY, 0);
+                String longhistory = sp.getString(C2_SearchActivity.SEARCH_HISTORY, "");
+                String[] hisArrays = longhistory.split(",");
+                search_name.setText(hisArrays[position]);
                 search.performClick();
             }
         });
@@ -208,12 +211,20 @@ public class C2_SearchActivity extends BaseActivity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.search:
-                saveSearchHistory();
-                mSearchAutoAdapter.initSearchHistory();
-                Toast.makeText(this, search_name.getText().toString().trim(), Toast.LENGTH_SHORT).show();
-                /*intent = new Intent(this,B1_SearchResultActivity.class);
-                intent.putExtra("label", label);
-				startActivity(intent);*/
+                String keyword = search_name.getText().toString().trim();
+                if(!keyword.equals("")){
+                    saveSearchHistory();
+                    mSearchAutoAdapter.initSearchHistory();
+                    mSearchAutoAdapter = new SearchAutoAdapter(this, 10, null);
+                    mAutoListView.setAdapter(mSearchAutoAdapter);
+                    intent = new Intent(this,C3_GoodsArraySearchActivity.class);
+                    intent.putExtra("keyword", keyword);
+                    startActivity(intent);
+                    finish(false);
+                }else{
+                    showToastShort("请输入您想要搜索的商品");
+                }
+
                 break;
             case R.id.d2_delete:
                 mSearchAutoAdapter = new SearchAutoAdapter(this, 10, null);

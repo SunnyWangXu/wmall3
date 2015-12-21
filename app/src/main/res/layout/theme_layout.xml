@@ -33,6 +33,7 @@
         android:background="#ffffff">
 
         <LinearLayout
+            android:id="@+id/ll_theme1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -73,6 +74,7 @@
             android:background="#f1f1f1" />
 
         <LinearLayout
+            android:id="@+id/ll_theme2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -119,6 +121,7 @@
         android:background="#ffffff">
 
         <LinearLayout
+            android:id="@+id/ll_theme3"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -158,6 +161,7 @@
             android:background="#f1f1f1" />
 
         <LinearLayout
+            android:id="@+id/ll_theme4"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -197,6 +201,7 @@
             android:background="#f1f1f1" />
 
         <LinearLayout
+            android:id="@+id/ll_theme5"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -236,6 +241,7 @@
             android:background="#f1f1f1" />
 
         <LinearLayout
+            android:id="@+id/ll_theme6"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
