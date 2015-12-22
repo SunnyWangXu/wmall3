@@ -33,7 +33,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private PopupWindow paymentWindow;
     private TextView tvPaymentClosem;
     //    private int MAKEONLINE = 1;
-//    private int MAKEDOWNPAY = 1;
+    //    private int MAKEDOWNPAY = 1;
     private int MAKEDONATE = 1;
     private LinearLayout llOnlinePay;
     private LinearLayout llDownlinePay;
@@ -116,13 +116,16 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        useName = data.getStringExtra("tureName");
-        usePhone = data.getStringExtra("phone");
-        useAddressInfo = data.getStringExtra("addressInfo");
-        if (useName != null && usePhone != null && useAddressInfo != null) {
-            tvUseName.setText(useName);
-            tvUsePhone.setText(usePhone);
-            tvUseAddress.setText(useAddressInfo);
+        if(data != null){
+            useName = data.getStringExtra("tureName");
+            usePhone = data.getStringExtra("phone");
+            useAddressInfo = data.getStringExtra("addressInfo");
+            if (useName != null && usePhone != null && useAddressInfo != null) {
+                tvUseName.setText(useName);
+                tvUsePhone.setText(usePhone);
+                tvUseAddress.setText(useAddressInfo);
+            }
+
         }
 
     }
@@ -273,9 +276,4 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
 }

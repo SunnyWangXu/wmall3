@@ -46,6 +46,7 @@ public class S1_OrderAddressActivity extends BaseActivity implements View.OnClic
     public void onInit() {
         setUp();
         setTitle("收货地址");
+
     }
 
     @Override
