@@ -80,7 +80,6 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
         keyword = getIntent().getStringExtra("keyword");
         cate_id = getIntent().getStringExtra("cate_id");
 
-
         /**
          * 请求商品排序进来为默认排序
          */

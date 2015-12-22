@@ -11,13 +11,23 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
+import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
+import com.wjhgw.base.BaseQuery;
+import com.wjhgw.business.bean.Address_list;
+import com.wjhgw.config.ApiInterface;
 
 /**
  * 确认订单Activity
  */
-public class ConfirmOrderActivity extends BaseActivity implements View.OnClickListener {
+public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClickListener {
 
     private LinearLayout llPayment;
     private PopupWindow paymentWindow;
@@ -35,19 +45,35 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
     private LinearLayout llDonate;
     private ImageView ivDonate;
     private LinearLayout llUseMessage;
+    private LinearLayout llOrderAddress;
+    private TextView tvUseName;
+    private TextView tvUsePhone;
+    private TextView tvUseAddress;
+    private String key;
+    private String useName;
+    private String usePhone;
+    private String useAddressInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_order);
+        key = getKey();
 
+        if (!key.equals("0") && key != null) {
+            /**
+             * 请求默认地址
+             */
+            load_Default_Addresst();
 
+        }
     }
 
     @Override
     public void onInit() {
         setUp();
         setTitle("确认订单");
+
     }
 
     @Override
@@ -56,9 +82,14 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         llDonate = (LinearLayout) findViewById(R.id.ll_donate);
         ivDonate = (ImageView) findViewById(R.id.iv_donate);
 
+        llOrderAddress = (LinearLayout) findViewById(R.id.ll_order_address);
         llPayment = (LinearLayout) findViewById(R.id.ll_payment);
         tvPayMethod = (TextView) findViewById(R.id.tv_pay_method);
         tvCommitOrder = (TextView) findViewById(R.id.tv_commit_order);
+
+        tvUseName = (TextView) findViewById(R.id.tv_useName);
+        tvUsePhone = (TextView) findViewById(R.id.tv_usePhone);
+        tvUseAddress = (TextView) findViewById(R.id.tv_useAddress);
 
     }
 
@@ -74,6 +105,25 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         llDonate.setOnClickListener(this);
         llPayment.setOnClickListener(this);
         tvCommitOrder.setOnClickListener(this);
+        llOrderAddress.setOnClickListener(this);
+
+    }
+
+    /**
+     * activity 返回的数据 forResult
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        useName = data.getStringExtra("tureName");
+        usePhone = data.getStringExtra("phone");
+        useAddressInfo = data.getStringExtra("addressInfo");
+        if (useName != null && usePhone != null && useAddressInfo != null) {
+            tvUseName.setText(useName);
+            tvUsePhone.setText(usePhone);
+            tvUseAddress.setText(useAddressInfo);
+        }
 
     }
 
@@ -81,6 +131,11 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
+            case R.id.ll_order_address:
+                intent.setClass(this, S1_OrderAddressActivity.class);
+                startActivityForResult(intent, 55555);
+
+                break;
             case R.id.ll_payment:
                 /**
                  * 付款方式弹出窗
@@ -90,16 +145,16 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                 break;
 
             case R.id.tv_commit_order:
-                intent.setClass(this, SelectPaymentActivity.class);
+                intent.setClass(this, S3_SelectPaymentActivity.class);
                 startActivity(intent);
                 break;
 
             case R.id.ll_donate:
-                MAKEDONATE ++;
-                if(MAKEDONATE % 2 == 0){
+                MAKEDONATE++;
+                if (MAKEDONATE % 2 == 0) {
                     ivDonate.setImageResource(R.mipmap.ic_push_on);
                     llUseMessage.setVisibility(View.GONE);
-                }else{
+                } else {
                     ivDonate.setImageResource(R.mipmap.ic_push_off);
                     llUseMessage.setVisibility(View.VISIBLE);
                 }
@@ -125,7 +180,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         // 设置窗口弹出状态时，点击窗口之外的部分，窗口自动消失
         paymentWindow.setOutsideTouchable(true);
         // 显示窗口
-        paymentWindow.showAtLocation(ConfirmOrderActivity.this.findViewById(R.id.start_window), Gravity.BOTTOM, 0, 0);
+        paymentWindow.showAtLocation(S0_ConfirmOrderActivity.this.findViewById(R.id.start_window), Gravity.BOTTOM, 0, 0);
 
         tvPaymentClosem = (TextView) paymentWindowLayout.findViewById(R.id.tv_payment_confirm);
         tvPaymentClosem.setOnClickListener(new View.OnClickListener() {
@@ -173,4 +228,54 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         });
     }
 
+
+    /**
+     * 请求地址列表
+     */
+    public void load_Default_Addresst() {
+        super.StartLoading();
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Address_list, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    Address_list address_list = gson.fromJson(responseInfo.result, Address_list.class);
+                    S0_ConfirmOrderActivity.super.Dismiss();
+                    if (address_list.status.code == 10000) {
+
+                        tvUseName.setText(address_list.datas.get(0).true_name);
+                        tvUsePhone.setText(address_list.datas.get(0).mob_phone);
+                        tvUseAddress.setText(address_list.datas.get(0).area_info + " " + address_list.datas.get(0).address);
+
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+                showToastShort("请求失败");
+
+                String useName = getIntent().getStringExtra("tureName");
+                String usePhone = getIntent().getStringExtra("phone");
+                String useAddressInfo = getIntent().getStringExtra("addressInfo");
+
+                if (useName != null && usePhone != null && useAddressInfo != null) {
+                    tvUseName.setText(useName);
+                    tvUsePhone.setText(usePhone);
+                    tvUseAddress.setText(useAddressInfo);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
 }

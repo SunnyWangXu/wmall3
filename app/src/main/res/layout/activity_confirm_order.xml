@@ -21,7 +21,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/layout_bg"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <View
@@ -50,30 +50,35 @@
                             android:textSize="17sp" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/tv_useName"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:text="隔壁老王"
+                            android:ellipsize="end"
+                            android:maxLength="8"
+                            android:singleLine="true"
                             android:textColor="@color/title_color"
                             android:textSize="17sp" />
 
                         <TextView
+                            android:id="@+id/tv_usePhone"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
                             android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="188****8888"
                             android:textColor="@color/title_color"
                             android:textSize="16sp" />
 
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/ll_order_address"
                         android:layout_width="match_parent"
                         android:layout_height="64dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/tv_useAddress"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="12dp"
@@ -81,7 +86,6 @@
                             android:layout_weight="1"
                             android:ellipsize="end"
                             android:lines="2"
-                            android:text="收货地址：广东省深圳市罗湖区红岭中路1002号寰宇大厦裙楼南侧三楼深圳万嘉欢购电子商务有限公司（家乐缘旁）"
                             android:textColor="@color/title_color"
                             android:textSize="14sp" />
 

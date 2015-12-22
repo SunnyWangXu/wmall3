@@ -100,9 +100,9 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
         mViewCity = (WheelView) findViewById(R.id.id_city);
         mViewDistrict = (WheelView) findViewById(R.id.id_district);
         mTvConfirm = (TextView) findViewById(R.id.tv_confirm);
-        mTVEdit = (TextView) findViewById(R.id.tv_edit);
-        mTVEdit.setVisibility(View.VISIBLE);
-        mTVEdit.setText("删除");
+//        mTVEdit = (TextView) findViewById(R.id.tv_edit);
+//        mTVEdit.setVisibility(View.VISIBLE);
+//        mTVEdit.setText("删除");
 
         mBtnSave = (Button) findViewById(R.id.btn_save);
 
@@ -119,7 +119,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
             tvAddressInfo.setText("北京 北京市 东城区");
             edAddressDetail.setHint("街道名称及楼房门牌号等信息");
 
-            mTVEdit.setVisibility(View.INVISIBLE);
+//            mTVEdit.setVisibility(View.INVISIBLE);
         }
 
     }
@@ -135,7 +135,8 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
         mTvConfirm.setOnClickListener(this);
 
         back.setOnClickListener(this);
-        mTVEdit.setOnClickListener(this);
+//        mTVEdit.setOnClickListener(this);
+
 
         llZone.setOnClickListener(this);
 
@@ -211,7 +212,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
                 tvAddressInfo.setText(mCurrentProviceName + " " + mCurrentCityName + " " + mCurrentDistrictName);
                 viewShutter.setVisibility(View.GONE);
                 llPickCity.setVisibility(View.INVISIBLE);
-                mTVEdit.setVisibility(View.VISIBLE);
+//                mTVEdit.setVisibility(View.VISIBLE);
                 mBtnSave.setVisibility(View.VISIBLE);
 
                 edName.setEnabled(true);
@@ -219,13 +220,14 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
                 edAddressDetail.setEnabled(true);
 
                 break;
-            case R.id.tv_edit:
-                /**
-                 * 删除编辑地址
-                 */
-                deleteAddressDetail();
-
-                break;
+//            case R.id.tv_edit:
+//
+//                /**
+//                 * 删除编辑地址
+//                 */
+//                deleteAddressDetail();
+//
+//                break;
             case R.id.iv_title_back:
                 finish();
                 break;

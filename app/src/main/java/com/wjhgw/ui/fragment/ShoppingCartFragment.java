@@ -29,7 +29,7 @@ import com.wjhgw.business.bean.Status;
 import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
-import com.wjhgw.ui.activity.ConfirmOrderActivity;
+import com.wjhgw.ui.activity.S0_ConfirmOrderActivity;
 import com.wjhgw.ui.dialog.GoodsArrDialog;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.dialog.MyDialog;
@@ -472,7 +472,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                     if (status.status.code == 10000) {
                         Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(getActivity(), ConfirmOrderActivity.class);
+                        Intent intent = new Intent(getActivity(), S0_ConfirmOrderActivity.class);
                         startActivity(intent);
 
                     } else {

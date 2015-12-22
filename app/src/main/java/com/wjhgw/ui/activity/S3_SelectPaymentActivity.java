@@ -11,7 +11,7 @@ import com.wjhgw.base.BaseActivity;
 /**
  * 选择支付
  */
-public class SelectPaymentActivity extends BaseActivity implements View.OnClickListener {
+public class S3_SelectPaymentActivity extends BaseActivity implements View.OnClickListener {
 
     private LinearLayout llBalancePay;
     private int MAKEBALANCE = 1;

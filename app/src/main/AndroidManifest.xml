@@ -54,9 +54,10 @@
         <activity android:name=".ui.activity.M2_AddressDetailActvity" />
         <activity android:name=".ui.activity.M4_PaymentPasswordActivity" />
         <activity android:name=".ui.activity.M5_Change_mobileActivity" />
-        <activity android:name=".ui.activity.ConfirmOrderActivity" />
-        <activity android:name=".ui.activity.SelectPaymentActivity" />
         <activity android:name=".ui.activity.M6_SetActivity"/>
+        <activity android:name=".ui.activity.S0_ConfirmOrderActivity" />
+        <activity android:name=".ui.activity.S1_OrderAddressActivity" />
+        <activity android:name=".ui.activity.S3_SelectPaymentActivity" />
 
         <activity
             android:name="com.wjhgw.wxapi.WXPayEntryActivity"
