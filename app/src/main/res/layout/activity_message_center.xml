@@ -96,14 +96,13 @@
         android:background="@color/gray" />
 
     <LinearLayout
+        android:id="@+id/ll_service"
         android:layout_width="match_parent"
         android:layout_height="78dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
-
         <RelativeLayout
-            android:id="@+id/rl_service"
             android:layout_width="78dp"
             android:layout_height="match_parent">
 

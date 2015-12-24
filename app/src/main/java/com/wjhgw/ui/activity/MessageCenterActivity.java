@@ -3,7 +3,7 @@ package com.wjhgw.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
@@ -12,7 +12,7 @@ import com.wjhgw.base.BaseActivity;
  * 消息中心Activity
  */
 public class MessageCenterActivity extends BaseActivity implements View.OnClickListener {
-    private RelativeLayout useService;
+    private LinearLayout llUseService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class MessageCenterActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onFindViews() {
-        useService = (RelativeLayout) findViewById(R.id.rl_service);
+        llUseService = (LinearLayout) findViewById(R.id.ll_service);
     }
 
     @Override
@@ -40,15 +40,15 @@ public class MessageCenterActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onBindListener() {
 
-        useService.setOnClickListener(this);
+        llUseService.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
-            case R.id.rl_service:
-                intent.setClass(this, UseServiceActivity.class);
+            case R.id.ll_service:
+                intent.setClass(this, C4_UseServiceActivity.class);
                 startActivity(intent);
 
                 break;

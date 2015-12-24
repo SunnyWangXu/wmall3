@@ -35,7 +35,10 @@ import com.wjhgw.business.bean.Home_Pager;
 import com.wjhgw.business.bean.Home_Pager_Data;
 import com.wjhgw.business.bean.Theme_street;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.activity.C1_CaptureActivity;
+import com.wjhgw.ui.activity.C2_SearchActivity;
 import com.wjhgw.ui.activity.C3_GoodsArraySearchActivity;
+import com.wjhgw.ui.activity.MessageCenterActivity;
 import com.wjhgw.ui.activity.PrductDetail;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.view.listview.MyListView;
@@ -174,6 +177,12 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private static Long countdown3;
     private static Long countdown4;
     private static Long countdown5;
+
+    private ImageView ivHomeQrcodeScanner;
+    private LinearLayout llHomeGoodsSearch;
+    private RelativeLayout rlHomeMessage;
+
+
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -304,6 +313,10 @@ public class HomeFragment extends Fragment implements IXListViewListener,
      */
     private void initView() {
 
+        ivHomeQrcodeScanner = (ImageView) homeLayout.findViewById(R.id.iv_home_qrcode_scanner);
+        llHomeGoodsSearch = (LinearLayout) homeLayout.findViewById(R.id.ll_home_goods_search);
+        rlHomeMessage = (RelativeLayout) homeLayout.findViewById(R.id.rl_home_message);
+
         homePager = (ViewPager) homeViewPageLayout.findViewById(R.id.pager);
         ll_Point = (LinearLayout) homeViewPageLayout.findViewById(R.id.ll_home_point);
 
@@ -411,6 +424,9 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             point = new ImageView(getActivity());
 
             point.setLayoutParams(new LinearLayout.LayoutParams(20, 20));
+//            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//            lp.setMargins(0, 0, 5, 0);
+//            point.setLayoutParams(lp);
 
             if (i == 0) {
                 point.setBackgroundResource(R.mipmap.dot_select);
@@ -426,6 +442,10 @@ public class HomeFragment extends Fragment implements IXListViewListener,
      * 设置监听事件
      */
     private void setClick() {
+        ivHomeQrcodeScanner.setOnClickListener(this);
+        llHomeGoodsSearch.setOnClickListener(this);
+        rlHomeMessage.setOnClickListener(this);
+
         group_purchase_layout.setOnClickListener(this);
 
         ll_discount01.setOnClickListener(this);
@@ -496,6 +516,23 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 intent.setClass(getActivity(), A0_LoginActivity.class);
                 startActivity(intent);
                 break;*/
+
+            case R.id.iv_home_qrcode_scanner:
+                intent.setClass(getActivity(), C1_CaptureActivity.class);
+                startActivity(intent);
+
+                break;
+
+            case R.id.ll_home_goods_search:
+                intent.setClass(getActivity(), C2_SearchActivity.class);
+                startActivity(intent);
+
+                break;
+
+            case R.id.rl_home_message:
+                intent.setClass(getActivity(), MessageCenterActivity.class);
+                startActivity(intent);
+                break;
 
             case R.id.ll_theme1:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);

@@ -8,15 +8,19 @@ import com.wjhgw.base.BaseActivity;
 /**
  * 客户反馈的Activity
  */
-public class UseServiceActivity extends BaseActivity {
+public class C4_UseServiceActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_use_service);
+
+
     }
 
     @Override
     public void onInit() {
+        setUp();
+        setTitle("客服反馈");
 
     }
 

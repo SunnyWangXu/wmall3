@@ -123,12 +123,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="距开始"
                 android:textColor="@color/light_gray" />
+
             <TextView
                 android:id="@+id/time4"
                 android:layout_width="36dp"
@@ -204,18 +206,18 @@
                     android:id="@+id/tv_home_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="卡罗兰葡萄酒 20L"
                     android:textColor="#333333"
-                    android:textSize="12sp"
-                    android:text="卡罗兰葡萄酒 20L" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/tv_home_click"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:text="15人围观"
                     android:textColor="#666666"
-                    android:textSize="10sp"
-                    android:text="15人围观" />
+                    android:textSize="10sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
