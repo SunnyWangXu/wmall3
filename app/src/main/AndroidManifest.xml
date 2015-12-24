@@ -58,6 +58,7 @@
         <activity android:name=".ui.activity.S0_ConfirmOrderActivity" />
         <activity android:name=".ui.activity.S1_OrderAddressActivity" />
         <activity android:name=".ui.activity.S3_SelectPaymentActivity" />
+        <activity android:name=".ui.activity.MessageCenterActivity" />
 
         <activity
             android:name="com.wjhgw.wxapi.WXPayEntryActivity"

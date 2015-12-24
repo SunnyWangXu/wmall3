@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -27,6 +28,7 @@ import com.wjhgw.business.bean.Goods_class1;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.C1_CaptureActivity;
 import com.wjhgw.ui.activity.C2_SearchActivity;
+import com.wjhgw.ui.activity.MessageCenterActivity;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.AttrAdapter;
@@ -47,6 +49,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
     private String key;
     private Intent intent;
     private ListView lvAttr;
+    private RelativeLayout rlMessage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,6 +101,9 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
         qrcode_scanner = (ImageView) View.findViewById(R.id.qrcode_scanner);
         ll_search = (LinearLayout) View.findViewById(R.id.ll_goods_search);
 
+        rlMessage = (RelativeLayout) View.findViewById(R.id.rl_message);
+        rlMessage.setOnClickListener(this);
+
         mListView = (MyListView) View.findViewById(R.id.discovery_listview);
     }
 
@@ -123,6 +129,12 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
                 intent = new Intent(getActivity(), C2_SearchActivity.class);
                 getActivity().startActivity(intent);
                 break;
+            case R.id.rl_message:
+                intent = new Intent(getActivity(), MessageCenterActivity.class);
+                startActivity(intent);
+
+                break;
+
             default:
                 break;
         }

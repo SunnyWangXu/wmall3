@@ -44,15 +44,33 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/iv_information"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="right|center_vertical"
-            android:layout_marginLeft="11dp"
-            android:layout_marginRight="13dp"
-            android:src="@mipmap/ic_information" />
+        <RelativeLayout
+            android:id="@+id/rl_message"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center_vertical">
 
+            <ImageView
+                android:id="@+id/iv_information"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_information" />
+
+            <TextView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_fillet_white_rad"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:textSize="12dp" />
+
+        </RelativeLayout>
     </FrameLayout>
 
     <View

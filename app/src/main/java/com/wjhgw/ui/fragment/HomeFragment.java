@@ -499,37 +499,37 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
             case R.id.ll_theme1:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
-                intent.putExtra("cate_id",cate_id1);
+                intent.putExtra("cate_id", cate_id1);
                 startActivity(intent);
                 break;
 
             case R.id.ll_theme2:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
-                intent.putExtra("cate_id",cate_id2);
+                intent.putExtra("cate_id", cate_id2);
                 startActivity(intent);
                 break;
 
             case R.id.ll_theme3:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
-                intent.putExtra("cate_id",cate_id3);
+                intent.putExtra("cate_id", cate_id3);
                 startActivity(intent);
                 break;
 
             case R.id.ll_theme4:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
-                intent.putExtra("cate_id",cate_id4);
+                intent.putExtra("cate_id", cate_id4);
                 startActivity(intent);
                 break;
 
             case R.id.ll_theme5:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
-                intent.putExtra("cate_id",cate_id5);
+                intent.putExtra("cate_id", cate_id5);
                 startActivity(intent);
                 break;
 
             case R.id.ll_theme6:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
-                intent.putExtra("cate_id",cate_id6);
+                intent.putExtra("cate_id", cate_id6);
                 startActivity(intent);
                 break;
 
@@ -673,10 +673,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                  * 解析团购和拍卖
                  */
                 parseAuctionSuperValue(responseInfo.result);
-                if (START == 1) {
-                    Countdown(1);
-                    Countdown(2);
-                }
             }
 
             @Override
@@ -705,17 +701,29 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             auction_super_value = gson.fromJson(responseInfoResult, Auction_super_value.class);
 
             if (auction_super_value.status.code == 10000) {
-                if (auction_super_value.datas.super_value_goods.count_dowm_time != null) {
+                if (auction_super_value.datas.super_value_goods != null) {
                     APP.getApp().getImageLoader().displayImage(auction_super_value.datas.super_value_goods.ap_ad_image, iv_home_group_purchase, APP.getApp().getImageOptions());
                     countdown1 = auction_super_value.datas.super_value_goods.count_dowm_time;
+                    if (START == 1 && countdown1 != null) {
+
+                        Countdown(1);
+                    }
                 }
-                if (auction_super_value.datas.auction_goods.count_dowm_time != null) {
+                if (auction_super_value.datas.auction_goods != null) {
                     APP.getApp().getImageLoader().displayImage(auction_super_value.datas.auction_goods.goods_image, iv_home_auction, APP.getApp().getImageOptions());
                     countdown2 = auction_super_value.datas.auction_goods.count_dowm_time;
+                    if (auction_super_value.datas.auction_goods.goods_click == null) {
+                        tv_home_click.setText(0 + "次围观");
+                    } else {
+                        tv_home_click.setText(auction_super_value.datas.auction_goods.goods_click + "次围观");
+                    }
+                    tv_home_name.setText(auction_super_value.datas.auction_goods.goods_name);
                 }
 
-                tv_home_click.setText(auction_super_value.datas.auction_goods.goods_click + "次围观");
-                tv_home_name.setText(auction_super_value.datas.auction_goods.goods_name);
+                if (START == 1 && countdown2 != null) {
+
+                    Countdown(2);
+                }
 
             }
         }
