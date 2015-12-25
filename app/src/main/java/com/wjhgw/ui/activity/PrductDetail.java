@@ -24,6 +24,10 @@ public class PrductDetail extends Activity implements View.OnClickListener {
         back = (ImageView) findViewById(R.id.iv_shopping_back);
         back.setOnClickListener(this);
 
+//        WebSettings settings = vb.getSettings();
+//        String ua = settings.getUserAgentString();
+//        Log.i("UA", ua);
+
     }
 
     @Override

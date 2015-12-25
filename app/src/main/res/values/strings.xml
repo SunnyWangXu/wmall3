@@ -6,7 +6,7 @@
     
     <string name="string_message">购物车</string>
     <string name="string_index">首页</string>
-    <string name="string_find">发现</string>
+    <string name="string_cabinet">酒柜</string>
     <string name="string_mine">我的</string>
     <string name="login_username">请输入手机号</string>
     <string name="login_Cipher">请输入6-16位密码</string>

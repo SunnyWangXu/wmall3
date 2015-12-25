@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.ui.fragment.CategoryFragment;
-import com.wjhgw.ui.fragment.DiscoveryFragment;
+import com.wjhgw.ui.fragment.CabinetFragment;
 import com.wjhgw.ui.fragment.HomeFragment;
 import com.wjhgw.ui.fragment.MyFragment;
 import com.wjhgw.ui.fragment.ShoppingCartFragment;
@@ -19,7 +19,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ShoppingCartFragment shoppingCartFragment;  //购物车
     private CategoryFragment categoryFragment; //分类
     private HomeFragment homeFragment;    //首页
-    private DiscoveryFragment discoveryFragment;    //发现
+    private CabinetFragment cabinetFragment;    //发现
     private MyFragment mineFragment;     //我的
     private View index_Layout;
     private View contacts_Layout;
@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private View classification_layout;
     private ImageView indexImage;
     private ImageView classification_image;
-    private ImageView contactsImage;
+    private ImageView ivCabinet;
     private ImageView shopping_car_image;
     private ImageView settingImage;
     private TextView indexText;
@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onFindViews() {
         indexImage = (ImageView) findViewById(R.id.index_image);
         classification_image = (ImageView) findViewById(R.id.classification_image);
-        contactsImage = (ImageView) findViewById(R.id.contacts_image);
+        ivCabinet = (ImageView) findViewById(R.id.iv_cabinet);
         shopping_car_image = (ImageView) findViewById(R.id.shopping_car_image);
         settingImage = (ImageView) findViewById(R.id.setting_image);
         indexText = (TextView) findViewById(R.id.index_text);
@@ -142,27 +142,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 classification_text.setTextColor(Color.parseColor("#ba0e2f"));
                 categoryFragment = new CategoryFragment();
                 transaction.replace(R.id.content, categoryFragment);
-                /*if (categoryFragment == null) {
-                    categoryFragment = new CategoryFragment();
-                    transaction.replace(R.id.content, categoryFragment);
-                } else {
-                    //transaction.replace(R.id.content, categoryFragment);
-                    transaction.add(R.id.content, categoryFragment);
-                }*/
 
                 break;
             case 2:
-                contactsImage.setImageResource(R.mipmap.ic_find_select);
+                ivCabinet.setImageResource(R.mipmap.ic_cabinet_select);
                 contactsText.setTextColor(Color.parseColor("#ba0e2f"));
-                discoveryFragment = new DiscoveryFragment();
-                transaction.add(R.id.content, discoveryFragment);
-                /*if (discoveryFragment == null) {
-                    discoveryFragment = new DiscoveryFragment();
-                    transaction.add(R.id.content, discoveryFragment);
-                } else {
-                    //transaction.replace(R.id.content, shoppingCartFragment);
-                    transaction.add(R.id.content,discoveryFragment);
-                }*/
+                cabinetFragment = new CabinetFragment();
+                transaction.add(R.id.content, cabinetFragment);
                 break;
             case 3:
                 shopping_car_image.setImageResource(R.mipmap.ic_shopping_cart_select);
@@ -203,7 +189,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         indexText.setTextColor(Color.parseColor("#ffffff"));
         classification_image.setImageResource(R.mipmap.ic_search2);
         classification_text.setTextColor(Color.parseColor("#ffffff"));
-        contactsImage.setImageResource(R.mipmap.ic_find);
+        ivCabinet.setImageResource(R.mipmap.ic_cabinet);
         contactsText.setTextColor(Color.parseColor("#ffffff"));
         shopping_car_image.setImageResource(R.mipmap.ic_shopping_cart);
         shopping_car_text.setTextColor(Color.parseColor("#ffffff"));
@@ -225,9 +211,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
         if (homeFragment != null) {
             transaction.remove(homeFragment);
-        }
-        if (discoveryFragment != null) {
-            transaction.remove(discoveryFragment);
         }
         if (mineFragment != null) {
             transaction.remove(mineFragment);

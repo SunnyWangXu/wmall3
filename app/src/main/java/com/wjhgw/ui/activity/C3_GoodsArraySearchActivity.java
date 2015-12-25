@@ -147,7 +147,6 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
     public void onClick(View v) {
 
         switch (v.getId()) {
-
             case R.id.iv_array_back:
                 finish(false);
                 break;
