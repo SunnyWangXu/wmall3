@@ -11,6 +11,7 @@
         android:background="@color/layout_bg" />
 
     <LinearLayout
+        android:id="@+id/ll_all_orders"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:gravity="center_vertical"
@@ -64,7 +65,7 @@
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:id="@+id/e0_layout1"
+            android:id="@+id/rl_layout1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -113,7 +114,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/e0_layout2"
+            android:id="@+id/rl_layout2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -162,7 +163,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/e0_layout3"
+            android:id="@+id/rl_layout3"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -211,7 +212,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/e0_layout4"
+            android:id="@+id/rl_layout4"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"

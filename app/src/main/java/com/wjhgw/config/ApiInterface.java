@@ -155,8 +155,24 @@ public class ApiInterface {
      */
     public static final String Favorites_add  ="/mobile/index.php?act=member_favorites&op=favorites_add";
     /**
-     *收藏添加接口
+     *购买第一步接口
      */
     public static final String Buy_step1  ="/mobile/index.php?act=member_buy&op=buy_step1";
+    /**
+     *订单列表接口
+     */
+    public static final String Order_list  ="/mobile/index.php?act=member_order&op=order_list";
+    /**
+     *退货/退款申请列表(售后)
+     */
+    public static final String Refund_return_list  ="/mobile/index.php?act=return_refund&op=refund_return_list";
+    /**
+     *订单详情
+     */
+    public static final String Order_detail  ="/mobile/index.php?act=member_order&op=order_detail";
+    /**
+     *查询物流
+     */
+    public static final String Order_deliver  ="/mobile/index.php?act=member_order&op=order_deliver";
 
 }
