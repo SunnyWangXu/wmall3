@@ -174,5 +174,9 @@ public class ApiInterface {
      *查询物流
      */
     public static final String Order_deliver  ="/mobile/index.php?act=member_order&op=order_deliver";
+    /**
+     *订单商品评价
+     */
+    public static final String Add_evaluate  ="/mobile/index.php?act=member_evaluate&op=add_evaluate";
 
 }

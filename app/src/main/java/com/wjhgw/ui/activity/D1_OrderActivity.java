@@ -182,8 +182,14 @@ public class D1_OrderActivity extends BaseActivity implements OnClickListener, X
                     }
                     //待评价
                 } else if (order_detail.datas.order_state.equals("40")) {
-                    if (order_detail.datas.if_deliver) {
+                    /*if (order_detail.datas.if_deliver) {
                         showToastShort("查看物流");
+                    }*/if (order_detail.datas.evaluation) {
+                            intent = new Intent(this, D3_EvaluateActivity.class);
+                            String json = new Gson().toJson(order_detail.datas.extend_order_goods);
+                            intent.putExtra("extend_order_goods", json);
+                            intent.putExtra("order_id", order_detail.datas.order_id);
+                            startActivity(intent);
                     }
                     //已完成
                 } else if (order_detail.datas.order_state.equals("0")) {
@@ -325,7 +331,7 @@ public class D1_OrderActivity extends BaseActivity implements OnClickListener, X
                                 tv_button3.setText("联系客服");
                                 tv_state.setText("已为您发货，请注意查收并确认收货");
                                 //待收货
-                            } else if (order_detail.datas.order_state.equals("60")) {
+                            } else if (order_detail.datas.order_state.equals("40")) {
                                 if (order_detail.datas.evaluation) {
                                     tv_button1.setVisibility(View.VISIBLE);
                                     tv_button1.setText("商品评价");

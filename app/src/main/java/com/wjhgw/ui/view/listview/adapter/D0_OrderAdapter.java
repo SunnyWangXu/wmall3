@@ -15,6 +15,7 @@ package com.wjhgw.ui.view.listview.adapter;
 //
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,8 +25,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.wjhgw.R;
 import com.wjhgw.business.bean.OrderList_data;
+import com.wjhgw.ui.activity.D3_EvaluateActivity;
 import com.wjhgw.ui.view.listview.MyListView;
 
 import java.text.SimpleDateFormat;
@@ -134,7 +137,7 @@ public class D0_OrderAdapter extends BaseAdapter {
             tv_button3.setVisibility(View.VISIBLE);
             tv_button3.setText("联系客服");
             //待收货
-        } else if (List.get(position).order_state.equals("60")) {
+        } else if (List.get(position).order_state.equals("40")) {
             if (List.get(position).evaluation) {
                 tv_button1.setVisibility(View.VISIBLE);
                 tv_button1.setText("商品评价");
@@ -176,9 +179,13 @@ public class D0_OrderAdapter extends BaseAdapter {
                         Toast.makeText(c, "确定收货", Toast.LENGTH_SHORT).show();
                     }
                     //待收货
-                } else if (List.get(position).order_state.equals("60")) {
+                } else if (List.get(position).order_state.equals("40")) {
                     if (List.get(position).evaluation) {
-                        Toast.makeText(c, "商品评价", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(c, D3_EvaluateActivity.class);
+                        String json = new Gson().toJson(List.get(position).extend_order_goods);
+                        intent.putExtra("extend_order_goods", json);
+                        intent.putExtra("order_id", List.get(position).order_id);
+                        c.startActivity(intent);
                     }
                     //待评价
                 } else if (List.get(position).order_state.equals("40")) {
