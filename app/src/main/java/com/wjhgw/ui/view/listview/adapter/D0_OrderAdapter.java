@@ -27,8 +27,12 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.wjhgw.R;
+import com.wjhgw.business.api.Order_Request;
 import com.wjhgw.business.bean.OrderList_data;
+import com.wjhgw.ui.activity.D2_LogisticsActivity;
 import com.wjhgw.ui.activity.D3_EvaluateActivity;
+import com.wjhgw.ui.dialog.MyDialog;
+import com.wjhgw.ui.dialog.Order_cancelDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 
 import java.text.SimpleDateFormat;
@@ -44,11 +48,18 @@ public class D0_OrderAdapter extends BaseAdapter {
     private D0_OrderAdapter1 listAdapter;
     public ArrayList<OrderList_data> List;
     private LayoutInflater mInflater;
+    private Order_Request Request;
+    private String key;
+    private MyDialog mDialog;
+    private Order_cancelDialog order_cancelDialog;
+    private String msg = "购买其他商品";
 
-    public D0_OrderAdapter(Context c, ArrayList<OrderList_data> dataList) {
+    public D0_OrderAdapter(Context c, ArrayList<OrderList_data> dataList, Order_Request Request, String key) {
         mInflater = LayoutInflater.from(c);
         this.c = c;
         this.List = dataList;
+        this.Request = Request;
+        this.key = key;
     }
 
     @Override
@@ -166,21 +177,39 @@ public class D0_OrderAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if (List.get(position).order_state.equals("10")) {
                     if (List.get(position).if_cancel) {
-                        Toast.makeText(c, "取消订单", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(c, "取消订单", Toast.LENGTH_SHORT).show();
+                        dialog(List.get(position).order_id);
                     }
                     //待付款
                 } else if (List.get(position).order_state.equals("20")) {
                     if (List.get(position).if_remind) {
-                        Toast.makeText(c, "提醒发货", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(c, "提醒发货", Toast.LENGTH_SHORT).show();
+                        Request.order_remind(List.get(position).order_id, key);
                     }
                     //待发货
                 } else if (List.get(position).order_state.equals("30")) {
                     if (List.get(position).if_receive) {
-                        Toast.makeText(c, "确定收货", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(c, "确定收货", Toast.LENGTH_SHORT).show();
+                        mDialog = new MyDialog(c, "温馨提示", "是否确定收货？");
+                        mDialog.show();
+                        mDialog.positive.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Request.order_receive(List.get(position).order_id, key);
+                                mDialog.dismiss();
+                            }
+                        });
+                        mDialog.negative.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mDialog.dismiss();
+                            }
+                        });
                     }
                     //待收货
                 } else if (List.get(position).order_state.equals("40")) {
                     if (List.get(position).evaluation) {
+                        //评价
                         Intent intent = new Intent(c, D3_EvaluateActivity.class);
                         String json = new Gson().toJson(List.get(position).extend_order_goods);
                         intent.putExtra("extend_order_goods", json);
@@ -190,12 +219,30 @@ public class D0_OrderAdapter extends BaseAdapter {
                     //待评价
                 } else if (List.get(position).order_state.equals("40")) {
                     if (List.get(position).if_deliver) {
-                        Toast.makeText(c, "查看物流", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(c, "查看物流", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(c, D2_LogisticsActivity.class);
+                        intent.putExtra("order_id", List.get(position).order_id);
+                        c.startActivity(intent);
                     }
                     //已完成
                 } else if (List.get(position).order_state.equals("0")) {
                     if (List.get(position).delete) {
-                        Toast.makeText(c, "删除订单", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(c, "删除订单", Toast.LENGTH_SHORT).show();
+                        mDialog = new MyDialog(c, "温馨提示", "确定要删除该订单？");
+                        mDialog.show();
+                        mDialog.positive.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Request.order_delete(List.get(position).order_id, key);
+                                mDialog.dismiss();
+                            }
+                        });
+                        mDialog.negative.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mDialog.dismiss();
+                            }
+                        });
                     }
                     //已取消
                 }
@@ -214,12 +261,30 @@ public class D0_OrderAdapter extends BaseAdapter {
 
                 } else if (List.get(position).order_state.equals("30")) {
                     if (List.get(position).if_deliver) {
-                        Toast.makeText(c, "查看物流", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(c, "查看物流", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(c, D2_LogisticsActivity.class);
+                        intent.putExtra("order_id", List.get(position).order_id);
+                        c.startActivity(intent);
                     }
                     //待收货
                 } else if (List.get(position).order_state.equals("40")) {
                     if (List.get(position).delete) {
-                        Toast.makeText(c, "删除订单", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(c, "删除订单", Toast.LENGTH_SHORT).show();
+                        mDialog = new MyDialog(c, "温馨提示", "确定要删除该订单？");
+                        mDialog.show();
+                        mDialog.positive.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Request.order_delete(List.get(position).order_id, key);
+                                mDialog.dismiss();
+                            }
+                        });
+                        mDialog.negative.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mDialog.dismiss();
+                            }
+                        });
                     }
                     //已完成
                 }
@@ -242,5 +307,63 @@ public class D0_OrderAdapter extends BaseAdapter {
     public static int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
+    }
+
+    private void dialog(final String order_id) {
+        order_cancelDialog = new Order_cancelDialog(c);
+        order_cancelDialog.show();
+        order_cancelDialog.iv_button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                order_cancelDialog.iv_button1.setImageResource(R.mipmap.ic_order_select);
+                order_cancelDialog.iv_button2.setImageResource(R.mipmap.ic_order_blank);
+                order_cancelDialog.iv_button3.setImageResource(R.mipmap.ic_order_blank);
+                order_cancelDialog.iv_button4.setImageResource(R.mipmap.ic_order_blank);
+                msg = "购买其他商品";
+            }
+        });
+        order_cancelDialog.iv_button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                order_cancelDialog.iv_button1.setImageResource(R.mipmap.ic_order_blank);
+                order_cancelDialog.iv_button2.setImageResource(R.mipmap.ic_order_select);
+                order_cancelDialog.iv_button3.setImageResource(R.mipmap.ic_order_blank);
+                order_cancelDialog.iv_button4.setImageResource(R.mipmap.ic_order_blank);
+                msg = "改用其他配送方法";
+            }
+        });
+        order_cancelDialog.iv_button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                order_cancelDialog.iv_button1.setImageResource(R.mipmap.ic_order_blank);
+                order_cancelDialog.iv_button2.setImageResource(R.mipmap.ic_order_blank);
+                order_cancelDialog.iv_button3.setImageResource(R.mipmap.ic_order_select);
+                order_cancelDialog.iv_button4.setImageResource(R.mipmap.ic_order_blank);
+                msg = "从其它店铺购买";
+            }
+        });
+        order_cancelDialog.iv_button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                order_cancelDialog.iv_button1.setImageResource(R.mipmap.ic_order_blank);
+                order_cancelDialog.iv_button2.setImageResource(R.mipmap.ic_order_blank);
+                order_cancelDialog.iv_button3.setImageResource(R.mipmap.ic_order_blank);
+                order_cancelDialog.iv_button4.setImageResource(R.mipmap.ic_order_select);
+                msg = "其它原因";
+            }
+        });
+        order_cancelDialog.tv_determine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Request.order_cancel(order_id, key, msg + "/" + order_cancelDialog.et_content.getText().toString());
+                order_cancelDialog.dismiss();
+            }
+        });
+        order_cancelDialog.tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                order_cancelDialog.dismiss();
+            }
+        });
     }
 }

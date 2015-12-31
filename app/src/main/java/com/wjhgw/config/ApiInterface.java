@@ -178,5 +178,21 @@ public class ApiInterface {
      *订单商品评价
      */
     public static final String Add_evaluate  ="/mobile/index.php?act=member_evaluate&op=add_evaluate";
+    /**
+     *订单确认收货接口
+     */
+    public static final String Order_receive  ="/mobile/index.php?act=member_order&op=order_receive";
+    /**
+     *订单取消接口
+     */
+    public static final String Order_cancel  ="/mobile/index.php?act=member_order&op=order_cancel";
+    /**
+     *删除订单接口
+     */
+    public static final String Order_delete  ="/mobile/index.php?act=member_order&op=order_delete";
+    /**
+     *催促卖家发货
+     */
+    public static final String Order_remind  ="/mobile/index.php?act=member_order&op=order_remind";
 
 }

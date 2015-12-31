@@ -14,19 +14,24 @@ import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
+import com.wjhgw.business.api.Order_Request;
 import com.wjhgw.business.bean.OrderList;
 import com.wjhgw.business.bean.OrderList_data;
+import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.D0_OrderAdapter;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 /**
  * 订单列表
  */
-public class D0_OrderActivity extends BaseActivity implements OnClickListener, XListView.IXListViewListener {
+public class D0_OrderActivity extends BaseActivity implements BusinessResponse, OnClickListener, XListView.IXListViewListener {
 
     private MyListView mListView;
     private String key;
@@ -35,6 +40,7 @@ public class D0_OrderActivity extends BaseActivity implements OnClickListener, X
     private int curpage = 1;
     private String order_state = "";
     private ArrayList<OrderList_data> OrderList_data = new ArrayList<>();
+    private Order_Request Request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,8 @@ public class D0_OrderActivity extends BaseActivity implements OnClickListener, X
         } else {
             order_list();
         }
+        Request = new Order_Request(this);
+        Request.addResponseListener(this);
     }
 
     @Override
@@ -137,7 +145,7 @@ public class D0_OrderActivity extends BaseActivity implements OnClickListener, X
                             }
                             OrderList_data.addAll(orderList.datas);
                             if (isSetAdapter) {
-                                listAdapter = new D0_OrderAdapter(D0_OrderActivity.this, OrderList_data);
+                                listAdapter = new D0_OrderAdapter(D0_OrderActivity.this, OrderList_data,Request,key);
                                 mListView.setAdapter(listAdapter);
                             } else {
                                 listAdapter.List = OrderList_data;
@@ -191,7 +199,7 @@ public class D0_OrderActivity extends BaseActivity implements OnClickListener, X
                             }
                             OrderList_data.addAll(orderList.datas);
                             if (isSetAdapter) {
-                                listAdapter = new D0_OrderAdapter(D0_OrderActivity.this, OrderList_data);
+                                listAdapter = new D0_OrderAdapter(D0_OrderActivity.this, OrderList_data,Request,key);
                                 mListView.setAdapter(listAdapter);
                             } else {
                                 listAdapter.List = OrderList_data;
@@ -204,7 +212,6 @@ public class D0_OrderActivity extends BaseActivity implements OnClickListener, X
                                 mListView.setPullLoadEnable(false);
                             }
                         }
-
                     }
                 }
             }
@@ -215,5 +222,12 @@ public class D0_OrderActivity extends BaseActivity implements OnClickListener, X
             }
 
         });
+    }
+
+    @Override
+    public void OnMessageResponse(String url, String response, JSONObject status) throws JSONException {
+        isSetAdapter = true;
+        curpage = 1;
+        order_list();
     }
 }

@@ -21,11 +21,18 @@ import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
+import com.wjhgw.business.api.Order_Request;
 import com.wjhgw.business.bean.Order_detail;
+import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.dialog.MyDialog;
+import com.wjhgw.ui.dialog.Order_cancelDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.D0_OrderAdapter1;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,7 +40,7 @@ import java.util.Date;
 /**
  * 订单详情
  */
-public class D1_OrderActivity extends BaseActivity implements OnClickListener, XListView.IXListViewListener {
+public class D1_OrderActivity extends BaseActivity implements BusinessResponse, OnClickListener, XListView.IXListViewListener {
 
     private MyListView mListView;
     private MyListView mListView1;
@@ -64,6 +71,10 @@ public class D1_OrderActivity extends BaseActivity implements OnClickListener, X
     private LinearLayout order2;
     private LinearLayout order3;
     private Order_detail order_detail;
+    private MyDialog mDialog;
+    private Order_Request Request;
+    private Order_cancelDialog order_cancelDialog;
+    private String msg = "购买其他商品";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +104,8 @@ public class D1_OrderActivity extends BaseActivity implements OnClickListener, X
             }
         });
         Order_detail();
+        Request = new Order_Request(this);
+        Request.addResponseListener(this);
     }
 
     @Override
@@ -163,38 +176,87 @@ public class D1_OrderActivity extends BaseActivity implements OnClickListener, X
             case R.id.tv_button1:
                 if (order_detail.datas.order_state.equals("10")) {
                     if (order_detail.datas.if_cancel) {
-                        showToastShort("取消订单");
+                        //showToastShort("取消订单");
+                        dialog();
                     }
                     //待付款
                 } else if (order_detail.datas.order_state.equals("20")) {
                     if (order_detail.datas.if_remind) {
-                        showToastShort("提醒发货");
+                        //showToastShort("提醒发货");
+                        mDialog = new MyDialog(this, "温馨提示", "确定要删除该订单？");
+                        mDialog.show();
+                        mDialog.positive.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Request.order_remind(order_id, key);
+                                mDialog.dismiss();
+                            }
+                        });
+                        mDialog.negative.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mDialog.dismiss();
+                            }
+                        });
                     }
                     //待发货
                 } else if (order_detail.datas.order_state.equals("30")) {
                     if (order_detail.datas.if_receive) {
-                        showToastShort("确定收货");
+                        //showToastShort("确定收货");
+                        mDialog = new MyDialog(this, "温馨提示", "是否确定收货？");
+                        mDialog.show();
+                        mDialog.positive.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Request.order_receive(order_id, key);
+                                mDialog.dismiss();
+                            }
+                        });
+                        mDialog.negative.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mDialog.dismiss();
+                            }
+                        });
                     }
                     //待收货
                 } else if (order_detail.datas.order_state.equals("60")) {
                     if (order_detail.datas.evaluation) {
-                        showToastShort("商品评价");
+                        //showToastShort("商品评价");
+
                     }
                     //待评价
                 } else if (order_detail.datas.order_state.equals("40")) {
                     /*if (order_detail.datas.if_deliver) {
                         showToastShort("查看物流");
-                    }*/if (order_detail.datas.evaluation) {
-                            intent = new Intent(this, D3_EvaluateActivity.class);
-                            String json = new Gson().toJson(order_detail.datas.extend_order_goods);
-                            intent.putExtra("extend_order_goods", json);
-                            intent.putExtra("order_id", order_detail.datas.order_id);
-                            startActivity(intent);
+                    }*/
+                    //评价
+                    if (order_detail.datas.evaluation) {
+                        intent = new Intent(this, D3_EvaluateActivity.class);
+                        String json = new Gson().toJson(order_detail.datas.extend_order_goods);
+                        intent.putExtra("extend_order_goods", json);
+                        intent.putExtra("order_id", order_detail.datas.order_id);
+                        startActivity(intent);
                     }
                     //已完成
                 } else if (order_detail.datas.order_state.equals("0")) {
                     if (order_detail.datas.delete) {
-                        showToastShort("删除订单");
+                        //showToastShort("删除订单");
+                        mDialog = new MyDialog(this, "温馨提示", "确定要删除该订单？");
+                        mDialog.show();
+                        mDialog.positive.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Request.order_delete(order_id, key);
+                                mDialog.dismiss();
+                            }
+                        });
+                        mDialog.negative.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mDialog.dismiss();
+                            }
+                        });
                     }
                     //已取消
                 }
@@ -210,12 +272,30 @@ public class D1_OrderActivity extends BaseActivity implements OnClickListener, X
 
                 } else if (order_detail.datas.order_state.equals("30")) {
                     if (order_detail.datas.if_deliver) {
-                        showToastShort("查看物流");
+                        //showToastShort("查看物流");
+                        intent = new Intent(D1_OrderActivity.this, D2_LogisticsActivity.class);
+                        intent.putExtra("order_id", order_id);
+                        startActivity(intent);
                     }
                     //待收货
                 } else if (order_detail.datas.order_state.equals("40")) {
                     if (order_detail.datas.delete) {
-                        showToastShort("删除订单");
+                        //showToastShort("删除订单");
+                        mDialog = new MyDialog(this, "温馨提示", "确定要删除该订单？");
+                        mDialog.show();
+                        mDialog.positive.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Request.order_delete(order_id, key);
+                                mDialog.dismiss();
+                            }
+                        });
+                        mDialog.negative.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mDialog.dismiss();
+                            }
+                        });
                     }
                     //已完成
                 }
@@ -272,14 +352,13 @@ public class D1_OrderActivity extends BaseActivity implements OnClickListener, X
                             tv_phone.setText(order_detail.datas.extend_order_common.reciver_info.phone);
                             tv_address.setText("收货地址：" + order_detail.datas.extend_order_common.reciver_info.address);
 
-                            if(order_detail.datas.extend_order_common.invoice_info == null){
+                            if (order_detail.datas.extend_order_common.invoice_info == null) {
                                 ll_invoice.setVisibility(View.GONE);
-                            }else {
+                            } else {
                                 tv_invoice_type.setText(order_detail.datas.extend_order_common.invoice_info.类型);
                                 tv_invoice_rise.setText(order_detail.datas.extend_order_common.invoice_info.抬头);
                                 tv_invoice_content.setText(order_detail.datas.extend_order_common.invoice_info.内容);
                             }
-
 
 
                             Date date = new Date(Long.parseLong(order_detail.datas.add_time) * 1000);
@@ -376,5 +455,68 @@ public class D1_OrderActivity extends BaseActivity implements OnClickListener, X
     public static int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
+    }
+
+    @Override
+    public void OnMessageResponse(String url, String response, JSONObject status) throws JSONException {
+        Order_detail();
+    }
+
+    private void dialog() {
+        order_cancelDialog = new Order_cancelDialog(this);
+        order_cancelDialog.show();
+        order_cancelDialog.iv_button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                order_cancelDialog.iv_button1.setImageResource(R.mipmap.ic_order_select);
+                order_cancelDialog.iv_button2.setImageResource(R.mipmap.ic_order_blank);
+                order_cancelDialog.iv_button3.setImageResource(R.mipmap.ic_order_blank);
+                order_cancelDialog.iv_button4.setImageResource(R.mipmap.ic_order_blank);
+                msg = "购买其他商品";
+            }
+        });
+        order_cancelDialog.iv_button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                order_cancelDialog.iv_button1.setImageResource(R.mipmap.ic_order_blank);
+                order_cancelDialog.iv_button2.setImageResource(R.mipmap.ic_order_select);
+                order_cancelDialog.iv_button3.setImageResource(R.mipmap.ic_order_blank);
+                order_cancelDialog.iv_button4.setImageResource(R.mipmap.ic_order_blank);
+                msg = "改用其他配送方法";
+            }
+        });
+        order_cancelDialog.iv_button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                order_cancelDialog.iv_button1.setImageResource(R.mipmap.ic_order_blank);
+                order_cancelDialog.iv_button2.setImageResource(R.mipmap.ic_order_blank);
+                order_cancelDialog.iv_button3.setImageResource(R.mipmap.ic_order_select);
+                order_cancelDialog.iv_button4.setImageResource(R.mipmap.ic_order_blank);
+                msg = "从其它店铺购买";
+            }
+        });
+        order_cancelDialog.iv_button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                order_cancelDialog.iv_button1.setImageResource(R.mipmap.ic_order_blank);
+                order_cancelDialog.iv_button2.setImageResource(R.mipmap.ic_order_blank);
+                order_cancelDialog.iv_button3.setImageResource(R.mipmap.ic_order_blank);
+                order_cancelDialog.iv_button4.setImageResource(R.mipmap.ic_order_select);
+                msg = "其它原因";
+            }
+        });
+        order_cancelDialog.tv_determine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Request.order_cancel(order_id, key, msg + "/" + order_cancelDialog.et_content.getText().toString());
+                order_cancelDialog.dismiss();
+            }
+        });
+        order_cancelDialog.tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                order_cancelDialog.dismiss();
+            }
+        });
     }
 }
