@@ -36,7 +36,7 @@ import java.util.List;
  * 商品排列查询
  */
 public class C3_GoodsArraySearchActivity extends BaseActivity implements XListView.IXListViewListener,
-        View.OnClickListener, AbsListView.OnScrollListener, View.OnTouchListener, AdapterView.OnItemLongClickListener {
+        View.OnClickListener, AbsListView.OnScrollListener, View.OnTouchListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener {
     private ImageView IvBack;
     private LinearLayout ll_GoodsArrSearch;
     private MyListView mListView;
@@ -141,6 +141,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
 
         mListView.setLongClickable(true);
         mListView.setOnItemLongClickListener(this);
+        mListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -354,11 +355,11 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
             params.addBodyParameter("order", order);
         }
 
-        if(keyword != null){
-            params.addBodyParameter("keyword",keyword);
+        if (keyword != null) {
+            params.addBodyParameter("keyword", keyword);
         }
-        if(cate_id != null){
-            params.addBodyParameter("cate_id",cate_id);
+        if (cate_id != null) {
+            params.addBodyParameter("cate_id", cate_id);
         }
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Act_search, params, new RequestCallBack<String>() {
             @Override
@@ -404,10 +405,21 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
 
             @Override
             public void onFailure(HttpException e, String s) {
+
                 showToastShort("网络错误");
             }
         });
     }
 
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        String goods_id = actSearch_datas.get(position - 3 ).goods_id;
+        Intent intent = new Intent(C3_GoodsArraySearchActivity.this, PrductDetailActivity.class);
+        intent.putExtra("goods_id", goods_id);
+        startActivity(intent);
+
+
+    }
 }

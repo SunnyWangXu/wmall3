@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wjhgw.base.BaseActivity;
-import com.wjhgw.ui.fragment.CategoryFragment;
 import com.wjhgw.ui.fragment.CabinetFragment;
+import com.wjhgw.ui.fragment.CategoryFragment;
 import com.wjhgw.ui.fragment.HomeFragment;
 import com.wjhgw.ui.fragment.MyFragment;
 import com.wjhgw.ui.fragment.ShoppingCartFragment;
@@ -149,7 +149,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 contactsText.setTextColor(Color.parseColor("#ba0e2f"));
                 cabinetFragment = new CabinetFragment();
                 transaction.add(R.id.content, cabinetFragment);
+
                 break;
+
             case 3:
                 shopping_car_image.setImageResource(R.mipmap.ic_shopping_cart_select);
                 shopping_car_text.setTextColor(Color.parseColor("#ba0e2f"));
@@ -176,8 +178,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     //transaction.replace(R.id.content, mineFragment);
                     transaction.add(R.id.content,mineFragment);
                 }*/
+
                 break;
         }
+
         transaction.commit();
     }
 
@@ -217,4 +221,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 */
+    /**
+     * 双击返回键退出App 
+     */
+    private long firstClickTime = 0;
+
+    @Override
+    public void onBackPressed() {
+        long secondTime = System.currentTimeMillis();
+        if (secondTime - firstClickTime > 2000) {
+            showToastShort("再按一次退出程序...");
+            firstClickTime = secondTime;
+            return;
+        } else {
+            moveTaskToBack(true);
+        }
+    }
 }

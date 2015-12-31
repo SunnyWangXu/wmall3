@@ -12,7 +12,6 @@ public class FileUtils {
 
     /**
      * 清空一个文件夹（清空缓存）
-     *
      */
     public static void clearAppCache(String diskCachePath) {
         List<File> files = FileUtils.listPathFiles(diskCachePath);
@@ -108,9 +107,9 @@ public class FileUtils {
         String fileSizeString = "";
         if (fileS < 1024) {
             fileSizeString = df.format((double) fileS) + "B";
-        } else if (fileS < 1024*1024) {
+        } else if (fileS < 1024 * 1024) {
             fileSizeString = df.format((double) fileS / 1024) + "KB";
-        } else if (fileS < 1024*1024*1024) {
+        } else if (fileS < 1024 * 1024 * 1024) {
             fileSizeString = df.format((double) fileS / 1048576) + "MB";
         } else {
             fileSizeString = df.format((double) fileS / 1073741824) + "G";

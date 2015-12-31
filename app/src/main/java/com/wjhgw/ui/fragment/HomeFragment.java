@@ -39,7 +39,7 @@ import com.wjhgw.ui.activity.C1_CaptureActivity;
 import com.wjhgw.ui.activity.C2_SearchActivity;
 import com.wjhgw.ui.activity.C3_GoodsArraySearchActivity;
 import com.wjhgw.ui.activity.MessageCenterActivity;
-import com.wjhgw.ui.activity.PrductDetail;
+import com.wjhgw.ui.activity.PrductDetailActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView.IXListViewListener;
@@ -182,6 +182,10 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private LinearLayout llHomeGoodsSearch;
     private RelativeLayout rlHomeMessage;
 
+    private LinearLayout llGuessLike01;
+    private LinearLayout llGuessLike02;
+    private LinearLayout llGuessLike03;
+    private LinearLayout llGuessLike04;
 
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -221,6 +225,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             }
         }
     };
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -404,6 +409,12 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         tv_guessLike04_name = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like04_name);
         tv_guessLike04_price = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like04_price);
 
+        llGuessLike01 = (LinearLayout) Guesslikelayout.findViewById(R.id.ll_guess_like01);
+        llGuessLike02 = (LinearLayout) Guesslikelayout.findViewById(R.id.ll_guess_like02);
+        llGuessLike03 = (LinearLayout) Guesslikelayout.findViewById(R.id.ll_guess_like03);
+        llGuessLike04 = (LinearLayout) Guesslikelayout.findViewById(R.id.ll_guess_like04);
+
+
         tvRefresh = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_refresh);
 
         tv = (TextView) Discountlayout.findViewById(R.id.tv_discount01_groupbuy_price);
@@ -460,6 +471,11 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         llTheme6.setOnClickListener(this);
 
         tvRefresh.setOnClickListener(this);
+
+        llGuessLike01.setOnClickListener(this);
+        llGuessLike02.setOnClickListener(this);
+        llGuessLike03.setOnClickListener(this);
+        llGuessLike04.setOnClickListener(this);
     }
 
     /**
@@ -570,26 +586,56 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 startActivity(intent);
                 break;
 
-            case R.id.ll_discount_01:
+            /*case R.id.ll_discount_01:
 
-                intent.setClass(getActivity(), PrductDetail.class);
+                intent.setClass(getActivity(), PrductDetailActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_discount_02:
 
-                intent.setClass(getActivity(), PrductDetail.class);
+                intent.setClass(getActivity(), PrductDetailActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_discount_03:
 
-                intent.setClass(getActivity(), PrductDetail.class);
+                intent.setClass(getActivity(), PrductDetailActivity.class);
                 startActivity(intent);
-                break;
+                break;*/
+
             case R.id.tv_guess_refresh:
 
                 loadGuessLike();
                 break;
 
+            case R.id.ll_guess_like01:
+
+                intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.putExtra("goods_id", guess_like_datases.get(0).goods_id);
+                startActivity(intent);
+
+                break;
+
+            case R.id.ll_guess_like02:
+
+                intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.putExtra("goods_id", guess_like_datases.get(1).goods_id);
+                startActivity(intent);
+
+                break;
+            case R.id.ll_guess_like03:
+
+                intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.putExtra("goods_id", guess_like_datases.get(2).goods_id);
+                startActivity(intent);
+
+                break;
+            case R.id.ll_guess_like04:
+
+                intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.putExtra("goods_id", guess_like_datases.get(3).goods_id);
+                startActivity(intent);
+
+                break;
             default:
                 break;
 
@@ -1068,17 +1114,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        //   handler.sendEmptyMessage(HANDLERID) ;
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        // handler.removeMessages(HANDLERID);
-    }
 
     @Override
     public void onDestroy() {

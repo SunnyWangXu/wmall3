@@ -1,44 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/ll_title"
-        android:layout_alignParentTop="true"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:gravity="center_vertical"
-        android:background="@android:color/transparent"
-        android:orientation="horizontal">
+    <include layout="@layout/title_layout" />
 
-        <ImageView
-            android:id="@+id/iv_shopping_back"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="11dp"
-            android:src="@mipmap/ic_arrow_left" />
-
-        <View
-            android:layout_width="0dp"
-            android:background="@android:color/transparent"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginRight="11dp"
-            android:src="@mipmap/ic_shopping_cart" />
-    </LinearLayout>
 
     <android.webkit.WebView
-        android:id="@+id/vb_prduct_detail"
+        android:id="@+id/wb_prduct_detail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/ll_title" />
+        android:layout_height="match_parent" />
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_alignParentBottom="true"
@@ -83,5 +57,5 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
 
-    </LinearLayout>
-</RelativeLayout>
+    </LinearLayout>-->
+</LinearLayout>

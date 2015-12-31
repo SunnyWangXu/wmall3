@@ -17,6 +17,8 @@ public class CabinetFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View View = inflater.inflate(R.layout.cabinet_layout, null);
+
+
         return View;
     }
 }
