@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="23dp"
-            android:text="订单金额："
+            android:text="实际付款："
             android:textColor="@color/spec_text_color"
             android:textSize="16sp" />
 
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="23dp"
-            android:text="余额支付："
+            android:text="使用余额："
             android:textColor="@color/spec_text_color"
             android:textSize="16sp" />
 
@@ -69,12 +69,6 @@
             android:textColor="@color/light_gray"
             android:textSize="14sp" />
 
-        <ImageView
-            android:id="@+id/iv_balance_pay"
-            android:layout_width="43dp"
-            android:layout_height="43dp"
-            android:layout_marginRight="15dp"
-            android:src="@mipmap/ic_push_off" />
 
     </LinearLayout>
 

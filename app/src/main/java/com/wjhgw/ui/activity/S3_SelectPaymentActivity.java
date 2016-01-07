@@ -17,7 +17,6 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
     private int MAKEBALANCE = 1;
     private LinearLayout llWeixinPay;
     private LinearLayout llAlipayPay;
-    private ImageView ivBalancePay;
     private ImageView ivWeixinPay;
     private ImageView ivAlipayPay;
 
@@ -37,7 +36,6 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
     @Override
     public void onFindViews() {
         llBalancePay = (LinearLayout) findViewById(R.id.ll_balance_pay);
-        ivBalancePay = (ImageView) findViewById(R.id.iv_balance_pay);
         llWeixinPay = (LinearLayout) findViewById(R.id.ll_weixin_pay);
         ivWeixinPay = (ImageView) findViewById(R.id.iv_weixin_pay);
         llAlipayPay = (LinearLayout) findViewById(R.id.ll_alipay_pay);
@@ -60,15 +58,6 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ll_balance_pay:
-                MAKEBALANCE++;
-                if (MAKEBALANCE % 2 == 0) {
-                    ivBalancePay.setImageResource(R.mipmap.ic_push_on);
-                } else {
-                    ivBalancePay.setImageResource(R.mipmap.ic_push_off);
-                }
-
-                break;
 
             case R.id.ll_weixin_pay:
                 ivAlipayPay.setImageResource(R.mipmap.ic_order_blank);

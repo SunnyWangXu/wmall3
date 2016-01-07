@@ -1,19 +1,26 @@
 package com.wjhgw.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 商品详情页
@@ -59,9 +66,16 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
 
+        /**
+         * 加载WebView的url和传key给H5端
+         */
         String id = getIntent().getStringExtra("goods_id");
-        String url = "http://dev.wjhgw.com/wap/index.php?act=goods&op=index&id=" + id;
-        webView.loadUrl(url);
+        String url = "http://10.10.0.181/wap/index.php?act=goods&op=index&id=" + id;
+        Map<String, String> keyMap = new HashMap<>();
+        if (getKey() != null || getKey() != "0") {
+            keyMap.put("key", getKey());
+        }
+        webView.loadUrl(url, keyMap);
 
         // 打开网页时不调用系统浏览器， 而是在本WebView中显示：
         webView.setWebViewClient(new WebViewClient() {
@@ -71,23 +85,10 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
                 return true;
             }
         });
-
+        
+        webView.setWebChromeClient(new WebChromeClient());
         //调用javascript
-        webView.addJavascriptInterface(new Object() {
-
-            public void clickOnAndroid() {
-
-                new Runnable() {
-
-                    @Override
-                    public void run() {
-
-
-                    }
-                };
-            }
-
-        }, "demo");
+        webView.addJavascriptInterface(new WMallBridge(this), "WMallBridge");
 
     }
 
@@ -134,5 +135,28 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+
+    public class WMallBridge {
+        Context mContxt;
+
+        public WMallBridge(Context mContxt) {
+            this.mContxt = mContxt;
+        }
+
+        @JavascriptInterface
+        public void fun1(String name) {
+            Toast.makeText(mContxt, "调用fun1:调用fun1调用fun1调用fun1" + name, Toast.LENGTH_SHORT).show();
+        }
+
+        @JavascriptInterface
+        public void callHandler(String handlerName, String data) {
+            showToastShort("Action:" + handlerName + "      " + "Json对象：" + data);
+            Log.e("1111111111111", "Action:：" + handlerName + "      " + "Json对象：" + data);
+
+            Intent intent = new Intent(PrductDetailActivity.this, A0_LoginActivity.class);
+            startActivity(intent);
+        }
     }
 }

@@ -25,6 +25,9 @@ import com.wjhgw.R;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.api.Address_del_Request;
 import com.wjhgw.business.bean.CartList;
+import com.wjhgw.business.bean.Order_goods_list;
+import com.wjhgw.business.bean.SelectOrder;
+import com.wjhgw.business.bean.SelectOrderDatas;
 import com.wjhgw.business.bean.Status;
 import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
@@ -39,6 +42,8 @@ import com.wjhgw.ui.view.listview.adapter.ShoppingCartAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * 购物车
@@ -279,10 +284,10 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                 transaction.replace(R.id.content, homeFragment).commit();*/
                 break;
             case R.id.tv_collection:
-                if(key.equals("0")){
+                if (key.equals("0")) {
                     intent = new Intent(getActivity(), A0_LoginActivity.class);
                     startActivity(intent);
-                }else {
+                } else {
                     Toast.makeText(getActivity(), "该功能正在开发中", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -307,14 +312,14 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
     }
 
     @Override
-      public void onResume() {
+    public void onResume() {
         super.onResume();
         key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
 
         if (key.equals("0")) {
             ll_empty_shop_cart.setVisibility(View.VISIBLE);
             mListView.setVisibility(View.GONE);
-        }else {
+        } else {
             cart_list();
         }
     }
@@ -468,15 +473,28 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                 Dialog.dismiss();
                 Gson gson = new Gson();
                 if (responseInfo.result != null) {
-                    Status status = gson.fromJson(responseInfo.result, Status.class);
-                    if (status.status.code == 10000) {
-                        Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
+
+                    SelectOrder selectOrder = gson.fromJson(responseInfo.result, SelectOrder.class);
+                    if (selectOrder.status.code == 10000) {
+
+                        SelectOrderDatas selectOrderDatas = selectOrder.datas;
+
+                        ArrayList<Order_goods_list> order_goods_lists = selectOrderDatas.store_cart_list.goods_list;
+                        double realPay = 0.00;
+                        for (int i = 0; i < order_goods_lists.size(); i++) {
+                            realPay += Double.valueOf(order_goods_lists.get(i).goods_total);
+                        }
 
                         Intent intent = new Intent(getActivity(), S0_ConfirmOrderActivity.class);
+                        intent.putExtra("selectOrder", responseInfo.result);
+                        String tvTotal = tv_total.getText().toString();
+                        intent.putExtra("tv_total", tvTotal);
+                        intent.putExtra("realPay", realPay);
                         startActivity(intent);
 
+
                     } else {
-                        Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), selectOrder.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }
             }

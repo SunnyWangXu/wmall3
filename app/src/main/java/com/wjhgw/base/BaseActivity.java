@@ -30,6 +30,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//固定竖屏
     }
 
+    /**
+     * 标题返回上一页
+     */
     public void setUp() {
         setUpOnClickListener(new View.OnClickListener() {
 
@@ -48,6 +51,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 设置标题文字
+     * @param title
+     */
     public void setTitle(String title) {
         TextView tvTitle = (TextView) findViewById(R.id.tv_title_name);
         if (tvTitle != null) {
@@ -55,6 +62,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 拿到登陆Key
+     * @return
+     */
     public String getKey() {
         return this.getSharedPreferences("key", this.MODE_APPEND).getString("key", "0");
     }
@@ -69,6 +80,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         onInitViewData();
         onBindListener();
     }
+
     /**
      * 初始化 优先顺序：<br/>
      * <font color=red>onInit();</font><br/>
@@ -173,16 +185,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 关闭进度条
      */
-    public  void Dismiss()
-    {
+    public void Dismiss() {
         Dialog.dismiss();
     }
 
     /**
      * 开启进度条
      */
-    public void StartLoading()
-    {
+    public void StartLoading() {
         Dialog.ProgressDialog();
     }
 
@@ -194,11 +204,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * 短提示
+     * @param message
+     */
     public void showToastShort(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * 长提示
+     * @param message
+     */
     public void showToastLong(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }

@@ -47,6 +47,7 @@
         <activity android:name=".ui.activity.A1_RegisterActivity2" />
         <activity android:name=".ui.activity.A2_ResetPassActivity1" />
         <activity android:name=".ui.activity.A2_ResetPassActivity2" />
+        <activity android:name=".ui.activity.J0_SelectGiveObjectActivity" />
         <activity android:name=".ui.activity.VerificationCodeActivity" />
         <activity android:name=".ui.activity.M0_MyLockBoxActivity" />
         <activity android:name=".ui.activity.M1_Modify_nicknameActivity" />
