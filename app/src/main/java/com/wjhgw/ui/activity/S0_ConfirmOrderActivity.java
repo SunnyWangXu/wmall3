@@ -1,13 +1,16 @@
 package com.wjhgw.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -22,7 +25,14 @@ import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.Address_list;
+import com.wjhgw.business.bean.MyLockBox;
+import com.wjhgw.business.bean.Order_goods_list;
+import com.wjhgw.business.bean.SelectOrder;
+import com.wjhgw.business.bean.SelectOrderDatas;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.view.listview.adapter.LvOrderListAdapter;
+
+import java.util.ArrayList;
 
 /**
  * 确认订单Activity
@@ -34,7 +44,10 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private TextView tvPaymentClosem;
     //    private int MAKEONLINE = 1;
     //    private int MAKEDOWNPAY = 1;
+    //标记赠送点击
     private int MAKEDONATE = 1;
+    //标记使用余额
+    private int MAKEBALANCE = 1;
     private LinearLayout llOnlinePay;
     private LinearLayout llDownlinePay;
     private ImageView ivOnlinePay;
@@ -53,11 +66,31 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private String useName;
     private String usePhone;
     private String useAddressInfo;
+    private TextView tvTotalAmount;
+    private String tvTotal;
+    private ListView lvOrderList;
+    private LinearLayout llConfirmOrderHeader;
+    private LinearLayout llConfirmOrderFoot;
+    private TextView tvFreightMessage;
+    private TextView tvFreight;
+    private TextView tvRealPay;
+    private LvOrderListAdapter lvOrderListAdapter;
+    private String freight;
+    private double realPay = 0;
+    private boolean isDownlinePay;
+    private ImageView ivBalance;
+    private LinearLayout llUseBalance;
+    private TextView tvBalance;
+    private TextView tvDonate;
+    private MyLockBox userinformation;
+    private boolean isHavePaypwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_order);
+        String selectOrder = getIntent().getStringExtra("selectOrder");
+
         key = getKey();
 
         if (!key.equals("0") && key != null) {
@@ -67,6 +100,44 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             load_Default_Addresst();
 
         }
+
+        if (selectOrder != null) {
+            /**
+             * 解析选中订单
+             */
+            parseSelectOrdert(selectOrder);
+
+        }
+
+    }
+
+    /**
+     * 解析选中的商品订单
+     */
+    private void parseSelectOrdert(String selectOrderContent) {
+
+        Gson gson = new Gson();
+        if (selectOrderContent != null) {
+            SelectOrder selectOrder = gson.fromJson(selectOrderContent, SelectOrder.class);
+            if (selectOrder.status.code == 10000) {
+
+                SelectOrderDatas selectOrderDatas = selectOrder.datas;
+                freight = selectOrderDatas.store_cart_list.freight;
+                String freightMessage = selectOrderDatas.store_cart_list.freight_message;
+                tvFreight.setText("+ ¥ " + freight);
+                tvFreightMessage.setText(freightMessage);
+
+                realPay = getIntent().getDoubleExtra("realPay", 0);
+                tvRealPay.setText(realPay + Double.valueOf(freight) + "");
+
+                ArrayList<Order_goods_list> order_goods_lists = selectOrderDatas.store_cart_list.goods_list;
+
+                lvOrderListAdapter = new LvOrderListAdapter(this, order_goods_lists);
+                lvOrderList.setAdapter(lvOrderListAdapter);
+
+            }
+
+        }
     }
 
     @Override
@@ -74,12 +145,20 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         setUp();
         setTitle("确认订单");
 
+        lvOrderList = (ListView) findViewById(R.id.lv_order_list);
+
+        llConfirmOrderHeader = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.confirm_order_header, null);
+        llConfirmOrderFoot = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.confirm_order_foot, null);
+
+        lvOrderList.addHeaderView(llConfirmOrderHeader);
+        lvOrderList.addFooterView(llConfirmOrderFoot);
     }
 
     @Override
     public void onFindViews() {
-        llUseMessage = (LinearLayout) findViewById(R.id.ll_usemessage);
+        llUseMessage = (LinearLayout) llConfirmOrderHeader.findViewById(R.id.ll_usemessage);
         llDonate = (LinearLayout) findViewById(R.id.ll_donate);
+        tvDonate = (TextView) findViewById(R.id.tv_donate);
         ivDonate = (ImageView) findViewById(R.id.iv_donate);
 
         llOrderAddress = (LinearLayout) findViewById(R.id.ll_order_address);
@@ -87,25 +166,39 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         tvPayMethod = (TextView) findViewById(R.id.tv_pay_method);
         tvCommitOrder = (TextView) findViewById(R.id.tv_commit_order);
 
-        tvUseName = (TextView) findViewById(R.id.tv_useName);
-        tvUsePhone = (TextView) findViewById(R.id.tv_usePhone);
-        tvUseAddress = (TextView) findViewById(R.id.tv_useAddress);
+        tvUseName = (TextView) llConfirmOrderHeader.findViewById(R.id.tv_useName);
+        tvUsePhone = (TextView) llConfirmOrderHeader.findViewById(R.id.tv_usePhone);
+        tvUseAddress = (TextView) llConfirmOrderHeader.findViewById(R.id.tv_useAddress);
+
+        tvTotalAmount = (TextView) findViewById(R.id.tv_total_amount);
+        tvFreightMessage = (TextView) findViewById(R.id.tv_freight_message);
+        tvFreight = (TextView) findViewById(R.id.tv_freight);
+
+        tvRealPay = (TextView) findViewById(R.id.tv_real_pay);
+
+
+        llUseBalance = (LinearLayout) findViewById(R.id.ll_use_balance);
+        tvBalance = (TextView) findViewById(R.id.tv_use_balance);
+        ivBalance = (ImageView) findViewById(R.id.iv_balance);
 
     }
 
 
     @Override
     public void onInitViewData() {
+        tvTotal = getIntent().getStringExtra("tv_total");
+        tvTotalAmount.setText(tvTotal);
 
     }
 
     @Override
     public void onBindListener() {
 
-        llDonate.setOnClickListener(this);
-        llPayment.setOnClickListener(this);
-        tvCommitOrder.setOnClickListener(this);
         llOrderAddress.setOnClickListener(this);
+        llPayment.setOnClickListener(this);
+        llDonate.setOnClickListener(this);
+        llUseBalance.setOnClickListener(this);
+        tvCommitOrder.setOnClickListener(this);
 
     }
 
@@ -116,7 +209,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(data != null){
+        if (data != null) {
             useName = data.getStringExtra("tureName");
             usePhone = data.getStringExtra("phone");
             useAddressInfo = data.getStringExtra("addressInfo");
@@ -140,6 +233,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
                 break;
             case R.id.ll_payment:
+                isDownlinePay = tvPayMethod.getText().equals("货到付款");
                 /**
                  * 付款方式弹出窗
                  */
@@ -148,24 +242,81 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 break;
 
             case R.id.tv_commit_order:
+
+                /**
+                 * 判断是否有登录密码
+                 */
+                whetherHavePaypwd();
+
                 intent.setClass(this, S3_SelectPaymentActivity.class);
                 startActivity(intent);
                 break;
 
             case R.id.ll_donate:
+
                 MAKEDONATE++;
                 if (MAKEDONATE % 2 == 0) {
                     ivDonate.setImageResource(R.mipmap.ic_push_on);
                     llUseMessage.setVisibility(View.GONE);
+                    tvDonate.setTextColor(Color.parseColor("#666666"));
                 } else {
                     ivDonate.setImageResource(R.mipmap.ic_push_off);
                     llUseMessage.setVisibility(View.VISIBLE);
+                    tvDonate.setTextColor(Color.parseColor("#333333"));
                 }
 
                 break;
+            case R.id.ll_use_balance:
+
+                MAKEBALANCE++;
+                if (MAKEBALANCE % 2 == 0) {
+                    ivBalance.setImageResource(R.mipmap.ic_push_on);
+                    tvBalance.setTextColor(Color.parseColor("#666666"));
+
+                } else {
+                    ivBalance.setImageResource(R.mipmap.ic_push_off);
+                    tvBalance.setTextColor(Color.parseColor("#333333"));
+                }
+
+                break;
+
             default:
                 break;
         }
+
+    }
+
+    /**
+     * 判断是否有登录密码
+     */
+    private void whetherHavePaypwd() {
+
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Get_member_base_info, params, new RequestCallBack<String>() {
+
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo.result != null) {
+                    userinformation = gson.fromJson(responseInfo.result, MyLockBox.class);
+
+                    isHavePaypwd = userinformation.datas.paypwd.equals("1");
+                    
+                    if (isHavePaypwd) {
+                        showToastShort("true  true  true");
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+            }
+        });
 
     }
 
@@ -194,6 +345,21 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             }
         });
 
+        llOnlinePay = (LinearLayout) paymentWindowLayout.findViewById(R.id.ll_online_pay);
+        ivOnlinePay = (ImageView) paymentWindowLayout.findViewById(R.id.iv_online_pay);
+
+        llDownlinePay = (LinearLayout) paymentWindowLayout.findViewById(R.id.ll_downline_pay);
+        ivDownlinePay = (ImageView) paymentWindowLayout.findViewById(R.id.iv_downline_pay);
+        /**
+         * 如果选中货到付款点击弹出弹窗默认选中货到付款
+         */
+        if (isDownlinePay) {
+            ivOnlinePay.setImageResource(R.mipmap.ic_order_blank);
+            ivDownlinePay.setImageResource(R.mipmap.ic_order_select);
+
+            tvPayMethod.setText("货到付款");
+        }
+
         vWindow = (View) paymentWindowLayout.findViewById(R.id.v_window);
         vWindow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,9 +367,6 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 paymentWindow.dismiss();
             }
         });
-
-        llOnlinePay = (LinearLayout) paymentWindowLayout.findViewById(R.id.ll_online_pay);
-        ivOnlinePay = (ImageView) paymentWindowLayout.findViewById(R.id.iv_online_pay);
 
         llOnlinePay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,8 +379,6 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             }
         });
 
-        llDownlinePay = (LinearLayout) paymentWindowLayout.findViewById(R.id.ll_downline_pay);
-        ivDownlinePay = (ImageView) paymentWindowLayout.findViewById(R.id.iv_downline_pay);
 
         llDownlinePay.setOnClickListener(new View.OnClickListener() {
             @Override

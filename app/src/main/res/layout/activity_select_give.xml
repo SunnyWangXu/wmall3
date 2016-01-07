@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_layout" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_giveone"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:gravity="center_vertical"
+            android:text="赠送单人"
+            android:textColor="@color/btn_red"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/iv_zhangbei"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="30dp"
+            android:layout_toRightOf="@id/tv_giveone"
+            android:src="@mipmap/ic_zhangbei" />
+
+        <ImageView
+            android:id="@+id/iv_dear"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp"
+            android:layout_toRightOf="@id/iv_zhangbei"
+            android:src="@mipmap/ic_dear" />
+
+        <TextView
+            android:id="@+id/tv_zhangbei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/iv_zhangbei"
+            android:layout_alignRight="@id/iv_zhangbei"
+            android:layout_below="@+id/iv_zhangbei"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="长辈"
+            android:textColor="@color/filter_text_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_dear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/iv_dear"
+            android:layout_alignRight="@id/iv_dear"
+            android:layout_below="@+id/iv_dear"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="亲爱的ta"
+            android:textColor="@color/filter_text_color"
+            android:textSize="14sp" />
+
+
+        <ImageView
+            android:id="@+id/iv_tongshi"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignLeft="@+id/iv_zhangbei"
+            android:layout_alignRight="@+id/iv_zhangbei"
+            android:layout_below="@id/tv_zhangbei"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/tv_zhangbei"
+            android:src="@mipmap/ic_tongshi" />
+
+        <ImageView
+            android:id="@+id/iv_friend"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignLeft="@+id/iv_dear"
+            android:layout_alignRight="@+id/iv_dear"
+            android:layout_below="@id/tv_dear"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/tv_zhangbei"
+            android:src="@mipmap/ic_friend" />
+
+        <TextView
+            android:id="@+id/tv_tongshi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/iv_tongshi"
+            android:layout_alignRight="@id/iv_tongshi"
+            android:layout_below="@+id/iv_tongshi"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="同事"
+            android:textColor="@color/filter_text_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_friend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/iv_dear"
+            android:layout_alignRight="@id/iv_dear"
+            android:layout_below="@+id/iv_friend"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="朋友"
+            android:textColor="@color/filter_text_color"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_give_more_people"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:gravity="center_vertical"
+            android:text="赠送单人"
+            android:textColor="@color/btn_red"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/iv_give_more_people"
+            android:layout_width="240dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="30dp"
+            android:layout_toRightOf="@id/tv_give_more_people"
+            android:src="@mipmap/ic_more_people" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/iv_give_more_people"
+            android:layout_alignRight="@id/iv_give_more_people"
+            android:layout_below="@id/iv_give_more_people"
+            android:gravity="center"
+            android:text="见者有份"
+            android:textColor="@color/filter_text_color"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

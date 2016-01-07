@@ -37,7 +37,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private MyListView mListView;
     private LinearLayout MyAssetsLayout;
     private LinearLayout MyMessageLayout;
-    private LinearLayout MySetHelpLayout;
+    private LinearLayout MyHelpLayout;
     private LinearLayout MyOrderLayout;
     private MyLockBox userinformation;
     private ImageView myAvatar;
@@ -53,7 +53,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private TextView tv_statistics3;
     private TextView tv_statistics4;
     private String key;
-    private TextView titleName;
+    private ImageView ivSet;
     private LinearLayout ll_LockBox;
     private LinearLayout ll_Set;
     private String memberName;
@@ -96,7 +96,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         MyMessageLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.my_message_layout, null);
         MyOrderLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.my_order_layout, null);
         MyAssetsLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.my_assets_layout, null);
-        MySetHelpLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.my_set_help_layout, null);
+        MyHelpLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.my_help_layout, null);
     }
 
     /**
@@ -107,15 +107,14 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         mListView.addHeaderView(MyMessageLayout);
         mListView.addHeaderView(MyOrderLayout);
         mListView.addHeaderView(MyAssetsLayout);
-        mListView.addHeaderView(MySetHelpLayout);
+        mListView.addHeaderView(MyHelpLayout);
     }
 
     /**
      * 初始化视图
      */
     private void initView() {
-        titleName = (TextView) MyLayout.findViewById(R.id.tv_title_name);
-        titleName.setText("我的");
+        ivSet = (ImageView) MyLayout.findViewById(R.id.iv_set);
 
         myAvatar = (ImageView) MyMessageLayout.findViewById(R.id.my_avatar);
         member_nickname = (TextView) MyMessageLayout.findViewById(R.id.member_nickname);
@@ -131,7 +130,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         available_predeposit = (TextView) MyAssetsLayout.findViewById(R.id.tv_available_predeposit);
         ll_LockBox = (LinearLayout) MyMessageLayout.findViewById(R.id.ll_lockbox);
 
-        ll_Set = (LinearLayout) MySetHelpLayout.findViewById(R.id.ll_set);
+//        ll_Set = (LinearLayout) MyHelpLayout.findViewById(R.id.ll_set);
     }
 
     /**
@@ -139,7 +138,8 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
      */
     private void setClick() {
         ll_LockBox.setOnClickListener(this);
-        ll_Set.setOnClickListener(this);
+        ivSet.setOnClickListener(this);
+//        ll_Set.setOnClickListener(this);
         ll_all_orders.setOnClickListener(this);
         rl_layout1.setOnClickListener(this);
         rl_layout2.setOnClickListener(this);
@@ -179,14 +179,14 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                     startActivity(intent);
                 }
                 break;
-            case R.id.ll_set:
+            case R.id.iv_set:
 //                if (key.equals("0") || key == null) {
 //                    intent.setClass(getActivity(), A0_LoginActivity.class);
 //                    startActivity(intent);
 //                } else {
-                    intent.setClass(getActivity(), M6_SetActivity.class);
-                    intent.putExtra("memberName", memberName);
-                    startActivity(intent);
+                intent.setClass(getActivity(), M6_SetActivity.class);
+                intent.putExtra("memberName", memberName);
+                startActivity(intent);
 //                }
                 break;
             case R.id.ll_all_orders:
@@ -195,7 +195,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                     startActivity(intent);
                 } else {
                     intent.setClass(getActivity(), D0_OrderActivity.class);
-                    intent.putExtra("order_state","");
+                    intent.putExtra("order_state", "");
                     startActivity(intent);
                 }
                 break;
@@ -205,7 +205,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                     startActivity(intent);
                 } else {
                     intent.setClass(getActivity(), D0_OrderActivity.class);
-                    intent.putExtra("order_state","10");
+                    intent.putExtra("order_state", "10");
                     startActivity(intent);
                 }
                 break;
@@ -235,7 +235,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                     startActivity(intent);
                 } else {
                     intent.setClass(getActivity(), D0_OrderActivity.class);
-                    intent.putExtra("order_state","100");
+                    intent.putExtra("order_state", "100");
                     startActivity(intent);
                 }
                 break;
@@ -262,44 +262,44 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                     if (orderAmount.status.code == 10000) {
                         if (orderAmount.datas.un_pay.equals("0")) {
                             tv_statistics1.setVisibility(View.GONE);
-                        }else {
+                        } else {
                             tv_statistics1.setVisibility(View.VISIBLE);
-                            if(Integer.parseInt(orderAmount.datas.un_pay) > 9){
+                            if (Integer.parseInt(orderAmount.datas.un_pay) > 9) {
                                 tv_statistics1.setText("9+");
-                            }else {
+                            } else {
                                 tv_statistics1.setText(orderAmount.datas.un_pay);
                             }
                         }
 
                         if (orderAmount.datas.un_receive.equals("0")) {
                             tv_statistics2.setVisibility(View.GONE);
-                        }else {
+                        } else {
                             tv_statistics2.setVisibility(View.VISIBLE);
-                            if(Integer.parseInt(orderAmount.datas.un_receive) > 9){
+                            if (Integer.parseInt(orderAmount.datas.un_receive) > 9) {
                                 tv_statistics2.setText("9+");
-                            }else {
+                            } else {
                                 tv_statistics2.setText(orderAmount.datas.un_receive);
                             }
                         }
 
                         if (orderAmount.datas.un_evaluate.equals("0")) {
                             tv_statistics3.setVisibility(View.GONE);
-                        }else {
+                        } else {
                             tv_statistics3.setVisibility(View.VISIBLE);
-                            if(Integer.parseInt(orderAmount.datas.un_evaluate) > 9){
+                            if (Integer.parseInt(orderAmount.datas.un_evaluate) > 9) {
                                 tv_statistics3.setText("9+");
-                            }else {
+                            } else {
                                 tv_statistics3.setText(orderAmount.datas.un_evaluate);
                             }
                         }
 
                         if (orderAmount.datas.un_done_fefund.equals("0")) {
                             tv_statistics4.setVisibility(View.GONE);
-                        }else {
+                        } else {
                             tv_statistics4.setVisibility(View.VISIBLE);
-                            if(Integer.parseInt(orderAmount.datas.un_done_fefund) > 9){
+                            if (Integer.parseInt(orderAmount.datas.un_done_fefund) > 9) {
                                 tv_statistics4.setText("9+");
-                            }else {
+                            } else {
                                 tv_statistics4.setText(orderAmount.datas.un_done_fefund);
                             }
                         }
@@ -333,7 +333,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 edit.putString("userinformation_datas_member_avatar", responseInfo.result).commit();*/
                 Dialog.dismiss();
                 /**
-                 * 解析
+                 * 解析用户信息
                  */
                 Analytical(responseInfo.result);
 
@@ -385,7 +385,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
             tv_statistics2.setVisibility(View.GONE);
             tv_statistics3.setVisibility(View.GONE);
             tv_statistics4.setVisibility(View.GONE);
-        }else {
+        } else {
             load_User_information();
             order_amount();
         }
