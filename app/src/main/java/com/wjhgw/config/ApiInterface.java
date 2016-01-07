@@ -194,5 +194,9 @@ public class ApiInterface {
      *催促卖家发货
      */
     public static final String Order_remind  ="/mobile/index.php?act=member_order&op=order_remind";
+    /**
+     *酒柜商品列表
+     */
+    public static final String Cab_list  ="/mobile/index.php?act=member_cabinet&op=cab_list";
 
 }
