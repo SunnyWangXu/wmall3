@@ -176,6 +176,7 @@
                 </FrameLayout>
 
                 <TextView
+                    android:id="@+id/tv_others"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:background="#ff9204"
@@ -185,6 +186,7 @@
                     android:textSize="19sp" />
 
                 <TextView
+                    android:id="@+id/tv_own"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:background="#f25252"
