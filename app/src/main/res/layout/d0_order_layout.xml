@@ -8,6 +8,9 @@
 
     <include layout="@layout/title_layout" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <com.wjhgw.ui.view.listview.MyListView
         android:id="@+id/d0_list_layout"
         android:layout_width="match_parent"
@@ -16,6 +19,38 @@
         android:divider="#00000000"
         android:dividerHeight="0dp"
         android:fastScrollEnabled="false"
-        android:scrollbars="none" />
+        android:scrollbars="none"
+        android:visibility="gone"/>
 
+        <LinearLayout
+            android:id="@+id/ll_no_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:src="@mipmap/ic_on_order"
+            />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="7dp"
+            android:textSize="19dp"
+            android:textColor="#666666"
+            android:text="你目前没有相关的订单"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textSize="13dp"
+            android:textColor="#999999"
+            android:text="你可以去看看有哪些想买"/>
+        </LinearLayout>
+    </FrameLayout>
 </LinearLayout>

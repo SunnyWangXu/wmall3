@@ -3,6 +3,7 @@ package com.wjhgw.ui.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
@@ -34,11 +35,13 @@ import java.util.ArrayList;
 public class D0_OrderActivity extends BaseActivity implements BusinessResponse, OnClickListener, XListView.IXListViewListener {
 
     private MyListView mListView;
+    private LinearLayout ll_no_order;
     private String key;
     private D0_OrderAdapter listAdapter;
     private boolean isSetAdapter = true;
     private int curpage = 1;
     private String order_state = "";
+    private String name = "";
     private ArrayList<OrderList_data> OrderList_data = new ArrayList<>();
     private Order_Request Request;
 
@@ -48,8 +51,10 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
         setContentView(R.layout.d0_order_layout);
         key = getKey();
         order_state = getIntent().getStringExtra("order_state");
+        name = getIntent().getStringExtra("name");
         mListView = (MyListView) findViewById(R.id.d0_list_layout);
-
+        ll_no_order = (LinearLayout) findViewById(R.id.ll_no_order);
+        setTitle(name);
         mListView.setPullLoadEnable(false);
         mListView.setPullRefreshEnable(true);
         mListView.setXListViewListener(this, 1);
@@ -66,7 +71,6 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
     @Override
     public void onInit() {
         setUp();
-        setTitle("订单管理");
     }
 
     @Override
@@ -140,12 +144,14 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
                         mListView.stopLoadMore();
                         mListView.setRefreshTime();
                         if (orderList.datas != null) {
+                            ll_no_order.setVisibility(View.GONE);
+                            mListView.setVisibility(View.VISIBLE);
                             if (OrderList_data.size() > 0 && isSetAdapter) {
                                 OrderList_data.clear();
                             }
                             OrderList_data.addAll(orderList.datas);
                             if (isSetAdapter) {
-                                listAdapter = new D0_OrderAdapter(D0_OrderActivity.this, OrderList_data,Request,key);
+                                listAdapter = new D0_OrderAdapter(D0_OrderActivity.this, OrderList_data, Request, key);
                                 mListView.setAdapter(listAdapter);
                             } else {
                                 listAdapter.List = OrderList_data;
@@ -157,6 +163,9 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
                             } else {
                                 mListView.setPullLoadEnable(false);
                             }
+                        } else {
+                            ll_no_order.setVisibility(View.VISIBLE);
+                            mListView.setVisibility(View.GONE);
                         }
 
                     }
@@ -199,7 +208,7 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
                             }
                             OrderList_data.addAll(orderList.datas);
                             if (isSetAdapter) {
-                                listAdapter = new D0_OrderAdapter(D0_OrderActivity.this, OrderList_data,Request,key);
+                                listAdapter = new D0_OrderAdapter(D0_OrderActivity.this, OrderList_data, Request, key);
                                 mListView.setAdapter(listAdapter);
                             } else {
                                 listAdapter.List = OrderList_data;

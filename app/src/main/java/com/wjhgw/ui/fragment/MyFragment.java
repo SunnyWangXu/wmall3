@@ -196,6 +196,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 } else {
                     intent.setClass(getActivity(), D0_OrderActivity.class);
                     intent.putExtra("order_state", "");
+                    intent.putExtra("name", "所有订单");
                     startActivity(intent);
                 }
                 break;
@@ -206,6 +207,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 } else {
                     intent.setClass(getActivity(), D0_OrderActivity.class);
                     intent.putExtra("order_state", "10");
+                    intent.putExtra("name", "待付款");
                     startActivity(intent);
                 }
                 break;
@@ -216,6 +218,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 } else {
                     intent.setClass(getActivity(), D0_OrderActivity.class);
                     intent.putExtra("order_state", "30");
+                    intent.putExtra("name", "待收货");
                     startActivity(intent);
                 }
                 break;
@@ -226,6 +229,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 } else {
                     intent.setClass(getActivity(), D0_OrderActivity.class);
                     intent.putExtra("order_state", "60");
+                    intent.putExtra("name", "待评价");
                     startActivity(intent);
                 }
                 break;
