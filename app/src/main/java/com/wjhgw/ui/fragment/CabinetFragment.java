@@ -52,6 +52,7 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
     private TextView tv_own;
     private LinearLayout ll_wine;
     private LinearLayout ll_select;
+    private LinearLayout ll_null;
     private Address_del_Request Request;
     //判断是刷新状态还是加载状态
     private Boolean isSetAdapter = true;
@@ -100,6 +101,7 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
     private void initView() {
         iv_select = (ImageView) rootView.findViewById(R.id.iv_select);
         ll_select = (LinearLayout) rootView.findViewById(R.id.ll_select);
+        ll_null = (LinearLayout) rootView.findViewById(R.id.ll_null);
         ll_wine = (LinearLayout) rootView.findViewById(R.id.ll_wine);
         tv_total_num = (TextView) rootView.findViewById(R.id.tv_total_num);
         tv_others = (TextView) rootView.findViewById(R.id.tv_others);
@@ -221,6 +223,7 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                         mListView.setRefreshTime();
                         ll_wine.setVisibility(View.VISIBLE);
                         tv_record.setVisibility(View.VISIBLE);
+                        ll_null.setVisibility(View.GONE);
                         if (cadList.datas != null) {
                             if (isSetAdapter) {
                                 listAdapter = new CabinetAdapter(getActivity(), cadList.datas,
@@ -241,6 +244,7 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                             isSetAdapter = true;
                             ll_wine.setVisibility(View.GONE);
                             tv_record.setVisibility(View.GONE);
+                            ll_null.setVisibility(View.VISIBLE);
                         }
                     }
                 }
