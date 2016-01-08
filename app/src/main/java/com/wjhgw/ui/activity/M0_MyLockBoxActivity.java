@@ -26,6 +26,7 @@ import com.wjhgw.business.bean.MyLockBoxData;
 import com.wjhgw.business.bean.Nickname;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.dialog.GalleryDialog;
+import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.utils.GalleryConstants;
 import com.wjhgw.utils.GalleryUtils;
 
@@ -50,6 +51,7 @@ public class M0_MyLockBoxActivity extends BaseActivity implements View.OnClickLi
     private TextView tv_Nickname;
     private Intent intent;
     private GalleryDialog Dialog;
+    private LoadDialog loadDialog;
     private ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
     private ImageView iv_Avatar;
@@ -58,6 +60,7 @@ public class M0_MyLockBoxActivity extends BaseActivity implements View.OnClickLi
     private TextView tv_Mobile;
     private LinearLayout ll_Manage_Addres;
     private String Number;
+    private String paypwd = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,7 @@ public class M0_MyLockBoxActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.m0_my_lockbox_layout);
 
         Dialog = new GalleryDialog(this);
+        loadDialog = new LoadDialog(this);
 
     }
 
@@ -130,6 +134,7 @@ public class M0_MyLockBoxActivity extends BaseActivity implements View.OnClickLi
                     intent = new Intent(this, VerificationCodeActivity.class);
                     intent.putExtra("Number", Number);
                     intent.putExtra("use", "2");
+                    intent.putExtra("paypwd", paypwd);
                     startActivity(intent);
                 }
                 break;
@@ -212,14 +217,14 @@ public class M0_MyLockBoxActivity extends BaseActivity implements View.OnClickLi
      * 上传用户头像
      */
     private void load_member_image(RequestParams params) {
-
+        loadDialog.ProgressDialog();
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Member_image, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Gson gson = new Gson();
                 if (responseInfo.result != null) {
                     Nickname nickname = gson.fromJson(responseInfo.result, Nickname.class);
-
+                    loadDialog.dismiss();
                     if (nickname.status.code == 10000) {
                         //finish(false);
                         showToastLong(nickname.status.msg);
@@ -255,6 +260,7 @@ public class M0_MyLockBoxActivity extends BaseActivity implements View.OnClickLi
      * 请求个人资料
      */
     private void loadMyLockBox() {
+        loadDialog.ProgressDialog();
         String key = getSharedPreferences("key", MODE_APPEND).getString("key", "0");
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
@@ -265,6 +271,7 @@ public class M0_MyLockBoxActivity extends BaseActivity implements View.OnClickLi
                 Gson gson = new Gson();
                 if (null != responseInfo) {
                     MyLockBox myLockBox = gson.fromJson(responseInfo.result, MyLockBox.class);
+                    loadDialog.dismiss();
                     if (myLockBox.status.code == 10000) {
                         MyLockBoxData myLockBoxData = myLockBox.datas;
                         Number = myLockBoxData.member_mobile;
@@ -277,7 +284,7 @@ public class M0_MyLockBoxActivity extends BaseActivity implements View.OnClickLi
                         } else if (myLockBoxData.passwd_strength.equals("2")) {
                             tv_Passwd_Strength.setText("强");
                         }
-
+                        paypwd = myLockBoxData.paypwd;
                         if (myLockBoxData.paypwd.equals("0")) {
                             tv_Paypwd.setText("未设置");
                         } else {

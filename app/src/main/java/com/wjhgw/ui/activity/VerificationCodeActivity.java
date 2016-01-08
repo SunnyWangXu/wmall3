@@ -211,6 +211,7 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
                         } else if (getIntent().getStringExtra("use").equals("2")) {
                             intent = new Intent(VerificationCodeActivity.this, M4_PaymentPasswordActivity.class);
                             intent.putExtra("Number", Number);
+                            intent.putExtra("paypwd", getIntent().getStringExtra("paypwd"));
                             startActivity(intent);
                             finish(false);
                         } else if (getIntent().getStringExtra("use").equals("3")) {
