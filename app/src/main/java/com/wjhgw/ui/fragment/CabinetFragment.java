@@ -1,7 +1,6 @@
 package com.wjhgw.ui.fragment;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -25,6 +24,7 @@ import com.wjhgw.business.api.Address_del_Request;
 import com.wjhgw.business.bean.CadList;
 import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.activity.J1_RecordActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
@@ -46,20 +46,16 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
     private CadList cadList;
     private ImageView iv_select;
     private TextView tv_total_num;
-    private TextView tv_button1;
-    private TextView tv_button2;
+
+    private TextView tv_record;
     private TextView tv_others;
     private TextView tv_own;
-    private View v_line1;
-    private View v_line2;
     private LinearLayout ll_wine;
     private LinearLayout ll_select;
-    private LinearLayout ll_settlement;
     private Address_del_Request Request;
     //判断是刷新状态还是加载状态
     private Boolean isSetAdapter = true;
     private View rootView;
-    private boolean Edit = true;
     private LoadDialog Dialog;
     private Intent intent;
     private int curpage = 1;
@@ -103,19 +99,14 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
      */
     private void initView() {
         iv_select = (ImageView) rootView.findViewById(R.id.iv_select);
-        ll_settlement = (LinearLayout) rootView.findViewById(R.id.ll_settlement);
         ll_select = (LinearLayout) rootView.findViewById(R.id.ll_select);
         ll_wine = (LinearLayout) rootView.findViewById(R.id.ll_wine);
         tv_total_num = (TextView) rootView.findViewById(R.id.tv_total_num);
-        tv_button1 = (TextView) rootView.findViewById(R.id.tv_button1);
-        tv_button2 = (TextView) rootView.findViewById(R.id.tv_button2);
         tv_others = (TextView) rootView.findViewById(R.id.tv_others);
         tv_own = (TextView) rootView.findViewById(R.id.tv_own);
+        tv_record = (TextView) rootView.findViewById(R.id.tv_record);
 
-        v_line1 = (View) rootView.findViewById(R.id.v_line1);
-        v_line2 = (View) rootView.findViewById(R.id.v_line2);
         mListView = (MyListView) rootView.findViewById(R.id.lv_list_layout);
-        mListView1 = (MyListView) rootView.findViewById(R.id.lv_list_layout1);
     }
 
     /**
@@ -125,8 +116,7 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
         ll_select.setOnClickListener(this);
         tv_own.setOnClickListener(this);
         tv_others.setOnClickListener(this);
-        tv_button1.setOnClickListener(this);
-        tv_button2.setOnClickListener(this);
+        tv_record.setOnClickListener(this);
     }
 
     @Override
@@ -161,13 +151,9 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                 }
                 listAdapter.notifyDataSetChanged();
                 break;
-            case R.id.tv_button1:
-                Edit = true;
-                container();
-                break;
-            case R.id.tv_button2:
-                Edit = false;
-                container();
+            case R.id.tv_record:
+                intent = new Intent(getActivity(), J1_RecordActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tv_others:
                 if (listAdapter.num > 0) {
@@ -206,12 +192,9 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
     public void onResume() {
         super.onResume();
         key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
-
-        if (key.equals("0")) {
-        } else {
+        if (!key.equals("0")) {
             cab_list();
         }
-        container();
     }
 
     /**
@@ -234,11 +217,10 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
 
                     if (cadList.status.code == 10000) {
                         mListView.stopRefresh();
+                        mListView.stopLoadMore();
                         mListView.setRefreshTime();
-                        //tv_edit.setVisibility(View.VISIBLE);
-                        ll_settlement.setVisibility(View.VISIBLE);
-                        mListView.setVisibility(View.VISIBLE);
-                        //ll_empty_shop_cart.setVisibility(View.GONE);
+                        ll_wine.setVisibility(View.VISIBLE);
+                        tv_record.setVisibility(View.VISIBLE);
                         if (cadList.datas != null) {
                             if (isSetAdapter) {
                                 listAdapter = new CabinetAdapter(getActivity(), cadList.datas,
@@ -257,10 +239,8 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                             }
                         } else {
                             isSetAdapter = true;
-                            Edit = true;
-                            mListView.setAdapter(null);
-                            ll_settlement.setVisibility(View.GONE);
-                            mListView.setVisibility(View.GONE);
+                            ll_wine.setVisibility(View.GONE);
+                            tv_record.setVisibility(View.GONE);
                         }
                     }
                 }
@@ -300,24 +280,4 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
         }
     }
 
-    /**
-     * 提赠记录和商品一览
-     */
-    private void container() {
-        if (Edit) {
-            tv_button1.setBackgroundColor(Color.parseColor("#ffffff"));
-            tv_button2.setBackgroundColor(Color.parseColor("#f1f1f1"));
-            v_line2.setBackgroundColor(Color.parseColor("#00000000"));
-            v_line1.setBackgroundColor(Color.parseColor("#f25252"));
-            ll_wine.setVisibility(View.VISIBLE);
-            mListView1.setVisibility(View.GONE);
-        } else {
-            tv_button2.setBackgroundColor(Color.parseColor("#ffffff"));
-            tv_button1.setBackgroundColor(Color.parseColor("#f1f1f1"));
-            v_line1.setBackgroundColor(Color.parseColor("#00000000"));
-            v_line2.setBackgroundColor(Color.parseColor("#f25252"));
-            mListView1.setVisibility(View.VISIBLE);
-            ll_wine.setVisibility(View.GONE);
-        }
-    }
 }

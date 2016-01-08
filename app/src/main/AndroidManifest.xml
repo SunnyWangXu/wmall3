@@ -65,6 +65,7 @@
         <activity android:name=".ui.activity.S3_SelectPaymentActivity" />
         <activity android:name=".ui.activity.MessageCenterActivity" />
         <activity android:name=".ui.activity.D3_EvaluateActivity" />
+        <activity android:name=".ui.activity.J1_RecordActivity" />
 
         <activity
             android:name="com.wjhgw.wxapi.WXPayEntryActivity"

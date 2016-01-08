@@ -6,89 +6,44 @@
     android:clickable="true"
     android:orientation="vertical">
 
-    <TextView
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:text="我的酒柜"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="我的酒柜"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="15dp"
+            android:text="记录"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+    </FrameLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#cccccc" />
 
-    <FrameLayout
+    <LinearLayout
+        android:id="@+id/ll_wine"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/layout_bg">
-
-            <TextView
-                android:id="@+id/tv_button1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="酒品一览"
-                android:textSize="20sp" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#cccccc" />
-
-            <TextView
-                android:id="@+id/tv_button2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="提赠记录"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="bottom"
-            android:background="#cccccc" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom">
-
-            <View
-                android:id="@+id/v_line1"
-                android:layout_width="wrap_content"
-                android:layout_height="2dp"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:background="#f25252" />
-
-            <View
-                android:id="@+id/v_line2"
-                android:layout_width="wrap_content"
-                android:layout_height="2dp"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:background="#f25252" />
-        </LinearLayout>
-    </FrameLayout>
-
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <com.wjhgw.ui.view.listview.MyListView
-            android:id="@+id/lv_list_layout1"
+            android:id="@+id/lv_list_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
@@ -96,106 +51,86 @@
             android:divider="#00000000"
             android:dividerHeight="0dp"
             android:fastScrollEnabled="false"
-            android:scrollbars="none"
-            android:visibility="gone" />
+            android:scrollbars="none" />
 
         <LinearLayout
-            android:id="@+id/ll_wine"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:gravity="center_vertical">
 
-            <com.wjhgw.ui.view.listview.MyListView
-                android:id="@+id/lv_list_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:divider="#00000000"
-                android:dividerHeight="0dp"
-                android:fastScrollEnabled="false"
-                android:scrollbars="none" />
+                android:background="#000000">
 
-            <LinearLayout
-                android:id="@+id/ll_settlement"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="bottom"
-                android:gravity="center_vertical">
-
-
-                <FrameLayout
+                <LinearLayout
+                    android:id="@+id/ll_select"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#000000">
+                    android:layout_height="55dp">
 
-                    <LinearLayout
-                        android:id="@+id/ll_select"
-                        android:layout_width="wrap_content"
-                        android:layout_height="55dp">
-
-                        <ImageView
-                            android:id="@+id/iv_select"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
-                            android:src="@mipmap/ic_order_blank" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="8dp"
-                            android:text="全选"
-                            android:textColor="#ffffff"
-                            android:textSize="14dp" />
-                    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/iv_select"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/ic_order_blank" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginRight="15dp"
-                        android:text="合计："
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="8dp"
+                        android:text="全选"
                         android:textColor="#ffffff"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/tv_total_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="10dp"
-                        android:text="1"
-                        android:textColor="#ffffff"
-                        android:textSize="14sp" />
-
-                </FrameLayout>
+                        android:textSize="14dp" />
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tv_others"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:background="#ff9204"
-                    android:gravity="center"
-                    android:text="赠送亲友"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="15dp"
+                    android:text="合计："
                     android:textColor="#ffffff"
-                    android:textSize="19sp" />
+                    android:textSize="15sp" />
 
                 <TextView
-                    android:id="@+id/tv_own"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:background="#f25252"
-                    android:gravity="center"
-                    android:text="犒劳自己"
+                    android:id="@+id/tv_total_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="1"
                     android:textColor="#ffffff"
-                    android:textSize="19sp" />
-            </LinearLayout>
+                    android:textSize="14sp" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_others"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="#ff9204"
+                android:gravity="center"
+                android:text="赠送亲友"
+                android:textColor="#ffffff"
+                android:textSize="19sp" />
+
+            <TextView
+                android:id="@+id/tv_own"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="#f25252"
+                android:gravity="center"
+                android:text="犒劳自己"
+                android:textColor="#ffffff"
+                android:textSize="19sp" />
         </LinearLayout>
-    </FrameLayout>
+    </LinearLayout>
 
 </LinearLayout>
