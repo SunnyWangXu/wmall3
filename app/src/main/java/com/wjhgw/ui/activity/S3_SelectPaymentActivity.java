@@ -9,12 +9,11 @@ import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 
 /**
- * 选择支付
+ * 选择支付Activity
  */
 public class S3_SelectPaymentActivity extends BaseActivity implements View.OnClickListener {
 
     private LinearLayout llBalancePay;
-    private int MAKEBALANCE = 1;
     private LinearLayout llWeixinPay;
     private LinearLayout llAlipayPay;
     private ImageView ivWeixinPay;

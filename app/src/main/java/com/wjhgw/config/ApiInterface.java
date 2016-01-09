@@ -198,5 +198,9 @@ public class ApiInterface {
      *酒柜商品列表
      */
     public static final String Cab_list  ="/mobile/index.php?act=member_cabinet&op=cab_list";
+    /**
+     *验证支付密码
+     */
+    public static final String Test_Paypwd  ="/mobile/index.php?act=member_info&op=check_paypwd";
 
 }

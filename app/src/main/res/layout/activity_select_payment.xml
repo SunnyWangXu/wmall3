@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="23dp"
-            android:text="实际付款："
+            android:text="订单金额："
             android:textColor="@color/spec_text_color"
             android:textSize="16sp" />
 

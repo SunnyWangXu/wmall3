@@ -8,11 +8,14 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
@@ -29,10 +32,16 @@ import com.wjhgw.business.bean.MyLockBox;
 import com.wjhgw.business.bean.Order_goods_list;
 import com.wjhgw.business.bean.SelectOrder;
 import com.wjhgw.business.bean.SelectOrderDatas;
+import com.wjhgw.business.bean.TestPaypwd;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.dialog.EntryPaypwdDialog;
+import com.wjhgw.ui.dialog.RestartInputAndFindPaypwdDialog;
+import com.wjhgw.ui.dialog.SetPaypwdDialog;
 import com.wjhgw.ui.view.listview.adapter.LvOrderListAdapter;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * 确认订单Activity
@@ -84,6 +93,11 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private TextView tvDonate;
     private MyLockBox userinformation;
     private boolean isHavePaypwd;
+    private SetPaypwdDialog setPaypwdDialog;
+    private EntryPaypwdDialog entryPaypwdDialog;
+    private boolean truePaypwd;
+    private TestPaypwd testPaypwd;
+    private RestartInputAndFindPaypwdDialog restartInputAndFindPaypwdDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -244,12 +258,10 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             case R.id.tv_commit_order:
 
                 /**
-                 * 判断是否有登录密码
+                 * 判断是否有登录密码,没有就设置，有就去输入下单
                  */
                 whetherHavePaypwd();
 
-                intent.setClass(this, S3_SelectPaymentActivity.class);
-                startActivity(intent);
                 break;
 
             case R.id.ll_donate:
@@ -304,11 +316,39 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                     userinformation = gson.fromJson(responseInfo.result, MyLockBox.class);
 
                     isHavePaypwd = userinformation.datas.paypwd.equals("1");
-                    
-                    if (isHavePaypwd) {
-                        showToastShort("true  true  true");
-                    }
 
+                    if (!isHavePaypwd) {
+                        /**
+                         *建议设置支付密码的对话框
+                         */
+                        setPaypwdDialog = new SetPaypwdDialog(S0_ConfirmOrderActivity.this, "设置支付密码", "为了提高账号安全性，建议设置支付密码");
+
+                        setPaypwdDialog.show();
+
+                        setPaypwdDialog.tvCancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                setPaypwdDialog.dismiss();
+                            }
+                        });
+
+                        setPaypwdDialog.tvGotoSetpaypwd.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                setPaypwdDialog.dismiss();
+                                Intent intent = new Intent(S0_ConfirmOrderActivity.this, M4_PaymentPasswordActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+
+                    } else {
+
+                        /**
+                         *输入支付密码的对话框
+                         */
+                        entryPaypwdAndTest();
+                    }
                 }
             }
 
@@ -318,6 +358,120 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             }
         });
 
+    }
+
+    /**
+     * 输入支付密码的对话框
+     */
+    private void entryPaypwdAndTest() {
+        entryPaypwdDialog = new EntryPaypwdDialog(S0_ConfirmOrderActivity.this);
+        entryPaypwdDialog.show();
+
+        /**
+         * 弹出软键盘
+         */
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+                        .toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }, 200);
+
+        entryPaypwdDialog.tvEntryCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                entryPaypwdDialog.dismiss();
+            }
+        });
+
+        entryPaypwdDialog.tvEntryPaypwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText edPaypwd = entryPaypwdDialog.etEntryPaypwd;
+
+                String paypwd = edPaypwd.getText().toString();
+                if (paypwd.equals("")) {
+                    Toast.makeText(S0_ConfirmOrderActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
+                }
+                entryPaypwdDialog.dismiss();
+                /**
+                 * 验证支付密码
+                 */
+                testPaypwd(paypwd);
+
+            }
+        });
+    }
+
+    /**
+     * 验证支付密码
+     */
+    private boolean testPaypwd(String paypwd) {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+        params.addBodyParameter("paypwd", paypwd);
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Test_Paypwd, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                if (responseInfo.result != null) {
+                    Gson gson = new Gson();
+                    testPaypwd = gson.fromJson(responseInfo.result, TestPaypwd.class);
+
+                    if (testPaypwd.status.code == 10000) {
+                        /**
+                         * 支付密码正确跳转
+                         */
+                        entryPaypwdDialog.dismiss();
+
+                        Intent intent = new Intent();
+                        intent.setClass(S0_ConfirmOrderActivity.this, S3_SelectPaymentActivity.class);
+                        startActivity(intent);
+
+                    } else {
+                        /**
+                         * 支付密码不正确， 弹出重新输入或者找回支付密码
+                         */
+                        restartInputAndFindPaypwdDialog = new RestartInputAndFindPaypwdDialog(S0_ConfirmOrderActivity.this);
+
+                        restartInputAndFindPaypwdDialog.show();
+                        restartInputAndFindPaypwdDialog.tvRestartInput.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                restartInputAndFindPaypwdDialog.dismiss();
+                                /**
+                                 *输入支付密码的对话框
+                                 */
+                                entryPaypwdAndTest();
+                            }
+                        });
+
+
+                        restartInputAndFindPaypwdDialog.tvFindPaypwd.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                restartInputAndFindPaypwdDialog.dismiss();
+                                Intent intent = new Intent(S0_ConfirmOrderActivity.this, M4_PaymentPasswordActivity.class);
+                                startActivity(intent);
+
+                            }
+                        });
+
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Toast.makeText(S0_ConfirmOrderActivity.this, testPaypwd.status.msg, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return truePaypwd;
     }
 
     /**

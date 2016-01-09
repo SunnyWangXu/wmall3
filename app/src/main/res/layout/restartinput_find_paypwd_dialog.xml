@@ -9,7 +9,7 @@
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_bg"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/dialog_title"
@@ -17,27 +17,10 @@
             android:layout_height="50dp"
             android:layout_marginLeft="15dp"
             android:gravity="center"
-            android:text="title"
+            android:text="支付密码输入有误"
             android:textColor="#333333"
             android:textSize="20dp" />
 
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:minHeight="60dp"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:id="@+id/dialog_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:text="message"
-                android:textColor="#333333"
-                android:textSize="18dp" />
-        </LinearLayout>
 
         <View
             android:layout_width="fill_parent"
@@ -50,17 +33,17 @@
             android:layout_height="50dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingBottom="1dp" >
+            android:paddingBottom="1dp">
 
             <TextView
-                android:id="@+id/yes"
+                android:id="@+id/tv_restart_input"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/textbg_select"
                 android:gravity="center"
-                android:text="确定"
-                android:textColor="#333333"
+                android:text="重新輸入"
+                android:textColor="#666666"
                 android:textSize="16dp" />
 
             <View
@@ -69,16 +52,16 @@
                 android:background="#c4cccccc" />
 
             <TextView
-                android:id="@+id/no"
+                android:id="@+id/tv_find_paypwd"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/textbg_select"
                 android:gravity="center"
-                android:text="取消"
+                android:text="找回密码"
                 android:textColor="#333333"
                 android:textSize="16dp" />
+
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

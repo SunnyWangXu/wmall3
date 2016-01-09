@@ -163,7 +163,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
                 /**
                  * 缓存一级商品分类
                  */
-                if(responseInfo != null){
+                if (responseInfo != null) {
 
                     SharedPreferences.Editor editor = getActivity().getSharedPreferences("wjhgw_category", getActivity().MODE_PRIVATE).edit();
                     editor.putString("goods_class1", responseInfo.result).commit();
