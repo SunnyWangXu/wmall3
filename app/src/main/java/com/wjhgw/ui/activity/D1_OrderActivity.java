@@ -34,9 +34,6 @@ import com.wjhgw.ui.view.listview.adapter.D0_OrderAdapter1;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * 订单详情
  */
@@ -360,20 +357,9 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 tv_invoice_content.setText(order_detail.datas.extend_order_common.invoice_info.内容);
                             }
 
-
-                            Date date = new Date(Long.parseLong(order_detail.datas.add_time) * 1000);
-                            String timeString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
-                            tv_add_time.setText(timeString);
-                            if (!order_detail.datas.payment_time.equals("0")) {
-                                Date date1 = new Date(Long.parseLong(order_detail.datas.payment_time) * 1000);
-                                String timeString1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date1);
-                                tv_payment_time.setText(timeString1);
-                            }
-                            if (!order_detail.datas.extend_order_common.shipping_time.equals("0")) {
-                                Date date2 = new Date(Long.parseLong(order_detail.datas.extend_order_common.shipping_time) * 1000);
-                                String timeString2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date2);
-                                tv_shipping_time.setText(timeString2);
-                            }
+                            tv_add_time.setText(order_detail.datas.add_time);
+                            tv_payment_time.setText(order_detail.datas.payment_time);
+                            tv_shipping_time.setText(order_detail.datas.extend_order_common.shipping_time);
 
                             if (order_detail.datas.order_state.equals("10")) {
                                 if (order_detail.datas.if_cancel) {
