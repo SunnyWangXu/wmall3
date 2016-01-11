@@ -34,7 +34,7 @@ import com.wjhgw.ui.dialog.ShoppingDialog;
 import java.util.ArrayList;
 
 /**
- * @author
+ * 购物车
  */
 public class ShoppingCartAdapter extends BaseAdapter {
     Context c;
@@ -49,7 +49,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
     public TextView tv_total;
     public TextView tv_total_num;
     //合计金额
-    public int total = 0;
+    public double total = 0;
     //已勾选商品个数
     public int total_num = 0;
     //对话框编辑的数量
