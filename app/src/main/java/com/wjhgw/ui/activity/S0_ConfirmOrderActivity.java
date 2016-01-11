@@ -28,6 +28,7 @@ import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.Address_list;
+import com.wjhgw.business.bean.CheckAddressSupport;
 import com.wjhgw.business.bean.MyLockBox;
 import com.wjhgw.business.bean.Order_goods_list;
 import com.wjhgw.business.bean.SelectOrder;
@@ -98,12 +99,25 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private boolean truePaypwd;
     private TestPaypwd testPaypwd;
     private RestartInputAndFindPaypwdDialog restartInputAndFindPaypwdDialog;
+    private boolean isUseBalance = false;
+    private boolean isDonate = false;
+    private String cart_id;
+    private String address_id;
+    private String vat_hash;
+    private String freight_hash;
+    private String offpay_hash;
+    private String offpay_hash_batch;
+    private String paypwd;
+    private EditText etPayMessage;
+    private TextView tvAvailablePredeposit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_order);
         String selectOrder = getIntent().getStringExtra("selectOrder");
+
+        cart_id = getIntent().getStringExtra("cart_id");
 
         key = getKey();
 
@@ -138,6 +152,22 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 SelectOrderDatas selectOrderDatas = selectOrder.datas;
                 freight = selectOrderDatas.store_cart_list.freight;
                 String freightMessage = selectOrderDatas.store_cart_list.freight_message;
+                address_id = selectOrderDatas.address_info.address_id;
+                vat_hash = selectOrderDatas.vat_hash;
+                freight_hash = selectOrderDatas.freight_hash;
+
+                if (selectOrderDatas.available_predeposit == null) {
+                    tvAvailablePredeposit.setText("0.00");
+                    isUseBalance = false;
+
+                } else {
+                    tvAvailablePredeposit.setText(selectOrderDatas.available_predeposit);
+                }
+                /**
+                 * 检查地址是否支持货到付款
+                 */
+                checkAddressSupport();
+
                 tvFreight.setText("+ ¥ " + freight);
                 tvFreightMessage.setText(freightMessage);
 
@@ -152,6 +182,32 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             }
 
         }
+    }
+
+    /**
+     * 检查地址是否支持货到付款
+     */
+    private void checkAddressSupport() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+        params.addBodyParameter("freight_hash", freight_hash);
+        params.addBodyParameter("address_id", address_id);
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Check_Address_Support, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                CheckAddressSupport checkAddressSupport = gson.fromJson(responseInfo.result, CheckAddressSupport.class);
+
+                offpay_hash = checkAddressSupport.datas.offpay_hash;
+                offpay_hash_batch = checkAddressSupport.datas.offpay_hash_batch;
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+            }
+        });
+
     }
 
     @Override
@@ -194,6 +250,9 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         llUseBalance = (LinearLayout) findViewById(R.id.ll_use_balance);
         tvBalance = (TextView) findViewById(R.id.tv_use_balance);
         ivBalance = (ImageView) findViewById(R.id.iv_balance);
+        tvAvailablePredeposit = (TextView) findViewById(R.id.tv_available_predeposit);
+
+        etPayMessage = (EditText) findViewById(R.id.et_pay_message);
 
     }
 
@@ -240,6 +299,10 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
+
+        //选中货到付款
+        isDownlinePay = tvPayMethod.getText().equals("货到付款");
+
         switch (v.getId()) {
             case R.id.ll_order_address:
                 intent.setClass(this, S1_OrderAddressActivity.class);
@@ -247,7 +310,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
                 break;
             case R.id.ll_payment:
-                isDownlinePay = tvPayMethod.getText().equals("货到付款");
+
                 /**
                  * 付款方式弹出窗
                  */
@@ -255,46 +318,167 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
                 break;
 
-            case R.id.tv_commit_order:
-
-                /**
-                 * 判断是否有登录密码,没有就设置，有就去输入下单
-                 */
-                whetherHavePaypwd();
-
-                break;
 
             case R.id.ll_donate:
-
-                MAKEDONATE++;
-                if (MAKEDONATE % 2 == 0) {
-                    ivDonate.setImageResource(R.mipmap.ic_push_on);
-                    llUseMessage.setVisibility(View.GONE);
-                    tvDonate.setTextColor(Color.parseColor("#666666"));
-                } else {
-                    ivDonate.setImageResource(R.mipmap.ic_push_off);
-                    llUseMessage.setVisibility(View.VISIBLE);
-                    tvDonate.setTextColor(Color.parseColor("#333333"));
+                if (!isDownlinePay) {
+                    MAKEDONATE++;
+                    if (MAKEDONATE % 2 == 0) {
+                        ivDonate.setImageResource(R.mipmap.ic_push_on);
+                        llUseMessage.setVisibility(View.GONE);
+                        tvDonate.setTextColor(Color.parseColor("#333333"));
+                        //存入酒柜，赠送他人
+                        isDonate = true;
+                    } else {
+                        ivDonate.setImageResource(R.mipmap.ic_push_off);
+                        llUseMessage.setVisibility(View.VISIBLE);
+                        tvDonate.setTextColor(Color.parseColor("#666666"));
+                        //不存入酒柜，赠送他人
+                        isDonate = false;
+                    }
                 }
 
                 break;
             case R.id.ll_use_balance:
+                /**
+                 * 余额为0.00 不能开启余额支付
+                 */
+                if (!tvAvailablePredeposit.getText().equals("0.00")) {
+                    /**
+                     * 线上支付才能开启余额支付
+                     */
+                    if (!isDownlinePay) {
+                        MAKEBALANCE++;
+                        if (MAKEBALANCE % 2 == 0) {
+                            ivBalance.setImageResource(R.mipmap.ic_push_on);
+                            tvBalance.setTextColor(Color.parseColor("#333333"));
+                            //使用余额
+                            isUseBalance = true;
 
-                MAKEBALANCE++;
-                if (MAKEBALANCE % 2 == 0) {
-                    ivBalance.setImageResource(R.mipmap.ic_push_on);
-                    tvBalance.setTextColor(Color.parseColor("#666666"));
-
-                } else {
-                    ivBalance.setImageResource(R.mipmap.ic_push_off);
-                    tvBalance.setTextColor(Color.parseColor("#333333"));
+                        } else {
+                            ivBalance.setImageResource(R.mipmap.ic_push_off);
+                            tvBalance.setTextColor(Color.parseColor("#666666"));
+                            //不使用余额
+                            isUseBalance = false;
+                        }
+                    }
                 }
-
                 break;
 
+            case R.id.tv_commit_order:
+
+                if (isDownlinePay) {
+
+                    /**
+                     * 提交订单
+                     */
+                    CommitOrder();
+                    intent.setClass(this, S3_SelectPaymentActivity.class);
+                    startActivity(intent);
+                } else if (isUseBalance) {
+                    /**
+                     * 判断是否有登录密码,没有就设置，有就去输入下单
+                     */
+                    whetherHavePaypwd();
+                } else {
+
+                    /**
+                     * 提交订单
+                     */
+                    CommitOrder();
+
+                }
+
+
+                break;
             default:
                 break;
         }
+
+    }
+
+    /**
+     * 提交订单
+     */
+    private void CommitOrder() {
+
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+        if (isDonate) {
+            params.addBodyParameter("cabinet_operation", "1");
+            params.addBodyParameter("send_other", "1");
+        }
+        params.addBodyParameter("ifcart", "1");
+        if (cart_id != null) {
+            params.addBodyParameter("cart_id", cart_id);
+        }
+        if (address_id != null) {
+            params.addBodyParameter("address_id", address_id);
+        }
+        if (vat_hash != null) {
+            params.addBodyParameter("vat_hash", vat_hash);
+        }
+        if (offpay_hash != null) {
+            params.addBodyParameter("offpay_hash", offpay_hash);
+        }
+        if (offpay_hash_batch != null) {
+            params.addBodyParameter("offpay_hash_batch", offpay_hash_batch);
+        }
+
+        if (!isDownlinePay) {
+            params.addBodyParameter("pay_name", "online");
+        } else {
+            params.addBodyParameter("offline", "offline");
+        }
+
+        if (isUseBalance) {
+            params.addBodyParameter("pd_pay", "1");
+            params.addBodyParameter("password", paypwd);
+
+        } else {
+            params.addBodyParameter("pd_pay", "0");
+        }
+
+        params.addBodyParameter("pay_message", etPayMessage.getText().toString());
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Buy_step2, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+
+                /**
+                 * 余额减去需要使用的金额
+                 */
+                double yu = Double.valueOf(tvAvailablePredeposit.getText().toString()) - Double.valueOf(tvRealPay.getText().toString());
+
+                if (isUseBalance && yu > 0) {
+                    /**
+                     * 选择了余额支付并且余额大于选中商品金额直接购买成功
+                     */
+                    showToastShort("有钱余额够够的");
+                    finish();
+
+                } else {
+
+                    /**
+                     * 选择了余额支付但是余额小于选中商品金额还是要跳转到选择支付界面付款余下的金额
+                     */
+                    Intent intent = new Intent(S0_ConfirmOrderActivity.this, S3_SelectPaymentActivity.class);
+                    intent.putExtra("tvRealPay", tvRealPay.getText());
+                    if (isUseBalance) {
+                        intent.putExtra("tvAvailablePredeposit", tvAvailablePredeposit.getText());
+                    } else {
+                        intent.putExtra("tvAvailablePredeposit", "0.00");
+                    }
+                    startActivity(intent);
+
+                }
+                showToastShort("下单成功 下单成功 下单成功");
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+            }
+        });
 
     }
 
@@ -337,7 +521,10 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                             @Override
                             public void onClick(View v) {
                                 setPaypwdDialog.dismiss();
-                                Intent intent = new Intent(S0_ConfirmOrderActivity.this, M4_PaymentPasswordActivity.class);
+                                Intent intent = new Intent(S0_ConfirmOrderActivity.this, VerificationCodeActivity.class);
+                                intent.putExtra("Number", userinformation.datas.member_mobile);
+                                intent.putExtra("use", "2");
+                                intent.putExtra("paypwd", "0");
                                 startActivity(intent);
                             }
                         });
@@ -390,8 +577,10 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             @Override
             public void onClick(View v) {
                 EditText edPaypwd = entryPaypwdDialog.etEntryPaypwd;
-
-                String paypwd = edPaypwd.getText().toString();
+                /**
+                 * 用户输的入的支付密码
+                 */
+                paypwd = edPaypwd.getText().toString();
                 if (paypwd.equals("")) {
                     Toast.makeText(S0_ConfirmOrderActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
                 }
@@ -426,9 +615,13 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                          */
                         entryPaypwdDialog.dismiss();
 
-                        Intent intent = new Intent();
-                        intent.setClass(S0_ConfirmOrderActivity.this, S3_SelectPaymentActivity.class);
-                        startActivity(intent);
+                        /**
+                         * 提交订单
+                         */
+                        CommitOrder();
+//                        Intent intent = new Intent();
+//                        intent.setClass(S0_ConfirmOrderActivity.this, S3_SelectPaymentActivity.class);
+//                        startActivity(intent);
 
                     } else {
                         /**
@@ -453,7 +646,10 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                             @Override
                             public void onClick(View v) {
                                 restartInputAndFindPaypwdDialog.dismiss();
-                                Intent intent = new Intent(S0_ConfirmOrderActivity.this, M4_PaymentPasswordActivity.class);
+                                Intent intent = new Intent(S0_ConfirmOrderActivity.this, VerificationCodeActivity.class);
+                                intent.putExtra("Number", userinformation.datas.member_mobile);
+                                intent.putExtra("use", "2");
+                                intent.putExtra("paypwd", "1");
                                 startActivity(intent);
 
                             }

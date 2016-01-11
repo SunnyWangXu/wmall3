@@ -159,11 +159,11 @@ public class M4_PaymentPasswordActivity extends BaseActivity implements OnClickL
                 String password2 = et_password2.getText().toString();
                 String password3 = et_password3.getText().toString();
 
-                if (password2.equals(password3) && et_password3.length() >= 6) {
+                if (password2.equals(password3) && et_password3.length() == 6) {
                     String key = getKey();
                     RequestParams params = new RequestParams();
                     if (!key.equals("0")) {
-                        params.addBodyParameter("member_new_password", password2);
+                        params.addBodyParameter("paypwd", password2);
                         params.addBodyParameter("key", key);
                         Set_paypwd(params);
                     } else {

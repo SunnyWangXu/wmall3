@@ -4,9 +4,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.tencent.mm.sdk.modelpay.PayReq;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
+import com.wjhgw.pay.WeChat.MD5;
+
+import org.apache.http.NameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 /**
  * 选择支付Activity
@@ -18,12 +35,22 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
     private LinearLayout llAlipayPay;
     private ImageView ivWeixinPay;
     private ImageView ivAlipayPay;
+    private String realPay;
+    private String balance;
+    private TextView tvPayOrderPrice;
+    private TextView tvPayBalance;
+    private TextView tvEndPay;
+    IWXAPI api;
+    StringBuffer sb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_payment);
 
+        api = WXAPIFactory.createWXAPI(this, "wxb4ba3c02aa476ea1");
+        sb = new StringBuffer();
+        
     }
 
     @Override
@@ -34,7 +61,10 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void onFindViews() {
-        llBalancePay = (LinearLayout) findViewById(R.id.ll_balance_pay);
+        tvPayOrderPrice = (TextView) findViewById(R.id.tv_pay_order_price);
+        tvPayBalance = (TextView) findViewById(R.id.tv_pay_balance);
+        tvEndPay = (TextView) findViewById(R.id.tv_end_pay);
+
         llWeixinPay = (LinearLayout) findViewById(R.id.ll_weixin_pay);
         ivWeixinPay = (ImageView) findViewById(R.id.iv_weixin_pay);
         llAlipayPay = (LinearLayout) findViewById(R.id.ll_alipay_pay);
@@ -45,11 +75,20 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
     @Override
     public void onInitViewData() {
 
+        realPay = getIntent().getStringExtra("tvRealPay");
+        balance = getIntent().getStringExtra("tvAvailablePredeposit");
+
+        tvPayOrderPrice.setText(realPay);
+        tvPayBalance.setText(balance);
+
+        double end = Double.valueOf(realPay) - Double.valueOf(balance);
+
+        tvEndPay.setText(end + "");
+
     }
 
     @Override
     public void onBindListener() {
-        llBalancePay.setOnClickListener(this);
         llWeixinPay.setOnClickListener(this);
         llAlipayPay.setOnClickListener(this);
     }
@@ -73,5 +112,78 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
             default:
                 break;
         }
+    }
+
+    /**
+     * 微信支付测试数据
+     */
+
+    public void buy() {
+        RequestQueue mRequestQueue;
+        StringRequest stringRequest;
+        mRequestQueue = Volley.newRequestQueue(this);
+        Response.Listener<String> SuccessfulResponse = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject json = new JSONObject(response);
+                    PayReq req = new PayReq();
+                    req.appId = json.getString("appid");
+                    req.partnerId = json.getString("partnerid");
+                    req.prepayId = json.getString("prepayid");
+                    req.nonceStr = json.getString("noncestr");
+                    req.timeStamp = json.getString("timestamp");
+                    req.packageValue = json.getString("package");
+                    req.sign = json.getString("sign");
+                    // req.extData = "app data"; // optional
+
+                        /*List<NameValuePair> signParams = new LinkedList<>();
+                        signParams.add(new BasicNameValuePair("appid", req.appId));
+                        signParams.add(new BasicNameValuePair("noncestr", req.nonceStr));
+                        signParams.add(new BasicNameValuePair("package", req.packageValue));
+                        signParams.add(new BasicNameValuePair("partnerid", req.partnerId));
+                        signParams.add(new BasicNameValuePair("prepayid", req.prepayId));
+                        signParams.add(new BasicNameValuePair("timestamp", req.timeStamp));
+
+                        req.sign = genAppSign(signParams);*/
+                    showToastShort("正常调起支付");
+                    api.sendReq(req);
+                    // OnMessageResponse(Route, response, new JSONObject(new JSONObject(response).getString("status")));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        stringRequest = new StringRequest(Request.Method.POST, "http://wxpay.weixin.qq.com/pub_v2/app/app_pay.php?plat=android", SuccessfulResponse, FailureResponse);
+        mRequestQueue.add(stringRequest);
+    }
+
+    /**
+     * 请求错误回调
+     */
+    Response.ErrorListener FailureResponse = new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            // Toast.makeText(mContext, "网络错误！", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+
+    private String genAppSign(List<NameValuePair> params) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < params.size(); i++) {
+            sb.append(params.get(i).getName());
+            sb.append('=');
+            sb.append(params.get(i).getValue());
+            sb.append('&');
+        }
+        sb.append("key=");
+        sb.append("16103e4Fd8906506991dbbED035632d1");
+
+        this.sb.append("sign str\n" + sb.toString() + "\n\n");
+        String appSign = MD5.getMessageDigest(sb.toString().getBytes());
+        //Log.e("orion", appSign);
+        return appSign;
     }
 }

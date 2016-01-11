@@ -460,7 +460,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
     /**
      * 购买第一步接口
      */
-    private void buy_step1(String cart_id) {
+    private void buy_step1(final String cart_id) {
         Dialog.ProgressDialog();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
@@ -488,6 +488,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                         Intent intent = new Intent(getActivity(), S0_ConfirmOrderActivity.class);
                         intent.putExtra("selectOrder", responseInfo.result);
                         String tvTotal = tv_total.getText().toString();
+                        intent.putExtra("cart_id", cart_id);
                         intent.putExtra("tv_total", tvTotal);
                         intent.putExtra("realPay", realPay);
                         startActivity(intent);

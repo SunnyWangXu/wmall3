@@ -159,6 +159,10 @@ public class ApiInterface {
      */
     public static final String Buy_step1  ="/mobile/index.php?act=member_buy&op=buy_step1";
     /**
+     *购买第二步接口
+     */
+    public static final String Buy_step2  ="/mobile/index.php?act=member_buy&op=buy_step2";
+    /**
      *订单列表接口
      */
     public static final String Order_list  ="/mobile/index.php?act=member_order&op=order_list";
@@ -202,5 +206,9 @@ public class ApiInterface {
      *验证支付密码
      */
     public static final String Test_Paypwd  ="/mobile/index.php?act=member_info&op=check_paypwd";
+    /**
+     *检查地址是否支持货到付款
+     */
+    public static final String Check_Address_Support  ="/mobile/index.php?act=member_buy&op=change_address";
 
 }
