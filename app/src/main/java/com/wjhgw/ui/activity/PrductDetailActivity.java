@@ -47,6 +47,7 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
     private String ua;
     private LoadDialog Dialog;
     private String key;
+    private String Shopping_Cart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +85,7 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
          * 加载WebView的url和传key给H5端
          */
         String id = getIntent().getStringExtra("goods_id");
+        Shopping_Cart = getIntent().getStringExtra("Shopping_Cart");
         String url = "http://10.10.0.181/wap/index.php?act=goods&op=index&id=" + id;
         Map<String, String> keyMap = new HashMap<>();
         if (!key.equals("0")) {
@@ -170,9 +172,12 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
             }
 
             if (handlerName.equals("goCartHandler")) {
-                //Toast.makeText(mContxt, "跳转到购物车" + data, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(PrductDetailActivity.this,ShoppingCartActivity.class);
-                startActivity(intent);
+                if(Shopping_Cart != null){
+                    finish();
+                }else {
+                    Intent intent = new Intent(PrductDetailActivity.this,ShoppingCartActivity.class);
+                    startActivity(intent);
+                }
             }
 
             if (handlerName.equals("giftHandler")) {
