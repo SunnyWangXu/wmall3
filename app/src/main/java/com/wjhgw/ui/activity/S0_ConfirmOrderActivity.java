@@ -318,7 +318,6 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
                 break;
 
-
             case R.id.ll_donate:
                 if (!isDownlinePay) {
                     MAKEDONATE++;
@@ -387,7 +386,6 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                     CommitOrder();
 
                 }
-
 
                 break;
             default:

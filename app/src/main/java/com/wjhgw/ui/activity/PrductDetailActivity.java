@@ -16,6 +16,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.wjhgw.MainActivity;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 
@@ -73,7 +74,7 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
         String url = "http://10.10.0.181/wap/index.php?act=goods&op=index&id=" + id;
         Map<String, String> keyMap = new HashMap<>();
         if (getKey() != null || getKey() != "0") {
-            keyMap.put("key", getKey());
+            keyMap.put("Authentication", getKey());
         }
         webView.loadUrl(url, keyMap);
 
@@ -85,7 +86,7 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
                 return true;
             }
         });
-        
+
         webView.setWebChromeClient(new WebChromeClient());
         //调用javascript
         webView.addJavascriptInterface(new WMallBridge(this), "WMallBridge");
@@ -145,18 +146,44 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
             this.mContxt = mContxt;
         }
 
-        @JavascriptInterface
-        public void fun1(String name) {
-            Toast.makeText(mContxt, "调用fun1:调用fun1调用fun1调用fun1" + name, Toast.LENGTH_SHORT).show();
-        }
+//        @JavascriptInterface
+//        public void goCartHandler(String goods, String goods_id) {
+//            Toast.makeText(mContxt, "跳转到购物车" + "            Type" + goods + "        商品id " + goods_id, Toast.LENGTH_SHORT).show();
+//
+//        }
+//
+//        @JavascriptInterface
+//        public void goHomeHandler(String goods, String is_own_ship, String store_id) {
+//
+//            Intent intent = new Intent(PrductDetailActivity.this, MainActivity.class);
+//            startActivity(intent);
+//            showToastShort("            Type" + goods + "是否自营" + is_own_ship + "购物车id" + store_id);
+//
+//        }
 
         @JavascriptInterface
         public void callHandler(String handlerName, String data) {
-            showToastShort("Action:" + handlerName + "      " + "Json对象：" + data);
-            Log.e("1111111111111", "Action:：" + handlerName + "      " + "Json对象：" + data);
 
-            Intent intent = new Intent(PrductDetailActivity.this, A0_LoginActivity.class);
-            startActivity(intent);
+            if (handlerName.equals("goHomeHandler")) {
+
+                Intent intent = new Intent(PrductDetailActivity.this, MainActivity.class);
+                startActivity(intent);
+                showToastShort(data);
+            }
+
+            if (handlerName.equals("goCartHandler")) {
+
+                Toast.makeText(mContxt, "跳转到购物车" + data, Toast.LENGTH_SHORT).show();
+
+            }
+
+            if (handlerName.equals("giftHandler")) {
+
+                Toast.makeText(mContxt, "赠送他人" + data, Toast.LENGTH_SHORT).show();
+
+            }
+
+
         }
     }
 }
