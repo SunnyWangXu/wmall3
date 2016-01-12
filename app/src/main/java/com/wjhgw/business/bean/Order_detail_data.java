@@ -15,6 +15,7 @@ public class Order_detail_data {
     public String shipping_fee;
     public String payment_time;
     public String order_state;
+    public String order_type;
     public String order_id;
     public ArrayList<OrderList_goods_list_data> extend_order_goods;
     public Extend_order_common extend_order_common;

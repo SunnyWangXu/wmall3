@@ -28,6 +28,7 @@ import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.D0_OrderActivity;
 import com.wjhgw.ui.activity.M0_MyLockBoxActivity;
 import com.wjhgw.ui.activity.M6_SetActivity;
+import com.wjhgw.ui.activity.Z0_AssetsActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
@@ -43,6 +44,9 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private ImageView myAvatar;
     private TextView member_nickname;
     private TextView available_predeposit;
+    private TextView tv_rechargeable_card;
+    private TextView tv_hgb;
+    private TextView tv_vouchers;
     private LinearLayout ll_all_orders;
     private RelativeLayout rl_layout1;
     private RelativeLayout rl_layout2;
@@ -55,6 +59,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private String key;
     private ImageView ivSet;
     private LinearLayout ll_LockBox;
+    private LinearLayout ll_assets;
     private LinearLayout ll_Set;
     private String memberName;
     private LoadDialog Dialog;
@@ -128,6 +133,10 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         tv_statistics3 = (TextView) MyOrderLayout.findViewById(R.id.tv_statistics3);
         tv_statistics4 = (TextView) MyOrderLayout.findViewById(R.id.tv_statistics4);
         available_predeposit = (TextView) MyAssetsLayout.findViewById(R.id.tv_available_predeposit);
+        tv_rechargeable_card = (TextView) MyAssetsLayout.findViewById(R.id.tv_rechargeable_card);
+        tv_hgb = (TextView) MyAssetsLayout.findViewById(R.id.tv_hgb);
+        tv_vouchers = (TextView) MyAssetsLayout.findViewById(R.id.tv_vouchers);
+        ll_assets = (LinearLayout) MyAssetsLayout.findViewById(R.id.ll_assets);
         ll_LockBox = (LinearLayout) MyMessageLayout.findViewById(R.id.ll_lockbox);
 
 //        ll_Set = (LinearLayout) MyHelpLayout.findViewById(R.id.ll_set);
@@ -141,6 +150,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         ivSet.setOnClickListener(this);
 //        ll_Set.setOnClickListener(this);
         ll_all_orders.setOnClickListener(this);
+        ll_assets.setOnClickListener(this);
         rl_layout1.setOnClickListener(this);
         rl_layout2.setOnClickListener(this);
         rl_layout3.setOnClickListener(this);
@@ -240,6 +250,15 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 } else {
                     intent.setClass(getActivity(), D0_OrderActivity.class);
                     intent.putExtra("order_state", "100");
+                    startActivity(intent);
+                }
+                break;
+            case R.id.ll_assets:
+                if (key.equals("0") || key == null) {
+                    intent.setClass(getActivity(), A0_LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getActivity(), Z0_AssetsActivity.class);
                     startActivity(intent);
                 }
                 break;
@@ -368,7 +387,10 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
             if (userinformation.status.code == 10000) {
                 APP.getApp().getImageLoader().displayImage(userinformation.datas.member_avatar, myAvatar);
                 member_nickname.setText(userinformation.datas.member_nickname);
-                available_predeposit.setText(userinformation.datas.available_predeposit);
+                available_predeposit.setText(userinformation.datas.available_predeposit);   //余额
+                tv_rechargeable_card.setText(userinformation.datas.available_rc_balance);   //可用充值卡余额
+                tv_hgb.setText(userinformation.datas.hg_points);              //欢购币
+                tv_vouchers.setText(userinformation.datas.member_voucher);         //代金券
 
                 memberName = userinformation.datas.member_name;
             }

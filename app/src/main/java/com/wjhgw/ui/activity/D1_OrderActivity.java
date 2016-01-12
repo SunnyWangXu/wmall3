@@ -72,6 +72,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
     private Order_Request Request;
     private Order_cancelDialog order_cancelDialog;
     private String msg = "购买其他商品";
+    private LinearLayout ll_logistics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +129,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
         tv_address = (TextView) order1.findViewById(R.id.tv_address);
 
         ll_invoice = (LinearLayout) order3.findViewById(R.id.ll_invoice);
+        ll_logistics = (LinearLayout) order1.findViewById(R.id.ll_logistics);
         tv_invoice_type = (TextView) order3.findViewById(R.id.tv_invoice_type);
         tv_invoice_rise = (TextView) order3.findViewById(R.id.tv_invoice_rise);
         tv_invoice_content = (TextView) order3.findViewById(R.id.tv_invoice_content);
@@ -345,9 +347,6 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                             tv_order_sn.setText(order_detail.datas.order_sn);
                             tv_order_amount.setText("¥" + order_detail.datas.order_amount + "(含运费" + order_detail.datas.shipping_fee + ")");
                             tv_payment_name.setText(order_detail.datas.payment_name);
-                            tv_reciver_name.setText(order_detail.datas.extend_order_common.reciver_name);
-                            tv_phone.setText(order_detail.datas.extend_order_common.reciver_info.phone);
-                            tv_address.setText("收货地址：" + order_detail.datas.extend_order_common.reciver_info.address);
 
                             if (order_detail.datas.extend_order_common.invoice_info == null) {
                                 ll_invoice.setVisibility(View.GONE);
@@ -355,6 +354,13 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 tv_invoice_type.setText(order_detail.datas.extend_order_common.invoice_info.类型);
                                 tv_invoice_rise.setText(order_detail.datas.extend_order_common.invoice_info.抬头);
                                 tv_invoice_content.setText(order_detail.datas.extend_order_common.invoice_info.内容);
+                            }
+                            if (order_detail.datas.order_type.equals("0")) {
+                                tv_reciver_name.setText(order_detail.datas.extend_order_common.reciver_name);
+                                tv_phone.setText(order_detail.datas.extend_order_common.reciver_info.phone);
+                                tv_address.setText("收货地址：" + order_detail.datas.extend_order_common.reciver_info.address);
+                            } else {
+                                ll_logistics.setVisibility(View.GONE);
                             }
 
                             tv_add_time.setText(order_detail.datas.add_time);

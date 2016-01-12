@@ -11,6 +11,7 @@
         android:background="@color/layout_bg" />
 
     <LinearLayout
+        android:id="@+id/ll_assets"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:gravity="center_vertical"
@@ -73,7 +74,7 @@
                 android:id="@+id/tv_available_predeposit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="99999999"
+                android:text="0"
                 android:textColor="@color/title_color"
                 android:textSize="16sp" />
 
@@ -95,9 +96,34 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_rechargeable_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="236"
+                android:text="0"
+                android:textColor="@color/title_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="充值卡"
+                android:textColor="@color/filter_text_color"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_hgb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
                 android:textColor="@color/title_color"
                 android:textSize="16sp" />
 
@@ -114,37 +140,15 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="56"
-                android:textColor="@color/title_color"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="优惠券"
-                android:textColor="@color/filter_text_color"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
             android:background="@color/white"
             android:gravity="center"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_vouchers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="666"
+                android:text="0"
                 android:textColor="@color/title_color"
                 android:textSize="16sp" />
 
@@ -152,7 +156,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="酒柜"
+                android:text="代金券"
                 android:textColor="@color/filter_text_color"
                 android:textSize="12sp" />
         </LinearLayout>
