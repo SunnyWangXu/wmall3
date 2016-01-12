@@ -1,11 +1,9 @@
-package com.wjhgw.ui.fragment;
+package com.wjhgw.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -22,6 +20,7 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.wjhgw.APP;
 import com.wjhgw.MainActivity;
 import com.wjhgw.R;
+import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.api.Address_del_Request;
 import com.wjhgw.business.bean.CartList;
@@ -31,8 +30,6 @@ import com.wjhgw.business.bean.SelectOrderDatas;
 import com.wjhgw.business.bean.Status;
 import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
-import com.wjhgw.ui.activity.A0_LoginActivity;
-import com.wjhgw.ui.activity.S0_ConfirmOrderActivity;
 import com.wjhgw.ui.dialog.GoodsArrDialog;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.dialog.MyDialog;
@@ -48,7 +45,7 @@ import java.util.ArrayList;
 /**
  * 购物车
  */
-public class ShoppingCartFragment extends Fragment implements BusinessResponse, XListView.IXListViewListener,
+public class ShoppingCartActivity extends BaseActivity implements BusinessResponse, XListView.IXListViewListener,
         View.OnClickListener {
 
     private MyListView mListView;
@@ -76,35 +73,49 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
     private Boolean isSetAdapter = true;
     //判断是否是全选删除状态
     private Boolean delete = true;
-    private View rootView;
+    //private View rootView;
     private boolean Edit = true;
     private LoadDialog Dialog;
     private MyDialog mDialog;
     private GoodsArrDialog goodsArrDialog;
     private Intent intent;
     private TextView toConfirmOrder;
+    private ImageView iv_title_back;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Dialog = new LoadDialog(getActivity());
-        rootView = inflater.inflate(R.layout.shopping_layout, container, false);
-        key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
+        setContentView(R.layout.shopping_layout);
+        Dialog = new LoadDialog(this);
+        //rootView = inflater.inflate(R.layout.shopping_layout, container, false);
+        key = getSharedPreferences("key", MODE_APPEND).getString("key", "0");
         initView();
         setClick();
         listAddHeader();
 
-        Request = new Address_del_Request(getActivity());
+        Request = new Address_del_Request(this);
         Request.addResponseListener(this);
-
-        return rootView;
+        iv_title_back.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void onInit() {
+    }
+
+    @Override
+    public void onFindViews() {
+
+    }
+
+    @Override
+    public void onInitViewData() {
+
+    }
+
+    @Override
+    public void onBindListener() {
+
+    }
     /**
      * 设置ListView
      */
@@ -124,7 +135,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                 /**
                  *对话框
                  */
-                goodsArrDialog = new GoodsArrDialog(getActivity(), "收藏", "删除");
+                goodsArrDialog = new GoodsArrDialog(ShoppingCartActivity.this, "收藏", "删除");
                 goodsArrDialog.show();
                 goodsArrDialog.btnCollect.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -149,29 +160,31 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
      * 初始化视图
      */
     private void initView() {
-        shopping_head = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.shopping_head, null);
-        iv_select = (ImageView) rootView.findViewById(R.id.iv_select);
-        iv_select1 = (ImageView) rootView.findViewById(R.id.iv_select1);
+        shopping_head = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.shopping_head, null);
+        iv_title_back = (ImageView)findViewById(R.id.iv_title_back);
+        iv_select = (ImageView)findViewById(R.id.iv_select);
+        iv_select1 = (ImageView)findViewById(R.id.iv_select1);
         iv_store_logo = (ImageView) shopping_head.findViewById(R.id.iv_store_logo);
-        tv_edit = (TextView) rootView.findViewById(R.id.tv_edit);
-        ll_settlement = (LinearLayout) rootView.findViewById(R.id.ll_settlement);
-        ll_to_settle = (LinearLayout) rootView.findViewById(R.id.ll_to_settle);
-        ll_select = (LinearLayout) rootView.findViewById(R.id.ll_select);
-        ll_select1 = (LinearLayout) rootView.findViewById(R.id.ll_select1);
-        ll_empty_shop_cart = (LinearLayout) rootView.findViewById(R.id.ll_empty_shop_cart);
-        tv_delete = (TextView) rootView.findViewById(R.id.tv_delete);
-        tv_total = (TextView) rootView.findViewById(R.id.tv_total);
-        tv_home = (TextView) rootView.findViewById(R.id.tv_home);
-        tv_collection = (TextView) rootView.findViewById(R.id.tv_collection);
-        fl_edit = (FrameLayout) rootView.findViewById(R.id.fl_edit);
-        tv_total_num = (TextView) rootView.findViewById(R.id.tv_total_num);
-        mListView = (MyListView) rootView.findViewById(R.id.lv_list_layout);
+        tv_edit = (TextView)findViewById(R.id.tv_edit);
+        ll_settlement = (LinearLayout)findViewById(R.id.ll_settlement);
+        ll_to_settle = (LinearLayout)findViewById(R.id.ll_to_settle);
+        ll_select = (LinearLayout)findViewById(R.id.ll_select);
+        ll_select1 = (LinearLayout)findViewById(R.id.ll_select1);
+        ll_empty_shop_cart = (LinearLayout)findViewById(R.id.ll_empty_shop_cart);
+        tv_delete = (TextView)findViewById(R.id.tv_delete);
+        tv_total = (TextView)findViewById(R.id.tv_total);
+        tv_home = (TextView)findViewById(R.id.tv_home);
+        tv_collection = (TextView)findViewById(R.id.tv_collection);
+        fl_edit = (FrameLayout)findViewById(R.id.fl_edit);
+        tv_total_num = (TextView)findViewById(R.id.tv_total_num);
+        mListView = (MyListView)findViewById(R.id.lv_list_layout);
     }
 
     /**
      * 设置监听事件
      */
     private void setClick() {
+        iv_title_back.setOnClickListener(this);
         ll_select.setOnClickListener(this);
         ll_select1.setOnClickListener(this);
         tv_edit.setOnClickListener(this);
@@ -250,7 +263,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                 break;
             case R.id.tv_delete:
                 if (listAdapter.num > 0) {
-                    mDialog = new MyDialog(getActivity(), "温馨提示", "确定要删除该商品？");
+                    mDialog = new MyDialog(this, "温馨提示", "确定要删除该商品？");
                     mDialog.show();
                     mDialog.positive.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -272,23 +285,23 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                         }
                     });
                 } else {
-                    Toast.makeText(getActivity(), "你还没有选择商品哦！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "你还没有选择商品哦！", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.tv_home:
-                intent = new Intent(getActivity(), MainActivity.class);
+                intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
-                getActivity().finish();
+                this.finish();
                /* FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 HomeFragment homeFragment = new HomeFragment();
                 transaction.replace(R.id.content, homeFragment).commit();*/
                 break;
             case R.id.tv_collection:
                 if (key.equals("0")) {
-                    intent = new Intent(getActivity(), A0_LoginActivity.class);
+                    intent = new Intent(this, A0_LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(getActivity(), "该功能正在开发中", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "该功能正在开发中", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.ll_to_settle:
@@ -301,10 +314,13 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                     }
                     buy_step1(cart_id.toString().substring(0, cart_id.toString().length() - 1));
                 } else {
-                    Toast.makeText(getActivity(), "你还没有选择商品哦", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, "你还没有选择商品哦", Toast.LENGTH_SHORT).show();
+                    showToastShort("你还没有选择商品哦");
                 }
                 break;
-
+            case R.id.iv_title_back:
+               this.finish(false);
+                break;
 
             default:
                 break;
@@ -314,7 +330,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
     @Override
     public void onResume() {
         super.onResume();
-        key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
+        key = getSharedPreferences("key", MODE_APPEND).getString("key", "0");
 
         if (key.equals("0")) {
             ll_empty_shop_cart.setVisibility(View.VISIBLE);
@@ -351,7 +367,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                         if (cartList.datas != null) {
                             shopping_head.setVisibility(View.VISIBLE);
                             if (isSetAdapter) {
-                                listAdapter = new ShoppingCartAdapter(getActivity(), cartList.datas.get(0).goods_list,
+                                listAdapter = new ShoppingCartAdapter(ShoppingCartActivity.this, cartList.datas.get(0).goods_list,
                                         iv_select, iv_select1, tv_total, tv_total_num, Request);
                                 mListView.setAdapter(listAdapter);
                                 iv_select.setImageResource(R.mipmap.ic_order_select);
@@ -385,7 +401,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
+                showToastShort("网络错误");
             }
         });
     }
@@ -414,14 +430,14 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                         cart_list();
                         eliminate();
                     } else {
-                        Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
+                        showToastShort(status.status.msg);
                     }
                 }
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
+                showToastShort("网络错误");
             }
         });
     }
@@ -443,16 +459,16 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                 if (responseInfo.result != null) {
                     Status status = gson.fromJson(responseInfo.result, Status.class);
                     if (status.status.code == 10000) {
-                        Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
+                        showToastShort(status.status.msg);
                     } else {
-                        Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
+                        showToastShort(status.status.msg);
                     }
                 }
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
+                showToastShort("网络错误");
             }
         });
     }
@@ -485,24 +501,24 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                             realPay += Double.valueOf(order_goods_lists.get(i).goods_total);
                         }
 
-                        Intent intent = new Intent(getActivity(), S0_ConfirmOrderActivity.class);
+                        Intent intent = new Intent(ShoppingCartActivity.this, S0_ConfirmOrderActivity.class);
                         intent.putExtra("selectOrder", responseInfo.result);
-                        //String tvTotal = tv_total.getText().toString();
+                        String tvTotal = tv_total.getText().toString();
                         intent.putExtra("cart_id", cart_id);
-                        intent.putExtra("tv_total", realPay+"");
+                        intent.putExtra("tv_total", tvTotal);
                         intent.putExtra("realPay", realPay);
                         startActivity(intent);
 
 
                     } else {
-                        Toast.makeText(getActivity(), selectOrder.status.msg, Toast.LENGTH_SHORT).show();
+                        showToastShort(selectOrder.status.msg);
                     }
                 }
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
+                showToastShort("网络错误");
             }
         });
     }

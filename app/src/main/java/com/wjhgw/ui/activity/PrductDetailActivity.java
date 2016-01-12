@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -14,12 +13,28 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
-import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
+import com.wjhgw.APP;
 import com.wjhgw.MainActivity;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
+import com.wjhgw.base.BaseQuery;
+import com.wjhgw.business.bean.Order_goods_list;
+import com.wjhgw.business.bean.SelectOrder;
+import com.wjhgw.business.bean.SelectOrderDatas;
+import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.dialog.LoadDialog;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,17 +45,18 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
     private WebView webView;
     private ImageView back;
     private String ua;
+    private LoadDialog Dialog;
+    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prduct_detail);
-
         webView = (WebView) findViewById(R.id.wb_prduct_detail);
-
+        Dialog = new LoadDialog(this);
         WebSettings webSettings = webView.getSettings();
         ua = webSettings.getUserAgentString() + " WMall/3.0.0";
-
+        key = getKey();
 
         // 判断是否为WIFI网络状态
         ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -51,9 +67,6 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
         }
 
         webSettings.setUserAgentString(ua);
-
-        //NetType/WIFI
-        Log.e("UA", ua);
 
         //页面支持缩放：
         webSettings.setJavaScriptEnabled(true);
@@ -73,10 +86,10 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
         String id = getIntent().getStringExtra("goods_id");
         String url = "http://10.10.0.181/wap/index.php?act=goods&op=index&id=" + id;
         Map<String, String> keyMap = new HashMap<>();
-        if (getKey() != null || getKey() != "0") {
+        if (!key.equals("0")) {
             keyMap.put("Authentication", getKey());
+            webView.loadUrl(url, keyMap);
         }
-        webView.loadUrl(url, keyMap);
 
         // 打开网页时不调用系统浏览器， 而是在本WebView中显示：
         webView.setWebViewClient(new WebViewClient() {
@@ -146,44 +159,81 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
             this.mContxt = mContxt;
         }
 
-//        @JavascriptInterface
-//        public void goCartHandler(String goods, String goods_id) {
-//            Toast.makeText(mContxt, "跳转到购物车" + "            Type" + goods + "        商品id " + goods_id, Toast.LENGTH_SHORT).show();
-//
-//        }
-//
-//        @JavascriptInterface
-//        public void goHomeHandler(String goods, String is_own_ship, String store_id) {
-//
-//            Intent intent = new Intent(PrductDetailActivity.this, MainActivity.class);
-//            startActivity(intent);
-//            showToastShort("            Type" + goods + "是否自营" + is_own_ship + "购物车id" + store_id);
-//
-//        }
-
         @JavascriptInterface
         public void callHandler(String handlerName, String data) {
 
             if (handlerName.equals("goHomeHandler")) {
-
                 Intent intent = new Intent(PrductDetailActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
                 showToastShort(data);
             }
 
             if (handlerName.equals("goCartHandler")) {
-
-                Toast.makeText(mContxt, "跳转到购物车" + data, Toast.LENGTH_SHORT).show();
-
+                //Toast.makeText(mContxt, "跳转到购物车" + data, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PrductDetailActivity.this,ShoppingCartActivity.class);
+                startActivity(intent);
             }
 
             if (handlerName.equals("giftHandler")) {
+                //Toast.makeText(mContxt, "赠送他人" + data, Toast.LENGTH_SHORT).show();
+                try {
+                    JSONObject bject = new JSONObject(data);
+                    String cart_id = bject.getString("goods_id")+ "|" +bject.getString("goods_num");
+                    buy_step1(cart_id);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
-                Toast.makeText(mContxt, "赠送他人" + data, Toast.LENGTH_SHORT).show();
+    /**
+     * 购买第一步接口
+     */
+    private void buy_step1(final String cart_id) {
+        Dialog.ProgressDialog();
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+        params.addBodyParameter("cart_id", cart_id);
+        params.addBodyParameter("ifcart", "3");
 
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Buy_step1, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Dialog.dismiss();
+                Gson gson = new Gson();
+                if (responseInfo.result != null) {
+
+                    SelectOrder selectOrder = gson.fromJson(responseInfo.result, SelectOrder.class);
+                    if (selectOrder.status.code == 10000) {
+
+                        SelectOrderDatas selectOrderDatas = selectOrder.datas;
+                        ArrayList<Order_goods_list> order_goods_lists = selectOrderDatas.store_cart_list.goods_list;
+                        double realPay = 0.00;
+                        for (int i = 0; i < order_goods_lists.size(); i++) {
+                            realPay += Double.valueOf(order_goods_lists.get(i).goods_total);
+                        }
+
+                        Intent intent = new Intent(PrductDetailActivity.this, S0_ConfirmOrderActivity.class);
+                        intent.putExtra("selectOrder", responseInfo.result);
+                        //String tvTotal = tv_total.getText().toString();
+                        intent.putExtra("cart_id", cart_id);
+                        intent.putExtra("tv_total", realPay+"");
+                        intent.putExtra("realPay", realPay);
+                        startActivity(intent);
+
+
+                    } else {
+                        showToastShort(selectOrder.status.msg);
+                    }
+                }
             }
 
-
-        }
+            @Override
+            public void onFailure(HttpException e, String s) {
+                showToastShort("网络错误");
+            }
+        });
     }
 }

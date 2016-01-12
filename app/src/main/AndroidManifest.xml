@@ -68,6 +68,7 @@
         <activity android:name=".ui.activity.J1_RecordActivity" />
         <activity android:name=".ui.activity.Z0_AssetsActivity" />
         <activity android:name=".ui.activity.Z1_Prepaid_card_balanceActivity" />
+        <activity android:name=".ui.activity.ShoppingCartActivity" />
 
         <activity
             android:name="com.wjhgw.wxapi.WXPayEntryActivity"
@@ -87,6 +88,11 @@
         //友盟统计
         <meta-data android:value="5661310067e58e73d90073d7" android:name="UMENG_APPKEY"></meta-data>
         <meta-data android:value="360 ID" android:name="UMENG_CHANNEL"/>
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>
