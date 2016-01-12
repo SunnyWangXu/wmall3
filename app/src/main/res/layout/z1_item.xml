@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#f1f1f1"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:background="#ffffff">
+        
+        <TextView
+            android:id="@+id/tv_tagging"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="15dp"
+            android:text="收入"
+            android:textColor="#333333"
+            android:textSize="26dp"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:text="2016:01:15 16:14:12"
+            android:textColor="#333333"
+            android:textSize="12dp"/>
+        <TextView
+            android:id="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="38dp"
+            android:layout_marginRight="16dp"
+            android:text="+256"
+            android:textColor="#f25252"
+            android:textSize="17dp"/>
+
+        <TextView
+            android:id="@+id/tv_explain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="11dp"
+            android:layout_marginBottom="14dp"
+            android:lines="2"
+            android:ellipsize="end"
+            android:text="1"
+            android:textColor="#666666"
+            android:textSize="13dp"/>
+    </FrameLayout>
+</LinearLayout>

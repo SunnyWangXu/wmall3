@@ -12,7 +12,10 @@ public class MyLockBoxData {
     public String level;
     public String bankcard_bind;
     public String paypwd;
-    public String available_predeposit;
+    public String available_predeposit; //余额
+    public String available_rc_balance; //可用充值卡余额
+    public String hg_points; //欢购币
+    public String member_voucher; //代金券
 
 
 }

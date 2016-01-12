@@ -210,5 +210,13 @@ public class ApiInterface {
      *检查地址是否支持货到付款
      */
     public static final String Check_Address_Support  ="/mobile/index.php?act=member_buy&op=change_address";
+    /**
+     *充值卡充值
+     */
+    public static final String Rechargecard_add  ="/mobile/index.php?act=member_info&op=rechargecard_add";
+    /**
+     *用户充值卡明细
+     */
+    public static final String Rcb_log_list  ="/mobile/index.php?act=predeposit&op=rcb_log_list";
 
 }
