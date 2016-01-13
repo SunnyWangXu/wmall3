@@ -11,6 +11,7 @@ public class SelectOrderDatas {
     public String ifshow_offpay;
     public String vat_hash;
     public String available_predeposit;
+    public String available_rc_balance;
 
 
 }

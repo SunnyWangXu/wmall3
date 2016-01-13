@@ -46,6 +46,9 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
     StringBuffer sb;
     private Button btn_confirm_pay;
     private boolean isWeixin = true;
+    private String rcBalance;
+    private TextView tvPayRcBalance;
+    private LinearLayout llRcBalancePay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +57,7 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
 
         api = WXAPIFactory.createWXAPI(this, "wxb4ba3c02aa476ea1");
         sb = new StringBuffer();
-        
+
     }
 
     @Override
@@ -67,7 +70,11 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
     public void onFindViews() {
         tvPayOrderPrice = (TextView) findViewById(R.id.tv_pay_order_price);
         tvPayBalance = (TextView) findViewById(R.id.tv_pay_balance);
+        tvPayRcBalance = (TextView) findViewById(R.id.tv_pay_rc_balance);
         tvEndPay = (TextView) findViewById(R.id.tv_end_pay);
+
+        llBalancePay = (LinearLayout) findViewById(R.id.ll_balance_pay);
+        llRcBalancePay = (LinearLayout) findViewById(R.id.ll_rc_balance_pay);
         btn_confirm_pay = (Button) findViewById(R.id.btn_confirm_pay);
 
         llWeixinPay = (LinearLayout) findViewById(R.id.ll_weixin_pay);
@@ -82,11 +89,23 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
 
         realPay = getIntent().getStringExtra("tvRealPay");
         balance = getIntent().getStringExtra("tvAvailablePredeposit");
+        rcBalance = getIntent().getStringExtra("tvAvailableRcBalance");
 
         tvPayOrderPrice.setText(realPay);
-        tvPayBalance.setText(balance);
+        if (balance.equals("0.00")) {
+            llBalancePay.setVisibility(View.GONE);
+        } else {
 
-        double end = Double.valueOf(realPay) - Double.valueOf(balance);
+            tvPayBalance.setText(balance);
+        }
+        if (rcBalance.equals("0.00")) {
+            llRcBalancePay.setVisibility(View.GONE);
+        } else {
+
+            tvPayRcBalance.setText(rcBalance);
+        }
+
+        double end = Double.valueOf(realPay) - Double.valueOf(balance) - Double.valueOf(rcBalance) ;
 
         tvEndPay.setText(end + "");
 
@@ -114,12 +133,13 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
                 ivAlipayPay.setImageResource(R.mipmap.ic_order_select);
                 isWeixin = false;
                 break;
-            case R.id.btn_confirm_pay:
-                if(isWeixin){
 
-                }else {
-                payMethod pay = new payMethod(this, "订单号", "测试的商品", "测试的商品详情", "0.01");
-                pay.pay();
+            case R.id.btn_confirm_pay:
+                if (isWeixin) {
+                    buy();
+                } else {
+                    payMethod pay = new payMethod(this, "订单号", "测试的商品", "测试的商品详情", "0.01");
+                    pay.pay();
                 }
                 break;
 

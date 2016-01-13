@@ -130,6 +130,7 @@ public class APP extends Application {
 
     public HttpUtils getHttpUtils() {
         return httpUtils;
+
     }
 
     public ImageLoader getImageLoader() {

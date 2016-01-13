@@ -914,9 +914,11 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 /**
                  * 存入本地数据
                  */
-                SharedPreferences sf = getActivity().getSharedPreferences("wjhgw_theme_street", getActivity().MODE_PRIVATE);
-                SharedPreferences.Editor editor = sf.edit();
-                editor.putString("home_theme_street", responseInfo.result).commit();
+                if (responseInfo.result != null) {
+                    SharedPreferences sf = getActivity().getSharedPreferences("wjhgw_theme_street", getActivity().MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sf.edit();
+                    editor.putString("home_theme_street", responseInfo.result).commit();
+                }
                 /**
                  * 解析主题街数据
                  * @param responseInfoResult

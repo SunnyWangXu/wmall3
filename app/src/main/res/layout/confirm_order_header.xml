@@ -95,13 +95,13 @@
 
             </LinearLayout>
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="@mipmap/ic_order_line" />
 
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:background="@mipmap/ic_order_line" />
 
         <View
             android:layout_width="match_parent"
