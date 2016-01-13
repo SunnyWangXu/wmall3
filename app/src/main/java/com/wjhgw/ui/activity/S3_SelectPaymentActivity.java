@@ -2,6 +2,7 @@ package com.wjhgw.ui.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
+import com.wjhgw.pay.Alipay.payMethod;
 import com.wjhgw.pay.WeChat.MD5;
 
 import org.apache.http.NameValuePair;
@@ -42,6 +44,8 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
     private TextView tvEndPay;
     IWXAPI api;
     StringBuffer sb;
+    private Button btn_confirm_pay;
+    private boolean isWeixin = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,7 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
         tvPayOrderPrice = (TextView) findViewById(R.id.tv_pay_order_price);
         tvPayBalance = (TextView) findViewById(R.id.tv_pay_balance);
         tvEndPay = (TextView) findViewById(R.id.tv_end_pay);
+        btn_confirm_pay = (Button) findViewById(R.id.btn_confirm_pay);
 
         llWeixinPay = (LinearLayout) findViewById(R.id.ll_weixin_pay);
         ivWeixinPay = (ImageView) findViewById(R.id.iv_weixin_pay);
@@ -91,6 +96,7 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
     public void onBindListener() {
         llWeixinPay.setOnClickListener(this);
         llAlipayPay.setOnClickListener(this);
+        btn_confirm_pay.setOnClickListener(this);
     }
 
     @Override
@@ -100,13 +106,21 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
             case R.id.ll_weixin_pay:
                 ivAlipayPay.setImageResource(R.mipmap.ic_order_blank);
                 ivWeixinPay.setImageResource(R.mipmap.ic_order_select);
-
+                isWeixin = true;
                 break;
 
             case R.id.ll_alipay_pay:
                 ivWeixinPay.setImageResource(R.mipmap.ic_order_blank);
                 ivAlipayPay.setImageResource(R.mipmap.ic_order_select);
+                isWeixin = false;
+                break;
+            case R.id.btn_confirm_pay:
+                if(isWeixin){
 
+                }else {
+                payMethod pay = new payMethod(this, "订单号", "测试的商品", "测试的商品详情", "0.01");
+                pay.pay();
+                }
                 break;
 
             default:
