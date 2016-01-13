@@ -1,6 +1,7 @@
 package com.wjhgw.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -22,6 +24,7 @@ import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.base.CityActivity;
+import com.wjhgw.business.bean.Status;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.utils.widget.OnWheelChangedListener;
@@ -298,8 +301,20 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Dialog.dismiss();
-                Toast.makeText(getApplicationContext(), "删除地址成功", Toast.LENGTH_SHORT).show();
-                finish();
+                Gson gson = new Gson();
+                if (null != responseInfo) {
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+                    if (status.status.code == 10000) {
+                        Toast.makeText(getApplicationContext(), "删除收货地址成功", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }if(status.status.code == 200103 || status.status.code == 200104){
+                        Toast.makeText(M2_AddressDetailActvity.this, "登录超时或未登录", Toast.LENGTH_SHORT).show();
+                        getSharedPreferences("key", MODE_APPEND).edit().putString("key","0").commit();
+                        startActivity(new Intent(M2_AddressDetailActvity.this, A0_LoginActivity.class));
+                    }else {
+                        Toast.makeText(M2_AddressDetailActvity.this, status.status.msg, Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
 
             @Override
@@ -362,11 +377,20 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Dialog.dismiss();
-                if (responseInfo != null) {
-                    Toast.makeText(getApplicationContext(), "收货地址修改成功", Toast.LENGTH_SHORT).show();
-                    M2_AddressDetailActvity.this.finish();
+                Gson gson = new Gson();
+                if (null != responseInfo) {
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+                    if (status.status.code == 10000) {
+                        Toast.makeText(getApplicationContext(), "收货地址修改成功", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }if(status.status.code == 200103 || status.status.code == 200104){
+                        Toast.makeText(M2_AddressDetailActvity.this, "登录超时或未登录", Toast.LENGTH_SHORT).show();
+                        getSharedPreferences("key", MODE_APPEND).edit().putString("key","0").commit();
+                        startActivity(new Intent(M2_AddressDetailActvity.this, A0_LoginActivity.class));
+                    }else {
+                        Toast.makeText(M2_AddressDetailActvity.this, status.status.msg, Toast.LENGTH_SHORT).show();
+                    }
                 }
-
             }
 
             @Override
@@ -385,9 +409,19 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Dialog.dismiss();
-                if (responseInfo != null) {
-                    Toast.makeText(getApplicationContext(), "新增收货地址成功", Toast.LENGTH_SHORT).show();
-                    M2_AddressDetailActvity.this.finish();
+                Gson gson = new Gson();
+                if (null != responseInfo) {
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+                    if (status.status.code == 10000) {
+                        Toast.makeText(getApplicationContext(), "新增收货地址成功", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }if(status.status.code == 200103 || status.status.code == 200104){
+                        Toast.makeText(M2_AddressDetailActvity.this, "登录超时或未登录", Toast.LENGTH_SHORT).show();
+                        getSharedPreferences("key", MODE_APPEND).edit().putString("key","0").commit();
+                        startActivity(new Intent(M2_AddressDetailActvity.this, A0_LoginActivity.class));
+                    }else {
+                        Toast.makeText(M2_AddressDetailActvity.this, status.status.msg, Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 

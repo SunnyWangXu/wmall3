@@ -165,7 +165,7 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
                     if (status.status.code == 10000) {
                         showToastShort("验证码以短信形式发送到你的手机，60秒有效");
                     } else {
-                        showToastShort(status.status.msg);
+                        overtime(status.status.code, status.status.msg);
                     }
                 }
             }
@@ -220,7 +220,7 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
                             finish(false);
                         }
                     } else {
-                        showToastShort(status.status.msg);
+                        overtime(status.status.code, status.status.msg);
                     }
                 }
             }

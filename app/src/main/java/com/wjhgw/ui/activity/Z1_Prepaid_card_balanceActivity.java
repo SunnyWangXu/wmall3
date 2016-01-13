@@ -153,7 +153,8 @@ public class Z1_Prepaid_card_balanceActivity extends BaseActivity implements OnC
                             ll_null.setVisibility(View.VISIBLE);
                             mListView.setVisibility(View.GONE);
                         }
-
+                    }else {
+                        overtime(assetsList.status.code, assetsList.status.msg);
                     }
                 }
             }

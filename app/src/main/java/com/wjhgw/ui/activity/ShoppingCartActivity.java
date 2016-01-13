@@ -395,6 +395,8 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
                             mListView.setVisibility(View.GONE);
                             ll_empty_shop_cart.setVisibility(View.VISIBLE);
                         }
+                    }else {
+                        overtime(cartList.status.code,cartList.status.msg);
                     }
                 }
             }

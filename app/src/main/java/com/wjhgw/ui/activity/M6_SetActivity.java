@@ -1,6 +1,5 @@
 package com.wjhgw.ui.activity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -26,6 +26,7 @@ import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
+import com.wjhgw.business.bean.Status;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.pay.WeChat.MD5;
 import com.wjhgw.utils.FileUtils;
@@ -160,13 +161,17 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 M6_SetActivity.super.Dismiss();
-                showToastShort("已退出登录");
-                SharedPreferences preferences = getSharedPreferences("key", MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                //存入数据
-                editor.putString("key", "0");
-                editor.commit();
-                finish(false);
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+                    if (status.status.code == 10000) {
+                        getSharedPreferences("key",MODE_PRIVATE).edit().putString("key","0").commit();
+                        showToastShort("已退出登录");
+                        finish(false);
+                    }else {
+                        overtime(status.status.code, status.status.msg);
+                    }
+                }
             }
 
             @Override

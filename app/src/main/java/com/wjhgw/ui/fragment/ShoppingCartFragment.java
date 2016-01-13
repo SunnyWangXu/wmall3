@@ -379,6 +379,12 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                             mListView.setVisibility(View.GONE);
                             ll_empty_shop_cart.setVisibility(View.VISIBLE);
                         }
+                    }else if(cartList.status.code == 200103 || cartList.status.code == 200104){
+                        Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
+                        getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key","0").commit();
+                        startActivity(new Intent(getActivity(), A0_LoginActivity.class));
+                    }else {
+                        Toast.makeText(getActivity(), cartList.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -413,7 +419,11 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                         //刷新列表
                         cart_list();
                         eliminate();
-                    } else {
+                    }else if(status.status.code == 200103 || status.status.code == 200104){
+                        Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
+                        getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key","0").commit();
+                        startActivity(new Intent(getActivity(), A0_LoginActivity.class));
+                    }else {
                         Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -444,7 +454,11 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                     Status status = gson.fromJson(responseInfo.result, Status.class);
                     if (status.status.code == 10000) {
                         Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
-                    } else {
+                    }else if(status.status.code == 200103 || status.status.code == 200104){
+                        Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
+                        getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key","0").commit();
+                        startActivity(new Intent(getActivity(), A0_LoginActivity.class));
+                    }else {
                         Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -493,8 +507,11 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                         intent.putExtra("realPay", realPay);
                         startActivity(intent);
 
-
-                    } else {
+                    }else if(selectOrder.status.code == 200103 || selectOrder.status.code == 200104){
+                        Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
+                        getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key","0").commit();
+                        startActivity(new Intent(getActivity(), A0_LoginActivity.class));
+                    }else {
                         Toast.makeText(getActivity(), selectOrder.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }

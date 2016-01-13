@@ -167,7 +167,8 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
                             ll_no_order.setVisibility(View.VISIBLE);
                             mListView.setVisibility(View.GONE);
                         }
-
+                    } else {
+                        overtime(orderList.status.code,orderList.status.msg);
                     }
                 }
             }
@@ -221,6 +222,8 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 mListView.setPullLoadEnable(false);
                             }
                         }
+                    }else {
+                        overtime(orderList.status.code,orderList.status.msg);
                     }
                 }
             }

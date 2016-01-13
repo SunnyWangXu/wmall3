@@ -212,7 +212,7 @@ public class M5_Change_mobileActivity extends BaseActivity implements OnClickLis
                         Mark = 1;
                         showToastShort("验证码以短信形式发送到你的手机，60秒有效");
                     } else {
-                        showToastShort(status.status.msg);
+                        overtime(status.status.code, status.status.msg);
                     }
                 }
             }
@@ -241,12 +241,8 @@ public class M5_Change_mobileActivity extends BaseActivity implements OnClickLis
                     M5_Change_mobileActivity.super.Dismiss();
                     if (status.status.code == 10000) {
                         change_mobile();
-                    }else if (status.status.code == 200103 || status.status.code == 200104) {
-                        showToastShort(status.status.msg);
-                        getSharedPreferences("key", MODE_APPEND).edit().putString("key", "0").commit();
-                        startActivity(new Intent(M5_Change_mobileActivity.this, A0_LoginActivity.class));
-                    } else {
-                        showToastShort(status.status.msg);
+                    }else {
+                        overtime(status.status.code, status.status.msg);
                     }
                 }
             }
@@ -277,7 +273,7 @@ public class M5_Change_mobileActivity extends BaseActivity implements OnClickLis
                         finish(false);
                         showToastShort(status.status.msg);
                     } else {
-                        showToastShort(status.status.msg);
+                        overtime(status.status.code, status.status.msg);
                     }
                 }
             }

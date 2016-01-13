@@ -1,6 +1,7 @@
 package com.wjhgw.business.api;
 
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -16,6 +17,7 @@ import com.wjhgw.base.BaseQuery;
 import com.wjhgw.base.BaseRequest;
 import com.wjhgw.business.bean.Status;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
 
 import org.json.JSONException;
@@ -58,10 +60,12 @@ public class Address_del_Request extends BaseRequest {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-//                        Toast.makeText(mContext, status.status.msg, Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(mContext, status.status.msg, Toast.LENGTH_LONG).show();
+                    }else if(status.status.code == 200103 || status.status.code == 200104){
+                        Toast.makeText(mContext, "登录超时或未登录", Toast.LENGTH_SHORT).show();
+                        mContext.getSharedPreferences("key", mContext.MODE_APPEND).edit().putString("key","0").commit();
+                        mContext.startActivity(new Intent(mContext, A0_LoginActivity.class));
+                    }else {
+                        Toast.makeText(mContext, status.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -96,6 +100,12 @@ public class Address_del_Request extends BaseRequest {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                    }else if(status.status.code == 200103 || status.status.code == 200104){
+                        Toast.makeText(mContext, "登录超时或未登录", Toast.LENGTH_SHORT).show();
+                        mContext.getSharedPreferences("key", mContext.MODE_APPEND).edit().putString("key","0").commit();
+                        mContext.startActivity(new Intent(mContext, A0_LoginActivity.class));
+                    }else {
+                        Toast.makeText(mContext, status.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -129,7 +139,11 @@ public class Address_del_Request extends BaseRequest {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    } else {
+                    } else if(status.status.code == 200103 || status.status.code == 200104){
+                        Toast.makeText(mContext, "登录超时或未登录", Toast.LENGTH_SHORT).show();
+                        mContext.getSharedPreferences("key", mContext.MODE_APPEND).edit().putString("key","0").commit();
+                        mContext.startActivity(new Intent(mContext, A0_LoginActivity.class));
+                    }else {
                         Toast.makeText(mContext, status.status.msg, Toast.LENGTH_SHORT).show();
                     }
                     Dialog.dismiss();

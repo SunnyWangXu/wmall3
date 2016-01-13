@@ -24,6 +24,7 @@ import com.wjhgw.business.api.Address_del_Request;
 import com.wjhgw.business.bean.CadList;
 import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.J0_SelectGiveObjectActivity;
 import com.wjhgw.ui.activity.J1_RecordActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
@@ -251,6 +252,12 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                             tv_record.setVisibility(View.GONE);
                             ll_null.setVisibility(View.VISIBLE);
                         }
+                    }else if(cadList.status.code == 200103 || cadList.status.code == 200104){
+                        Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
+                        getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key","0").commit();
+                        startActivity(new Intent(getActivity(), A0_LoginActivity.class));
+                    }else {
+                        Toast.makeText(getActivity(), cadList.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }
             }

@@ -26,6 +26,7 @@ import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.Goods_attr;
 import com.wjhgw.business.bean.Goods_class1;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.C1_CaptureActivity;
 import com.wjhgw.ui.activity.C2_SearchActivity;
 import com.wjhgw.ui.activity.MessageCenterActivity;
@@ -214,6 +215,12 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
                     load_goods_attr(goods_class1.datas.get(0).gc_id);
                     APP.getApp().getImageLoader().displayImage(goods_class1.datas.get(0).gc_image, ivGoods);
                 }
+            }else if(goods_class1.status.code == 200103 || goods_class1.status.code == 200104){
+                Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
+                getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key","0").commit();
+                startActivity(new Intent(getActivity(), A0_LoginActivity.class));
+            }else {
+                Toast.makeText(getActivity(), goods_class1.status.msg, Toast.LENGTH_SHORT).show();
             }
         }
     }

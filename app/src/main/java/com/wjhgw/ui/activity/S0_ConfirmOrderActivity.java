@@ -148,7 +148,6 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         if (selectOrderContent != null) {
             SelectOrder selectOrder = gson.fromJson(selectOrderContent, SelectOrder.class);
             if (selectOrder.status.code == 10000) {
-
                 SelectOrderDatas selectOrderDatas = selectOrder.datas;
                 freight = selectOrderDatas.store_cart_list.freight;
                 String freightMessage = selectOrderDatas.store_cart_list.freight_message;
@@ -178,7 +177,8 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
                 lvOrderListAdapter = new LvOrderListAdapter(this, order_goods_lists);
                 lvOrderList.setAdapter(lvOrderListAdapter);
-
+            }else {
+                overtime(selectOrder.status.code, selectOrder.status.msg);
             }
 
         }
@@ -198,8 +198,13 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 Gson gson = new Gson();
                 CheckAddressSupport checkAddressSupport = gson.fromJson(responseInfo.result, CheckAddressSupport.class);
 
-                offpay_hash = checkAddressSupport.datas.offpay_hash;
-                offpay_hash_batch = checkAddressSupport.datas.offpay_hash_batch;
+                if(checkAddressSupport.status.code == 10000){
+                    offpay_hash = checkAddressSupport.datas.offpay_hash;
+                    offpay_hash_batch = checkAddressSupport.datas.offpay_hash_batch;
+                }else {
+                    overtime(checkAddressSupport.status.code, checkAddressSupport.status.msg);
+                }
+
             }
 
             @Override

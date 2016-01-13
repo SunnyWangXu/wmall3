@@ -2,7 +2,6 @@ package com.wjhgw.ui.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -192,22 +191,12 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                 Gson gson = new Gson();
                 if (responseInfo != null) {
                     Login_Pager login = gson.fromJson(responseInfo.result, Login_Pager.class);
-
                     if (login.status.code == 10000) {
-                        preferences = getSharedPreferences("key", MODE_PRIVATE);
-                        Editor editor = preferences.edit();
-                        //存入数据
-                        editor.putString("key", login.datas.key);
-                        //提交修改
-                        editor.commit();
-                        /*//读取出来
-                        preferences.getString("key", "0");
-                        intent = new Intent(A0_LoginActivity.this, MainActivity.class);
-                        startActivity(intent);*/
+                        getSharedPreferences("key",MODE_PRIVATE).edit().putString("key",login.datas.key).commit();
                         showToastShort("登录成功");
                         finish(false);
                     }else {
-                        showToastShort(login.status.msg);
+                        overtime(login.status.code,login.status.msg);
                     }
                 }
             }

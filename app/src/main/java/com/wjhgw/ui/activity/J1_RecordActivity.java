@@ -199,6 +199,8 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
                                 mListView.setPullLoadEnable(false);
                             }
                         }
+                    }else {
+                        overtime(actSearch.status.code,actSearch.status.msg);
                     }
                 }
             }

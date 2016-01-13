@@ -146,7 +146,7 @@ public class Z0_AssetsActivity extends BaseActivity implements View.OnClickListe
                         tv_account_balance.setText(userinformation.datas.available_predeposit);   //余额
                         tv_prepaid_card_balance.setText(userinformation.datas.available_rc_balance);   //可用充值卡余额
                     } else {
-                        showToastShort(userinformation.status.msg);
+                        overtime(userinformation.status.code, userinformation.status.msg);
                     }
                 }
 
@@ -181,7 +181,7 @@ public class Z0_AssetsActivity extends BaseActivity implements View.OnClickListe
                         showToastShort(status.status.msg);
                         load_User_information();
                     } else {
-                        showToastShort(status.status.msg);
+                        overtime(status.status.code, status.status.msg);
                     }
                 }
 
