@@ -1,5 +1,6 @@
 package com.wjhgw;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -8,7 +9,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 import com.wjhgw.base.BaseActivity;
+import com.wjhgw.base.BaseQuery;
+import com.wjhgw.business.bean.Status;
+import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.fragment.CabinetFragment;
 import com.wjhgw.ui.fragment.CategoryFragment;
 import com.wjhgw.ui.fragment.HomeFragment;
@@ -37,6 +47,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView shopping_car_text;
     private TextView settingText;
     private FragmentManager fragmentManager;
+    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +58,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //        }
 
         setContentView(R.layout.activity_main);
+        key = getKey();
+        if(!key.equals("0")){
+            check_logo_data();
+        }
 
         fragmentManager = getSupportFragmentManager();
         setTabSelection(0);
@@ -221,6 +236,46 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 */
+
+    /**
+     * 判断是否登录过期
+     */
+    private void check_logo_data() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Check_logo_data, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo.result != null) {
+
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+                    if (status.status.code == 10000) {
+
+                    } else {
+                        exitLogin();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                showToastShort("网络错误");
+            }
+        });
+    }
+
+    /**
+     * 删除本地key
+     */
+    private void exitLogin() {
+        SharedPreferences preferences = getSharedPreferences("key", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        //存入数据
+        editor.putString("key", "0");
+        editor.commit();
+    }
     /**
      * 双击返回键退出App 
      */
