@@ -90,14 +90,10 @@ public class S1_OrderAddressActivity extends BaseActivity implements View.OnClic
                         order_address_list.clear();
                         if (address_list.datas != null) {
                             order_address_list.addAll(address_list.datas);
-
                             lvOrderAddress.setAdapter(new OrderAddressAdapter(S1_OrderAddressActivity.this, order_address_list));
-
                         }
-                    } else if (address_list.status.code == 200103 || address_list.status.code == 200104) {
-                        showToastShort(address_list.status.msg);
-                    } else {
-                        showToastShort(address_list.status.msg);
+                    }else {
+                        overtime(address_list.status.code,address_list.status.msg);
                     }
                 }
             }

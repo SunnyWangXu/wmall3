@@ -136,6 +136,8 @@ public class D2_LogisticsActivity extends BaseActivity implements OnClickListene
                                 tv_status.setText("已签收");
                             }
                         }
+                    }else {
+                        overtime(order_deliver.status.code,order_deliver.status.msg);
                     }
                 }
             }

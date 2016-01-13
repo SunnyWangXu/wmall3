@@ -429,6 +429,8 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 //已取消
                             }
                         }
+                    }else {
+                        overtime(order_detail.status.code,order_detail.status.msg);
                     }
                 }
             }

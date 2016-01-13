@@ -212,7 +212,6 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
 
                     SelectOrder selectOrder = gson.fromJson(responseInfo.result, SelectOrder.class);
                     if (selectOrder.status.code == 10000) {
-
                         SelectOrderDatas selectOrderDatas = selectOrder.datas;
                         ArrayList<Order_goods_list> order_goods_lists = selectOrderDatas.store_cart_list.goods_list;
                         double realPay = 0.00;
@@ -227,10 +226,8 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
                         intent.putExtra("tv_total", realPay+"");
                         intent.putExtra("realPay", realPay);
                         startActivity(intent);
-
-
                     } else {
-                        showToastShort(selectOrder.status.msg);
+                        overtime(selectOrder.status.code, selectOrder.status.msg);
                     }
                 }
             }

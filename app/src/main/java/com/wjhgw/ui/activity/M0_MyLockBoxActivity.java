@@ -228,12 +228,8 @@ public class M0_MyLockBoxActivity extends BaseActivity implements View.OnClickLi
                     if (nickname.status.code == 10000) {
                         //finish(false);
                         showToastLong(nickname.status.msg);
-                    } else if(nickname.status.code == 200103 || nickname.status.code == 200104) {
-                        showToastShort(nickname.status.msg);
-                        getSharedPreferences("key", MODE_APPEND).edit().putString("key","0").commit();
-                        startActivity(new Intent(M0_MyLockBoxActivity.this, A0_LoginActivity.class));
-                    } else {
-                        showToastLong(nickname.status.msg);
+                    }else {
+                        overtime(nickname.status.code, nickname.status.msg);
                     }
                 }
 
@@ -292,12 +288,8 @@ public class M0_MyLockBoxActivity extends BaseActivity implements View.OnClickLi
                         }
                         tv_Mobile.setText(myLockBoxData.member_mobile);
 
-                    } else if(myLockBox.status.code == 200104) {
-                        showToastShort(myLockBox.status.msg);
-                        getSharedPreferences("key", MODE_APPEND).edit().putString("key","0").commit();
-                        startActivity(new Intent(M0_MyLockBoxActivity.this, A0_LoginActivity.class));
-                    } else {
-                        showToastShort(myLockBox.status.msg);
+                    }  else {
+                        overtime(myLockBox.status.code, myLockBox.status.msg);
                     }
                 }
             }

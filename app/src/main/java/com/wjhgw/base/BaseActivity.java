@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.wjhgw.R;
+import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
 
 /**
@@ -210,6 +211,19 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public void showToastShort(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 超时判断
+     */
+    public void overtime(int code,String msg) {
+        if(code == 200103 || code == 200104){
+            Toast.makeText(this, "登录超时或未登录", Toast.LENGTH_SHORT).show();
+            getSharedPreferences("key", MODE_APPEND).edit().putString("key","0").commit();
+            startActivity(new Intent(this, A0_LoginActivity.class));
+        }else {
+            showToastShort(msg);
+        }
     }
 
     /**

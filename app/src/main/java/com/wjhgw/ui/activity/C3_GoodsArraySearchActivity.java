@@ -397,6 +397,8 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
                                 mListView.setPullLoadEnable(false);
                             }
                         }
+                    }else {
+                        overtime(actSearch.status.code,actSearch.status.msg);
                     }
 
                 }

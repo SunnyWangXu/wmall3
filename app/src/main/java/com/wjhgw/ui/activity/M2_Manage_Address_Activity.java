@@ -107,12 +107,8 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
                             listAdapter = new manage_address_adapter(M2_Manage_Address_Activity.this, address_list_data, Request, key);
                             mListView.setAdapter(listAdapter);
                         }
-                    } else if (address_list.status.code == 200103 || address_list.status.code == 200104) {
-                        showToastShort(address_list.status.msg);
-                        getSharedPreferences("key", MODE_APPEND).edit().putString("key", "0").commit();
-                        startActivity(new Intent(M2_Manage_Address_Activity.this, A0_LoginActivity.class));
-                    } else {
-                        showToastShort(address_list.status.msg);
+                    }else {
+                        overtime(address_list.status.code,address_list.status.msg);
                     }
                 }
             }
@@ -165,7 +161,6 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
         switch (v.getId()) {
 
             case R.id.tv_add_address:
-
                 Intent intent = new Intent(this, M2_AddressDetailActvity.class);
 //                intent.putExtra("addAddress", "addAddress");
                 intent.setType("addAddress");

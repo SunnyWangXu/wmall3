@@ -326,6 +326,12 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                                 tv_statistics4.setText(orderAmount.datas.un_done_fefund);
                             }
                         }
+                    }else if(orderAmount.status.code == 200103 || orderAmount.status.code == 200104){
+                        Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
+                        getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key","0").commit();
+                        startActivity(new Intent(getActivity(), A0_LoginActivity.class));
+                    }else {
+                        //Toast.makeText(getActivity(), userinformation.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -393,6 +399,12 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 tv_vouchers.setText(userinformation.datas.member_voucher);         //代金券
 
                 memberName = userinformation.datas.member_name;
+            }else if(userinformation.status.code == 200103 || userinformation.status.code == 200104){
+                Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
+                getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key","0").commit();
+                startActivity(new Intent(getActivity(), A0_LoginActivity.class));
+            }else {
+                //Toast.makeText(getActivity(), userinformation.status.msg, Toast.LENGTH_SHORT).show();
             }
         }
     }

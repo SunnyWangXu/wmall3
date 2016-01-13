@@ -1,6 +1,5 @@
 package com.wjhgw.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -111,7 +110,7 @@ public class M1_Modify_nicknameActivity extends BaseActivity implements View.OnC
     private void User_information() {
         super.StartLoading();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", this.getSharedPreferences("key", MODE_APPEND).getString("key", "0"));
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("member_nickname", modifynickname);
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Change_nickname, params, new RequestCallBack<String>() {
@@ -124,15 +123,10 @@ public class M1_Modify_nicknameActivity extends BaseActivity implements View.OnC
 
                     if (nickname.status.code == 10000) {
                         finish(false);
-                    } else if(nickname.status.code == 200103 || nickname.status.code == 200104) {
-                        showToastShort(nickname.status.msg);
-                        getSharedPreferences("key", MODE_APPEND).edit().putString("key","0").commit();
-                        startActivity(new Intent(M1_Modify_nicknameActivity.this, A0_LoginActivity.class));
                     } else {
-                        showToastShort(nickname.status.msg);
+                        overtime(nickname.status.code, nickname.status.msg);
                     }
                 }
-
             }
 
             @Override
