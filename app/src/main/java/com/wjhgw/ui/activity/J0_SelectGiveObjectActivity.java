@@ -9,7 +9,7 @@ import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 
 /**
- * 选择赠送Activity
+ * 选择赠送对象Activity
  */
 public class J0_SelectGiveObjectActivity extends BaseActivity implements View.OnClickListener {
 

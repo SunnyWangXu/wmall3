@@ -24,6 +24,7 @@ import com.wjhgw.business.api.Address_del_Request;
 import com.wjhgw.business.bean.CadList;
 import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.activity.J0_SelectGiveObjectActivity;
 import com.wjhgw.ui.activity.J1_RecordActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.view.listview.MyListView;
@@ -166,6 +167,10 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                         }
                     }*/
                     Toast.makeText(getActivity(), "下一步正在开发", Toast.LENGTH_SHORT).show();
+
+                    intent = new Intent(getActivity(), J0_SelectGiveObjectActivity.class);
+                    startActivity(intent);
+
                 } else {
                     Toast.makeText(getActivity(), "你还没有选择商品哦", Toast.LENGTH_SHORT).show();
                 }
