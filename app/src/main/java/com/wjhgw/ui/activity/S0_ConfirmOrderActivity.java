@@ -58,6 +58,8 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private int MAKEDONATE = 1;
     //标记使用余额
     private int MAKEBALANCE = 1;
+    //标记使用充值卡余额
+    private int MAKEAVAILABLERCBALANCE = 1;
     private LinearLayout llOnlinePay;
     private LinearLayout llDownlinePay;
     private ImageView ivOnlinePay;
@@ -110,6 +112,11 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private String paypwd;
     private EditText etPayMessage;
     private TextView tvAvailablePredeposit;
+    private TextView tvAvailableRcBalance;
+    private LinearLayout llAvailableRcBalance;
+    private boolean isUseRcBalance = false;
+    private ImageView ivAvailableRcBalance;
+    private TextView tvRcBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,6 +169,14 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
                 } else {
                     tvAvailablePredeposit.setText(selectOrderDatas.available_predeposit);
+                }
+
+                if (selectOrderDatas.available_rc_balance == null) {
+                    tvAvailableRcBalance.setText("0.00");
+                    isUseRcBalance = false;
+
+                } else {
+                    tvAvailableRcBalance.setText(selectOrderDatas.available_rc_balance);
                 }
                 /**
                  * 检查地址是否支持货到付款
@@ -252,6 +267,12 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         ivBalance = (ImageView) findViewById(R.id.iv_balance);
         tvAvailablePredeposit = (TextView) findViewById(R.id.tv_available_predeposit);
 
+        llAvailableRcBalance = (LinearLayout) findViewById(R.id.ll_available_rc_balance);
+        tvRcBalance = (TextView) findViewById(R.id.tv_is_use_rc_balance);
+        ivAvailableRcBalance = (ImageView) findViewById(R.id.iv_available_rc_balance);
+        tvAvailableRcBalance = (TextView) findViewById(R.id.tv_available_rc_balance);
+
+
         etPayMessage = (EditText) findViewById(R.id.et_pay_message);
 
     }
@@ -271,6 +292,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         llPayment.setOnClickListener(this);
         llDonate.setOnClickListener(this);
         llUseBalance.setOnClickListener(this);
+        llAvailableRcBalance.setOnClickListener(this);
         tvCommitOrder.setOnClickListener(this);
 
     }
@@ -330,7 +352,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                     } else {
                         ivDonate.setImageResource(R.mipmap.ic_push_off);
                         llUseMessage.setVisibility(View.VISIBLE);
-                        tvDonate.setTextColor(Color.parseColor("#666666"));
+                        tvDonate.setTextColor(Color.parseColor("#cccccc"));
                         //不存入酒柜，赠送他人
                         isDonate = false;
                     }
@@ -355,9 +377,35 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
                         } else {
                             ivBalance.setImageResource(R.mipmap.ic_push_off);
-                            tvBalance.setTextColor(Color.parseColor("#666666"));
+                            tvBalance.setTextColor(Color.parseColor("#cccccc"));
                             //不使用余额
                             isUseBalance = false;
+                        }
+                    }
+                }
+                break;
+
+            case R.id.ll_available_rc_balance:
+                /**
+                 * 充值卡余额为0.00 不能开启使用充值卡余额
+                 */
+                if (!tvAvailableRcBalance.getText().equals("0.00")) {
+                    /**
+                     * 线上支付才能开启余额支付
+                     */
+                    if (!isDownlinePay) {
+                        MAKEAVAILABLERCBALANCE++;
+                        if (MAKEAVAILABLERCBALANCE % 2 == 0) {
+                            ivAvailableRcBalance.setImageResource(R.mipmap.ic_push_on);
+                            tvRcBalance.setTextColor(Color.parseColor("#333333"));
+                            //使用余额
+                            isUseRcBalance = true;
+
+                        } else {
+                            ivAvailableRcBalance.setImageResource(R.mipmap.ic_push_off);
+                            tvRcBalance.setTextColor(Color.parseColor("#cccccc"));
+                            //不使用余额
+                            isUseRcBalance = false;
                         }
                     }
                 }
@@ -443,13 +491,15 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             public void onSuccess(ResponseInfo<String> responseInfo) {
 
                 /**
-                 * 余额减去需要使用的金额
+                 * （余额+上充值卡余额）- 需要使用的金额
                  */
-                double yu = Double.valueOf(tvAvailablePredeposit.getText().toString()) - Double.valueOf(tvRealPay.getText().toString());
+                double rcBalance = Double.valueOf(tvAvailableRcBalance.getText().toString());
+                double balance = Double.valueOf(tvAvailablePredeposit.getText().toString());
+                double yu = (rcBalance + balance) - Double.valueOf(tvRealPay.getText().toString());
 
                 if (isUseBalance && yu > 0) {
                     /**
-                     * 选择了余额支付并且余额大于选中商品金额直接购买成功
+                     * 选择了余额支付或者使用充值卡余额支付并且余额大于选中商品金额直接购买成功
                      */
                     showToastShort("有钱余额够够的");
                     finish();
@@ -457,7 +507,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 } else {
 
                     /**
-                     * 选择了余额支付但是余额小于选中商品金额还是要跳转到选择支付界面付款余下的金额
+                     * 选择了余额支付或者使用充值卡余额支付但是余额小于选中商品金额还是要跳转到选择支付界面付款余下的金额
                      */
                     Intent intent = new Intent(S0_ConfirmOrderActivity.this, S3_SelectPaymentActivity.class);
                     intent.putExtra("tvRealPay", tvRealPay.getText());
@@ -466,6 +516,12 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                     } else {
                         intent.putExtra("tvAvailablePredeposit", "0.00");
                     }
+                    if (isUseRcBalance) {
+                        intent.putExtra("tvAvailableRcBalance", tvAvailableRcBalance.getText());
+                    } else {
+                        intent.putExtra("tvAvailableRcBalance", "0.00");
+                    }
+
                     startActivity(intent);
 
                 }
