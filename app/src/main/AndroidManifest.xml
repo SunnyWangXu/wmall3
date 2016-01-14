@@ -74,6 +74,12 @@
             android:name="com.wjhgw.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"/>
+        <activity
+            android:name="com.wjhgw.wxapi.WXEntryActivity"
+            android:launchMode="singleInstance"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden"
+            android:screenOrientation="portrait"/>
         <!-- alipay sdk begin -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
