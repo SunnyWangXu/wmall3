@@ -34,64 +34,72 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/ll_usemessage_01"
                 android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:text="收货人："
-                    android:textColor="@color/title_color"
-                    android:textSize="17sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_useName"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLength="8"
-                    android:singleLine="true"
-                    android:textColor="@color/title_color"
-                    android:textSize="17sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:text="收货人："
+                        android:textColor="@color/title_color"
+                        android:textSize="17sp" />
 
-                <TextView
-                    android:id="@+id/tv_usePhone"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/title_color"
-                    android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/tv_useName"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLength="8"
+                        android:singleLine="true"
+                        android:textColor="@color/title_color"
+                        android:textSize="17sp" />
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_usePhone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/title_color"
+                        android:textSize="16sp" />
 
-            <LinearLayout
-                android:id="@+id/ll_order_address"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_useAddress"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:lines="2"
-                    android:textColor="@color/title_color"
-                    android:textSize="14sp" />
+                <LinearLayout
+                    android:id="@+id/ll_order_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginRight="15dp"
-                    android:src="@mipmap/ic_arrow_right" />
+                    <TextView
+                        android:id="@+id/tv_useAddress"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:lines="2"
+                        android:textColor="@color/title_color"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="15dp"
+                        android:src="@mipmap/ic_arrow_right" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
