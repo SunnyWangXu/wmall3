@@ -77,6 +77,7 @@ public class S1_OrderAddressActivity extends BaseActivity implements View.OnClic
         RequestParams params = new RequestParams();
         if (!key.equals("0") && key != null) {
             params.addBodyParameter("key", key);
+            params.addBodyParameter("address_type", "0");
         }
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Address_list, params, new RequestCallBack<String>() {
 
@@ -92,8 +93,8 @@ public class S1_OrderAddressActivity extends BaseActivity implements View.OnClic
                             order_address_list.addAll(address_list.datas);
                             lvOrderAddress.setAdapter(new OrderAddressAdapter(S1_OrderAddressActivity.this, order_address_list));
                         }
-                    }else {
-                        overtime(address_list.status.code,address_list.status.msg);
+                    } else {
+                        overtime(address_list.status.code, address_list.status.msg);
                     }
                 }
             }

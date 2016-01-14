@@ -117,6 +117,8 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private boolean isUseRcBalance = false;
     private ImageView ivAvailableRcBalance;
     private TextView tvRcBalance;
+    private LinearLayout llUseMessage01;
+    private TextView tvNotAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,7 +160,9 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 SelectOrderDatas selectOrderDatas = selectOrder.datas;
                 freight = selectOrderDatas.store_cart_list.freight;
                 String freightMessage = selectOrderDatas.store_cart_list.freight_message;
-                address_id = selectOrderDatas.address_info.address_id;
+                if (selectOrderDatas.address_info != null) {
+                    address_id = selectOrderDatas.address_info.address_id;
+                }
                 vat_hash = selectOrderDatas.vat_hash;
                 freight_hash = selectOrderDatas.freight_hash;
 
@@ -192,7 +196,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
                 lvOrderListAdapter = new LvOrderListAdapter(this, order_goods_lists);
                 lvOrderList.setAdapter(lvOrderListAdapter);
-            }else {
+            } else {
                 overtime(selectOrder.status.code, selectOrder.status.msg);
             }
 
@@ -213,10 +217,10 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 Gson gson = new Gson();
                 CheckAddressSupport checkAddressSupport = gson.fromJson(responseInfo.result, CheckAddressSupport.class);
 
-                if(checkAddressSupport.status.code == 10000){
+                if (checkAddressSupport.status.code == 10000) {
                     offpay_hash = checkAddressSupport.datas.offpay_hash;
                     offpay_hash_batch = checkAddressSupport.datas.offpay_hash_batch;
-                }else {
+                } else {
                     overtime(checkAddressSupport.status.code, checkAddressSupport.status.msg);
                 }
 
@@ -246,6 +250,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onFindViews() {
+        llUseMessage01 = (LinearLayout) llConfirmOrderHeader.findViewById(R.id.ll_usemessage_01);
         llUseMessage = (LinearLayout) llConfirmOrderHeader.findViewById(R.id.ll_usemessage);
         llDonate = (LinearLayout) findViewById(R.id.ll_donate);
         tvDonate = (TextView) findViewById(R.id.tv_donate);
@@ -256,6 +261,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         tvPayMethod = (TextView) findViewById(R.id.tv_pay_method);
         tvCommitOrder = (TextView) findViewById(R.id.tv_commit_order);
 
+        tvNotAddress = (TextView) findViewById(R.id.tv_not_address);
         tvUseName = (TextView) llConfirmOrderHeader.findViewById(R.id.tv_useName);
         tvUsePhone = (TextView) llConfirmOrderHeader.findViewById(R.id.tv_usePhone);
         tvUseAddress = (TextView) llConfirmOrderHeader.findViewById(R.id.tv_useAddress);
@@ -292,7 +298,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onBindListener() {
-
+        tvNotAddress.setOnClickListener(this);
         llOrderAddress.setOnClickListener(this);
         llPayment.setOnClickListener(this);
         llDonate.setOnClickListener(this);
@@ -308,8 +314,14 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        if (data == null) {
+            llUseMessage01.setVisibility(View.GONE);
+            tvNotAddress.setVisibility(View.VISIBLE);
+        }
         if (data != null) {
+            tvNotAddress.setVisibility(View.GONE);
+            llUseMessage01.setVisibility(View.VISIBLE);
+
             useName = data.getStringExtra("tureName");
             usePhone = data.getStringExtra("phone");
             useAddressInfo = data.getStringExtra("addressInfo");
@@ -332,6 +344,13 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
         switch (v.getId()) {
             case R.id.ll_order_address:
+                intent.setClass(this, S1_OrderAddressActivity.class);
+                startActivityForResult(intent, 55555);
+
+                break;
+
+            case R.id.tv_not_address:
+
                 intent.setClass(this, S1_OrderAddressActivity.class);
                 startActivityForResult(intent, 55555);
 
@@ -809,6 +828,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
+        params.addBodyParameter("address_type", "0");
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Address_list, params, new RequestCallBack<String>() {
 
             @Override
@@ -818,10 +838,17 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                     Address_list address_list = gson.fromJson(responseInfo.result, Address_list.class);
                     S0_ConfirmOrderActivity.super.Dismiss();
                     if (address_list.status.code == 10000) {
+                        if (address_list.datas == null) {
+                            //地址为空显示要去设置收货地址
+                            llUseMessage01.setVisibility(View.GONE);
+                            tvNotAddress.setVisibility(View.VISIBLE);
 
-                        tvUseName.setText(address_list.datas.get(0).true_name);
-                        tvUsePhone.setText(address_list.datas.get(0).mob_phone);
-                        tvUseAddress.setText(address_list.datas.get(0).area_info + " " + address_list.datas.get(0).address);
+                        } else {
+
+                            tvUseName.setText(address_list.datas.get(0).true_name);
+                            tvUsePhone.setText(address_list.datas.get(0).mob_phone);
+                            tvUseAddress.setText(address_list.datas.get(0).area_info + " " + address_list.datas.get(0).address);
+                        }
 
 
                     }
