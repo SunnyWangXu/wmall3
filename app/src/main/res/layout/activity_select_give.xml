@@ -11,157 +11,91 @@
         android:layout_height="1dp"
         android:background="@color/line_bg" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="320dp"
-        android:background="@color/white">
-
-        <TextView
-            android:id="@+id/tv_giveone"
-            android:layout_width="20dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
-            android:gravity="center_vertical"
-            android:text="赠送单人"
-            android:textColor="@color/btn_red"
-            android:textSize="20sp" />
-
-        <ImageView
-            android:id="@+id/iv_zhangbei"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="30dp"
-            android:layout_toRightOf="@id/tv_giveone"
-            android:src="@mipmap/ic_zhangbei" />
-
-        <ImageView
-            android:id="@+id/iv_dear"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="30dp"
-            android:layout_toRightOf="@id/iv_zhangbei"
-            android:src="@mipmap/ic_dear" />
-
-        <TextView
-            android:id="@+id/tv_zhangbei"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/iv_zhangbei"
-            android:layout_alignRight="@id/iv_zhangbei"
-            android:layout_below="@+id/iv_zhangbei"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="长辈"
-            android:textColor="@color/filter_text_color"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/tv_dear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/iv_dear"
-            android:layout_alignRight="@id/iv_dear"
-            android:layout_below="@+id/iv_dear"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="亲爱的ta"
-            android:textColor="@color/filter_text_color"
-            android:textSize="14sp" />
+        android:layout_height="wrap_content"
+        android:background="#d63235"
+        android:orientation="vertical">
 
 
         <ImageView
-            android:id="@+id/iv_tongshi"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignLeft="@+id/iv_zhangbei"
-            android:layout_alignRight="@+id/iv_zhangbei"
-            android:layout_below="@id/tv_zhangbei"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/tv_zhangbei"
-            android:src="@mipmap/ic_tongshi" />
+            android:id="@+id/iv_give_one"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_marginBottom="22dp"
+            android:layout_marginTop="24dp"
+            android:src="@mipmap/ic_give_one" />
 
-        <ImageView
-            android:id="@+id/iv_friend"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignLeft="@+id/iv_dear"
-            android:layout_alignRight="@+id/iv_dear"
-            android:layout_below="@id/tv_dear"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/tv_zhangbei"
-            android:src="@mipmap/ic_friend" />
-
-        <TextView
-            android:id="@+id/tv_tongshi"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/iv_tongshi"
-            android:layout_alignRight="@id/iv_tongshi"
-            android:layout_below="@+id/iv_tongshi"
-            android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="同事"
-            android:textColor="@color/filter_text_color"
-            android:textSize="14sp" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_friend"
-            android:layout_width="wrap_content"
+
+            <ImageView
+                android:id="@+id/iv_zhangbei"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_zhangbei" />
+
+            <ImageView
+                android:id="@+id/iv_dear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_dear" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/iv_dear"
-            android:layout_alignRight="@id/iv_dear"
-            android:layout_below="@+id/iv_friend"
-            android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="朋友"
-            android:textColor="@color/filter_text_color"
-            android:textSize="14sp" />
-    </RelativeLayout>
+            android:orientation="horizontal">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_bg" />
+            <ImageView
+                android:id="@+id/iv_tongshi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:src="@mipmap/ic_tongshi" />
 
-    <RelativeLayout
+            <ImageView
+                android:id="@+id/iv_friend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:src="@mipmap/ic_friend" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/white">
+        android:background="#f19149"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_give_more_people"
-            android:layout_width="20dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
-            android:gravity="center_vertical"
-            android:text="赠送单人"
-            android:textColor="@color/btn_red"
-            android:textSize="20sp" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_marginBottom="22dp"
+            android:layout_marginTop="24dp"
+            android:src="@mipmap/ic_give_one" />
 
         <ImageView
             android:id="@+id/iv_give_more_people"
-            android:layout_width="240dp"
-            android:layout_height="160dp"
-            android:layout_marginTop="30dp"
-            android:layout_toRightOf="@id/tv_give_more_people"
+            android:layout_width="340dp"
+            android:layout_height="152dp"
+            android:layout_marginBottom="11dp"
+            android:layout_marginLeft="10dp"
             android:src="@mipmap/ic_more_people" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/iv_give_more_people"
-            android:layout_alignRight="@id/iv_give_more_people"
-            android:layout_below="@id/iv_give_more_people"
-            android:gravity="center"
-            android:text="见者有份"
-            android:textColor="@color/filter_text_color"
-            android:textSize="14sp" />
-
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -62,6 +62,8 @@ public class J0_SelectGiveObjectActivity extends BaseActivity implements View.On
         
         switch (v.getId()) {
             case R.id.iv_zhangbei:
+                intent.setClass(this, J2_GiveOneActivity.class);
+                startActivity(intent);
 
                 break;
 

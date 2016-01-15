@@ -22,7 +22,7 @@ import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.J1_RecordAdapter;
 
 /**
- * 商品排列查询
+ * 酒柜商品排列查询
  */
 public class J1_RecordActivity extends BaseActivity implements XListView.IXListViewListener,
         View.OnClickListener {

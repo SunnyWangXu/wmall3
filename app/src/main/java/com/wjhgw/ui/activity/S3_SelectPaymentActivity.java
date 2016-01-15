@@ -49,6 +49,10 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
     private String rcBalance;
     private TextView tvPayRcBalance;
     private LinearLayout llRcBalancePay;
+    private String paySn;
+    private double totalFee;
+    private String goodsName;
+    private String goodsDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,12 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
         api = WXAPIFactory.createWXAPI(this, "wxb4ba3c02aa476ea1");
         sb = new StringBuffer();
 
+        paySn = getIntent().getStringExtra("paySn");
+        totalFee = getIntent().getDoubleExtra("totalFee", 0.00);
+        goodsName = getIntent().getStringExtra("goodsName");
+        goodsDetail = getIntent().getStringExtra("goodsDetail");
+
+        showToastShort(paySn + "\\\\" + totalFee + "\\\\" + goodsName + "\\\\" + goodsDetail);
     }
 
     @Override
@@ -105,7 +115,7 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
             tvPayRcBalance.setText(rcBalance);
         }
 
-        double end = Double.valueOf(realPay) - Double.valueOf(balance) - Double.valueOf(rcBalance) ;
+        double end = Double.valueOf(realPay) - Double.valueOf(balance) - Double.valueOf(rcBalance);
 
         tvEndPay.setText(end + "");
 
@@ -138,7 +148,8 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
                 if (isWeixin) {
                     buy();
                 } else {
-                    payMethod pay = new payMethod(this, "订单号", "测试的商品", "测试的商品详情", "0.01");
+//                    payMethod pay = new payMethod(this, "订单号", "测试的商品", "测试的商品详情", "0.01");
+                    payMethod pay = new payMethod(this, paySn, goodsName, goodsDetail, totalFee + "");
                     pay.pay();
                 }
                 break;

@@ -31,6 +31,7 @@ import com.wjhgw.business.bean.Address_list;
 import com.wjhgw.business.bean.CheckAddressSupport;
 import com.wjhgw.business.bean.MyLockBox;
 import com.wjhgw.business.bean.Order_goods_list;
+import com.wjhgw.business.bean.PayOrder;
 import com.wjhgw.business.bean.SelectOrder;
 import com.wjhgw.business.bean.SelectOrderDatas;
 import com.wjhgw.business.bean.TestPaypwd;
@@ -530,26 +531,46 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
                 } else {
 
-                    /**
-                     * 选择了余额支付或者使用充值卡余额支付但是余额小于选中商品金额还是要跳转到选择支付界面付款余下的金额
-                     */
-                    Intent intent = new Intent(S0_ConfirmOrderActivity.this, S3_SelectPaymentActivity.class);
-                    intent.putExtra("tvRealPay", tvRealPay.getText());
-                    if (isUseBalance) {
-                        intent.putExtra("tvAvailablePredeposit", tvAvailablePredeposit.getText());
-                    } else {
-                        intent.putExtra("tvAvailablePredeposit", "0.00");
-                    }
-                    if (isUseRcBalance) {
-                        intent.putExtra("tvAvailableRcBalance", tvAvailableRcBalance.getText());
-                    } else {
-                        intent.putExtra("tvAvailableRcBalance", "0.00");
-                    }
+                    Gson gson = new Gson();
+                    PayOrder payOrder = gson.fromJson(responseInfo.result, PayOrder.class);
 
-                    startActivity(intent);
+                    if (payOrder.status.code == 10000) {
 
+                        if (payOrder.datas.state = true && payOrder.datas.data.type.equals("order")) {
+
+                            showToastShort(payOrder.datas.msg);
+
+                            /**
+                             * 选择了余额支付或者使用充值卡余额支付但是余额小于选中商品金额还是要跳转到选择支付界面付款余下的金额
+                             */
+                            Intent intent = new Intent(S0_ConfirmOrderActivity.this, S3_SelectPaymentActivity.class);
+                            intent.putExtra("tvRealPay", tvRealPay.getText());
+                            if (isUseBalance) {
+                                intent.putExtra("tvAvailablePredeposit", tvAvailablePredeposit.getText());
+                            } else {
+                                intent.putExtra("tvAvailablePredeposit", "0.00");
+                            }
+                            if (isUseRcBalance) {
+                                intent.putExtra("tvAvailableRcBalance", tvAvailableRcBalance.getText());
+                            } else {
+                                intent.putExtra("tvAvailableRcBalance", "0.00");
+                            }
+
+                            String paySn = payOrder.datas.data.pay_sn;
+                            double totalFee = payOrder.datas.data.total_fee;
+                            String goodsName = payOrder.datas.data.goods_name;
+                            String goodsDetail = payOrder.datas.data.goods_detail;
+
+                            intent.putExtra("paySn", paySn);
+                            intent.putExtra("totalFee", totalFee);
+                            intent.putExtra("goodsName", goodsName);
+                            intent.putExtra("goodsDetail", goodsDetail);
+
+                            startActivity(intent);
+
+                        }
+                    }
                 }
-                showToastShort("下单成功 下单成功 下单成功");
             }
 
             @Override
