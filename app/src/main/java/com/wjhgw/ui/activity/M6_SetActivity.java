@@ -1,5 +1,7 @@
 package com.wjhgw.ui.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +21,9 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -54,12 +59,15 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
     private LinearLayout llCheckVersion;
     IWXAPI api;
     StringBuffer sb;
+    int s = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set);
-        api = WXAPIFactory.createWXAPI(this, "wxb4ba3c02aa476ea1");
+        api = WXAPIFactory.createWXAPI(this, "wx99a6bd9b7bdbf645");
+        api.registerApp("wx99a6bd9b7bdbf645");
         sb = new StringBuffer();
     }
 
@@ -138,8 +146,9 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
             case R.id.ll_check_version:
                 /*payMethod pay = new payMethod(this, "订单号", "测试的商品", "测试的商品详情", "0.01");
                 pay.pay();*/
-                buy();
+                //buy();
                 //showToastShort("当前已经是最新版本");
+                wechatShare(s++);
                 break;
 
             default:
@@ -180,6 +189,23 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
                 showToastShort("网络错误");
             }
         });
+    }
+
+    private void wechatShare(int flag){
+        WXWebpageObject webpage = new WXWebpageObject();
+        webpage.webpageUrl = "http://wjhgw.com/";
+        WXMediaMessage msg = new WXMediaMessage(webpage);
+        msg.title = "礼包";
+        msg.description = "花心大萝卜的大礼包！";
+        //这里替换一张自己工程里的图片资源
+        Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_logo);
+        msg.setThumbImage(thumb);
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = String.valueOf(System.currentTimeMillis());
+        req.message = msg;
+        req.scene = flag==0?SendMessageToWX.Req.WXSceneSession:SendMessageToWX.Req.WXSceneTimeline;
+        api.sendReq(req);
     }
 
     /**

@@ -15,11 +15,14 @@ import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
-import com.wjhgw.business.bean.ActSearch;
+import com.wjhgw.business.bean.Get_goods_List;
+import com.wjhgw.business.bean.Get_goods_list_data;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.J1_RecordAdapter;
+
+import java.util.ArrayList;
 
 /**
  * 酒柜商品排列查询
@@ -39,24 +42,21 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
     private Boolean Mark = true;
     private String key;
     private J1_RecordAdapter listAdapter = null;
+    private Get_goods_List get_goods_List;
+    private ArrayList<Get_goods_list_data> get_goods_list_datat = new ArrayList<>();
+    private ArrayList<Get_goods_list_data> get_goods_list_datat1 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.record_layout);
 
-
-        /**
-         * 请求商品排序进来为默认排序
-         */
-        loadSearchGoodsArr();
-
         mListView.setPullLoadEnable(false);
         mListView.setPullRefreshEnable(true);
         mListView.setXListViewListener(this, 1);
         mListView.setRefreshTime();
-        listAdapter = new J1_RecordAdapter(this, null);
-        mListView.setAdapter(listAdapter);
+       /* listAdapter = new J1_RecordAdapter(this, null);
+        mListView.setAdapter(listAdapter);*/
 
     }
 
@@ -115,7 +115,7 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
         /**
          *刷新再请求
          */
-        loadSearchGoodsArr();
+        container();
 
     }
 
@@ -128,29 +128,33 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
     public void onLoadMore(int id) {
         isSetAdapter = false;
         curpage++;
-        loadSearchGoodsArr();
+        container();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        key = getSharedPreferences("key", MODE_APPEND).getString("key", "0");
+        key = getKey();
         if (!key.equals("0")) {
-            // cab_list();
+            container();
         }
-        container();
+
     }
 
     /**
      * 提赠记录和商品一览
      */
     private void container() {
+        isSetAdapter = true;
+        curpage = 1;
         if (Mark) {
+            send_goods_list();
             tv_button1.setBackgroundColor(Color.parseColor("#ffffff"));
             tv_button2.setBackgroundColor(Color.parseColor("#f1f1f1"));
             v_line2.setBackgroundColor(Color.parseColor("#00000000"));
             v_line1.setBackgroundColor(Color.parseColor("#f25252"));
         } else {
+            get_goods_list();
             tv_button2.setBackgroundColor(Color.parseColor("#ffffff"));
             tv_button1.setBackgroundColor(Color.parseColor("#f1f1f1"));
             v_line1.setBackgroundColor(Color.parseColor("#00000000"));
@@ -159,48 +163,102 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
     }
 
     /**
-     * 请求商品排序
+     * 用户发出的商品
      */
-    private void loadSearchGoodsArr() {
+    private void send_goods_list() {
         super.StartLoading();
         RequestParams params = new RequestParams();
-
+        params.addBodyParameter("key", key);
         params.addBodyParameter("page", "10");
         params.addBodyParameter("curpage", curpage + "");
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Act_search, params, new RequestCallBack<String>() {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Send_goods_list, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 J1_RecordActivity.super.Dismiss();
                 Gson gson = new Gson();
                 if (responseInfo != null) {
-                    ActSearch actSearch = gson.fromJson(responseInfo.result, ActSearch.class);
-                    if (actSearch.status.code == 10000) {
+                    get_goods_List = gson.fromJson(responseInfo.result, Get_goods_List.class);
+                    if (get_goods_List.status.code == 10000) {
                         mListView.stopRefresh();
                         mListView.stopLoadMore();
                         mListView.setRefreshTime();
 
-                        if (actSearch.datas != null) {
-                            /*if (actSearch_datas.size() > 0 && isSetAdapter) {
-                                actSearch_datas.clear();
+                        if (get_goods_List.datas != null) {
+                            if (get_goods_list_datat.size() > 0 && isSetAdapter) {
+                                get_goods_list_datat.clear();
                             }
-                            actSearch_datas.addAll(actSearch.datas);
+                            get_goods_list_datat.addAll(get_goods_List.datas);
 
                             if (isSetAdapter) {
-                                arrSearchAdapter = new ArrSearchAdapter(J1_RecordActivity.this, actSearch_datas);
-                                mListView.setAdapter(arrSearchAdapter);
+                                listAdapter = new J1_RecordAdapter(J1_RecordActivity.this, get_goods_list_datat);
+                                mListView.setAdapter(listAdapter);
                             } else {
-                                arrSearchAdapter.actSearch_datas = actSearch_datas;
-                                arrSearchAdapter.notifyDataSetChanged();
-                            }*/
+                                listAdapter.list = get_goods_list_datat;
+                                listAdapter.notifyDataSetChanged();
+                            }
 
-                            if (actSearch.pagination.hasmore) {
+                            if (get_goods_List.pagination.hasmore) {
                                 mListView.setPullLoadEnable(true);
                             } else {
                                 mListView.setPullLoadEnable(false);
                             }
                         }
-                    }else {
-                        overtime(actSearch.status.code,actSearch.status.msg);
+                    } else {
+                        overtime(get_goods_List.status.code, get_goods_List.status.msg);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                showToastShort("网络错误");
+            }
+        });
+    }
+
+    /**
+     * 用户收到的商品
+     */
+    private void get_goods_list() {
+        super.StartLoading();
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+        params.addBodyParameter("page", "10");
+        params.addBodyParameter("curpage", curpage + "");
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Get_goods_list, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                J1_RecordActivity.super.Dismiss();
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    get_goods_List = gson.fromJson(responseInfo.result, Get_goods_List.class);
+                    if (get_goods_List.status.code == 10000) {
+                        mListView.stopRefresh();
+                        mListView.stopLoadMore();
+                        mListView.setRefreshTime();
+
+                        if (get_goods_List.datas != null) {
+                            if (get_goods_list_datat1.size() > 0 && isSetAdapter) {
+                                get_goods_list_datat1.clear();
+                            }
+                            get_goods_list_datat1.addAll(get_goods_List.datas);
+
+                            if (isSetAdapter) {
+                                listAdapter = new J1_RecordAdapter(J1_RecordActivity.this, get_goods_list_datat1);
+                                mListView.setAdapter(listAdapter);
+                            } else {
+                                listAdapter.list = get_goods_list_datat1;
+                                listAdapter.notifyDataSetChanged();
+                            }
+
+                            if (get_goods_List.pagination.hasmore) {
+                                mListView.setPullLoadEnable(true);
+                            } else {
+                                mListView.setPullLoadEnable(false);
+                            }
+                        }
+                    } else {
+                        overtime(get_goods_List.status.code, get_goods_List.status.msg);
                     }
                 }
             }
