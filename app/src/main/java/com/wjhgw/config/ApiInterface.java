@@ -222,5 +222,13 @@ public class ApiInterface {
      *判断是否登录过期
      */
     public static final String Check_logo_data  ="/mobile/index.php?act=member_info&op=check_logo_data";
+    /**
+     *用户收到的商品
+     */
+    public static final String Get_goods_list  ="/mobile/index.php?act=member_cabinet&op=get_goods_list";
+    /**
+     *用户发出的商品
+     */
+    public static final String Send_goods_list  ="/mobile/index.php?act=member_cabinet&op=send_goods_list";
 
 }

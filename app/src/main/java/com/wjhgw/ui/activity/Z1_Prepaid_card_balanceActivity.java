@@ -24,7 +24,7 @@ import com.wjhgw.ui.view.listview.adapter.Z1_Adapter;
 import java.util.ArrayList;
 
 /**
- * 订单列表
+ * 充值卡余额明细
  */
 public class Z1_Prepaid_card_balanceActivity extends BaseActivity implements OnClickListener, XListView.IXListViewListener {
 
