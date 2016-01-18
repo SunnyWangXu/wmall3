@@ -15,6 +15,7 @@ package com.wjhgw.ui.view.listview.adapter;
 //
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.business.api.Address_del_Request;
 import com.wjhgw.business.bean.CadList_data;
+import com.wjhgw.ui.activity.PrductDetailActivity;
 import com.wjhgw.ui.dialog.ShoppingDialog;
 
 import java.util.ArrayList;
@@ -113,6 +115,15 @@ public class CabinetAdapter extends BaseAdapter {
             iv_add.setImageResource(R.mipmap.ic_add_disable);
         }
 
+        cellView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(c, PrductDetailActivity.class);
+                intent.putExtra("goods_id", List.get(position).goods_id);
+                intent.putExtra("Shopping_Cart", "1");
+                c.startActivity(intent);
+            }
+        });
 
         /**
          * 编辑商品数量
