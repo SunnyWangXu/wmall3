@@ -303,11 +303,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-
-        /**
-         * 酒柜和购物车的信息条数
-         */
-        loadMessageNumber();
+        if (!getKey().equals("0")) {
+            loadMessageNumber();
+        }
     }
 
     /**
@@ -321,21 +319,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Gson gson = new Gson();
-                MainMessageNum mainMessageNum = gson.fromJson(responseInfo.result, MainMessageNum.class);
+                if (responseInfo.result != null) {
+                    MainMessageNum mainMessageNum = gson.fromJson(responseInfo.result, MainMessageNum.class);
+                    if (mainMessageNum.datas != null) {
+                        if (mainMessageNum.status.code == 10000) {
+                            if (mainMessageNum.datas.cab_num < 9) {
+                                tvCabNum.setText(mainMessageNum.datas.cab_num + "");
+                            } else {
+                                tvCabNum.setText("9+");
+                            }
+                            if (mainMessageNum.datas.cart_num < 9) {
 
-                if (mainMessageNum.datas.cab_num < 9) {
-
-                    tvCabNum.setText(mainMessageNum.datas.cab_num + "");
-                } else {
-                    tvCabNum.setText("9+");
+                                tvCartNum.setText(mainMessageNum.datas.cart_num + "");
+                            } else {
+                                tvCartNum.setText("9+");
+                            }
+                        }else {
+                            overtime(mainMessageNum.status.code,mainMessageNum.status.msg);
+                        }
+                    }
                 }
-                if (mainMessageNum.datas.cart_num < 9) {
-
-                    tvCartNum.setText(mainMessageNum.datas.cart_num  + "");
-                } else {
-                    tvCartNum.setText("9+");
-                }
-
 
             }
 

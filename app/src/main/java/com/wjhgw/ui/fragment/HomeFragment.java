@@ -249,7 +249,10 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         /**
          * 首页消息的小红点
          */
-        loadHomeMessageDot();
+        if(!key.equals("0")){
+            loadHomeMessageDot();
+        }
+
         /**
          * 请求首页焦点图
          */
@@ -1158,20 +1161,20 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Gson gson = new Gson();
                 MainMessageNum mainMessageNum = gson.fromJson(responseInfo.result, MainMessageNum.class);
-                if(mainMessageNum != null){
+                if (mainMessageNum != null) {
 
-                    if(mainMessageNum.status.code == 10000){
+                    if (mainMessageNum.status.code == 10000) {
                         int messageNum = Integer.valueOf(mainMessageNum.datas.message_num);
                         if (messageNum > 0) {
                             tvHomeMessageDot.setVisibility(View.VISIBLE);
                         } else {
                             tvHomeMessageDot.setVisibility(View.GONE);
                         }
-                    }else if(mainMessageNum.status.code == 200103 || mainMessageNum.status.code == 200104){
+                    } else if (mainMessageNum.status.code == 200103 || mainMessageNum.status.code == 200104) {
                         Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
-                        getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key","0").commit();
+                        getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key", "0").commit();
                         startActivity(new Intent(getActivity(), A0_LoginActivity.class));
-                    }else {
+                    } else {
                         Toast.makeText(getActivity(), mainMessageNum.status.msg, Toast.LENGTH_SHORT).show();
                     }
 
