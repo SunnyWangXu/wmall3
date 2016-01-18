@@ -31,6 +31,7 @@ import com.wjhgw.R;
 import com.wjhgw.business.api.Address_del_Request;
 import com.wjhgw.business.bean.CartList_goods_list_data;
 import com.wjhgw.ui.activity.PrductDetailActivity;
+import com.wjhgw.ui.dialog.GoodsArrDialog;
 import com.wjhgw.ui.dialog.ShoppingDialog;
 
 import java.util.ArrayList;
@@ -57,6 +58,8 @@ public class ShoppingCartAdapter extends BaseAdapter {
     //对话框编辑的数量
     public int et_num = 0;
     private ShoppingDialog shoppingDialog;
+    private GoodsArrDialog goodsArrDialog;
+    private String key;
 
     public ShoppingCartAdapter(Context c, ArrayList<CartList_goods_list_data> dataList,
                                ImageView iv_select, ImageView iv_select1, TextView tv_total, TextView tv_total_num, Address_del_Request Request) {
@@ -79,6 +82,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
         tv_total.setText("¥ " + total);
         tv_total_num.setText("(" + total_num + ")");
         num = goods_id.length;
+        key = c.getSharedPreferences("key", c.MODE_APPEND).getString("key", "0");
     }
 
     @Override
@@ -128,9 +132,32 @@ public class ShoppingCartAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(c, PrductDetailActivity.class);
-                intent.putExtra("goods_id",List.get(position).goods_id);
+                intent.putExtra("goods_id", List.get(position).goods_id);
                 intent.putExtra("Shopping_Cart", "1");
                 c.startActivity(intent);
+            }
+        });
+
+        cellView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                goodsArrDialog = new GoodsArrDialog(c, "收藏", "删除");
+                goodsArrDialog.show();
+                goodsArrDialog.btnCollect.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Request.favorites_add(List.get(position).goods_id,key);
+                        goodsArrDialog.dismiss();
+                    }
+                });
+                goodsArrDialog.btnGoodsarrAddshopcar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Request.cart_del(List.get(position).cart_id, key);
+                        goodsArrDialog.dismiss();
+                    }
+                });
+                return true;
             }
         });
 
@@ -243,7 +270,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
             public void onClick(View v) {
                 int num = Integer.parseInt(List.get(position).goods_num);
                 if (num < 99) {
-                    Request.cart_edit_quantity(List.get(position).cart_id, ++num + "", c.getSharedPreferences("key", c.MODE_APPEND).getString("key", "0"));
+                    Request.cart_edit_quantity(List.get(position).cart_id, ++num + "", key);
 
                     if (!goods_id[position].equals("0")) {
                         total += Double.parseDouble(List.get(position).goods_price);
@@ -262,7 +289,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
             public void onClick(View v) {
                 int num = Integer.parseInt(List.get(position).goods_num);
                 if (num > 1) {
-                    Request.cart_edit_quantity(List.get(position).cart_id, --num + "", c.getSharedPreferences("key", c.MODE_APPEND).getString("key", "0"));
+                    Request.cart_edit_quantity(List.get(position).cart_id, --num + "", key);
 
                     if (!goods_id[position].equals("0")) {
                         total -= Double.parseDouble(List.get(position).goods_price);

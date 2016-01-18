@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -117,32 +116,6 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
         mListView.setVisibility(View.VISIBLE);
 
         mListView.addHeaderView(shopping_head);
-
-        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                /**
-                 *对话框
-                 */
-                goodsArrDialog = new GoodsArrDialog(getActivity(), "收藏", "删除");
-                goodsArrDialog.show();
-                goodsArrDialog.btnCollect.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        favorites_add(listAdapter.List.get(position - 2).goods_id);
-                        goodsArrDialog.dismiss();
-                    }
-                });
-                goodsArrDialog.btnGoodsarrAddshopcar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        cart_del(listAdapter.List.get(position - 2).cart_id);
-                        goodsArrDialog.dismiss();
-                    }
-                });
-                return false;
-            }
-        });
     }
 
     /**
@@ -437,41 +410,6 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
     }
 
     /**
-     * 商品收藏
-     */
-    private void favorites_add(String goods_id) {
-        Dialog.ProgressDialog();
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
-        params.addBodyParameter("goods_id", goods_id);
-
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Favorites_add, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                Dialog.dismiss();
-                Gson gson = new Gson();
-                if (responseInfo.result != null) {
-                    Status status = gson.fromJson(responseInfo.result, Status.class);
-                    if (status.status.code == 10000) {
-                        Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
-                    }else if(status.status.code == 200103 || status.status.code == 200104){
-                        Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
-                        getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key","0").commit();
-                        startActivity(new Intent(getActivity(), A0_LoginActivity.class));
-                    }else {
-                        Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    /**
      * 购买第一步接口
      */
     private void buy_step1(final String cart_id) {
@@ -529,6 +467,14 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
         if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Cart_edit_quantity)) {
             //ListView 是刷新状态还是加载更多状态
             isSetAdapter = false;
+            //刷新列表
+            cart_list();
+            eliminate();
+        }else if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Favorites_add)) {
+            //收藏成功
+        }else if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Cart_del)) {
+            isSetAdapter = false;
+            delete = false;
             //刷新列表
             cart_list();
             eliminate();
