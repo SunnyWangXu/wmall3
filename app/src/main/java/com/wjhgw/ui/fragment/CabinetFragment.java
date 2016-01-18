@@ -74,7 +74,6 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                              Bundle savedInstanceState) {
         Dialog = new LoadDialog(getActivity());
         rootView = inflater.inflate(R.layout.cabinet_layout, container, false);
-        key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
         initView();
         setClick();
         listAddHeader();
@@ -225,10 +224,11 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                         mListView.stopRefresh();
                         mListView.stopLoadMore();
                         mListView.setRefreshTime();
-                        ll_wine.setVisibility(View.VISIBLE);
-                        tv_record.setVisibility(View.VISIBLE);
-                        ll_null.setVisibility(View.GONE);
                         if (cadList.datas != null) {
+                            ll_wine.setVisibility(View.VISIBLE);
+                            tv_record.setVisibility(View.VISIBLE);
+                            ll_null.setVisibility(View.GONE);
+                            mListView.setVisibility(View.VISIBLE);
                             if (isSetAdapter) {
                                 listAdapter = new CabinetAdapter(getActivity(), cadList.datas,
                                         iv_select, tv_total_num, Request);
@@ -249,6 +249,7 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                             ll_wine.setVisibility(View.GONE);
                             tv_record.setVisibility(View.GONE);
                             ll_null.setVisibility(View.VISIBLE);
+                            mListView.setVisibility(View.GONE);
                         }
                     }else if(cadList.status.code == 200103 || cadList.status.code == 200104){
                         Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();

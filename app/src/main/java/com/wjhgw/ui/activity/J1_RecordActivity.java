@@ -3,6 +3,7 @@ package com.wjhgw.ui.activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -42,6 +43,7 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
     private Boolean Mark = true;
     private String key;
     private J1_RecordAdapter listAdapter = null;
+    private LinearLayout ll_null;
     private Get_goods_List get_goods_List;
     private ArrayList<Get_goods_list_data> get_goods_list_datat = new ArrayList<>();
     private ArrayList<Get_goods_list_data> get_goods_list_datat1 = new ArrayList<>();
@@ -72,7 +74,7 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
         mListView = (MyListView) findViewById(R.id.lv_record_layout);
         tv_button1 = (TextView) findViewById(R.id.tv_button1);
         tv_button2 = (TextView) findViewById(R.id.tv_button2);
-
+        ll_null = (LinearLayout) findViewById(R.id.ll_null);
         v_line1 = (View) findViewById(R.id.v_line1);
         v_line2 = (View) findViewById(R.id.v_line2);
     }
@@ -184,6 +186,8 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
                         mListView.setRefreshTime();
 
                         if (get_goods_List.datas != null) {
+                            ll_null.setVisibility(View.GONE);
+                            mListView.setVisibility(View.VISIBLE);
                             if (get_goods_list_datat.size() > 0 && isSetAdapter) {
                                 get_goods_list_datat.clear();
                             }
@@ -202,6 +206,10 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
                             } else {
                                 mListView.setPullLoadEnable(false);
                             }
+                        }else {
+                            ll_null.setVisibility(View.VISIBLE);
+                            mListView.setVisibility(View.GONE);
+
                         }
                     } else {
                         overtime(get_goods_List.status.code, get_goods_List.status.msg);
@@ -238,6 +246,8 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
                         mListView.setRefreshTime();
 
                         if (get_goods_List.datas != null) {
+                            ll_null.setVisibility(View.GONE);
+                            mListView.setVisibility(View.VISIBLE);
                             if (get_goods_list_datat1.size() > 0 && isSetAdapter) {
                                 get_goods_list_datat1.clear();
                             }
@@ -256,6 +266,9 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
                             } else {
                                 mListView.setPullLoadEnable(false);
                             }
+                        }else {
+                            ll_null.setVisibility(View.VISIBLE);
+                            mListView.setVisibility(View.GONE);
                         }
                     } else {
                         overtime(get_goods_List.status.code, get_goods_List.status.msg);
