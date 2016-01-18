@@ -110,7 +110,8 @@
                 android:background="@drawable/background_fillet_white_rad"
                 android:gravity="center"
                 android:textColor="#ffffff"
-                android:textSize="8sp" />
+                android:textSize="8sp"
+                android:visibility="gone" />
 
         </RelativeLayout>
 
@@ -153,7 +154,8 @@
                 android:background="@drawable/background_fillet_white_rad"
                 android:gravity="center"
                 android:textColor="#ffffff"
-                android:textSize="8sp" />
+                android:textSize="8sp"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <LinearLayout

@@ -313,7 +313,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      */
     private void loadMessageNumber() {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Main_message_num, params, new RequestCallBack<String>() {
             @Override
@@ -324,18 +324,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     if (mainMessageNum.datas != null) {
                         if (mainMessageNum.status.code == 10000) {
                             if (mainMessageNum.datas.cab_num < 9) {
+
+                                tvCabNum.setVisibility(View.VISIBLE);
                                 tvCabNum.setText(mainMessageNum.datas.cab_num + "");
                             } else {
+                                tvCabNum.setVisibility(View.VISIBLE);
                                 tvCabNum.setText("9+");
                             }
                             if (mainMessageNum.datas.cart_num < 9) {
-
+                                tvCartNum.setVisibility(View.VISIBLE);
                                 tvCartNum.setText(mainMessageNum.datas.cart_num + "");
                             } else {
+                                tvCartNum.setVisibility(View.VISIBLE);
                                 tvCartNum.setText("9+");
                             }
-                        }else {
-                            overtime(mainMessageNum.status.code,mainMessageNum.status.msg);
+                        } else if (mainMessageNum.status.code == 200103 || mainMessageNum.status.code == 200104) {
+                            showToastShort("登录超时或未登录");
+                            getSharedPreferences("key", MODE_APPEND).edit().putString("key", "0").commit();
+                        } else {
+                            showToastShort(mainMessageNum.status.msg);
                         }
                     }
                 }

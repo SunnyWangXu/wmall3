@@ -36,7 +36,6 @@ import com.wjhgw.business.bean.Home_Pager_Data;
 import com.wjhgw.business.bean.MainMessageNum;
 import com.wjhgw.business.bean.Theme_street;
 import com.wjhgw.config.ApiInterface;
-import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.C1_CaptureActivity;
 import com.wjhgw.ui.activity.C2_SearchActivity;
 import com.wjhgw.ui.activity.C3_GoodsArraySearchActivity;
@@ -249,7 +248,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         /**
          * 首页消息的小红点
          */
-        if(!key.equals("0")){
+        if (!key.equals("0")) {
             loadHomeMessageDot();
         }
 
@@ -328,7 +327,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
      * 初始化视图
      */
     private void initView() {
-        tvHomeMessageDot = (TextView)homeLayout.findViewById(R.id.tv_home_message_dot);
+        tvHomeMessageDot = (TextView) homeLayout.findViewById(R.id.tv_home_message_dot);
 
         ivHomeQrcodeScanner = (ImageView) homeLayout.findViewById(R.id.iv_home_qrcode_scanner);
         llHomeGoodsSearch = (LinearLayout) homeLayout.findViewById(R.id.ll_home_goods_search);
@@ -1154,7 +1153,8 @@ public class HomeFragment extends Fragment implements IXListViewListener,
      */
     private void loadHomeMessageDot() {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        String keyNew = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
+        params.addBodyParameter("key", keyNew);
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Main_message_num, params, new RequestCallBack<String>() {
             @Override
@@ -1173,7 +1173,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                     } else if (mainMessageNum.status.code == 200103 || mainMessageNum.status.code == 200104) {
                         Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
                         getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key", "0").commit();
-                        startActivity(new Intent(getActivity(), A0_LoginActivity.class));
+//                        startActivity(new Intent(getActivity(), A0_LoginActivity.class));
                     } else {
                         Toast.makeText(getActivity(), mainMessageNum.status.msg, Toast.LENGTH_SHORT).show();
                     }
