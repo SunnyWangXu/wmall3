@@ -17,11 +17,17 @@ public class J0_SelectGiveObjectActivity extends BaseActivity implements View.On
     private ImageView ivDear;
     private ImageView ivTongShi;
     private ImageView ivFriend;
+    public String[] goods_id = null;
+    public int[] buy_number = null;
+    public String cadList_data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_give);
+        goods_id = getIntent().getStringArrayExtra("goods_id");
+        cadList_data = getIntent().getStringExtra("cadList_data");
+        buy_number = getIntent().getExtras().getIntArray("buy_number");
     }
 
     @Override

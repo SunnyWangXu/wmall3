@@ -62,6 +62,7 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
     private LoadDialog Dialog;
     private Intent intent;
     private int curpage = 1;
+    private String cadList_data;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -161,17 +162,14 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                 break;
             case R.id.tv_others:
                 if (listAdapter.num > 0) {
-                    /*StringBuffer cart_id = new StringBuffer();
-                    for (int i = 0; i < listAdapter.goods_id.length; i++) {
-                        if (!listAdapter.goods_id[i].equals("0")) {
-                            cart_id.append(listAdapter.goods_id[i] + "|" + listAdapter.List.get(i).buy_number + ",");
-                        }
-                    }*/
                     Toast.makeText(getActivity(), "下一步正在开发", Toast.LENGTH_SHORT).show();
-
                     intent = new Intent(getActivity(), J0_SelectGiveObjectActivity.class);
+                    intent.putExtra("cadList_data", cadList_data);
+                    Bundle b = new Bundle();
+                    b.putSerializable("goods_id", listAdapter.goods_id);
+                    b.putIntArray("buy_number", listAdapter.buy_number);
+                    intent.putExtras(b);
                     startActivity(intent);
-
                 } else {
                     Toast.makeText(getActivity(), "你还没有选择商品哦", Toast.LENGTH_SHORT).show();
                 }
@@ -221,8 +219,8 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                 Dialog.dismiss();
                 Gson gson = new Gson();
                 if (responseInfo.result != null) {
+                    cadList_data = responseInfo.result;
                     cadList = gson.fromJson(responseInfo.result, CadList.class);
-
                     if (cadList.status.code == 10000) {
                         mListView.stopRefresh();
                         mListView.stopLoadMore();
