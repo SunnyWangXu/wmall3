@@ -44,6 +44,7 @@ public class J0_SelectGiveObjectActivity extends BaseActivity implements View.On
         ivDear = (ImageView) findViewById(R.id.iv_dear);
         ivTongShi = (ImageView) findViewById(R.id.iv_tongshi);
         ivFriend = (ImageView) findViewById(R.id.iv_friend);
+
     }
 
     @Override

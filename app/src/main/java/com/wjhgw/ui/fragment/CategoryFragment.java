@@ -51,12 +51,17 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
     private Intent intent;
     private ListView lvAttr;
     private RelativeLayout rlMessage;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editorGoodsAttr;
+    private SharedPreferences spGoodsAttr;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View = inflater.inflate(R.layout.classification_layout, container, false);
         key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
+//        sharedPreferences = getActivity().getSharedPreferences("wjhgw_category", getActivity().MODE_PRIVATE);
+//        spGoodsAttr = getActivity().getSharedPreferences("wjhgw_category_attr", getActivity().MODE_PRIVATE);
 
         onFindViews();
         /**
@@ -165,8 +170,8 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
                  * 缓存一级商品分类
                  */
                 if (responseInfo != null) {
-
-                    SharedPreferences.Editor editor = getActivity().getSharedPreferences("wjhgw_category", getActivity().MODE_PRIVATE).edit();
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    SharedPreferences.Editor editor = APP.getApp().getSharedPreferences("wjhgw_category", APP.getApp().MODE_PRIVATE).edit();
                     editor.putString("goods_class1", responseInfo.result).commit();
                 }
 
@@ -181,7 +186,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
                 /**
                  * * 取出本地緩存数据
                  */
-                SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_category", getActivity().MODE_PRIVATE);
+                SharedPreferences preferences = APP.getApp().getSharedPreferences("wjhgw_category", APP.getApp().MODE_PRIVATE);
                 String goodsClass1Data = preferences.getString("goods_class1", "");
                 if (goodsClass1Data != null && goodsClass1Data != "") {
                     /**
@@ -215,11 +220,11 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
                     load_goods_attr(goods_class1.datas.get(0).gc_id);
                     APP.getApp().getImageLoader().displayImage(goods_class1.datas.get(0).gc_image, ivGoods);
                 }
-            }else if(goods_class1.status.code == 200103 || goods_class1.status.code == 200104){
+            } else if (goods_class1.status.code == 200103 || goods_class1.status.code == 200104) {
                 Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
-                getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key","0").commit();
+                getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key", "0").commit();
                 startActivity(new Intent(getActivity(), A0_LoginActivity.class));
-            }else {
+            } else {
                 Toast.makeText(getActivity(), goods_class1.status.msg, Toast.LENGTH_SHORT).show();
             }
         }
@@ -238,7 +243,8 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
                 /**
                  * 缓存商品属性
                  */
-                SharedPreferences.Editor editor = getActivity().getSharedPreferences("wjhgw_category_attr", getActivity().MODE_PRIVATE).edit();
+                SharedPreferences.Editor editor = APP.getApp().getSharedPreferences("wjhgw_category_attr", APP.getApp().MODE_PRIVATE).edit();
+//                editorGoodsAttr = spGoodsAttr.edit();
                 editor.putString("goods_attr", responseInfo.result).commit();
                 /**
                  * 解析商品属性
@@ -253,7 +259,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
                 /**
                  * * 取出本地緩存数据
                  */
-                SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_category_attr", getActivity().MODE_PRIVATE);
+                SharedPreferences preferences = APP.getApp().getSharedPreferences("wjhgw_category_attr", APP.getApp().MODE_PRIVATE);
                 String goodsClass1Data = preferences.getString("goods_attr", "");
 
                 parseGoodsAttr(goodsClass1Data);

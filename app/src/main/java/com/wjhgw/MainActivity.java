@@ -17,6 +17,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
+import com.wjhgw.business.bean.MainMessageNum;
 import com.wjhgw.business.bean.Status;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.fragment.CabinetFragment;
@@ -48,6 +49,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView settingText;
     private FragmentManager fragmentManager;
     private String key;
+    private TextView tvCabNum;
+    private TextView tvCartNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +62,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         setContentView(R.layout.activity_main);
         key = getKey();
-        if(!key.equals("0")){
+        if (!key.equals("0")) {
             check_logo_data();
         }
 
@@ -88,6 +91,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         contactsText = (TextView) findViewById(R.id.contacts_text);
         shopping_car_text = (TextView) findViewById(R.id.shopping_car_text);
         settingText = (TextView) findViewById(R.id.setting_text);
+        tvCabNum = (TextView) findViewById(R.id.tv_cab_num);
+        tvCartNum = (TextView) findViewById(R.id.tv_cart_num);
+
     }
 
     @Override
@@ -276,8 +282,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         editor.putString("key", "0");
         editor.commit();
     }
+
     /**
-     * 双击返回键退出App 
+     * 双击返回键退出App
      */
     private long firstClickTime = 0;
 
@@ -291,5 +298,53 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         } else {
             moveTaskToBack(true);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        /**
+         * 酒柜和购物车的信息条数
+         */
+        loadMessageNumber();
+    }
+
+    /**
+     * 酒柜和购物车的信息条数
+     */
+    private void loadMessageNumber() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Main_message_num, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                MainMessageNum mainMessageNum = gson.fromJson(responseInfo.result, MainMessageNum.class);
+
+                if (mainMessageNum.datas.cab_num < 9) {
+
+                    tvCabNum.setText(mainMessageNum.datas.cab_num + "");
+                } else {
+                    tvCabNum.setText("9+");
+                }
+                if (mainMessageNum.datas.cart_num < 9) {
+
+                    tvCartNum.setText(mainMessageNum.datas.cart_num  + "");
+                } else {
+                    tvCartNum.setText("9+");
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+            }
+        });
+
+
     }
 }

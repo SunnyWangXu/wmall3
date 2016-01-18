@@ -23,7 +23,7 @@ public class BaseQuery {
 	public static String serviceUrl()
 	{
 		
-		if (ENVIRONMENT_PRODUCTION == BaseQuery.environment()) 
+		if (ENVIRONMENT_PRODUCTION == BaseQuery.environment())
 		{
 			return AppConstants.SERVER_PRODUCTION;
 		}

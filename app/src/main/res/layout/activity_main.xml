@@ -100,6 +100,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_cab_num"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_alignParentRight="true"
@@ -108,7 +109,6 @@
                 android:layout_marginTop="3dp"
                 android:background="@drawable/background_fillet_white_rad"
                 android:gravity="center"
-                android:text="9+"
                 android:textColor="#ffffff"
                 android:textSize="8sp" />
 
@@ -143,6 +143,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_cart_num"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_alignParentRight="true"
@@ -151,7 +152,6 @@
                 android:layout_marginTop="3dp"
                 android:background="@drawable/background_fillet_white_rad"
                 android:gravity="center"
-                android:text="9+"
                 android:textColor="#ffffff"
                 android:textSize="8sp" />
         </RelativeLayout>

@@ -65,6 +65,7 @@
                 android:src="@mipmap/ic_home_information" />
 
             <TextView
+                android:id="@+id/tv_home_message_dot"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_alignParentRight="true"
@@ -73,6 +74,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/background_fillet_white_rad"
                 android:gravity="center"
+                android:visibility="gone"
                 android:textColor="#ffffff"
                 android:textSize="12dp" />
 

@@ -33,6 +33,7 @@ import com.wjhgw.business.bean.Guess_Like;
 import com.wjhgw.business.bean.Guess_Like_Datas;
 import com.wjhgw.business.bean.Home_Pager;
 import com.wjhgw.business.bean.Home_Pager_Data;
+import com.wjhgw.business.bean.MainMessageNum;
 import com.wjhgw.business.bean.Theme_street;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.C1_CaptureActivity;
@@ -56,6 +57,8 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         View.OnClickListener, ViewPager.OnPageChangeListener {
 
     private View homeLayout;
+    private TextView tvHomeMessageDot;
+    private String key;
     private LinearLayout MenuLayout;
     private LinearLayout Eventlayout;
     private LinearLayout Discountlayout;
@@ -231,6 +234,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Dialog = new LoadDialog(getActivity());
         homeLayout = inflater.inflate(R.layout.home_layout, container, false);
+        key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
 
         /**
          * 加载视图
@@ -241,7 +245,10 @@ public class HomeFragment extends Fragment implements IXListViewListener,
          * 初始化控件
          */
         initView();
-
+        /**
+         * 首页消息的小红点
+         */
+        loadHomeMessageDot();
         /**
          * 请求首页焦点图
          */
@@ -317,6 +324,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
      * 初始化视图
      */
     private void initView() {
+        tvHomeMessageDot = (TextView)homeLayout.findViewById(R.id.tv_home_message_dot);
 
         ivHomeQrcodeScanner = (ImageView) homeLayout.findViewById(R.id.iv_home_qrcode_scanner);
         llHomeGoodsSearch = (LinearLayout) homeLayout.findViewById(R.id.ll_home_goods_search);
@@ -677,7 +685,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 /**
                  * 存入数据到本地
                  */
-                SharedPreferences sf = getActivity().getSharedPreferences("wjhgw_pager", getActivity().MODE_PRIVATE);
+                SharedPreferences sf = APP.getApp().getSharedPreferences("wjhgw_pager", getActivity().MODE_PRIVATE);
                 SharedPreferences.Editor edit = sf.edit();
                 edit.putString("home_pager", responseInfo.result).commit();
 
@@ -693,7 +701,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 /**
                  * 取出本地緩存数据
                  */
-                SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_pager", getActivity().MODE_PRIVATE);
+                SharedPreferences preferences = APP.getApp().getSharedPreferences("wjhgw_pager", getActivity().MODE_PRIVATE);
                 String homePagerData = preferences.getString("home_pager", "");
                 if (homePagerData != null && homePagerData != "") {
                     /**
@@ -749,7 +757,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 /**
                  * 存入数据到本地
                  */
-                SharedPreferences sf = getActivity().getSharedPreferences("wjhgw_auction", getActivity().MODE_PRIVATE);
+                SharedPreferences sf = APP.getApp().getSharedPreferences("wjhgw_auction", getActivity().MODE_PRIVATE);
                 SharedPreferences.Editor edit = sf.edit();
                 edit.putString("home_auction_super_value", responseInfo.result).commit();
                 /**
@@ -763,7 +771,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 /**
                  * 取出本地緩存数据
                  */
-                SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_auction", getActivity().MODE_PRIVATE);
+                SharedPreferences preferences = APP.getApp().getSharedPreferences("wjhgw_auction", getActivity().MODE_PRIVATE);
                 String auctionSuperValueData = preferences.getString("home_auction_super_value", "");
                 if (auctionSuperValueData != null && auctionSuperValueData != "") {
                     /**
@@ -825,7 +833,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 /**
                  * 存入数据到本地
                  */
-                SharedPreferences sf = getActivity().getSharedPreferences("wjhgw_groupBuy", getActivity().MODE_PRIVATE);
+                SharedPreferences sf = APP.getApp().getSharedPreferences("wjhgw_groupBuy", getActivity().MODE_PRIVATE);
                 SharedPreferences.Editor edit = sf.edit();
                 edit.putString("home_groupBuy", responseInfo.result).commit();
                 /**
@@ -847,7 +855,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 /**
                  * 取出本地緩存数据
                  */
-                SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_groupBuy", getActivity().MODE_PRIVATE);
+                SharedPreferences preferences = APP.getApp().getSharedPreferences("wjhgw_groupBuy", getActivity().MODE_PRIVATE);
                 String groupBuy_Data = preferences.getString("home_groupBuy", "");
                 if (groupBuy_Data != null && groupBuy_Data != "") {
                     parseGroupBuyData(groupBuy_Data);
@@ -929,7 +937,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                  * 存入本地数据
                  */
                 if (responseInfo.result != null) {
-                    SharedPreferences sf = getActivity().getSharedPreferences("wjhgw_theme_street", getActivity().MODE_PRIVATE);
+                    SharedPreferences sf = APP.getApp().getSharedPreferences("wjhgw_theme_street", getActivity().MODE_PRIVATE);
                     SharedPreferences.Editor editor = sf.edit();
                     editor.putString("home_theme_street", responseInfo.result).commit();
                 }
@@ -945,7 +953,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 /**
                  * 取出本地数据
                  */
-                SharedPreferences preferences = getActivity().getSharedPreferences("wjhgw_theme_street", getActivity().MODE_PRIVATE);
+                SharedPreferences preferences = APP.getApp().getSharedPreferences("wjhgw_theme_street", getActivity().MODE_PRIVATE);
                 String homeThemeStreetData = preferences.getString("home_theme_street", "");
                 if (homeThemeStreetData != null && homeThemeStreetData != "") {
                     parseThemeStreetData(homeThemeStreetData);
@@ -1135,5 +1143,32 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     public void onDestroy() {
         super.onDestroy();
         handler.removeMessages(HANDLERID);
+    }
+
+    /**
+     * 首页的消息的小红点
+     */
+    private void loadHomeMessageDot() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Main_message_num, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                MainMessageNum mainMessageNum = gson.fromJson(responseInfo.result, MainMessageNum.class);
+                int messageNum = Integer.valueOf(mainMessageNum.datas.message_num);
+                if (messageNum > 0) {
+                    tvHomeMessageDot.setVisibility(View.VISIBLE);
+                } else {
+                    tvHomeMessageDot.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+            }
+        });
     }
 }

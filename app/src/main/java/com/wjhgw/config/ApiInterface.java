@@ -22,6 +22,10 @@ public class ApiInterface {
      * 猜你喜欢接口
      */
     public static final String Guess_Like = "/mobile/index.php?act=index&op=guess_like";
+    /**
+     * 酒柜和购物车的消息条数
+     */
+    public static final String Main_message_num = "/mobile/index.php?act=member_info&op=message_num";
 
     /**
      * 商品列表接口

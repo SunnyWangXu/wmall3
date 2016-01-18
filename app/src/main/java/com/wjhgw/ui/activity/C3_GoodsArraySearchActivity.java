@@ -101,16 +101,16 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
     public void onInit() {
         mListView = (MyListView) findViewById(R.id.lv_array_search);
 
-        ll_GoodsArrSearch = (LinearLayout) getLayoutInflater().inflate(R.layout.goods_arr_search, null);
+//        ll_GoodsArrSearch = (LinearLayout) getLayoutInflater().inflate(R.layout.goods_arr_search, null);
         ll_GoodsSearchTab = (LinearLayout) getLayoutInflater().inflate(R.layout.goods_arr_tab, null);
-        mListView.addHeaderView(ll_GoodsArrSearch);
+//        mListView.addHeaderView(ll_GoodsArrSearch);
         mListView.addHeaderView(ll_GoodsSearchTab);
     }
 
     @Override
     public void onFindViews() {
         IvBack = (ImageView) findViewById(R.id.iv_array_back);
-        llGoodsSearch = (LinearLayout) ll_GoodsArrSearch.findViewById(R.id.ll_goods_search);
+        llGoodsSearch = (LinearLayout)findViewById(R.id.ll_goods_search);
 
         tvSearchDef = (TextView) findViewById(R.id.tv_search_default);
         tvSaleNum = (TextView) findViewById(R.id.tv_salenum);
@@ -149,7 +149,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
 
         switch (v.getId()) {
             case R.id.iv_array_back:
-                finish(false);
+                finish();
                 break;
 
             case R.id.ll_goods_search:
@@ -331,7 +331,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
         arrDialog.btnCollect.setOnClickListener(this);
         arrDialog.btnGoodsarrAddshopcar.setOnClickListener(this);
 
-        return false;
+        return true;
     }
 
     /**
@@ -417,7 +417,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        String goods_id = actSearch_datas.get(position - 3 ).goods_id;
+        String goods_id = actSearch_datas.get(position - 2 ).goods_id;
         Intent intent = new Intent(C3_GoodsArraySearchActivity.this, PrductDetailActivity.class);
         intent.putExtra("goods_id", goods_id);
         startActivity(intent);
