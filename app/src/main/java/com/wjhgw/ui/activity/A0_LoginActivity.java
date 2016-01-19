@@ -1,7 +1,6 @@
 package com.wjhgw.ui.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -39,14 +38,13 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
     private TextView tv_a0_tback;
     private String Number;
     private String password;
-    Intent intent;
-    private SharedPreferences preferences;
+    private String username;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a0_login_layout);
-
 
         et_name.addTextChangedListener(new TextWatcher() {
             @Override
@@ -92,14 +90,18 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
             public void afterTextChanged(Editable s) {
             }
         });
+
+        username =  getSharedPreferences("username", this.MODE_APPEND).getString("username", "0");
+        if(!username.equals("0")){
+            et_name.setText(username);
+            et_name.setSelection(et_name.length());
+        }
     }
 
     @Override
     public void onInit() {
-
         setUp();
         setTitle("登录");
-
     }
 
     @Override
@@ -193,6 +195,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                     Login_Pager login = gson.fromJson(responseInfo.result, Login_Pager.class);
                     if (login.status.code == 10000) {
                         getSharedPreferences("key",MODE_PRIVATE).edit().putString("key",login.datas.key).commit();
+                        getSharedPreferences("username",MODE_PRIVATE).edit().putString("username",Number).commit();
                         showToastShort("登录成功");
                         finish(false);
                     }else {
