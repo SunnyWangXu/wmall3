@@ -42,8 +42,6 @@ public class CabinetAdapter extends BaseAdapter {
     Context c;
     public ArrayList<CadList_data> List;
     private LayoutInflater mInflater;
-    public String[] goods_id = null;
-    public int[] buy_number = null;
     private ImageView iv_select;
     public int num = 0;
     public Address_del_Request Request;
@@ -59,15 +57,10 @@ public class CabinetAdapter extends BaseAdapter {
         mInflater = LayoutInflater.from(c);
         this.c = c;
         this.List = dataList;
-        goods_id = new String[List.size()];
-        buy_number = new int[List.size()];
         this.iv_select = iv_select;
         this.tv_total_num = tv_total_num;
         this.Request = Request;
-        for (int i = 0; i < List.size(); i++) {
-            goods_id[i] = "0";
-            buy_number[i] = 1;
-        }
+
         tv_total_num.setText(total_num + "件");
     }
 
@@ -102,16 +95,16 @@ public class CabinetAdapter extends BaseAdapter {
         tv_buy_number.setText("剩余" + List.get(position).buy_number);
         APP.getApp().getImageLoader().displayImage(List.get(position).goods_image, iv_goods_image_url, APP.getApp().getImageOptions());
 
-        if (List.size() != 0 && !goods_id[position].equals("0")) {
+        if (List.size() != 0 && !List.get(position).selected.equals("0")) {
             Choice.setImageResource(R.mipmap.ic_order_select);
-        } else if (goods_id[position].equals("0")) {
+        } else if (List.get(position).selected.equals("0")) {
             Choice.setImageResource(R.mipmap.ic_order_blank);
         }
 
-        tv_num.setText("" + buy_number[position]);
-        if (1 == buy_number[position]) {
+        tv_num.setText("" + List.get(position).num);
+        if (1 == List.get(position).num) {
             iv_reduction.setImageResource(R.mipmap.ic_disable_reduction);
-        } else if (buy_number[position] == Integer.parseInt(List.get(position).buy_number)) {
+        } else if (List.get(position).num == Integer.parseInt(List.get(position).buy_number)) {
             iv_add.setImageResource(R.mipmap.ic_add_disable);
         }
 
@@ -166,8 +159,8 @@ public class CabinetAdapter extends BaseAdapter {
                     public void onClick(View v) {
                         et_num = Integer.parseInt(shoppingDialog.et_num.getText().toString());
                         if (et_num <= Integer.parseInt(List.get(position).buy_number)) {
-                            buy_number[position] = et_num;
-                            if (!goods_id[position].equals("0")) {
+                            List.get(position).num = et_num;
+                            if (!List.get(position).selected.equals("0")) {
                                 tv_total_num.setText(++total_num + "件");
                             }
                         }
@@ -229,10 +222,12 @@ public class CabinetAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 int num = Integer.parseInt(List.get(position).buy_number);
-                if (num > buy_number[position]) {
-                    tv_total_num.setText(++total_num + "件");
-                    tv_num.setText("" + ++buy_number[position]);
-                    if (num == buy_number[position]) {
+                if (num > List.get(position).num) {
+                    tv_num.setText("" + ++List.get(position).num);
+                    if(!List.get(position).selected.equals("0")){
+                        tv_total_num.setText(++total_num + "件");
+                    }
+                    if (num == List.get(position).num) {
                         iv_add.setImageResource(R.mipmap.ic_add_disable);
                     } else {
                         iv_reduction.setImageResource(R.mipmap.ic_reduction);
@@ -248,10 +243,12 @@ public class CabinetAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 //int num = Integer.parseInt(List.get(position).buy_number);
-                if (buy_number[position] > 1) {
-                    tv_total_num.setText(--total_num + "件");
-                    tv_num.setText("" + --buy_number[position]);
-                    if (1 == buy_number[position]) {
+                if (List.get(position).num > 1) {
+                    tv_num.setText("" + --List.get(position).num);
+                    if(!List.get(position).selected.equals("0")){
+                        tv_total_num.setText(--total_num + "件");
+                    }
+                    if (1 == List.get(position).num) {
                         iv_reduction.setImageResource(R.mipmap.ic_disable_reduction);
                     } else {
                         iv_add.setImageResource(R.mipmap.ic_add);
@@ -267,24 +264,27 @@ public class CabinetAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-                if (goods_id[position].equals("0")) {
+                if (List.get(position).selected.equals("0")) {
                     Choice.setImageResource(R.mipmap.ic_order_select);
-                    goods_id[position] = List.get(position).goods_id;
+                    List.get(position).selected = List.get(position).goods_id;
 
                     num++;
                     if (num == List.size()) {
                         iv_select.setImageResource(R.mipmap.ic_order_select);
                     }
-                    total_num += buy_number[position];
+                    total_num += List.get(position).num;
                     tv_total_num.setText(total_num + "件");
                 } else {
                     Choice.setImageResource(R.mipmap.ic_order_blank);
-                    goods_id[position] = "0";
+                    List.get(position).selected = "0";
                     num--;
-                    if (num < goods_id.length) {
+                    if (num < List.size()) {
                         iv_select.setImageResource(R.mipmap.ic_order_blank);
                     }
-                    total_num -= buy_number[position];
+
+                    total_num -= List.get(position).num;
+                    /*int total_num1 = total_num - List.get(position).num;
+                    total_num = total_num1;*/
                     tv_total_num.setText(total_num + "件");
                 }
             }

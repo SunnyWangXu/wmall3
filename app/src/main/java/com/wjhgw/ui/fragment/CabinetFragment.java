@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -22,6 +23,7 @@ import com.wjhgw.R;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.api.Address_del_Request;
 import com.wjhgw.business.bean.CadList;
+import com.wjhgw.business.bean.CadList_data;
 import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
@@ -34,6 +36,9 @@ import com.wjhgw.ui.view.listview.adapter.CabinetAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 /**
  * 酒柜Fragment
@@ -142,14 +147,15 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
 
         switch (v.getId()) {
             case R.id.ll_select:
-                if (listAdapter.num == listAdapter.goods_id.length) {
+                if (listAdapter.num == listAdapter.List.size()) {
                     eliminate();
                 } else {
-                    listAdapter.num = listAdapter.goods_id.length;
+                    listAdapter.num = listAdapter.List.size();
                     iv_select.setImageResource(R.mipmap.ic_order_select);
-                    for (int i = 0; i < listAdapter.goods_id.length; i++) {
-                        listAdapter.goods_id[i] = cadList.datas.get(i).goods_id;
-                        listAdapter.total_num += listAdapter.buy_number[i];
+                    listAdapter.total_num = 0;
+                    for (int i = 0; i < listAdapter.List.size(); i++) {
+                        listAdapter.List.get(i).selected = cadList.datas.get(i).goods_id;
+                        listAdapter.total_num += listAdapter.List.get(i).num;
                     }
                     tv_total_num.setText(listAdapter.total_num + "件");
                 }
@@ -163,11 +169,9 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                 if (listAdapter.num > 0) {
                     Toast.makeText(getActivity(), "下一步正在开发", Toast.LENGTH_SHORT).show();
                     intent = new Intent(getActivity(), J0_SelectGiveObjectActivity.class);
-                    intent.putExtra("cadList_data", cadList_data);
-                    Bundle b = new Bundle();
-                    b.putSerializable("goods_id", listAdapter.goods_id);
-                    b.putIntArray("buy_number", listAdapter.buy_number);
-                    intent.putExtras(b);
+                    Type type = new TypeToken<ArrayList<CadList_data>>(){}.getType();
+                    String json = new Gson().toJson(listAdapter.List,type);
+                    intent.putExtra("list",json);
                     startActivity(intent);
                 } else {
                     Toast.makeText(getActivity(), "你还没有选择商品哦", Toast.LENGTH_SHORT).show();
@@ -289,8 +293,8 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
             iv_select.setImageResource(R.mipmap.ic_order_blank);
             listAdapter.total_num = 0;
             tv_total_num.setText(listAdapter.total_num + "件");
-            for (int i = 0; i < listAdapter.goods_id.length; i++) {
-                listAdapter.goods_id[i] = "0";
+            for (int i = 0; i < listAdapter.List.size(); i++) {
+                listAdapter.List.get(i).selected = "0";
             }
         }
     }

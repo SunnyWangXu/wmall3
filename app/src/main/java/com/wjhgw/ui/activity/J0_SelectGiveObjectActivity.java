@@ -5,8 +5,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
+import com.wjhgw.business.bean.CadList_data;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 选择赠送对象Activity
@@ -17,17 +24,14 @@ public class J0_SelectGiveObjectActivity extends BaseActivity implements View.On
     private ImageView ivDear;
     private ImageView ivTongShi;
     private ImageView ivFriend;
-    public String[] goods_id = null;
-    public int[] buy_number = null;
-    public String cadList_data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_give);
-        goods_id = getIntent().getStringArrayExtra("goods_id");
-        cadList_data = getIntent().getStringExtra("cadList_data");
-        buy_number = getIntent().getExtras().getIntArray("buy_number");
+        String json = getIntent().getStringExtra("list");
+        Type type = new TypeToken<ArrayList<CadList_data>>(){}.getType();
+        List<CadList_data> list = new Gson().fromJson(json,type);
     }
 
     @Override
