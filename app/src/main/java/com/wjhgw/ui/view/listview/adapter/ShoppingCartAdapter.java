@@ -34,6 +34,7 @@ import com.wjhgw.ui.activity.PrductDetailActivity;
 import com.wjhgw.ui.dialog.GoodsArrDialog;
 import com.wjhgw.ui.dialog.ShoppingDialog;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 /**
@@ -78,7 +79,8 @@ public class ShoppingCartAdapter extends BaseAdapter {
                     Double.parseDouble(List.get(i).goods_price);
             total_num += Double.parseDouble(List.get(i).goods_num);
         }
-
+        BigDecimal f = new BigDecimal(total);
+        total = f.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
         tv_total.setText("¥ " + total);
         tv_total_num.setText("(" + total_num + ")");
         num = goods_id.length;
@@ -182,7 +184,6 @@ public class ShoppingCartAdapter extends BaseAdapter {
                                 shoppingDialog.iv_reduction.setImageResource(R.mipmap.ic_disable_reduction);
                             }
                         }
-
                     }
                 });
                 shoppingDialog.iv_add.setOnClickListener(new View.OnClickListener() {
@@ -203,14 +204,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
                         et_num = Integer.parseInt(shoppingDialog.et_num.getText().toString());
                         if (num < 99) {
                             Request.cart_edit_quantity(List.get(position).cart_id, et_num + "", c.getSharedPreferences("key", c.MODE_APPEND).getString("key", "0"));
-
-                            if (!goods_id[position].equals("0")) {
-                                total += Double.parseDouble(List.get(position).goods_price);
-                                tv_total.setText("¥ " + total);
-                                tv_total_num.setText("(" + ++total_num + ")");
-                            }
                         }
-                        shoppingDialog.dismiss();
                         shoppingDialog.dismiss();
                     }
                 });
@@ -273,7 +267,8 @@ public class ShoppingCartAdapter extends BaseAdapter {
                     Request.cart_edit_quantity(List.get(position).cart_id, ++num + "", key);
 
                     if (!goods_id[position].equals("0")) {
-                        total += Double.parseDouble(List.get(position).goods_price);
+                        BigDecimal f = new BigDecimal(total + Double.parseDouble(List.get(position).goods_price));
+                        total = f.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
                         tv_total.setText("¥ " + total);
                         tv_total_num.setText("(" + ++total_num + ")");
                     }
@@ -292,7 +287,8 @@ public class ShoppingCartAdapter extends BaseAdapter {
                     Request.cart_edit_quantity(List.get(position).cart_id, --num + "", key);
 
                     if (!goods_id[position].equals("0")) {
-                        total -= Double.parseDouble(List.get(position).goods_price);
+                        BigDecimal f = new BigDecimal(total - Double.parseDouble(List.get(position).goods_price));
+                        total = f.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
                         tv_total.setText("¥ " + total);
                         tv_total_num.setText("(" + --total_num + ")");
                     }
@@ -316,8 +312,8 @@ public class ShoppingCartAdapter extends BaseAdapter {
                         iv_select.setImageResource(R.mipmap.ic_order_select);
                         iv_select1.setImageResource(R.mipmap.ic_order_select);
                     }
-                    total += Double.parseDouble(List.get(position).goods_num) * Double.parseDouble(List.get(position).goods_price);
-                    total_num += Double.parseDouble(List.get(position).goods_num);
+                    BigDecimal f = new BigDecimal(total + Integer.parseInt(List.get(position).goods_num) * Double.parseDouble(List.get(position).goods_price));
+                    total = f.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
                     tv_total.setText("¥ " + total);
                     tv_total_num.setText("(" + total_num + ")");
                 } else {
@@ -328,7 +324,8 @@ public class ShoppingCartAdapter extends BaseAdapter {
                         iv_select.setImageResource(R.mipmap.ic_order_blank);
                         iv_select1.setImageResource(R.mipmap.ic_order_blank);
                     }
-                    total -= Double.parseDouble(List.get(position).goods_num) * Double.parseDouble(List.get(position).goods_price);
+                    BigDecimal f = new BigDecimal(total - Integer.parseInt(List.get(position).goods_num) * Double.parseDouble(List.get(position).goods_price));
+                    total = f.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                     total_num -= Double.parseDouble(List.get(position).goods_num);
                     tv_total.setText("¥ " + total);
                     tv_total_num.setText("(" + total_num + ")");
