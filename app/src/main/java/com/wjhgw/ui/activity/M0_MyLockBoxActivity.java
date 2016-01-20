@@ -181,7 +181,6 @@ public class M0_MyLockBoxActivity extends BaseActivity implements View.OnClickLi
                     Uri.fromFile(new File(thePath)));
         } else if (requestCode == GalleryConstants.INTENT_CROP) {
             Bitmap bitmap = data.getParcelableExtra("data");
-            iv_Avatar.setImageBitmap(bitmap);
 
             File temp = new File(Environment.getExternalStorageDirectory()
                     .getPath() + "/wjhg/");// 自已缓存文件夹
@@ -217,16 +216,13 @@ public class M0_MyLockBoxActivity extends BaseActivity implements View.OnClickLi
      * 上传用户头像
      */
     private void load_member_image(RequestParams params) {
-        loadDialog.ProgressDialog();
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Member_image, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Gson gson = new Gson();
                 if (responseInfo.result != null) {
                     Nickname nickname = gson.fromJson(responseInfo.result, Nickname.class);
-                    loadDialog.dismiss();
                     if (nickname.status.code == 10000) {
-                        //finish(false);
                         showToastLong(nickname.status.msg);
                     }else {
                         overtime(nickname.status.code, nickname.status.msg);
