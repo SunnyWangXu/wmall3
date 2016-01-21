@@ -15,6 +15,7 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
+import com.umeng.update.UmengUpdateAgent;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.MainMessageNum;
@@ -60,6 +61,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 //        }
 
+        UmengUpdateAgent.update(this);
         setContentView(R.layout.activity_main);
         key = getKey();
         if (!key.equals("0")) {
