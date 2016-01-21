@@ -235,5 +235,9 @@ public class ApiInterface {
      *用户发出的商品
      */
     public static final String Send_goods_list  ="/mobile/index.php?act=member_cabinet&op=send_goods_list";
+    /**
+     *赠送创建礼包
+     */
+    public static final String Create_gift  ="/mobile/index.php?act=member_cabinet&op=create_gift";
 
 }

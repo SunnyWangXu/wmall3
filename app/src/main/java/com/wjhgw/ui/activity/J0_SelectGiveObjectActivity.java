@@ -4,16 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
-import com.wjhgw.business.bean.CadList_data;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 选择赠送对象Activity
@@ -24,14 +18,19 @@ public class J0_SelectGiveObjectActivity extends BaseActivity implements View.On
     private ImageView ivDear;
     private ImageView ivTongShi;
     private ImageView ivFriend;
+    private ImageView ivGiveMore;
+    private String jsonStr;
+    private LinearLayout llGiveOne;
+    private LinearLayout llGiveMore;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_give);
-        String json = getIntent().getStringExtra("list");
-        Type type = new TypeToken<ArrayList<CadList_data>>(){}.getType();
-        List<CadList_data> list = new Gson().fromJson(json,type);
+
+        jsonStr = getIntent().getStringExtra("list");
+
     }
 
     @Override
@@ -48,6 +47,10 @@ public class J0_SelectGiveObjectActivity extends BaseActivity implements View.On
         ivDear = (ImageView) findViewById(R.id.iv_dear);
         ivTongShi = (ImageView) findViewById(R.id.iv_tongshi);
         ivFriend = (ImageView) findViewById(R.id.iv_friend);
+        ivGiveMore = (ImageView) findViewById(R.id.iv_give_more_people);
+
+        llGiveOne = (LinearLayout) findViewById(R.id.ll_give_one);
+        llGiveMore = (LinearLayout) findViewById(R.id.ll_give_more);
 
     }
 
@@ -59,10 +62,15 @@ public class J0_SelectGiveObjectActivity extends BaseActivity implements View.On
     @Override
     public void onBindListener() {
 
-        ivZhangBei.setOnClickListener(this);
+      /*  ivZhangBei.setOnClickListener(this);
         ivDear.setOnClickListener(this);
         ivTongShi.setOnClickListener(this);
         ivFriend.setOnClickListener(this);
+        ivGiveMore.setOnClickListener(this);*/
+
+        llGiveOne.setOnClickListener(this);
+        llGiveMore.setOnClickListener(this);
+
 
     }
 
@@ -70,10 +78,12 @@ public class J0_SelectGiveObjectActivity extends BaseActivity implements View.On
     public void onClick(View v) {
 
         Intent intent = new Intent();
-        
+
         switch (v.getId()) {
-            case R.id.iv_zhangbei:
+           /* case R.id.iv_zhangbei:
                 intent.setClass(this, J2_GiveOneActivity.class);
+                intent.putExtra("zhangbei", "zhangbei");
+                intent.putExtra("jsonStr",jsonStr);
                 startActivity(intent);
 
                 break;
@@ -87,6 +97,20 @@ public class J0_SelectGiveObjectActivity extends BaseActivity implements View.On
                 break;
 
             case R.id.iv_friend:
+
+                break;*/
+
+            case R.id.ll_give_one:
+                intent.setClass(this, J2_GiveOneActivity.class);
+                intent.putExtra("jsonStr", jsonStr);
+                startActivity(intent);
+
+                break;
+
+            case R.id.ll_give_more:
+                intent.setClass(this, J3_GiveMoreActivity.class);
+                intent.putExtra("jsonStr", jsonStr);
+                startActivity(intent);
 
                 break;
 

@@ -294,7 +294,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
     private void deleteAddressDetail() {
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
-        params.addBodyParameter("address_id",address_id);
+        params.addBodyParameter("address_id", address_id);
         Dialog.ProgressDialog();
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Address_del, params, new RequestCallBack<String>() {
@@ -307,12 +307,11 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
                     if (status.status.code == 10000) {
                         Toast.makeText(getApplicationContext(), "删除收货地址成功", Toast.LENGTH_SHORT).show();
                         finish();
-                    }if(status.status.code == 200103 || status.status.code == 200104){
+                    }
+                    if (status.status.code == 200103 || status.status.code == 200104) {
                         Toast.makeText(M2_AddressDetailActvity.this, "登录超时或未登录", Toast.LENGTH_SHORT).show();
-                        getSharedPreferences("key", MODE_APPEND).edit().putString("key","0").commit();
+                        getSharedPreferences("key", MODE_APPEND).edit().putString("key", "0").commit();
                         startActivity(new Intent(M2_AddressDetailActvity.this, A0_LoginActivity.class));
-                    }else {
-                        Toast.makeText(M2_AddressDetailActvity.this, status.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -383,11 +382,12 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
                     if (status.status.code == 10000) {
                         Toast.makeText(getApplicationContext(), "收货地址修改成功", Toast.LENGTH_SHORT).show();
                         finish();
-                    }if(status.status.code == 200103 || status.status.code == 200104){
+                    }
+                    if (status.status.code == 200103 || status.status.code == 200104) {
                         Toast.makeText(M2_AddressDetailActvity.this, "登录超时或未登录", Toast.LENGTH_SHORT).show();
-                        getSharedPreferences("key", MODE_APPEND).edit().putString("key","0").commit();
+                        getSharedPreferences("key", MODE_APPEND).edit().putString("key", "0").commit();
                         startActivity(new Intent(M2_AddressDetailActvity.this, A0_LoginActivity.class));
-                    }else {
+                    } else {
                         Toast.makeText(M2_AddressDetailActvity.this, status.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -415,11 +415,12 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
                     if (status.status.code == 10000) {
                         Toast.makeText(getApplicationContext(), "新增收货地址成功", Toast.LENGTH_SHORT).show();
                         finish();
-                    }if(status.status.code == 200103 || status.status.code == 200104){
+                    }
+                    if (status.status.code == 200103 || status.status.code == 200104) {
                         Toast.makeText(M2_AddressDetailActvity.this, "登录超时或未登录", Toast.LENGTH_SHORT).show();
-                        getSharedPreferences("key", MODE_APPEND).edit().putString("key","0").commit();
+                        getSharedPreferences("key", MODE_APPEND).edit().putString("key", "0").commit();
                         startActivity(new Intent(M2_AddressDetailActvity.this, A0_LoginActivity.class));
-                    }else {
+                    } else {
                         Toast.makeText(M2_AddressDetailActvity.this, status.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }

@@ -167,7 +167,6 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                 break;
             case R.id.tv_others:
                 if (listAdapter.num > 0) {
-                    Toast.makeText(getActivity(), "下一步正在开发", Toast.LENGTH_SHORT).show();
                     intent = new Intent(getActivity(), J0_SelectGiveObjectActivity.class);
                     Type type = new TypeToken<ArrayList<CadList_data>>(){}.getType();
                     String json = new Gson().toJson(listAdapter.List,type);

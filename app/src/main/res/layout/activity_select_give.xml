@@ -12,6 +12,7 @@
         android:background="@color/line_bg" />
 
     <LinearLayout
+        android:id="@+id/ll_give_one"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#d63235"
@@ -74,6 +75,7 @@
 
 
     <LinearLayout
+        android:id="@+id/ll_give_more"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -85,7 +87,7 @@
             android:layout_height="24dp"
             android:layout_marginBottom="22dp"
             android:layout_marginTop="24dp"
-            android:src="@mipmap/ic_give_one" />
+            android:src="@mipmap/ic_give_more" />
 
         <ImageView
             android:id="@+id/iv_give_more_people"

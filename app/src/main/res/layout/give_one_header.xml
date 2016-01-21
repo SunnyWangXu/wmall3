@@ -5,10 +5,11 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/ll_giveone_use_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,6 +37,7 @@
                     android:textSize="17sp" />
 
                 <TextView
+                    android:id="@+id/tv_giveone_usename"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
@@ -46,6 +48,7 @@
                     android:textSize="17sp" />
 
                 <TextView
+                    android:id="@+id/tv_giveone_usephone"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -63,6 +66,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_giveone_useaddressinfo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
@@ -94,13 +98,16 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="12dp"
-        android:background="@color/layout_bg" />
+        android:background="@color/layout_bg"
+        android:visibility="gone" />
 
     <LinearLayout
+        android:id="@+id/ll_giveone_address"
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="0dp"
@@ -108,7 +115,7 @@
             android:layout_marginLeft="13dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="代填收货地址"
+            android:text="代填亲友收货地址"
             android:textColor="@color/title_color"
             android:textSize="16sp" />
 
@@ -120,10 +127,10 @@
 
     </LinearLayout>
 
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="11dp"
         android:background="@color/line_bg" />
 
     <TextView
@@ -137,26 +144,19 @@
         android:textSize="16sp" />
 
     <EditText
+        android:id="@+id/ed_giftone_note"
         android:layout_width="match_parent"
         android:layout_height="68dp"
+        android:layout_marginBottom="11dp"
         android:layout_marginLeft="11dp"
         android:layout_marginRight="11dp"
         android:background="@drawable/give_message_shape"
+        android:gravity="top"
         android:hint="一点心意，希望您喜欢！"
-        android:maxLength="100"
+        android:maxLength="20"
         android:textColorHint="@color/gray"
         android:textSize="13sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="14dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="6dp"
-        android:gravity="end"
-        android:text="0/100"
-        android:textColor="@color/title_color"
-        android:textSize="13sp" />
 
     <View
         android:layout_width="match_parent"

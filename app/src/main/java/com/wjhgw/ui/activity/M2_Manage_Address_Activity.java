@@ -92,6 +92,7 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
         if (!key.equals("0")) {
             params.addBodyParameter("key", key);
         }
+        params.addBodyParameter("address_type","0");
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Address_list, params, new RequestCallBack<String>() {
 
             @Override
