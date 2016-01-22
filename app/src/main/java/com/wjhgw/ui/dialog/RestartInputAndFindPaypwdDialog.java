@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.wjhgw.R;
 
 /**
- * 通用对话框
+ * 支付密码输入有误
  */
 public class RestartInputAndFindPaypwdDialog {
 

@@ -29,7 +29,7 @@ import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.C1_CaptureActivity;
 import com.wjhgw.ui.activity.C2_SearchActivity;
-import com.wjhgw.ui.activity.MessageCenterActivity;
+import com.wjhgw.ui.dialog.under_developmentDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.AttrAdapter;
@@ -136,8 +136,16 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
                 getActivity().startActivity(intent);
                 break;
             case R.id.rl_message:
-                intent = new Intent(getActivity(), MessageCenterActivity.class);
-                startActivity(intent);
+                final under_developmentDialog underdevelopmentDialog = new under_developmentDialog(getActivity());
+                underdevelopmentDialog.show();
+                underdevelopmentDialog.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        underdevelopmentDialog.dismiss();
+                    }
+                });
+                /*intent = new Intent(getActivity(), MessageCenterActivity.class);
+                startActivity(intent);*/
 
                 break;
 

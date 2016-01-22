@@ -30,6 +30,7 @@ import com.wjhgw.ui.activity.M0_MyLockBoxActivity;
 import com.wjhgw.ui.activity.M6_SetActivity;
 import com.wjhgw.ui.activity.Z0_AssetsActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
+import com.wjhgw.ui.dialog.under_developmentDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 
@@ -56,6 +57,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private TextView tv_statistics2;
     private TextView tv_statistics3;
     private TextView tv_statistics4;
+    private ImageView iv_message;
     private String key;
     private ImageView ivSet;
     private LinearLayout ll_LockBox;
@@ -120,6 +122,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
      */
     private void initView() {
         ivSet = (ImageView) MyLayout.findViewById(R.id.iv_set);
+        iv_message = (ImageView) MyLayout.findViewById(R.id.iv_message);
 
         myAvatar = (ImageView) MyMessageLayout.findViewById(R.id.my_avatar);
         member_nickname = (TextView) MyMessageLayout.findViewById(R.id.member_nickname);
@@ -146,6 +149,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
      * 设置监听事件
      */
     private void setClick() {
+        iv_message.setOnClickListener(this);
         ll_LockBox.setOnClickListener(this);
         ivSet.setOnClickListener(this);
 //        ll_Set.setOnClickListener(this);
@@ -261,6 +265,16 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                     intent.setClass(getActivity(), Z0_AssetsActivity.class);
                     startActivity(intent);
                 }
+                break;
+            case R.id.iv_message:
+                final under_developmentDialog underdevelopmentDialog = new under_developmentDialog(getActivity());
+                underdevelopmentDialog.show();
+                underdevelopmentDialog.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        underdevelopmentDialog.dismiss();
+                    }
+                });
                 break;
 
             default:

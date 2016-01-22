@@ -39,9 +39,9 @@ import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.C1_CaptureActivity;
 import com.wjhgw.ui.activity.C2_SearchActivity;
 import com.wjhgw.ui.activity.C3_GoodsArraySearchActivity;
-import com.wjhgw.ui.activity.MessageCenterActivity;
 import com.wjhgw.ui.activity.PrductDetailActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
+import com.wjhgw.ui.dialog.under_developmentDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView.IXListViewListener;
 import com.wjhgw.ui.view.listview.adapter.HomePagerAdapter;
@@ -557,8 +557,16 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 break;
 
             case R.id.rl_home_message:
-                intent.setClass(getActivity(), MessageCenterActivity.class);
-                startActivity(intent);
+                final under_developmentDialog underdevelopmentDialog = new under_developmentDialog(getActivity());
+                underdevelopmentDialog.show();
+                underdevelopmentDialog.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        underdevelopmentDialog.dismiss();
+                    }
+                });
+                /*intent.setClass(getActivity(), MessageCenterActivity.class);
+                startActivity(intent);*/
                 break;
 
             case R.id.ll_theme1:
