@@ -136,7 +136,6 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
              * 请求默认地址
              */
             load_Default_Addresst();
-
         }
 
         if (selectOrder != null) {
@@ -144,9 +143,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
              * 解析选中订单
              */
             parseSelectOrdert(selectOrder);
-
         }
-
     }
 
     /**
@@ -208,6 +205,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
      * 检查地址是否支持货到付款
      */
     private void checkAddressSupport() {
+        super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
         params.addBodyParameter("freight_hash", freight_hash);
@@ -215,21 +213,23 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Check_Address_Support, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                S0_ConfirmOrderActivity.super.Dismiss();
                 Gson gson = new Gson();
                 CheckAddressSupport checkAddressSupport = gson.fromJson(responseInfo.result, CheckAddressSupport.class);
 
                 if (checkAddressSupport.status.code == 10000) {
-                    offpay_hash = checkAddressSupport.datas.offpay_hash;
-                    offpay_hash_batch = checkAddressSupport.datas.offpay_hash_batch;
+                    if (checkAddressSupport.datas != null) {
+                        offpay_hash = checkAddressSupport.datas.offpay_hash;
+                        offpay_hash_batch = checkAddressSupport.datas.offpay_hash_batch;
+                    }
                 } else {
                     overtime(checkAddressSupport.status.code, checkAddressSupport.status.msg);
                 }
-
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-
+                showToastShort("网络错误");
             }
         });
 
@@ -273,7 +273,6 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
         tvRealPay = (TextView) findViewById(R.id.tv_real_pay);
 
-
         llUseBalance = (LinearLayout) findViewById(R.id.ll_use_balance);
         tvBalance = (TextView) findViewById(R.id.tv_use_balance);
         ivBalance = (ImageView) findViewById(R.id.iv_balance);
@@ -283,7 +282,6 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         tvRcBalance = (TextView) findViewById(R.id.tv_is_use_rc_balance);
         ivAvailableRcBalance = (ImageView) findViewById(R.id.iv_available_rc_balance);
         tvAvailableRcBalance = (TextView) findViewById(R.id.tv_available_rc_balance);
-
 
         etPayMessage = (EditText) findViewById(R.id.et_pay_message);
 
@@ -331,9 +329,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 tvUsePhone.setText(usePhone);
                 tvUseAddress.setText(useAddressInfo);
             }
-
         }
-
     }
 
     @Override
@@ -347,17 +343,14 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             case R.id.ll_order_address:
                 intent.setClass(this, S1_OrderAddressActivity.class);
                 startActivityForResult(intent, 55555);
-
                 break;
 
             case R.id.tv_not_address:
-
                 intent.setClass(this, S1_OrderAddressActivity.class);
                 startActivityForResult(intent, 55555);
 
                 break;
             case R.id.ll_payment:
-
                 /**
                  * 付款方式弹出窗
                  */
@@ -437,29 +430,22 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 break;
 
             case R.id.tv_commit_order:
-
                 if (isDownlinePay) {
-
                     /**
                      * 提交订单
                      */
                     CommitOrder();
-                    intent.setClass(this, S3_SelectPaymentActivity.class);
-                    startActivity(intent);
                 } else if (isUseBalance) {
                     /**
                      * 判断是否有登录密码,没有就设置，有就去输入下单
                      */
                     whetherHavePaypwd();
                 } else {
-
                     /**
                      * 提交订单
                      */
                     CommitOrder();
-
                 }
-
                 break;
             default:
                 break;
@@ -471,7 +457,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
      * 提交订单
      */
     private void CommitOrder() {
-
+        super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
         if (isDonate) {
@@ -514,32 +500,31 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Buy_step2, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                S0_ConfirmOrderActivity.super.Dismiss();
+                Gson gson = new Gson();
+                PayOrder payOrder = gson.fromJson(responseInfo.result, PayOrder.class);
 
-                /**
-                 * （余额+上充值卡余额）- 需要使用的金额
-                 */
-                double rcBalance = Double.valueOf(tvAvailableRcBalance.getText().toString());
-                double balance = Double.valueOf(tvAvailablePredeposit.getText().toString());
-                double yu = (rcBalance + balance) - Double.valueOf(tvRealPay.getText().toString());
-
-                if (isUseBalance && yu > 0) {
+                if (payOrder.status.code == 10000) {
                     /**
-                     * 选择了余额支付或者使用充值卡余额支付并且余额大于选中商品金额直接购买成功
+                     * （余额+上充值卡余额）- 需要使用的金额
                      */
-                    showToastShort("有钱余额够够的");
-                    finish();
+                    double rcBalance = Double.valueOf(tvAvailableRcBalance.getText().toString());
+                    double balance = Double.valueOf(tvAvailablePredeposit.getText().toString());
+                    double yu = (rcBalance + balance) - Double.valueOf(tvRealPay.getText().toString());
 
-                } else {
-
-                    Gson gson = new Gson();
-                    PayOrder payOrder = gson.fromJson(responseInfo.result, PayOrder.class);
-
-                    if (payOrder.status.code == 10000) {
-
+                    if (isUseBalance && yu > 0) {
+                        /**
+                         * 选择了余额支付或者使用充值卡余额支付并且余额大于选中商品金额直接购买成功
+                         */
+                        showToastShort("余额支付成功");
+                        Intent intent = new Intent(S0_ConfirmOrderActivity.this, D0_OrderActivity.class);
+                        intent.putExtra("order_state", "");
+                        intent.putExtra("name", "所有订单");
+                        startActivity(intent);
+                        finish();
+                    } else {
                         if (payOrder.datas.state = true && payOrder.datas.data.type.equals("order")) {
-
                             showToastShort(payOrder.datas.msg);
-
                             /**
                              * 选择了余额支付或者使用充值卡余额支付但是余额小于选中商品金额还是要跳转到选择支付界面付款余下的金额
                              */
@@ -566,16 +551,23 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                             intent.putExtra("goodsName", goodsName);
                             intent.putExtra("goodsDetail", goodsDetail);
 
-                            startActivity(intent);
-
+                            if(totalFee > 0 && paySn != null){
+                                startActivity(intent);
+                                finish();
+                            }else {
+                                showToastShort("下单异常，请重新操作");
+                                finish();
+                            }
                         }
                     }
+                } else {
+                    overtime(payOrder.status.code, payOrder.status.msg);
                 }
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-
+                showToastShort("网络错误");
             }
         });
 
@@ -585,62 +577,58 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
      * 判断是否有登录密码
      */
     private void whetherHavePaypwd() {
-
+        super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Get_member_base_info, params, new RequestCallBack<String>() {
 
-
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                S0_ConfirmOrderActivity.super.Dismiss();
                 Gson gson = new Gson();
                 if (responseInfo.result != null) {
                     userinformation = gson.fromJson(responseInfo.result, MyLockBox.class);
-
-                    isHavePaypwd = userinformation.datas.paypwd.equals("1");
-
-                    if (!isHavePaypwd) {
-                        /**
-                         *建议设置支付密码的对话框
-                         */
-                        setPaypwdDialog = new SetPaypwdDialog(S0_ConfirmOrderActivity.this, "设置支付密码", "为了提高账号安全性，建议设置支付密码");
-
-                        setPaypwdDialog.show();
-
-                        setPaypwdDialog.tvCancel.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                setPaypwdDialog.dismiss();
-                            }
-                        });
-
-                        setPaypwdDialog.tvGotoSetpaypwd.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                setPaypwdDialog.dismiss();
-                                Intent intent = new Intent(S0_ConfirmOrderActivity.this, VerificationCodeActivity.class);
-                                intent.putExtra("Number", userinformation.datas.member_mobile);
-                                intent.putExtra("use", "2");
-                                intent.putExtra("paypwd", "0");
-                                startActivity(intent);
-                            }
-                        });
-
+                    if (userinformation.status.code == 10000) {
+                        isHavePaypwd = userinformation.datas.paypwd.equals("1");
+                        if (!isHavePaypwd) {
+                            /**
+                             *建议设置支付密码的对话框
+                             */
+                            setPaypwdDialog = new SetPaypwdDialog(S0_ConfirmOrderActivity.this, "设置支付密码", "为了提高账号安全性，建议设置支付密码");
+                            setPaypwdDialog.show();
+                            setPaypwdDialog.tvCancel.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    setPaypwdDialog.dismiss();
+                                }
+                            });
+                            setPaypwdDialog.tvGotoSetpaypwd.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    setPaypwdDialog.dismiss();
+                                    Intent intent = new Intent(S0_ConfirmOrderActivity.this, VerificationCodeActivity.class);
+                                    intent.putExtra("Number", userinformation.datas.member_mobile);
+                                    intent.putExtra("use", "2");
+                                    intent.putExtra("paypwd", "0");
+                                    startActivity(intent);
+                                }
+                            });
+                        } else {
+                            /**
+                             *输入支付密码的对话框
+                             */
+                            entryPaypwdAndTest();
+                        }
                     } else {
-
-                        /**
-                         *输入支付密码的对话框
-                         */
-                        entryPaypwdAndTest();
+                        overtime(userinformation.status.code, userinformation.status.msg);
                     }
                 }
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-
+                showToastShort("网络错误");
             }
         });
 
@@ -688,7 +676,6 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                  * 验证支付密码
                  */
                 testPaypwd(paypwd);
-
             }
         });
     }
@@ -697,6 +684,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
      * 验证支付密码
      */
     private boolean testPaypwd(String paypwd) {
+        super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
         params.addBodyParameter("paypwd", paypwd);
@@ -704,30 +692,28 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Test_Paypwd, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                S0_ConfirmOrderActivity.super.Dismiss();
                 if (responseInfo.result != null) {
                     Gson gson = new Gson();
                     testPaypwd = gson.fromJson(responseInfo.result, TestPaypwd.class);
-
                     if (testPaypwd.status.code == 10000) {
                         /**
                          * 支付密码正确跳转
                          */
                         entryPaypwdDialog.dismiss();
-
                         /**
                          * 提交订单
                          */
                         CommitOrder();
-//                        Intent intent = new Intent();
-//                        intent.setClass(S0_ConfirmOrderActivity.this, S3_SelectPaymentActivity.class);
-//                        startActivity(intent);
-
+                    } else if (testPaypwd.status.code == 200103 || testPaypwd.status.code == 200104) {
+                        showToastShort("登录超时或未登录");
+                        getSharedPreferences("key", MODE_APPEND).edit().putString("key", "0").commit();
+                        startActivity(new Intent(S0_ConfirmOrderActivity.this, A0_LoginActivity.class));
                     } else {
                         /**
                          * 支付密码不正确， 弹出重新输入或者找回支付密码
                          */
                         restartInputAndFindPaypwdDialog = new RestartInputAndFindPaypwdDialog(S0_ConfirmOrderActivity.this);
-
                         restartInputAndFindPaypwdDialog.show();
                         restartInputAndFindPaypwdDialog.tvRestartInput.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -740,7 +726,6 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                             }
                         });
 
-
                         restartInputAndFindPaypwdDialog.tvFindPaypwd.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -750,14 +735,10 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                                 intent.putExtra("use", "2");
                                 intent.putExtra("paypwd", "1");
                                 startActivity(intent);
-
                             }
                         });
-
-
                     }
                 }
-
             }
 
             @Override
@@ -765,7 +746,6 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 Toast.makeText(S0_ConfirmOrderActivity.this, testPaypwd.status.msg, Toast.LENGTH_SHORT).show();
             }
         });
-
         return truePaypwd;
     }
 
@@ -846,7 +826,6 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
      * 请求地址列表
      */
     public void load_Default_Addresst() {
-        super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
         params.addBodyParameter("address_type", "0");
@@ -857,30 +836,23 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 Gson gson = new Gson();
                 if (responseInfo != null) {
                     Address_list address_list = gson.fromJson(responseInfo.result, Address_list.class);
-                    S0_ConfirmOrderActivity.super.Dismiss();
                     if (address_list.status.code == 10000) {
                         if (address_list.datas == null) {
                             //地址为空显示要去设置收货地址
                             llUseMessage01.setVisibility(View.GONE);
                             tvNotAddress.setVisibility(View.VISIBLE);
-
                         } else {
-
                             tvUseName.setText(address_list.datas.get(0).true_name);
                             tvUsePhone.setText(address_list.datas.get(0).mob_phone);
                             tvUseAddress.setText(address_list.datas.get(0).area_info + " " + address_list.datas.get(0).address);
                         }
-
-
                     }
                 }
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-
                 showToastShort("请求失败");
-
                 String useName = getIntent().getStringExtra("tureName");
                 String usePhone = getIntent().getStringExtra("phone");
                 String useAddressInfo = getIntent().getStringExtra("addressInfo");
