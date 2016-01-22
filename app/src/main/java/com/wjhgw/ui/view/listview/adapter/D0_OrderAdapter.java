@@ -26,11 +26,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
+import com.wjhgw.APP;
 import com.wjhgw.R;
+import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.api.Order_Request;
 import com.wjhgw.business.bean.OrderList_data;
+import com.wjhgw.business.bean.PayOrder;
+import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.D2_LogisticsActivity;
 import com.wjhgw.ui.activity.D3_EvaluateActivity;
+import com.wjhgw.ui.activity.S3_SelectPaymentActivity;
+import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.dialog.MyDialog;
 import com.wjhgw.ui.dialog.Order_cancelDialog;
 import com.wjhgw.ui.view.listview.MyListView;
@@ -53,6 +65,7 @@ public class D0_OrderAdapter extends BaseAdapter {
     private MyDialog mDialog;
     private Order_cancelDialog order_cancelDialog;
     private String msg = "购买其他商品";
+    private LoadDialog Dialog;
 
     public D0_OrderAdapter(Context c, ArrayList<OrderList_data> dataList, Order_Request Request, String key) {
         mInflater = LayoutInflater.from(c);
@@ -60,6 +73,7 @@ public class D0_OrderAdapter extends BaseAdapter {
         this.List = dataList;
         this.Request = Request;
         this.key = key;
+        Dialog = new LoadDialog(c);
     }
 
     @Override
@@ -254,6 +268,8 @@ public class D0_OrderAdapter extends BaseAdapter {
                 if (List.get(position).order_state.equals("10")) {
                     if (List.get(position).payment) {
                         Toast.makeText(c, "前往付款", Toast.LENGTH_SHORT).show();
+                        member_payment(List.get(position).pay_sn, key, List.get(position).order_amount,
+                                List.get(position).rcb_amount, List.get(position).pd_amount);
                     }
                     //待付款
                 } else if (List.get(position).order_state.equals("20")) {
@@ -363,6 +379,50 @@ public class D0_OrderAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 order_cancelDialog.dismiss();
+            }
+        });
+    }
+
+    /**
+     * 订单支付
+     */
+    public void member_payment(String pay_sn, String key, final String order_amount, final String rcb_amount, final String pd_amount) {
+        Dialog.ProgressDialog();
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+        params.addBodyParameter("pay_sn", pay_sn);
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Member_payment, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                if (responseInfo != null) {
+                    Gson gson = new Gson();
+                    PayOrder payOrder = gson.fromJson(responseInfo.result, PayOrder.class);
+                    Dialog.dismiss();
+                    if (payOrder.status.code == 10000) {
+                        Intent intent = new Intent(c, S3_SelectPaymentActivity.class);
+                        intent.putExtra("tvRealPay", order_amount);
+                        intent.putExtra("tvAvailablePredeposit", rcb_amount);
+                        intent.putExtra("tvAvailableRcBalance", pd_amount);
+                        intent.putExtra("paySn", payOrder.datas.data.pay_sn);
+                        intent.putExtra("totalFee", payOrder.datas.data.total_fee);
+                        intent.putExtra("goodsName", payOrder.datas.data.goods_name);
+                        intent.putExtra("goodsDetail", payOrder.datas.data.goods_detail);
+                        c.startActivity(intent);
+
+                    } else if (payOrder.status.code == 200103 || payOrder.status.code == 200104) {
+                        Toast.makeText(c, "登录超时或未登录", Toast.LENGTH_SHORT).show();
+                        c.getSharedPreferences("key", c.MODE_APPEND).edit().putString("key", "0").commit();
+                        c.startActivity(new Intent(c, A0_LoginActivity.class));
+                    } else {
+                        Toast.makeText(c, payOrder.status.msg, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Toast.makeText(c, "失败", Toast.LENGTH_SHORT).show();
             }
         });
     }

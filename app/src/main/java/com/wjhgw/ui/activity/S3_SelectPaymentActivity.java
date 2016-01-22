@@ -67,7 +67,7 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
         goodsName = getIntent().getStringExtra("goodsName");
         goodsDetail = getIntent().getStringExtra("goodsDetail");
 
-        showToastShort(paySn + "\\\\" + totalFee + "\\\\" + goodsName + "\\\\" + goodsDetail);
+        //showToastShort(paySn + "\\\\" + totalFee + "\\\\" + goodsName + "\\\\" + goodsDetail);
     }
 
     @Override
@@ -97,9 +97,9 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
     @Override
     public void onInitViewData() {
 
-        realPay = getIntent().getStringExtra("tvRealPay");
-        balance = getIntent().getStringExtra("tvAvailablePredeposit");
-        rcBalance = getIntent().getStringExtra("tvAvailableRcBalance");
+        realPay = getIntent().getStringExtra("tvRealPay");      //订单金额
+        balance = getIntent().getStringExtra("tvAvailablePredeposit");  //使用账号余额
+        rcBalance = getIntent().getStringExtra("tvAvailableRcBalance"); //充值卡余额
 
         tvPayOrderPrice.setText(realPay);
         if (balance.equals("0.00")) {

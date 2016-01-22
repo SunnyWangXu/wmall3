@@ -15,6 +15,10 @@ public class OrderList_data {
     public String shipping_fee;
     public String order_state;
     public String order_id;
+    public String pay_sn;       //下单支付秘钥
+    public String pay_amount;   //订单金额
+    public String rcb_amount;   //使用的充值卡金额
+    public String pd_amount;   //使用的余额金额
     public boolean if_cancel;   //是否可用取消
     public boolean if_receive;  //是否可以收货
     public boolean if_lock;     //是否可以锁定（退款退货为锁定）

@@ -239,5 +239,9 @@ public class ApiInterface {
      *赠送创建礼包
      */
     public static final String Create_gift  ="/mobile/index.php?act=member_cabinet&op=create_gift";
+    /**
+     *订单支付接口
+     */
+    public static final String Member_payment  ="/mobile/index.php?act=member_order&op=pay_order";
 
 }
