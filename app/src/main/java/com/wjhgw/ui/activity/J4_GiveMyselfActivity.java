@@ -111,7 +111,7 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
         tvMyPhone = (TextView) llGiveMyselfHead.findViewById(R.id.tv_myphone);
         tvMyAddress = (TextView) llGiveMyselfHead.findViewById(R.id.tv_myaddress);
 
-        tvToGiveMyself = (TextView) llGiveMyselfHead.findViewById(R.id.tv_to_give_myself);
+        tvToGiveMyself = (TextView)findViewById(R.id.tv_to_give_myself);
 
     }
 
@@ -176,7 +176,6 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                 String goods_str = cart_id.toString().substring(0, cart_id.toString().length() - 1);
 
                 showToastShort(goods_str);
-
 
                 break;
 
