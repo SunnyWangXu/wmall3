@@ -68,6 +68,7 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
     private Intent intent;
     private int curpage = 1;
     private String cadList_data;
+    private ArrayList<CadList_data> data = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -232,13 +233,18 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                             tv_record.setVisibility(View.VISIBLE);
                             ll_null.setVisibility(View.GONE);
                             mListView.setVisibility(View.VISIBLE);
+                            if (data.size() > 0 && isSetAdapter) {
+                                data.clear();
+                            }
+                            data.addAll(cadList.datas);
+
                             if (isSetAdapter) {
-                                listAdapter = new CabinetAdapter(getActivity(), cadList.datas,
+                                listAdapter = new CabinetAdapter(getActivity(), data,
                                         iv_select, tv_total_num, Request);
                                 mListView.setAdapter(listAdapter);
                                 iv_select.setImageResource(R.mipmap.ic_order_blank);
                             } else {
-                                listAdapter.List = cadList.datas;
+                                listAdapter.List = data;
                                 listAdapter.notifyDataSetChanged();
                             }
 
