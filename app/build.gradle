@@ -35,5 +35,5 @@ dependencies {
     compile files('libs/libammsdk.jar')
     compile files('libs/umeng-update-v2.6.0.1.jar')
     compile 'com.umeng.analytics:analytics:latest.integration'
-    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+    /*compile 'com.google.android.gms:play-services-appindexing:8.1.0'*/
 }

@@ -1,12 +1,10 @@
 package com.wjhgw.ui.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -78,14 +76,14 @@ public class J2_GiveOneActivity extends BaseActivity implements View.OnClickList
         cabGiveLvAdapter = new CabGiveLvAdapter(this, datas1);
         lvGiveOne.setAdapter(cabGiveLvAdapter);
 
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+     /*   InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         boolean isOpen = imm.isActive();
 
         if (isOpen) {
             llConfirmGiveOne.setVisibility(View.GONE);
         } else {
             llConfirmGiveOne.setVisibility(View.VISIBLE);
-        }
+        }*/
     }
 
 

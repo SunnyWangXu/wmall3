@@ -53,6 +53,7 @@
         <activity android:name=".ui.activity.J1_RecordActivity" />
         <activity android:name=".ui.activity.J2_GiveOneActivity" />
         <activity android:name=".ui.activity.J3_GiveMoreActivity" />
+        <activity android:name=".ui.activity.J4_GiveMyselfActivity" />
         <activity android:name=".ui.activity.VerificationCodeActivity" />
         <activity android:name=".ui.activity.M0_MyLockBoxActivity" />
         <activity android:name=".ui.activity.M1_Modify_nicknameActivity" />

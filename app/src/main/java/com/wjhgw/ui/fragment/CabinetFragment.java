@@ -29,6 +29,7 @@ import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.J0_SelectGiveObjectActivity;
 import com.wjhgw.ui.activity.J1_RecordActivity;
+import com.wjhgw.ui.activity.J4_GiveMyselfActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
@@ -185,7 +186,13 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                             cart_id.append(listAdapter.goods_id[i] + "|" + listAdapter.List.get(i).buy_number + ",");
                         }
                     }*/
-                    Toast.makeText(getActivity(), "下一步正在开发", Toast.LENGTH_SHORT).show();
+
+                    intent = new Intent(getActivity(), J4_GiveMyselfActivity.class);
+                    Type type = new TypeToken<ArrayList<CadList_data>>(){}.getType();
+                    String json = new Gson().toJson(listAdapter.List,type);
+                    intent.putExtra("list",json);
+                    startActivity(intent);
+
                 } else {
                     Toast.makeText(getActivity(), "你还没有选择商品哦", Toast.LENGTH_SHORT).show();
                 }
