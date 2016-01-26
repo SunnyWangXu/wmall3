@@ -120,7 +120,7 @@ public class payMethod {
         orderInfo += "&seller_id=" + "\"" + SELLER + "\"";
 
         // 商户网站唯一订单号
-        orderInfo += "&out_trade_no=" + "\"" + getOutTradeNo() + "\"";
+        orderInfo += "&out_trade_no=" + "\"" + order_sn + "\"";
 
         // 商品名称
         orderInfo += "&subject=" + "\"" + subject + "\"";
@@ -132,7 +132,7 @@ public class payMethod {
         orderInfo += "&total_fee=" + "\"" + order_amount + "\"";
 
         // 服务器异步通知页面路径
-        orderInfo += "&notify_url=" + "\"" + "http://www.wjhgw.com/ECMobile/payment/alipay/sdk/notify_url.php" + "\"";
+        orderInfo += "&notify_url=" + "\"" + "http://dev.wjhgw.com/mobile/api/payment/alipay/sdk/notify_url.php" + "\"";
 
 		/*// 服务接口名称， 固定值
 		orderInfo += "&service=\"mobile.securitypay.pay\"";*/
@@ -193,47 +193,21 @@ public class payMethod {
                     if (TextUtils.equals(resultStatus, "9000")) {
                         Toast.makeText(mContext, "支付成功",
                                 Toast.LENGTH_SHORT).show();
-                        /*Resources resource = getResources();
-                        String exit = resource.getString(R.string.pay_success);
-                        String exiten = resource.getString(R.string.continue_shopping_or_not);
-                        final MyDialog mDialog = new MyDialog(C1_CheckOutActivity.this, exit, exiten);
-                        mDialog.show();
-                        mDialog.positive.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mDialog.dismiss();
-                                Intent it = new Intent(C1_CheckOutActivity.this, EcmobileMainActivity.class);
-                                startActivity(it);
-                                finish();
 
-                            }
-                        });
-                        mDialog.negative.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mDialog.dismiss();
-							*//*
-							 * Intent intent = new Intent(C1_CheckOutActivity.this,
-							 * E4_HistoryActivity.class); intent.putExtra("flag",
-							 * "await_ship"); startActivity(intent);
-							 *//*
-                                forwardToOrderList();
-                                finish();
-
-                            }
-                        });*/
                     } else {
                         // 判断resultStatus 为非“9000”则代表可能支付失败
                         // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
-                        if (TextUtils.equals(resultStatus, "8000")) {
-                            Toast.makeText(mContext, "支付结果确认中",
+                        if (TextUtils.equals(resultStatus, "6001")) {
+                            Toast.makeText(mContext, "操作取消",
                                     Toast.LENGTH_SHORT).show();
-
-                        } else {
+                        } else if(TextUtils.equals(resultStatus, "8000")) {
+                            // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
+                            Toast.makeText(mContext, "支付确定中",
+                                    Toast.LENGTH_SHORT).show();
+                        }else {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
                             Toast.makeText(mContext, "支付失败",
                                     Toast.LENGTH_SHORT).show();
-
                         }
                     }
                     break;
