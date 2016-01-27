@@ -85,12 +85,14 @@ public class CabinetAdapter extends BaseAdapter {
         TextView tv_goods_name = (TextView) cellView.findViewById(R.id.tv_goods_name);
         final TextView tv_num = (TextView) cellView.findViewById(R.id.tv_num);
         final TextView tv_buy_number = (TextView) cellView.findViewById(R.id.tv_buy_number);
+        TextView tv_goods_price = (TextView) cellView.findViewById(R.id.tv_goods_price);
         ImageView iv_goods_image_url = (ImageView) cellView.findViewById(R.id.iv_goods_image_url);
         final ImageView iv_reduction = (ImageView) cellView.findViewById(R.id.iv_reduction);
         final ImageView iv_add = (ImageView) cellView.findViewById(R.id.iv_add);
         final ImageView Choice = (ImageView) cellView.findViewById(R.id.iv_choice1);
         final LinearLayout ll_default = (LinearLayout) cellView.findViewById(R.id.ll_default);
 
+        tv_goods_price.setText("¥ "+List.get(position).goods_price);
         tv_goods_name.setText(List.get(position).goods_name);
         tv_buy_number.setText("剩余" + List.get(position).buy_number);
         APP.getApp().getImageLoader().displayImage(List.get(position).goods_image, iv_goods_image_url, APP.getApp().getImageOptions());

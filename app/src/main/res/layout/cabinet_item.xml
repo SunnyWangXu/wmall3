@@ -102,6 +102,15 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/tv_goods_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="60dp"
+                android:textColor="#f25252"
+                android:text="¥ 227"/>
+
+            <TextView
                 android:id="@+id/tv_buy_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

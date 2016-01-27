@@ -8,6 +8,7 @@ public class CadList_data {
     public String goods_name;
     public String goods_image;
     public String goods_id;
+    public String goods_price;
     public int num = 1; //编辑的商品数量
     public String selected = "0"; //编辑的商品数量
 
