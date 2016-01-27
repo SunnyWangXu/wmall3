@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
@@ -13,6 +14,7 @@ import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.wjhgw.ui.activity.D0_OrderActivity;
 
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
@@ -48,14 +50,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
 		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
 			if(resp.errCode == 0){
-				//Toast.makeText(this, "成功！"+resp.errCode, Toast.LENGTH_SHORT).show();
-				 /*Resources resource = (Resources) getBaseContext().getResources();
-            		Intent intent = new Intent(WXPayEntryActivity.this, WebViewActivity.class);
-            		intent.putExtra(WebViewActivity.WEBURL, ConfigModel.getInstance().config.site_url + "/app/user.php?act=order_list");
-                    String off=resource.getString(R.string.order_list);
-                    intent.putExtra(WebViewActivity.WEBTITLE, off);
-                    startActivity(intent);*/
-             	  //finish();
+				Toast.makeText(this, "成功！" + resp.errCode, Toast.LENGTH_SHORT).show();
 			}else if(resp.errCode == -1){
 				new AlertDialog.Builder(this)
 	            .setMessage("支付失败！")
@@ -79,6 +74,9 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 	            .setCancelable(false)	//点击对话框外不关闭
 	            .show();
 			}
+			Intent intent = new Intent(this, D0_OrderActivity.class);
+			startActivity(intent);
+			finish();
 		}
 	}
 }

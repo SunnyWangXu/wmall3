@@ -1,12 +1,14 @@
 package com.wjhgw.pay.Alipay;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
+import com.wjhgw.ui.activity.D0_OrderActivity;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -133,6 +135,7 @@ public class payMethod {
 
         // 服务器异步通知页面路径
         orderInfo += "&notify_url=" + "\"" + "http://dev.wjhgw.com/mobile/api/payment/alipay/sdk/notify_url.php" + "\"";
+        //orderInfo += "&notify_url=" + "\"" + "www.wjhgw.com/ECMobile/payment/alipay/sdk/notify_url.php" + "\"";
 
 		/*// 服务接口名称， 固定值
 		orderInfo += "&service=\"mobile.securitypay.pay\"";*/
@@ -210,6 +213,9 @@ public class payMethod {
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
+                    Intent intent = new Intent(mContext, D0_OrderActivity.class);
+                    mContext.startActivity(intent);
+                    mContext.finish();
                     break;
                 }
                 default:
