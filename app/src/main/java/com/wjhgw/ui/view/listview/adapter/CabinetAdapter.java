@@ -103,6 +103,12 @@ public class CabinetAdapter extends BaseAdapter {
             Choice.setImageResource(R.mipmap.ic_order_blank);
         }
 
+        if (num == List.size()) {
+            iv_select.setImageResource(R.mipmap.ic_order_select);
+        }else {
+            iv_select.setImageResource(R.mipmap.ic_order_blank);
+        }
+
         tv_num.setText("" + List.get(position).num);
         if (1 == List.get(position).num) {
             iv_reduction.setImageResource(R.mipmap.ic_disable_reduction);

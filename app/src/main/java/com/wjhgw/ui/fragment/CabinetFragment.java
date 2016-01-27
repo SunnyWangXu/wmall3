@@ -48,10 +48,8 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
         View.OnClickListener {
 
     private MyListView mListView;
-    private MyListView mListView1;
     private String key;
     private CabinetAdapter listAdapter = null;
-    private CadList cadList;
     private ImageView iv_select;
     private TextView tv_total_num;
 
@@ -156,7 +154,7 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                     iv_select.setImageResource(R.mipmap.ic_order_select);
                     listAdapter.total_num = 0;
                     for (int i = 0; i < listAdapter.List.size(); i++) {
-                        listAdapter.List.get(i).selected = cadList.datas.get(i).goods_id;
+                        listAdapter.List.get(i).selected = data.get(i).goods_id;
                         listAdapter.total_num += listAdapter.List.get(i).num;
                     }
                     tv_total_num.setText(listAdapter.total_num + "件");
@@ -230,7 +228,7 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                 Gson gson = new Gson();
                 if (responseInfo.result != null) {
                     cadList_data = responseInfo.result;
-                    cadList = gson.fromJson(responseInfo.result, CadList.class);
+                    CadList cadList = gson.fromJson(responseInfo.result, CadList.class);
                     if (cadList.status.code == 10000) {
                         mListView.stopRefresh();
                         mListView.stopLoadMore();
