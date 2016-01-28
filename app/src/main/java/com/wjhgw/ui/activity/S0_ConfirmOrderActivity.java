@@ -383,21 +383,30 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                  */
                 if (!tvAvailablePredeposit.getText().equals("0.00")) {
                     /**
-                     * 线上支付才能开启余额支付
+                     * 余额支付和充值卡支付只能开启一个
                      */
-                    if (!isDownlinePay) {
-                        MAKEBALANCE++;
-                        if (MAKEBALANCE % 2 == 0) {
-                            ivBalance.setImageResource(R.mipmap.ic_push_on);
-                            tvBalance.setTextColor(Color.parseColor("#333333"));
-                            //使用余额
-                            isUseBalance = true;
+                    double tvRealPay1 = Double.valueOf(tvRealPay.getText()+"");
+                    double tvAvailableRcBalance2 = Double.valueOf(tvAvailableRcBalance.getText()+"");
+                    if (MAKEAVAILABLERCBALANCE % 2 == 0 && tvRealPay1 <= tvAvailableRcBalance2) {
 
-                        } else {
-                            ivBalance.setImageResource(R.mipmap.ic_push_off);
-                            tvBalance.setTextColor(Color.parseColor("#cccccc"));
-                            //不使用余额
-                            isUseBalance = false;
+                    }else {
+                        /**
+                         * 线上支付才能开启余额支付
+                         */
+                        if (!isDownlinePay) {
+                            MAKEBALANCE++;
+                            if (MAKEBALANCE % 2 == 0) {
+                                ivBalance.setImageResource(R.mipmap.ic_push_on);
+                                tvBalance.setTextColor(Color.parseColor("#333333"));
+                                //使用余额
+                                isUseBalance = true;
+
+                            } else {
+                                ivBalance.setImageResource(R.mipmap.ic_push_off);
+                                tvBalance.setTextColor(Color.parseColor("#cccccc"));
+                                //不使用余额
+                                isUseBalance = false;
+                            }
                         }
                     }
                 }
@@ -409,23 +418,33 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                  */
                 if (!tvAvailableRcBalance.getText().equals("0.00")) {
                     /**
-                     * 线上支付才能开启余额支付
+                     * 余额支付和充值卡支付只能开启一个
                      */
-                    if (!isDownlinePay) {
-                        MAKEAVAILABLERCBALANCE++;
-                        if (MAKEAVAILABLERCBALANCE % 2 == 0) {
-                            ivAvailableRcBalance.setImageResource(R.mipmap.ic_push_on);
-                            tvRcBalance.setTextColor(Color.parseColor("#333333"));
-                            //使用余额
-                            isUseRcBalance = true;
+                    double tvRealPay1 = Double.valueOf(tvRealPay.getText()+"");
+                    double tvAvailablePredeposit3 = Double.valueOf(tvAvailablePredeposit.getText()+"");
+                    if (MAKEBALANCE % 2 == 0 && tvRealPay1 <= tvAvailablePredeposit3) {
 
-                        } else {
-                            ivAvailableRcBalance.setImageResource(R.mipmap.ic_push_off);
-                            tvRcBalance.setTextColor(Color.parseColor("#cccccc"));
-                            //不使用余额
-                            isUseRcBalance = false;
+                    }else {
+                        /**
+                         * 线上支付才能开启余额支付
+                         */
+                        if (!isDownlinePay) {
+                            MAKEAVAILABLERCBALANCE++;
+                            if (MAKEAVAILABLERCBALANCE % 2 == 0) {
+                                ivAvailableRcBalance.setImageResource(R.mipmap.ic_push_on);
+                                tvRcBalance.setTextColor(Color.parseColor("#333333"));
+                                //使用余额
+                                isUseRcBalance = true;
+
+                            } else {
+                                ivAvailableRcBalance.setImageResource(R.mipmap.ic_push_off);
+                                tvRcBalance.setTextColor(Color.parseColor("#cccccc"));
+                                //不使用余额
+                                isUseRcBalance = false;
+                            }
                         }
                     }
+
                 }
                 break;
 
