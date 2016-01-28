@@ -137,8 +137,8 @@ public class payMethod {
         orderInfo += "&notify_url=" + "\"" + "http://dev.wjhgw.com/mobile/api/payment/alipay/sdk/notify_url.php" + "\"";
         //orderInfo += "&notify_url=" + "\"" + "www.wjhgw.com/ECMobile/payment/alipay/sdk/notify_url.php" + "\"";
 
-		/*// 服务接口名称， 固定值
-		orderInfo += "&service=\"mobile.securitypay.pay\"";*/
+		// 服务接口名称， 固定值
+		orderInfo += "&service=\"mobile.securitypay.pay\"";
 
         // 支付类型， 固定值
         orderInfo += "&payment_type=\"1\"";
