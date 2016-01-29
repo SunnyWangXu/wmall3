@@ -17,6 +17,9 @@ public class Order_detail_data {
     public String order_state;
     public String order_type;
     public String order_id;
+    public String pay_sn;
+    public String rcb_amount;
+    public String pd_amount;
     public ArrayList<OrderList_goods_list_data> extend_order_goods;
     public Extend_order_common extend_order_common;
     public boolean if_cancel;   //是否可用取消

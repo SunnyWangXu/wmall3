@@ -314,6 +314,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
                     }
                     BigDecimal f = new BigDecimal(total + Integer.parseInt(List.get(position).goods_num) * Double.parseDouble(List.get(position).goods_price));
                     total = f.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
+                    total_num += Double.parseDouble(List.get(position).goods_num);
                     tv_total.setText("¥ " + total);
                     tv_total_num.setText("(" + total_num + ")");
                 } else {
