@@ -148,7 +148,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (index) {
             case 0:
                 indexImage.setImageResource(R.mipmap.ic_homepage_select);
-                indexText.setTextColor(Color.parseColor("#ba0e2f"));
+                indexText.setTextColor(Color.parseColor("#d63235"));
                 homeFragment = new HomeFragment();
                 transaction.replace(R.id.content, homeFragment);
                 /*if (homeFragment == null) {
@@ -162,14 +162,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case 1:
                 classification_image.setImageResource(R.mipmap.ic_search_select);
-                classification_text.setTextColor(Color.parseColor("#ba0e2f"));
+                classification_text.setTextColor(Color.parseColor("#d63235"));
                 categoryFragment = new CategoryFragment();
                 transaction.replace(R.id.content, categoryFragment);
 
                 break;
             case 2:
                 ivCabinet.setImageResource(R.mipmap.ic_cabinet_select);
-                contactsText.setTextColor(Color.parseColor("#ba0e2f"));
+                contactsText.setTextColor(Color.parseColor("#d63235"));
                 cabinetFragment = new CabinetFragment();
                 transaction.add(R.id.content, cabinetFragment);
 
@@ -177,7 +177,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             case 3:
                 shopping_car_image.setImageResource(R.mipmap.ic_shopping_cart_select);
-                shopping_car_text.setTextColor(Color.parseColor("#ba0e2f"));
+                shopping_car_text.setTextColor(Color.parseColor("#d63235"));
                 shoppingCartFragment = new ShoppingCartFragment();
                 transaction.replace(R.id.content, shoppingCartFragment);
                 /*if (shoppingCartFragment == null) {
@@ -191,7 +191,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case 4:
             default:
                 settingImage.setImageResource(R.mipmap.ic_mine_select);
-                settingText.setTextColor(Color.parseColor("#ba0e2f"));
+                settingText.setTextColor(Color.parseColor("#d63235"));
                 mineFragment = new MyFragment();
                 transaction.replace(R.id.content, mineFragment);
                 /*if (mineFragment == null) {

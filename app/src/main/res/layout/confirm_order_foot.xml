@@ -303,7 +303,7 @@
                 android:layout_marginLeft="20dp"
                 android:gravity="center"
                 android:text="订单满100包邮"
-                android:textColorHint="#cccccc" />
+                android:textColor="#cccccc" />
 
             <View
                 android:layout_width="0dp"

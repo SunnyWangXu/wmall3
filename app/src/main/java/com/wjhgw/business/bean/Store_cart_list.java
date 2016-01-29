@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Store_cart_list {
     public ArrayList<Order_goods_list> goods_list;
     public String store_goods_total;
-    public String freight;
+    public int freight;
     public String freight_message;
     public String store_name;
     public String store_id;

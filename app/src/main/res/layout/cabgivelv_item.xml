@@ -6,10 +6,10 @@
 
     <ImageView
         android:id="@+id/iv_give_image"
-        android:layout_width="90dp"
-        android:layout_height="match_parent"
+        android:layout_width="91dp"
+        android:layout_height="91dp"
         android:layout_marginBottom="11dp"
-        android:layout_marginLeft="11dp"
+        android:layout_marginLeft="12dp"
         android:layout_marginTop="17dp"
         android:src="@mipmap/default_image" />
 
@@ -22,25 +22,40 @@
             android:id="@+id/tv_give_goodsname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="14dp"
+            android:layout_marginLeft="13dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="17dp"
             android:text="我只是一个商品我只是一个商品我只是一个商品"
             android:textColor="@color/title_color"
             android:textSize="16sp" />
 
-
-        <TextView
-            android:id="@+id/tv_give_goodsnum"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="28dp"
-            android:layout_marginLeft="14dp"
-            android:text="×2"
-            android:textColor="@color/gray"
-            android:textSize="13sp" />
+            android:layout_marginBottom="23dp"
+            android:layout_marginLeft="17dp"
+            android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/tv_give_goodsprice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="¥ 248.00"
+                android:textColor="@color/btn_red"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_give_goodsnum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="122dp"
+                android:text="×2"
+                android:textColor="@color/gray"
+                android:textSize="14sp" />
+
+        </LinearLayout>
     </RelativeLayout>
 
 </LinearLayout>
