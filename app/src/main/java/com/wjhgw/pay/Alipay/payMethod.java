@@ -214,6 +214,8 @@ public class payMethod {
                         }
                     }
                     Intent intent = new Intent(mContext, D0_OrderActivity.class);
+                    intent.putExtra("order_state", "");
+                    intent.putExtra("name", "所有订单");
                     mContext.startActivity(intent);
                     mContext.finish();
                     break;

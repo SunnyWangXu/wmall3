@@ -23,6 +23,7 @@ import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.api.Order_Request;
 import com.wjhgw.business.bean.Order_detail;
+import com.wjhgw.business.bean.PayOrder;
 import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.dialog.MyDialog;
@@ -263,7 +264,9 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
             case R.id.tv_button2:
                 if (order_detail.datas.order_state.equals("10")) {
                     if (order_detail.datas.payment) {
-                        showToastShort("前往付款");
+                        //showToastShort("前往付款");
+                        member_payment(order_detail.datas.pay_sn, key, order_detail.datas.order_amount,
+                                order_detail.datas.rcb_amount, order_detail.datas.pd_amount);
                     }
                     //待付款
                 } else if (order_detail.datas.order_state.equals("20")) {
@@ -510,6 +513,47 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
             @Override
             public void onClick(View v) {
                 order_cancelDialog.dismiss();
+            }
+        });
+    }
+
+
+    /**
+     * 订单支付
+     */
+    public void member_payment(String pay_sn, String key, final String order_amount, final String rcb_amount, final String pd_amount) {
+        super.StartLoading();
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+        params.addBodyParameter("pay_sn", pay_sn);
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Member_payment, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                if (responseInfo != null) {
+                    Gson gson = new Gson();
+                    PayOrder payOrder = gson.fromJson(responseInfo.result, PayOrder.class);
+                    D1_OrderActivity.this.Dismiss();
+                    if (payOrder.status.code == 10000) {
+                        Intent intent = new Intent(D1_OrderActivity.this, S3_SelectPaymentActivity.class);
+                        intent.putExtra("tvRealPay", order_amount);
+                        intent.putExtra("tvAvailablePredeposit", rcb_amount);
+                        intent.putExtra("tvAvailableRcBalance", pd_amount);
+                        intent.putExtra("paySn", payOrder.datas.data.pay_sn);
+                        intent.putExtra("totalFee", payOrder.datas.data.total_fee);
+                        intent.putExtra("goodsName", payOrder.datas.data.goods_name);
+                        intent.putExtra("goodsDetail", payOrder.datas.data.goods_detail);
+                        startActivity(intent);
+
+                    }else {
+                        overtime(payOrder.status.code, payOrder.status.msg);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                showToastShort("失败");
             }
         });
     }

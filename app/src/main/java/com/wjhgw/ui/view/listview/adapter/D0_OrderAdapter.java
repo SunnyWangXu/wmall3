@@ -14,6 +14,7 @@ package com.wjhgw.ui.view.listview.adapter;
 //  Powered by BeeFramework
 //
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -55,7 +56,7 @@ import java.util.Date;
  * 订单列表适配器
  */
 public class D0_OrderAdapter extends BaseAdapter {
-    private Context c;
+    public Context c;
     private MyListView itemListView;
     private D0_OrderAdapter1 listAdapter;
     public ArrayList<OrderList_data> List;
@@ -66,6 +67,7 @@ public class D0_OrderAdapter extends BaseAdapter {
     private Order_cancelDialog order_cancelDialog;
     private String msg = "购买其他商品";
     private LoadDialog Dialog;
+
 
     public D0_OrderAdapter(Context c, ArrayList<OrderList_data> dataList, Order_Request Request, String key) {
         mInflater = LayoutInflater.from(c);
@@ -409,6 +411,7 @@ public class D0_OrderAdapter extends BaseAdapter {
                         intent.putExtra("goodsName", payOrder.datas.data.goods_name);
                         intent.putExtra("goodsDetail", payOrder.datas.data.goods_detail);
                         c.startActivity(intent);
+                        ((Activity)c).finish();
 
                     } else if (payOrder.status.code == 200103 || payOrder.status.code == 200104) {
                         Toast.makeText(c, "登录超时或未登录", Toast.LENGTH_SHORT).show();
