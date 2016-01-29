@@ -86,10 +86,11 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
          */
         String id = getIntent().getStringExtra("goods_id");
         Shopping_Cart = getIntent().getStringExtra("Shopping_Cart");
-        String url = "http://10.10.0.181/wap/index.php?act=goods&op=index&id=" + id;
+        //BaseQuery.environment()
+        String url = BaseQuery.serviceUrl()+"/wap/index.php?act=goods&op=index&id=" + id;
         Map<String, String> keyMap = new HashMap<>();
         if (!key.equals("0")) {
-            keyMap.put("Authentication", getKey());
+            keyMap.put("authentication", key);
             webView.loadUrl(url, keyMap);
         }
 
@@ -165,7 +166,10 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
         public void callHandler(String handlerName, String data) {
 
             if (handlerName.equals("goHomeHandler")) {
-                Intent intent = new Intent(PrductDetailActivity.this, MainActivity.class);
+                Intent intent = new Intent();
+                intent.setClass(PrductDetailActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);//设置不要刷新将要跳到的界面
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//它可以关掉所要到的界面中间的activity
                 startActivity(intent);
                 finish();
                 showToastShort(data);
