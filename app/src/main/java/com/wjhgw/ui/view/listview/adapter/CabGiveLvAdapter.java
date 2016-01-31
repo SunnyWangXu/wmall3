@@ -24,6 +24,7 @@ public class CabGiveLvAdapter extends BaseAdapter {
     private ImageView ivGiveImage;
     private TextView ivGiveGoodsname;
     private TextView ivGiveGoodsnum;
+    private TextView ivGiveGoodsPrice;
 
 
     public CabGiveLvAdapter(Context context, List<CadList_data> datas1) {
@@ -52,10 +53,13 @@ public class CabGiveLvAdapter extends BaseAdapter {
         convertView = LayoutInflater.from(context).inflate(R.layout.cabgivelv_item, null);
         ivGiveImage = (ImageView) convertView.findViewById(R.id.iv_give_image);
         ivGiveGoodsname = (TextView) convertView.findViewById(R.id.tv_give_goodsname);
+        ivGiveGoodsPrice = (TextView) convertView.findViewById(R.id.tv_give_goodsprice);
         ivGiveGoodsnum = (TextView) convertView.findViewById(R.id.tv_give_goodsnum);
 
         ivGiveGoodsname.setText(datas1.get(position).goods_name);
-        ivGiveGoodsnum.setText("x" + datas1.get(position).num );
+        ivGiveGoodsPrice.setText("¥" + datas1.get(position).goods_price);
+        ivGiveGoodsnum.setText("x" + datas1.get(position).num);
+
 
         APP.getApp().getImageLoader().displayImage(datas1.get(position).goods_image, ivGiveImage);
 

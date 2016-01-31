@@ -140,6 +140,7 @@ public class S1_OrderAddressActivity extends BaseActivity implements View.OnClic
         intent.putExtra("tureName", order_address_list.get(position).true_name);
         intent.putExtra("phone", order_address_list.get(position).mob_phone);
         intent.putExtra("addressInfo", order_address_list.get(position).area_info + " " + order_address_list.get(position).address);
+        intent.putExtra("addressId",order_address_list.get(position).address_id);
 
         setResult(55555, intent);
         finish(false);

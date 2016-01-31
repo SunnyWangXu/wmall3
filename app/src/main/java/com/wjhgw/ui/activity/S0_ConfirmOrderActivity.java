@@ -88,7 +88,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private TextView tvFreight;
     private TextView tvRealPay;
     private LvOrderListAdapter lvOrderListAdapter;
-    private String freight;
+    private int freight;
     private double realPay = 0;
     private boolean isDownlinePay;
     private ImageView ivBalance;

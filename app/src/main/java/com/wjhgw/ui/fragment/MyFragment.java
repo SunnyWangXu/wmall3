@@ -164,7 +164,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     @Override
     public void onRefresh(int id) {
         /**
-         * 获取网络信息
+         * 请求用户信息
          */
         if (!key.equals("0")) {
             load_User_information();
