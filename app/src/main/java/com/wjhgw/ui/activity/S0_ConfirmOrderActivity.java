@@ -324,6 +324,8 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             useName = data.getStringExtra("tureName");
             usePhone = data.getStringExtra("phone");
             useAddressInfo = data.getStringExtra("addressInfo");
+            address_id = data.getStringExtra("addressId");
+
             if (useName != null && usePhone != null && useAddressInfo != null) {
                 tvUseName.setText(useName);
                 tvUsePhone.setText(usePhone);
