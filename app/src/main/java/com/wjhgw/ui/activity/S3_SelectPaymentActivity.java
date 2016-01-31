@@ -66,6 +66,7 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
         entrance = getIntent().getStringExtra("entrance");
 
         //showToastShort(paySn + "\\\\" + totalFee + "\\\\" + goodsName + "\\\\" + goodsDetail);
+        tvEndPay.setText(Double.valueOf(totalFee) + "");
     }
 
     @Override
@@ -115,7 +116,6 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
 
 //        double end = Double.valueOf(realPay) - Double.valueOf(balance) - Double.valueOf(rcBalance);
 
-        tvEndPay.setText(Double.valueOf(totalFee) + "");
 
     }
 
