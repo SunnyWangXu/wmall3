@@ -19,13 +19,9 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.pay.Alipay.payMethod;
-import com.wjhgw.pay.WeChat.MD5;
 
-import org.apache.http.NameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.List;
 
 /**
  * 选择支付Activity
@@ -117,9 +113,9 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
             tvPayRcBalance.setText(rcBalance);
         }
 
-        double end = Double.valueOf(realPay) - Double.valueOf(balance) - Double.valueOf(rcBalance);
+//        double end = Double.valueOf(realPay) - Double.valueOf(balance) - Double.valueOf(rcBalance);
 
-        tvEndPay.setText(end + "");
+        tvEndPay.setText(Double.valueOf(totalFee) + "");
 
     }
 
@@ -216,7 +212,7 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
     };
 
 
-    private String genAppSign(List<NameValuePair> params) {
+ /*   private String genAppSign(List<NameValuePair> params) {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < params.size(); i++) {
@@ -232,5 +228,5 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
         String appSign = MD5.getMessageDigest(sb.toString().getBytes());
         //Log.e("orion", appSign);
         return appSign;
-    }
+    }*/
 }

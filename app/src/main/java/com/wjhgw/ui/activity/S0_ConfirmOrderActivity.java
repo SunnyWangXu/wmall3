@@ -385,11 +385,11 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                     /**
                      * 余额支付和充值卡支付只能开启一个
                      */
-                    double tvRealPay1 = Double.valueOf(tvRealPay.getText()+"");
-                    double tvAvailableRcBalance2 = Double.valueOf(tvAvailableRcBalance.getText()+"");
+                    double tvRealPay1 = Double.valueOf(tvRealPay.getText() + "");
+                    double tvAvailableRcBalance2 = Double.valueOf(tvAvailableRcBalance.getText() + "");
                     if (MAKEAVAILABLERCBALANCE % 2 == 0 && tvRealPay1 <= tvAvailableRcBalance2) {
 
-                    }else {
+                    } else {
                         /**
                          * 线上支付才能开启余额支付
                          */
@@ -420,11 +420,11 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                     /**
                      * 余额支付和充值卡支付只能开启一个
                      */
-                    double tvRealPay1 = Double.valueOf(tvRealPay.getText()+"");
-                    double tvAvailablePredeposit3 = Double.valueOf(tvAvailablePredeposit.getText()+"");
+                    double tvRealPay1 = Double.valueOf(tvRealPay.getText() + "");
+                    double tvAvailablePredeposit3 = Double.valueOf(tvAvailablePredeposit.getText() + "");
                     if (MAKEBALANCE % 2 == 0 && tvRealPay1 <= tvAvailablePredeposit3) {
 
-                    }else {
+                    } else {
                         /**
                          * 线上支付才能开启余额支付
                          */
@@ -454,7 +454,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                      * 提交订单
                      */
                     CommitOrder();
-                } else if (isUseBalance) {
+                } else if (isUseBalance ||isUseRcBalance ) {
                     /**
                      * 判断是否有登录密码,没有就设置，有就去输入下单
                      */
@@ -527,11 +527,23 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                     /**
                      * （余额+上充值卡余额）- 需要使用的金额
                      */
-                    double rcBalance = Double.valueOf(tvAvailableRcBalance.getText().toString());
-                    double balance = Double.valueOf(tvAvailablePredeposit.getText().toString());
+                    double balance;
+                    double rcBalance;
+
+                    if (isUseBalance) {
+                        balance = Double.valueOf(tvAvailablePredeposit.getText().toString());
+
+                    } else {
+                        balance = 0.00;
+                    }
+                    if (isUseRcBalance) {
+                        rcBalance = Double.valueOf(tvAvailableRcBalance.getText().toString());
+                    } else {
+                        rcBalance = 0.00;
+                    }
                     double yu = (rcBalance + balance) - Double.valueOf(tvRealPay.getText().toString());
 
-                    if (isUseBalance && yu > 0) {
+                    if (isUseBalance ||isUseRcBalance && yu > 0) {
                         /**
                          * 选择了余额支付或者使用充值卡余额支付并且余额大于选中商品金额直接购买成功
                          */
@@ -571,10 +583,10 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                             intent.putExtra("goodsDetail", goodsDetail);
                             intent.putExtra("entrance", "1");
 
-                            if(totalFee > 0 && paySn != null){
+                            if (totalFee > 0 && paySn != null) {
                                 startActivity(intent);
                                 finish();
-                            }else {
+                            } else {
                                 showToastShort("下单异常，请重新操作");
                                 finish();
                             }
