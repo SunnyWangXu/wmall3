@@ -559,6 +559,7 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
      * 清空2
      */
     private void eliminate1() {
+        iv_select1.setImageResource(R.mipmap.ic_order_blank);
         listAdapter.goods_id = null;
         listAdapter.goods_id = new String[listAdapter.List.size()];
         for (int i = 0; i < listAdapter.List.size(); i++) {
