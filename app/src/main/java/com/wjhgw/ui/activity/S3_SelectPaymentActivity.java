@@ -46,7 +46,7 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
     private TextView tvPayRcBalance;
     private LinearLayout llRcBalancePay;
     private String paySn;
-    private double totalFee;
+    private String totalFee;
     private String goodsName;
     private String goodsDetail;
     private String entrance;
@@ -60,13 +60,13 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
         sb = new StringBuffer();
 
         paySn = getIntent().getStringExtra("paySn");
-        totalFee = getIntent().getDoubleExtra("totalFee", 0.00);
+        totalFee = getIntent().getStringExtra("totalFee");
         goodsName = getIntent().getStringExtra("goodsName");
         goodsDetail = getIntent().getStringExtra("goodsDetail");
         entrance = getIntent().getStringExtra("entrance");
 
         //showToastShort(paySn + "\\\\" + totalFee + "\\\\" + goodsName + "\\\\" + goodsDetail);
-        tvEndPay.setText(Double.valueOf(totalFee) + "");
+        tvEndPay.setText(totalFee);
     }
 
     @Override
@@ -147,7 +147,7 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
                     buy();
                 } else {
 //                    payMethod pay = new payMethod(this, "订单号", "测试的商品", "测试的商品详情", "0.01");
-                    payMethod pay = new payMethod(this, paySn, goodsName, goodsDetail, totalFee + "", entrance);
+                    payMethod pay = new payMethod(this, paySn, goodsName, goodsDetail, totalFee, entrance);
                     pay.pay();
                 }
                 break;

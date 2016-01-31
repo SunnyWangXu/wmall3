@@ -402,7 +402,7 @@ public class D0_OrderAdapter extends BaseAdapter {
                     Dialog.dismiss();
                     if (payOrder.status.code == 10000) {
 
-                        if(payOrder.datas.data.total_fee > 0){
+                        if(Double.valueOf(payOrder.datas.data.total_fee) > 0){
                             Intent intent = new Intent(c, S3_SelectPaymentActivity.class);
                             intent.putExtra("tvRealPay", order_amount);
                             intent.putExtra("tvAvailablePredeposit", rcb_amount);
