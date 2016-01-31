@@ -94,8 +94,8 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
     private TextView tvUseBalancePrice;
     private TextView tvUseRcBalancePrice;
     private boolean truePaypwd;
-    private boolean isUseBanlance = false;
-    private boolean isUseRcBanlance = false;
+    private boolean isUseBalance = false;
+    private boolean isUseRcBalance = false;
     private TextView tvFreight;
 
 
@@ -319,12 +319,12 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                     ivUseBalance.setImageResource(R.mipmap.ic_push_on);
                     tvUseBalance.setTextColor(Color.parseColor("#333333"));
 
-                    isUseBanlance  = true;
+                    isUseBalance = true;
                 } else {
                     ivUseBalance.setImageResource(R.mipmap.ic_push_off);
                     tvUseBalance.setTextColor(Color.parseColor("#999999"));
 
-                    isUseBanlance  = false;
+                    isUseBalance = false;
                 }
 
                 break;
@@ -335,12 +335,12 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                     ivUseRcBalance.setImageResource(R.mipmap.ic_push_on);
                     tvUseRcBalance.setTextColor(Color.parseColor("#333333"));
 
-                    isUseRcBanlance = true;
+                    isUseRcBalance = true;
                 } else {
                     ivUseRcBalance.setImageResource(R.mipmap.ic_push_off);
                     tvUseRcBalance.setTextColor(Color.parseColor("#999999"));
 
-                    isUseRcBanlance = false;
+                    isUseRcBalance = false;
                 }
 
                 break;
@@ -440,12 +440,12 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
         }
         params.addBodyParameter("pay_name", "online");
 
-        if(isUseBanlance){
+        if(isUseBalance){
             params.addBodyParameter("pd_pay","1");
         }else{
             params.addBodyParameter("pd_pay","0");
         }
-        if(isUseRcBanlance){
+        if(isUseRcBalance){
             params.addBodyParameter("rcb_pay","1");
         }else{
             params.addBodyParameter("rcb_pay","0");
@@ -463,11 +463,25 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                 PayOrder payOrder = gson.fromJson(responseInfo.result, PayOrder.class);
                 if(payOrder.status.code == 10000){
 
+                    double balance;
+                    double rcBalance;
+                    if(isUseBalance){
+                        balance = Double.valueOf(tvUseBalancePrice.getText().toString());
+                    }else{
+                        balance = 0.00;
+                    }
+                    if(isUseRcBalance){
+                        rcBalance = Double.valueOf(tvUseBalancePrice.getText().toString());
+                    }else{
+                        rcBalance = 0.00;
+                    }
+
+                    double yu = (rcBalance + balance) - Double.valueOf(tvFreight.getText().toString());
+
+                    if (isUseBalance ||  isUseRcBalance && yu > 0) {
 
 
-
-
-
+                    }
 
                 }else{
                     showToastShort(payOrder.status.msg);
