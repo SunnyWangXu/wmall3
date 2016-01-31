@@ -141,7 +141,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      *
      * @param index 每个tab页对应的下标。0首页，  1分类  2发现 3购物车 4我的
      */
-    private void setTabSelection(int index) {
+    public void setTabSelection(int index) {
         clearSelection();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         // hideFragments(transaction);
@@ -171,7 +171,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 ivCabinet.setImageResource(R.mipmap.ic_cabinet_select);
                 contactsText.setTextColor(Color.parseColor("#ba0e2f"));
                 cabinetFragment = new CabinetFragment();
-                transaction.add(R.id.content, cabinetFragment);
+                transaction.replace(R.id.content, cabinetFragment);
 
                 break;
 

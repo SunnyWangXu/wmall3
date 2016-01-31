@@ -53,6 +53,7 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
     private double totalFee;
     private String goodsName;
     private String goodsDetail;
+    private String entrance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
         totalFee = getIntent().getDoubleExtra("totalFee", 0.00);
         goodsName = getIntent().getStringExtra("goodsName");
         goodsDetail = getIntent().getStringExtra("goodsDetail");
+        entrance = getIntent().getStringExtra("entrance");
 
         //showToastShort(paySn + "\\\\" + totalFee + "\\\\" + goodsName + "\\\\" + goodsDetail);
     }
@@ -149,7 +151,7 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
                     buy();
                 } else {
 //                    payMethod pay = new payMethod(this, "订单号", "测试的商品", "测试的商品详情", "0.01");
-                    payMethod pay = new payMethod(this, paySn, goodsName, goodsDetail, totalFee + "");
+                    payMethod pay = new payMethod(this, paySn, goodsName, goodsDetail, totalFee + "", entrance);
                     pay.pay();
                 }
                 break;

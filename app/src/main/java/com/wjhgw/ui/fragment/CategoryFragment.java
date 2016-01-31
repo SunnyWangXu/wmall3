@@ -136,7 +136,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
                 getActivity().startActivity(intent);
                 break;
             case R.id.rl_message:
-                final under_developmentDialog underdevelopmentDialog = new under_developmentDialog(getActivity());
+                final under_developmentDialog underdevelopmentDialog = new under_developmentDialog(getActivity(),"功能正在开发中,敬请期待");
                 underdevelopmentDialog.show();
                 underdevelopmentDialog.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
                     @Override

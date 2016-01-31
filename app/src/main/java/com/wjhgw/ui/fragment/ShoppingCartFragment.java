@@ -223,7 +223,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                 break;
             case R.id.tv_delete:
                 if (listAdapter.num > 0) {
-                    mDialog = new MyDialog(getActivity(), "温馨提示", "确定要删除该商品？");
+                    mDialog = new MyDialog(getActivity(), "确定要删除该商品？");
                     mDialog.show();
                     mDialog.positive.setOnClickListener(new View.OnClickListener() {
                         @Override

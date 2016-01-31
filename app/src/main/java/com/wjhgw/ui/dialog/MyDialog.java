@@ -16,12 +16,11 @@ import com.wjhgw.R;
 public class MyDialog {
 
 	private Dialog mDialog;
-	private TextView dialog_title;
 	private TextView dialog_message;
 	public TextView positive;
 	public TextView negative;
 
-	public MyDialog(Context context, String title, String message) {
+	public MyDialog(Context context, String message) {
 
 		LayoutInflater inflater = LayoutInflater.from(context);
 		View view = inflater.inflate(R.layout.dialog_layout, null);
@@ -38,9 +37,8 @@ public class MyDialog {
                 return false;
             }
         });
-		dialog_title = (TextView) view.findViewById(R.id.dialog_title);
 		dialog_message = (TextView) view.findViewById(R.id.dialog_message);
-		dialog_title.setText(title);
+
 		dialog_message.setText(message);
 		
 		positive = (TextView) view.findViewById(R.id.yes);

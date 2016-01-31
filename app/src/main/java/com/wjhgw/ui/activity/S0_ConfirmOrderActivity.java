@@ -569,6 +569,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                             intent.putExtra("totalFee", totalFee);
                             intent.putExtra("goodsName", goodsName);
                             intent.putExtra("goodsDetail", goodsDetail);
+                            intent.putExtra("entrance", "1");
 
                             if(totalFee > 0 && paySn != null){
                                 startActivity(intent);

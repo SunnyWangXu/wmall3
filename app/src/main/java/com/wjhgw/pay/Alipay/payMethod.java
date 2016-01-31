@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.wjhgw.ui.activity.D0_OrderActivity;
+import com.wjhgw.ui.dialog.MyDialog;
+import com.wjhgw.ui.dialog.under_developmentDialog;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -31,14 +34,17 @@ public class payMethod {
     private String desc;    //商品详情
     private String subject; // 商品名称
     private String order_sn;    // 商户网站唯一订单号
+    private String entrance;    //用于判断当前界面
     private Activity mContext;
+    private MyDialog mDialog;
 
-    public payMethod(Activity context, String order_sn, String subject, String desc, String order_amount) {
+    public payMethod(Activity context, String order_sn, String subject, String desc, String order_amount, String entrance) {
         this.order_amount = order_amount;
         this.desc = desc;
         this.subject = subject;
         this.order_sn = order_sn;
         this.mContext = context;
+        this.entrance = entrance;
     }
 
     /**
@@ -186,16 +192,68 @@ public class payMethod {
             switch (msg.what) {
                 case 1: {
                     PayResult payResult = new PayResult((String) msg.obj);
-
                     // 支付宝返回此次支付结果及加签，建议对支付宝签名信息拿签约时支付宝提供的公钥做验签
                     String resultInfo = payResult.getResult();
-
                     String resultStatus = payResult.getResultStatus();
-
+                    String message = null;
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        Toast.makeText(mContext, "支付成功",
-                                Toast.LENGTH_SHORT).show();
+                        message = "订单支付成功，会尽快为您处理";
+                        if(entrance.equals("1")){
+                            mDialog = new MyDialog(mContext,message);
+                            mDialog.positive.setText("继续购物");
+                            mDialog.negative.setText("查看订单");
+                            mDialog.show();
+                            mDialog.positive.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    mContext.finish();
+                                }
+                            });
+                            mDialog.negative.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    mDialog.dismiss();
+                                    Intent intent = new Intent(mContext, D0_OrderActivity.class);
+                                    intent.putExtra("order_state", "");
+                                    intent.putExtra("name", "所有订单");
+                                    mContext.startActivity(intent);
+                                    mContext.finish();
+                                }
+                            });
+                        }else if(entrance.equals("2")){
+                            under_developmentDialog under = new under_developmentDialog(mContext,message);
+                            under.show();
+                            under.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    mContext.finish();
+                                }
+                            });
+                        }else if(entrance.equals("3")){
+                            mDialog = new MyDialog(mContext,message);
+                            mDialog.positive.setText("继续送礼");
+                            mDialog.negative.setText("查看订单");
+                            mDialog.show();
+                            mDialog.positive.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    mContext.finish();
+                                }
+                            });
+                            mDialog.negative.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    mDialog.dismiss();
+                                    Intent intent = new Intent(mContext, D0_OrderActivity.class);
+                                    intent.putExtra("order_state", "");
+                                    intent.putExtra("name", "所有订单");
+                                    mContext.startActivity(intent);
+                                    mContext.finish();
+                                }
+                            });
+                        }
+
 
                     } else {
                         // 判断resultStatus 为非“9000”则代表可能支付失败
@@ -203,21 +261,26 @@ public class payMethod {
                         if (TextUtils.equals(resultStatus, "6001")) {
                             Toast.makeText(mContext, "操作取消",
                                     Toast.LENGTH_SHORT).show();
+                            mContext.finish();
                         } else if(TextUtils.equals(resultStatus, "8000")) {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
                             Toast.makeText(mContext, "支付确定中",
                                     Toast.LENGTH_SHORT).show();
+                            mContext.finish();
                         }else {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
-                            Toast.makeText(mContext, "支付失败",
-                                    Toast.LENGTH_SHORT).show();
+                            message = "订单支付失败，请继续尝试支付！";
+                            under_developmentDialog under = new under_developmentDialog(mContext,message);
+                            under.show();
+                            under.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    mContext.finish();
+                                }
+                            });
                         }
                     }
-                    Intent intent = new Intent(mContext, D0_OrderActivity.class);
-                    intent.putExtra("order_state", "");
-                    intent.putExtra("name", "所有订单");
-                    mContext.startActivity(intent);
-                    mContext.finish();
+
                     break;
                 }
                 default:

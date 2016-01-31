@@ -111,7 +111,7 @@ public class manage_address_adapter extends BaseAdapter {
         ll_delete1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDialog = new MyDialog(mContext, "温馨提示", "删除后不可找回");
+                mDialog = new MyDialog(mContext, "删除后不可找回");
                 mDialog.show();
                 mDialog.positive.setOnClickListener(new View.OnClickListener() {
                     @Override

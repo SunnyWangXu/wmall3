@@ -14,7 +14,6 @@ package com.wjhgw.ui.view.listview.adapter;
 //  Powered by BeeFramework
 //
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -206,7 +205,7 @@ public class D0_OrderAdapter extends BaseAdapter {
                 } else if (List.get(position).order_state.equals("30")) {
                     if (List.get(position).if_receive) {
                         //Toast.makeText(c, "确定收货", Toast.LENGTH_SHORT).show();
-                        mDialog = new MyDialog(c, "温馨提示", "是否确定收货？");
+                        mDialog = new MyDialog(c, "是否确定收货？");
                         mDialog.show();
                         mDialog.positive.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -244,7 +243,7 @@ public class D0_OrderAdapter extends BaseAdapter {
                 } else if (List.get(position).order_state.equals("0")) {
                     if (List.get(position).delete) {
                         //Toast.makeText(c, "删除订单", Toast.LENGTH_SHORT).show();
-                        mDialog = new MyDialog(c, "温馨提示", "确定要删除该订单？");
+                        mDialog = new MyDialog(c, "确定要删除该订单？");
                         mDialog.show();
                         mDialog.positive.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -288,7 +287,7 @@ public class D0_OrderAdapter extends BaseAdapter {
                 } else if (List.get(position).order_state.equals("40")) {
                     if (List.get(position).delete) {
                         //Toast.makeText(c, "删除订单", Toast.LENGTH_SHORT).show();
-                        mDialog = new MyDialog(c, "温馨提示", "确定要删除该订单？");
+                        mDialog = new MyDialog(c, "确定要删除该订单？");
                         mDialog.show();
                         mDialog.positive.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -402,17 +401,19 @@ public class D0_OrderAdapter extends BaseAdapter {
                     PayOrder payOrder = gson.fromJson(responseInfo.result, PayOrder.class);
                     Dialog.dismiss();
                     if (payOrder.status.code == 10000) {
-                        Intent intent = new Intent(c, S3_SelectPaymentActivity.class);
-                        intent.putExtra("tvRealPay", order_amount);
-                        intent.putExtra("tvAvailablePredeposit", rcb_amount);
-                        intent.putExtra("tvAvailableRcBalance", pd_amount);
-                        intent.putExtra("paySn", payOrder.datas.data.pay_sn);
-                        intent.putExtra("totalFee", payOrder.datas.data.total_fee);
-                        intent.putExtra("goodsName", payOrder.datas.data.goods_name);
-                        intent.putExtra("goodsDetail", payOrder.datas.data.goods_detail);
-                        c.startActivity(intent);
-                        ((Activity)c).finish();
 
+                        if(payOrder.datas.data.total_fee > 0){
+                            Intent intent = new Intent(c, S3_SelectPaymentActivity.class);
+                            intent.putExtra("tvRealPay", order_amount);
+                            intent.putExtra("tvAvailablePredeposit", rcb_amount);
+                            intent.putExtra("tvAvailableRcBalance", pd_amount);
+                            intent.putExtra("paySn", payOrder.datas.data.pay_sn);
+                            intent.putExtra("totalFee", payOrder.datas.data.total_fee);
+                            intent.putExtra("goodsName", payOrder.datas.data.goods_name);
+                            intent.putExtra("goodsDetail", payOrder.datas.data.goods_detail);
+                            intent.putExtra("entrance", "2");
+                            c.startActivity(intent);
+                        }
                     } else if (payOrder.status.code == 200103 || payOrder.status.code == 200104) {
                         Toast.makeText(c, "登录超时或未登录", Toast.LENGTH_SHORT).show();
                         c.getSharedPreferences("key", c.MODE_APPEND).edit().putString("key", "0").commit();

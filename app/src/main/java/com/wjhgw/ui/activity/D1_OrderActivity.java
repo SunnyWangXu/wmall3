@@ -183,7 +183,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                 } else if (order_detail.datas.order_state.equals("20")) {
                     if (order_detail.datas.if_remind) {
                         //showToastShort("提醒发货");
-                        mDialog = new MyDialog(this, "温馨提示", "确定要删除该订单？");
+                        mDialog = new MyDialog(this, "确定要删除该订单？");
                         mDialog.show();
                         mDialog.positive.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -203,7 +203,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                 } else if (order_detail.datas.order_state.equals("30")) {
                     if (order_detail.datas.if_receive) {
                         //showToastShort("确定收货");
-                        mDialog = new MyDialog(this, "温馨提示", "是否确定收货？");
+                        mDialog = new MyDialog(this, "是否确定收货？");
                         mDialog.show();
                         mDialog.positive.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -242,7 +242,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                 } else if (order_detail.datas.order_state.equals("0")) {
                     if (order_detail.datas.delete) {
                         //showToastShort("删除订单");
-                        mDialog = new MyDialog(this, "温馨提示", "确定要删除该订单？");
+                        mDialog = new MyDialog(this,"确定要删除该订单？");
                         mDialog.show();
                         mDialog.positive.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -283,7 +283,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                 } else if (order_detail.datas.order_state.equals("40")) {
                     if (order_detail.datas.delete) {
                         //showToastShort("删除订单");
-                        mDialog = new MyDialog(this, "温馨提示", "确定要删除该订单？");
+                        mDialog = new MyDialog(this,"确定要删除该订单？");
                         mDialog.show();
                         mDialog.positive.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -535,16 +535,17 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                     PayOrder payOrder = gson.fromJson(responseInfo.result, PayOrder.class);
                     D1_OrderActivity.this.Dismiss();
                     if (payOrder.status.code == 10000) {
-                        Intent intent = new Intent(D1_OrderActivity.this, S3_SelectPaymentActivity.class);
-                        intent.putExtra("tvRealPay", order_amount);
-                        intent.putExtra("tvAvailablePredeposit", rcb_amount);
-                        intent.putExtra("tvAvailableRcBalance", pd_amount);
-                        intent.putExtra("paySn", payOrder.datas.data.pay_sn);
-                        intent.putExtra("totalFee", payOrder.datas.data.total_fee);
-                        intent.putExtra("goodsName", payOrder.datas.data.goods_name);
-                        intent.putExtra("goodsDetail", payOrder.datas.data.goods_detail);
-                        startActivity(intent);
-
+                        if(payOrder.datas.data.total_fee > 0) {
+                            Intent intent = new Intent(D1_OrderActivity.this, S3_SelectPaymentActivity.class);
+                            intent.putExtra("tvRealPay", order_amount);
+                            intent.putExtra("tvAvailablePredeposit", rcb_amount);
+                            intent.putExtra("tvAvailableRcBalance", pd_amount);
+                            intent.putExtra("paySn", payOrder.datas.data.pay_sn);
+                            intent.putExtra("totalFee", payOrder.datas.data.total_fee);
+                            intent.putExtra("goodsName", payOrder.datas.data.goods_name);
+                            intent.putExtra("goodsDetail", payOrder.datas.data.goods_detail);
+                            startActivity(intent);
+                        }
                     }else {
                         overtime(payOrder.status.code, payOrder.status.msg);
                     }
