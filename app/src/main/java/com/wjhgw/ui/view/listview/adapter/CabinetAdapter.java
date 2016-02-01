@@ -121,7 +121,7 @@ public class CabinetAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Intent intent = new Intent(c, PrductDetailActivity.class);
                 intent.putExtra("goods_id", List.get(position).goods_id);
-                intent.putExtra("Shopping_Cart", "1");
+                //intent.putExtra("Shopping_Cart", "1");
                 c.startActivity(intent);
             }
         });
