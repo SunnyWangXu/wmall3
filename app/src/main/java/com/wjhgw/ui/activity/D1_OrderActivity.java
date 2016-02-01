@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
@@ -546,6 +547,8 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                             intent.putExtra("goodsDetail", payOrder.datas.data.goods_detail);
                             intent.putExtra("entrance", "2");
                             startActivity(intent);
+                        }else {
+                            Toast.makeText(D1_OrderActivity.this, "需支付金额为" + Double.valueOf(payOrder.datas.data.total_fee), Toast.LENGTH_SHORT).show();
                         }
                     }else {
                         overtime(payOrder.status.code, payOrder.status.msg);

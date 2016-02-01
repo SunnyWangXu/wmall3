@@ -94,7 +94,7 @@ public class CabinetAdapter extends BaseAdapter {
 
         tv_goods_price.setText("¥ "+List.get(position).goods_price);
         tv_goods_name.setText(List.get(position).goods_name);
-        tv_buy_number.setText("剩余" + List.get(position).buy_number);
+        tv_buy_number.setText("剩余" + List.get(position).total_num);
         APP.getApp().getImageLoader().displayImage(List.get(position).goods_image, iv_goods_image_url, APP.getApp().getImageOptions());
 
         if (List.size() != 0 && !List.get(position).selected.equals("0")) {
@@ -112,7 +112,7 @@ public class CabinetAdapter extends BaseAdapter {
         tv_num.setText("" + List.get(position).num);
         if (1 == List.get(position).num) {
             iv_reduction.setImageResource(R.mipmap.ic_disable_reduction);
-        } else if (List.get(position).num == Integer.parseInt(List.get(position).buy_number)) {
+        } else if (List.get(position).num == List.get(position).total_num) {
             iv_add.setImageResource(R.mipmap.ic_add_disable);
         }
 
@@ -134,7 +134,7 @@ public class CabinetAdapter extends BaseAdapter {
             public void onClick(View v) {
                 shoppingDialog = new ShoppingDialog(c);
                 shoppingDialog.show();
-                et_num = Integer.parseInt(List.get(position).buy_number);
+                et_num = List.get(position).total_num;
                 shoppingDialog.et_num.setText("1");
                 shoppingDialog.et_num.selectAll();
                 shoppingDialog.iv_reduction.setOnClickListener(new View.OnClickListener() {
@@ -153,7 +153,7 @@ public class CabinetAdapter extends BaseAdapter {
                 shoppingDialog.iv_add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (et_num < Integer.parseInt(List.get(position).buy_number)) {
+                        if (et_num < List.get(position).total_num) {
                             shoppingDialog.et_num.setText(++et_num + "");
                             shoppingDialog.et_num.setSelection(("" + et_num).length());
                             if (et_num == 1) {
@@ -166,7 +166,7 @@ public class CabinetAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
                         et_num = Integer.parseInt(shoppingDialog.et_num.getText().toString());
-                        if (et_num <= Integer.parseInt(List.get(position).buy_number)) {
+                        if (et_num <= List.get(position).total_num) {
                             List.get(position).num = et_num;
                             if (!List.get(position).selected.equals("0")) {
                                 tv_total_num.setText(++total_num + "件");
@@ -188,7 +188,7 @@ public class CabinetAdapter extends BaseAdapter {
                             et_num = Integer.parseInt(shoppingDialog.et_num.getText().toString());
                             if (et_num == 1) {
                                 shoppingDialog.iv_reduction.setImageResource(R.mipmap.ic_disable_reduction);
-                            } else if (et_num == Integer.parseInt(List.get(position).buy_number)) {
+                            } else if (et_num == List.get(position).total_num) {
                                 shoppingDialog.iv_add.setImageResource(R.mipmap.ic_add_disable);
                             } else {
                                 shoppingDialog.iv_add.setImageResource(R.mipmap.ic_add);
@@ -229,7 +229,7 @@ public class CabinetAdapter extends BaseAdapter {
         iv_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int num = Integer.parseInt(List.get(position).buy_number);
+                int num = List.get(position).total_num;
                 if (num > List.get(position).num) {
                     tv_num.setText("" + ++List.get(position).num);
                     if(!List.get(position).selected.equals("0")){

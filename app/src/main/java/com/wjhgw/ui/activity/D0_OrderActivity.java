@@ -125,6 +125,7 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
      * 订单列表
      */
     private void order_list() {
+        super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
         params.addBodyParameter("curpage", Integer.toString(curpage));
@@ -136,6 +137,7 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Order_list, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                D0_OrderActivity.super.Dismiss();
                 Gson gson = new Gson();
                 if (null != responseInfo) {
                     OrderList orderList = gson.fromJson(responseInfo.result, OrderList.class);
