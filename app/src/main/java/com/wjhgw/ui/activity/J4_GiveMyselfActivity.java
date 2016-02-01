@@ -350,20 +350,13 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
             case R.id.tv_to_give_myself:
                 if (isUseBalance || isUseRcBalance) {
                     /**
-                     * 开启余额或充值卡余额支付判断是否有登录密码,没有就设置，有就去输入下单
+                     * 开启余额或充值卡余额支付判断是否有登录密码,没有就设置，有就去输入并走购买第二步下单
                      */
                     whetherHavePaypwd();
                 }
 
-
                 if (!isUseBalance && !isUseRcBalance) {
                     truePaypwd = true;
-                }
-                /**
-                 * 验证支付密码之后
-                 */
-                if (truePaypwd) {
-
                     /**
                      * 检查地址是否支持货到付款，并走购买第二步流程
                      */
@@ -519,7 +512,8 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                          * 不使用余额或者余额充值卡余额金额不够时，跳转到选择支付方式使用第三方支付
                          */
                         Intent intent = new Intent(J4_GiveMyselfActivity.this, S3_SelectPaymentActivity.class);
-                        intent.putExtra("tvRealPay", freight);
+                        intent.putExtra("giveType","giveMyself");
+                        intent.putExtra("tvRealPay", freight + "");
                         if (isUseBalance) {
                             intent.putExtra("tvAvailablePredeposit", tvUseBalancePrice.getText());
                         } else {
@@ -763,9 +757,10 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
 
                         truePaypwd = true;
                         /**
-                         * 提交订单
+                         * 检查地址是否支持货到付款，并走购买第二步流程
                          */
-//                        CommitOrder();
+                        checkAddressSupport();
+
                     } else if (testPaypwd.status.code == 200103 || testPaypwd.status.code == 200104) {
                         showToastShort("登录超时或未登录");
                         getSharedPreferences("key", MODE_APPEND).edit().putString("key", "0").commit();

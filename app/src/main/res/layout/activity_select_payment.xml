@@ -20,18 +20,15 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_orderprice"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="23dp"
+            android:layout_weight="1"
             android:text="订单金额"
             android:textColor="@color/spec_text_color"
             android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,17 +41,11 @@
             android:id="@+id/tv_pay_order_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
             android:text="0.00"
             android:textColor="@color/light_gray"
             android:textSize="14sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:text="元"
-            android:textColor="@color/light_gray"
-            android:textSize="14sp" />
     </LinearLayout>
 
     <ImageView
@@ -72,18 +63,15 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="23dp"
+            android:layout_weight="1"
             android:text="使用余额"
             android:textColor="@color/spec_text_color"
             android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -96,15 +84,8 @@
             android:id="@+id/tv_pay_balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
             android:text="0.00"
-            android:textColor="@color/light_gray"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:text="元"
             android:textColor="@color/light_gray"
             android:textSize="14sp" />
 
@@ -125,18 +106,15 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="23dp"
+            android:layout_weight="1"
             android:text="使用充值卡余额"
             android:textColor="@color/spec_text_color"
             android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -149,17 +127,11 @@
             android:id="@+id/tv_pay_rc_balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
             android:text="0.00"
             android:textColor="@color/light_gray"
             android:textSize="14sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:text="元"
-            android:textColor="@color/light_gray"
-            android:textSize="14sp" />
 
     </LinearLayout>
 
@@ -176,10 +148,11 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="23dp"
+            android:layout_weight="1"
             android:text="还需支付："
             android:textColor="@color/spec_text_color"
             android:textSize="16sp" />
@@ -195,16 +168,11 @@
             android:id="@+id/tv_end_pay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4444.00"
+            android:layout_marginRight="16dp"
+            android:text="0.00"
             android:textColor="@color/btn_red"
             android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="元"
-            android:textColor="@color/btn_red"
-            android:textSize="16sp" />
     </LinearLayout>
 
     <View
