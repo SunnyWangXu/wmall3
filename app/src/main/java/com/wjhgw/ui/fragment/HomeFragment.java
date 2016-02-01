@@ -185,10 +185,13 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private LinearLayout llHomeGoodsSearch;
     private RelativeLayout rlHomeMessage;
 
+    private LinearLayout llMenuLayout;
+
     private LinearLayout llGuessLike01;
     private LinearLayout llGuessLike02;
     private LinearLayout llGuessLike03;
     private LinearLayout llGuessLike04;
+
 
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -228,6 +231,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             }
         }
     };
+
 
 
     @Override
@@ -321,6 +325,20 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         Guesslikelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.guess_like_layout, null);
 
         group_purchase_layout = (LinearLayout) Eventlayout.findViewById(R.id.group_purchase_layout);
+
+        MenuLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final under_developmentDialog underdevelopmentDialog1 = new under_developmentDialog(getActivity(), "功能正在开发中,敬请期待");
+                underdevelopmentDialog1.show();
+                underdevelopmentDialog1.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        underdevelopmentDialog1.dismiss();
+                    }
+                });
+            }
+        });
     }
 
     /**
@@ -336,6 +354,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         homePager = (ViewPager) homeViewPageLayout.findViewById(R.id.pager);
         ll_Point = (LinearLayout) homeViewPageLayout.findViewById(R.id.ll_home_point);
 
+        //llMenuLayout = (LinearLayout) MenuLayout.findViewById(R.id.ll_menu_layout);
         ll_discount01 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_01);
         ll_discount02 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_02);
         ll_discount03 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_03);
@@ -468,6 +487,8 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         llHomeGoodsSearch.setOnClickListener(this);
         rlHomeMessage.setOnClickListener(this);
 
+        //MenuLayout.setOnClickListener(this);
+
         group_purchase_layout.setOnClickListener(this);
 
         ll_discount01.setOnClickListener(this);
@@ -543,7 +564,17 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 intent.setClass(getActivity(), A0_LoginActivity.class);
                 startActivity(intent);
                 break;*/
+            /*case R.id.ll_menu_layout:
 
+                final under_developmentDialog underdevelopmentDialog1 = new under_developmentDialog(getActivity(), "功能正在开发中,敬请期待");
+                underdevelopmentDialog1.show();
+                underdevelopmentDialog1.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        underdevelopmentDialog1.dismiss();
+                    }
+                });
+                break;*/
             case R.id.iv_home_qrcode_scanner:
                 intent.setClass(getActivity(), C1_CaptureActivity.class);
                 startActivity(intent);

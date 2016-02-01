@@ -348,20 +348,20 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                 break;
 
             case R.id.tv_to_give_myself:
-                if (isUseBalance || isUseRcBalance) {
+//                if (isUseBalance || isUseRcBalance) {
                     /**
                      * 开启余额或充值卡余额支付判断是否有登录密码,没有就设置，有就去输入并走购买第二步下单
                      */
                     whetherHavePaypwd();
-                }
-
-                if (!isUseBalance && !isUseRcBalance) {
-                    truePaypwd = true;
-                    /**
-                     * 检查地址是否支持货到付款，并走购买第二步流程
-                     */
-                    checkAddressSupport();
-                }
+//                }
+//
+//                if (!isUseBalance && !isUseRcBalance) {
+//                    truePaypwd = true;
+//                    /**
+//                     * 检查地址是否支持货到付款，并走购买第二步流程
+//                     */
+//                    checkAddressSupport();
+//                }
 
                 break;
 
@@ -401,6 +401,8 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                         if (freight == 0) {
                             llUseBalance.setVisibility(View.GONE);
                             llUseRcBalance.setVisibility(View.GONE);
+                            isUseBalance = true;
+                            isUseRcBalance = false;
                         } else {
                             tvFreight.setText(freight + "");
                         }
