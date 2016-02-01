@@ -535,7 +535,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                     PayOrder payOrder = gson.fromJson(responseInfo.result, PayOrder.class);
                     D1_OrderActivity.this.Dismiss();
                     if (payOrder.status.code == 10000) {
-                        if(payOrder.datas.data.total_fee > 0) {
+                        if(Double.valueOf(payOrder.datas.data.total_fee) > 0) {
                             Intent intent = new Intent(D1_OrderActivity.this, S3_SelectPaymentActivity.class);
                             intent.putExtra("tvRealPay", order_amount);
                             intent.putExtra("tvAvailablePredeposit", rcb_amount);

@@ -17,7 +17,7 @@ public class BaseQuery {
 	
 	public static int environment() 
 	{
-		return ENVIRONMENT_PRODUCTION;
+		return ENVIROMENT_DEVELOPMENT;
 	}
 	
 	public static String serviceUrl()

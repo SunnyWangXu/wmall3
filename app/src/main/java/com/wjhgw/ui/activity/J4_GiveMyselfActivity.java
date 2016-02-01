@@ -34,6 +34,7 @@ import com.wjhgw.business.bean.SelectOrderDatas;
 import com.wjhgw.business.bean.TestPaypwd;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.dialog.EntryPaypwdDialog;
+import com.wjhgw.ui.dialog.MyDialog;
 import com.wjhgw.ui.dialog.RestartInputAndFindPaypwdDialog;
 import com.wjhgw.ui.dialog.SetPaypwdDialog;
 import com.wjhgw.ui.view.listview.adapter.CabGiveLvAdapter;
@@ -94,9 +95,10 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
     private TextView tvUseBalancePrice;
     private TextView tvUseRcBalancePrice;
     private boolean truePaypwd;
-    private boolean isUseBanlance = false;
-    private boolean isUseRcBanlance = false;
+    private boolean isUseBalance = false;
+    private boolean isUseRcBalance = false;
     private TextView tvFreight;
+    private MyDialog mDialog;
 
 
     @Override
@@ -319,12 +321,12 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                     ivUseBalance.setImageResource(R.mipmap.ic_push_on);
                     tvUseBalance.setTextColor(Color.parseColor("#333333"));
 
-                    isUseBanlance  = true;
+                    isUseBalance = true;
                 } else {
                     ivUseBalance.setImageResource(R.mipmap.ic_push_off);
                     tvUseBalance.setTextColor(Color.parseColor("#999999"));
 
-                    isUseBanlance  = false;
+                    isUseBalance = false;
                 }
 
                 break;
@@ -335,23 +337,28 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                     ivUseRcBalance.setImageResource(R.mipmap.ic_push_on);
                     tvUseRcBalance.setTextColor(Color.parseColor("#333333"));
 
-                    isUseRcBanlance = true;
+                    isUseRcBalance = true;
                 } else {
                     ivUseRcBalance.setImageResource(R.mipmap.ic_push_off);
                     tvUseRcBalance.setTextColor(Color.parseColor("#999999"));
 
-                    isUseRcBanlance = false;
+                    isUseRcBalance = false;
                 }
 
                 break;
 
             case R.id.tv_to_give_myself:
+                if (isUseBalance || isUseRcBalance) {
+                    /**
+                     * 开启余额或充值卡余额支付判断是否有登录密码,没有就设置，有就去输入下单
+                     */
+                    whetherHavePaypwd();
+                }
 
-                /**
-                 * 判断是否有登录密码,没有就设置，有就去输入下单
-                 */
-                whetherHavePaypwd();
 
+                if (!isUseBalance && !isUseRcBalance) {
+                    truePaypwd = true;
+                }
                 /**
                  * 验证支付密码之后
                  */
@@ -398,7 +405,12 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                         freight = selectOrderDatas.store_cart_list.freight;
                         freight_hash = selectOrderDatas.freight_hash;
 
-                        tvFreight.setText(freight + "");
+                        if (freight == 0) {
+                            llUseBalance.setVisibility(View.GONE);
+                            llUseRcBalance.setVisibility(View.GONE);
+                        } else {
+                            tvFreight.setText(freight + "");
+                        }
 
                     } else {
                         overtime(selectOrder.status.code, selectOrder.status.msg);
@@ -440,17 +452,17 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
         }
         params.addBodyParameter("pay_name", "online");
 
-        if(isUseBanlance){
-            params.addBodyParameter("pd_pay","1");
-        }else{
-            params.addBodyParameter("pd_pay","0");
+        if (isUseBalance) {
+            params.addBodyParameter("pd_pay", "1");
+        } else {
+            params.addBodyParameter("pd_pay", "0");
         }
-        if(isUseRcBanlance){
-            params.addBodyParameter("rcb_pay","1");
-        }else{
-            params.addBodyParameter("rcb_pay","0");
+        if (isUseRcBalance) {
+            params.addBodyParameter("rcb_pay", "1");
+        } else {
+            params.addBodyParameter("rcb_pay", "0");
         }
-        if(paypwd != null){
+        if (paypwd != null) {
             params.addBodyParameter("password", paypwd);
         }
 
@@ -458,21 +470,90 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-                showToastShort("第二步");
                 Gson gson = new Gson();
                 PayOrder payOrder = gson.fromJson(responseInfo.result, PayOrder.class);
-                if(payOrder.status.code == 10000){
+                if (payOrder.status.code == 10000) {
 
+                    double balance;
+                    double rcBalance;
+                    if (isUseBalance) {
+                        balance = Double.valueOf(tvUseBalancePrice.getText().toString());
+                    } else {
+                        balance = 0.00;
+                    }
+                    if (isUseRcBalance) {
+                        rcBalance = Double.valueOf(tvUseBalancePrice.getText().toString());
+                    } else {
+                        rcBalance = 0.00;
+                    }
 
+                    double yu = (rcBalance + balance) - Double.valueOf(tvFreight.getText().toString());
+                    /**
+                     * 开启使用余额或充值卡余额大于要使用的邮费时支付成功后弹出对话框
+                     */
+                    if (isUseBalance || isUseRcBalance && yu > 0) {
 
+                        mDialog = new MyDialog(J4_GiveMyselfActivity.this, "订单支付成功，会尽快为您处理！");
+                        mDialog.positive.setText("继续送礼");
+                        mDialog.negative.setText("查看订单");
+                        mDialog.show();
+                        mDialog.positive.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                finish();
+                            }
+                        });
+                        mDialog.negative.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mDialog.dismiss();
+                                Intent intent = new Intent(J4_GiveMyselfActivity.this, D0_OrderActivity.class);
+                                intent.putExtra("order_state", "");
+                                intent.putExtra("name", "所有订单");
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+                    } else {
+                        /**
+                         * 不使用余额或者余额充值卡余额金额不够时，跳转到选择支付方式使用第三方支付
+                         */
+                        Intent intent = new Intent(J4_GiveMyselfActivity.this, S3_SelectPaymentActivity.class);
+                        intent.putExtra("tvRealPay", freight);
+                        if (isUseBalance) {
+                            intent.putExtra("tvAvailablePredeposit", tvUseBalancePrice.getText());
+                        } else {
+                            intent.putExtra("tvAvailablePredeposit", "0.00");
+                        }
+                        if (isUseRcBalance) {
+                            intent.putExtra("tvAvailableRcBalance", tvUseRcBalancePrice.getText());
+                        } else {
+                            intent.putExtra("tvAvailableRcBalance", "0.00");
+                        }
 
+                        String paySn = payOrder.datas.data.pay_sn;
+                        String totalFee = payOrder.datas.data.total_fee;
+                        String goodsName = payOrder.datas.data.goods_name;
+                        String goodsDetail = payOrder.datas.data.goods_detail;
 
+                        intent.putExtra("paySn", paySn);
+                        intent.putExtra("totalFee", totalFee);
+                        intent.putExtra("goodsName", goodsName);
+                        intent.putExtra("goodsDetail", goodsDetail);
+                        intent.putExtra("entrance", "3");
 
+                        if (Double.valueOf(totalFee) > 0 && paySn != null) {
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            showToastShort("下单成功");
+                            finish();
+                        }
+                    }
 
-                }else{
+                } else {
                     showToastShort(payOrder.status.msg);
                 }
-
 
 
             }

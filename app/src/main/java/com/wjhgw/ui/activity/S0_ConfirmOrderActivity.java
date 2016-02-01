@@ -324,6 +324,8 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             useName = data.getStringExtra("tureName");
             usePhone = data.getStringExtra("phone");
             useAddressInfo = data.getStringExtra("addressInfo");
+            address_id = data.getStringExtra("addressId");
+
             if (useName != null && usePhone != null && useAddressInfo != null) {
                 tvUseName.setText(useName);
                 tvUsePhone.setText(usePhone);
@@ -513,6 +515,13 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         } else {
             params.addBodyParameter("pd_pay", "0");
         }
+        if (isUseRcBalance) {
+            params.addBodyParameter("rcb_pay", "1");
+            params.addBodyParameter("password", paypwd);
+
+        }else{
+            params.addBodyParameter("rcb_pay", "0");
+        }
 
         params.addBodyParameter("pay_message", etPayMessage.getText().toString());
 
@@ -582,7 +591,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                                 }
 
                                 String paySn = payOrder.datas.data.pay_sn;
-                                double totalFee = payOrder.datas.data.total_fee;
+                                String totalFee = payOrder.datas.data.total_fee;
                                 String goodsName = payOrder.datas.data.goods_name;
                                 String goodsDetail = payOrder.datas.data.goods_detail;
 
@@ -592,7 +601,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                                 intent.putExtra("goodsDetail", goodsDetail);
                                 intent.putExtra("entrance", "1");
 
-                                if (totalFee > 0 && paySn != null) {
+                                if (Double.valueOf(totalFee) > 0 && paySn != null) {
                                     startActivity(intent);
                                     finish();
                                 } else {
