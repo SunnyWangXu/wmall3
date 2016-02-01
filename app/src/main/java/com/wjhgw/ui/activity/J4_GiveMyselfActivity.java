@@ -348,12 +348,17 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                 break;
 
             case R.id.tv_to_give_myself:
+                if (isUseBalance || isUseRcBalance) {
+                    /**
+                     * 开启余额或充值卡余额支付判断是否有登录密码,没有就设置，有就去输入下单
+                     */
+                    whetherHavePaypwd();
+                }
 
-                /**
-                 * 判断是否有登录密码,没有就设置，有就去输入下单
-                 */
-                whetherHavePaypwd();
 
+                if (!isUseBalance && !isUseRcBalance) {
+                    truePaypwd = true;
+                }
                 /**
                  * 验证支付密码之后
                  */
@@ -465,7 +470,6 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-                showToastShort("第二步");
                 Gson gson = new Gson();
                 PayOrder payOrder = gson.fromJson(responseInfo.result, PayOrder.class);
                 if (payOrder.status.code == 10000) {
@@ -542,7 +546,7 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                             startActivity(intent);
                             finish();
                         } else {
-                            showToastShort("下单异常，请重新操作");
+                            showToastShort("下单成功");
                             finish();
                         }
                     }
