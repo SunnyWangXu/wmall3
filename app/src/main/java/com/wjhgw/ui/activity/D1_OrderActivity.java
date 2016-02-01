@@ -544,6 +544,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                             intent.putExtra("totalFee", payOrder.datas.data.total_fee);
                             intent.putExtra("goodsName", payOrder.datas.data.goods_name);
                             intent.putExtra("goodsDetail", payOrder.datas.data.goods_detail);
+                            intent.putExtra("entrance", "2");
                             startActivity(intent);
                         }
                     }else {
