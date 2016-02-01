@@ -1,5 +1,7 @@
 package com.wjhgw.ui.activity;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.umeng.update.UmengUpdateAgent;
 import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
@@ -56,6 +59,7 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
     private LinearLayout llClearCache;
     private String cachePath;
     private TextView tvCache;
+    private TextView tv_edition;
     private LinearLayout llCheckVersion;
     IWXAPI api;
     StringBuffer sb;
@@ -87,6 +91,7 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
         ivPush = (ImageView) findViewById(R.id.iv_push);
         btnExit = (Button) findViewById(R.id.btn_exit);
         tvCache = (TextView) findViewById(R.id.tv_cache);
+        tv_edition = (TextView) findViewById(R.id.tv_edition);
         llClearCache = (LinearLayout) findViewById(R.id.ll_clear_cache);
         llCheckVersion = (LinearLayout) findViewById(R.id.ll_check_version);
     }
@@ -105,6 +110,13 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
 
         tvCache.setText(cacheSize);
 
+        String currentapiVersion = null;
+        try {
+            currentapiVersion = getVersionName();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        tv_edition.setText(currentapiVersion);
     }
 
     @Override
@@ -145,15 +157,26 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.ll_check_version:
                 /*payMethod pay = new payMethod(this, "订单号", "测试的商品", "测试的商品详情", "0.01");
-                pay.pay();*/
+                pay.pay();*//*
                 //buy();
                 //showToastShort("当前已经是最新版本");
-                wechatShare(s++);
+                wechatShare(s++);*/
+                UmengUpdateAgent.update(this);
+                //int currentapiVersion=android.os.Build.VERSION.SDK_INT;
                 break;
 
             default:
                 break;
         }
+    }
+    private String getVersionName() throws Exception
+    {
+        // 获取packagemanager的实例
+        PackageManager packageManager = getPackageManager();
+        // getPackageName()是你当前类的包名，0代表是获取版本信息
+        PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(),0);
+        String version = packInfo.versionName;
+        return version;
     }
 
     /**
