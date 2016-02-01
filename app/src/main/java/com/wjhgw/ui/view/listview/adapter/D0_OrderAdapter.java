@@ -16,6 +16,7 @@ package com.wjhgw.ui.view.listview.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -274,7 +275,23 @@ public class D0_OrderAdapter extends BaseAdapter {
                     }
                     //待付款
                 } else if (List.get(position).order_state.equals("20")) {
-                    Toast.makeText(c, "联系客服", Toast.LENGTH_SHORT).show();
+                    mDialog = new MyDialog(c, "是否拨打客服电话");
+                    mDialog.show();
+                    mDialog.positive.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent1 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" +"4006569333"));
+                            c.startActivity(intent1);
+                            mDialog.dismiss();
+                        }
+                    });
+                    mDialog.negative.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mDialog.dismiss();
+                        }
+                    });
+                    //Toast.makeText(c, "联系客服", Toast.LENGTH_SHORT).show();
 
                 } else if (List.get(position).order_state.equals("30")) {
                     if (List.get(position).if_deliver) {
@@ -310,8 +327,23 @@ public class D0_OrderAdapter extends BaseAdapter {
         tv_button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(c, "联系客服", Toast.LENGTH_SHORT).show();
-
+                //Toast.makeText(c, "联系客服", Toast.LENGTH_SHORT).show();
+                mDialog = new MyDialog(c, "是否拨打客服电话");
+                mDialog.show();
+                mDialog.positive.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent1 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" +"4006569333"));
+                        c.startActivity(intent1);
+                        mDialog.dismiss();
+                    }
+                });
+                mDialog.negative.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDialog.dismiss();
+                    }
+                });
             }
         });
 
@@ -401,7 +433,7 @@ public class D0_OrderAdapter extends BaseAdapter {
                     PayOrder payOrder = gson.fromJson(responseInfo.result, PayOrder.class);
                     Dialog.dismiss();
                     if (payOrder.status.code == 10000) {
-                        if(Double.valueOf(payOrder.datas.data.total_fee) > 0){
+                        if (Double.valueOf(payOrder.datas.data.total_fee) > 0) {
                             Intent intent = new Intent(c, S3_SelectPaymentActivity.class);
                             intent.putExtra("tvRealPay", order_amount);
                             intent.putExtra("tvAvailablePredeposit", rcb_amount);
@@ -412,8 +444,8 @@ public class D0_OrderAdapter extends BaseAdapter {
                             intent.putExtra("goodsDetail", payOrder.datas.data.goods_detail);
                             intent.putExtra("entrance", "2");
                             c.startActivity(intent);
-                        }else {
-                            Toast.makeText(c, "需支付金额为"+Double.valueOf(payOrder.datas.data.total_fee), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(c, "需支付金额为" + Double.valueOf(payOrder.datas.data.total_fee), Toast.LENGTH_SHORT).show();
                         }
                     } else if (payOrder.status.code == 200103 || payOrder.status.code == 200104) {
                         Toast.makeText(c, "登录超时或未登录", Toast.LENGTH_SHORT).show();

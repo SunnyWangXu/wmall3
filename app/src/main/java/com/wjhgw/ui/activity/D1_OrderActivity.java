@@ -2,6 +2,7 @@ package com.wjhgw.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -271,7 +272,23 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                     }
                     //待付款
                 } else if (order_detail.datas.order_state.equals("20")) {
-                    showToastShort("联系客服");
+                    //showToastShort("联系客服");
+                    mDialog = new MyDialog(this, "是否拨打客服电话");
+                    mDialog.show();
+                    mDialog.positive.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent1 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "4006569333"));
+                            startActivity(intent1);
+                            mDialog.dismiss();
+                        }
+                    });
+                    mDialog.negative.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mDialog.dismiss();
+                        }
+                    });
 
                 } else if (order_detail.datas.order_state.equals("30")) {
                     if (order_detail.datas.if_deliver) {
@@ -304,7 +321,23 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                 }
                 break;
             case R.id.tv_button3:
-                showToastShort("联系客服");
+                //showToastShort("联系客服");
+                mDialog = new MyDialog(this, "是否拨打客服电话");
+                mDialog.show();
+                mDialog.positive.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent1 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "4006569333"));
+                        startActivity(intent1);
+                        mDialog.dismiss();
+                    }
+                });
+                mDialog.negative.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDialog.dismiss();
+                    }
+                });
                 break;
 
             default:
