@@ -401,7 +401,6 @@ public class D0_OrderAdapter extends BaseAdapter {
                     PayOrder payOrder = gson.fromJson(responseInfo.result, PayOrder.class);
                     Dialog.dismiss();
                     if (payOrder.status.code == 10000) {
-
                         if(Double.valueOf(payOrder.datas.data.total_fee) > 0){
                             Intent intent = new Intent(c, S3_SelectPaymentActivity.class);
                             intent.putExtra("tvRealPay", order_amount);
@@ -413,6 +412,8 @@ public class D0_OrderAdapter extends BaseAdapter {
                             intent.putExtra("goodsDetail", payOrder.datas.data.goods_detail);
                             intent.putExtra("entrance", "2");
                             c.startActivity(intent);
+                        }else {
+                            Toast.makeText(c, "需支付金额为"+Double.valueOf(payOrder.datas.data.total_fee), Toast.LENGTH_SHORT).show();
                         }
                     } else if (payOrder.status.code == 200103 || payOrder.status.code == 200104) {
                         Toast.makeText(c, "登录超时或未登录", Toast.LENGTH_SHORT).show();

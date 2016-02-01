@@ -636,21 +636,22 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 startActivity(intent);
                 break;
 
-            /*case R.id.ll_discount_01:
+            case R.id.ll_discount_01:
 
                 intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.putExtra("goods_id", groupBuy_data.get(0).goods_id);
                 startActivity(intent);
                 break;
             case R.id.ll_discount_02:
-
                 intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.putExtra("goods_id", groupBuy_data.get(1).goods_id);
                 startActivity(intent);
                 break;
             case R.id.ll_discount_03:
-
                 intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.putExtra("goods_id", groupBuy_data.get(2).goods_id);
                 startActivity(intent);
-                break;*/
+                break;
 
             case R.id.tv_guess_refresh:
 
