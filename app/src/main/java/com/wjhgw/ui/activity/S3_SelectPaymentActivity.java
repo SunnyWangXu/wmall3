@@ -19,6 +19,7 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.pay.Alipay.payMethod;
+import com.wjhgw.ui.dialog.under_developmentDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,6 +51,8 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
     private String goodsName;
     private String goodsDetail;
     private String entrance;
+    private String giveType;
+    private TextView tvPayOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +80,7 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void onFindViews() {
+        tvPayOrder = (TextView) findViewById(R.id.tv_orderprice);
         tvPayOrderPrice = (TextView) findViewById(R.id.tv_pay_order_price);
         tvPayBalance = (TextView) findViewById(R.id.tv_pay_balance);
         tvPayRcBalance = (TextView) findViewById(R.id.tv_pay_rc_balance);
@@ -96,11 +100,20 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
     @Override
     public void onInitViewData() {
 
-        realPay = getIntent().getStringExtra("tvRealPay");      //订单金额
+        giveType = getIntent().getStringExtra("giveType");      //从自提过来的
+        realPay = getIntent().getStringExtra("tvRealPay");      //订单金额或者是自提的邮费
         balance = getIntent().getStringExtra("tvAvailablePredeposit");  //使用账号余额
         rcBalance = getIntent().getStringExtra("tvAvailableRcBalance"); //充值卡余额
 
-        tvPayOrderPrice.setText(realPay);
+        if (giveType.equals("giveMyself")) {
+            tvPayOrder.setText("运费");
+            tvPayOrderPrice.setText(Double.valueOf(realPay).toString());
+        } else {
+//            tvPayOrder.setText("订单金额");
+            tvPayOrderPrice.setText(realPay);
+        }
+
+
         if (balance.equals("0.00")) {
             llBalancePay.setVisibility(View.GONE);
         } else {
@@ -144,7 +157,15 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
 
             case R.id.btn_confirm_pay:
                 if (isWeixin) {
-                    buy();
+                    // buy();
+                    final under_developmentDialog underdevelopmentDialog = new under_developmentDialog(this, "功能正在开发中,敬请期待");
+                    underdevelopmentDialog.show();
+                    underdevelopmentDialog.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            underdevelopmentDialog.dismiss();
+                        }
+                    });
                 } else {
 //                    payMethod pay = new payMethod(this, "订单号", "测试的商品", "测试的商品详情", "0.01");
                     payMethod pay = new payMethod(this, paySn, goodsName, goodsDetail, totalFee, entrance);
