@@ -105,7 +105,7 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
         balance = getIntent().getStringExtra("tvAvailablePredeposit");  //使用账号余额
         rcBalance = getIntent().getStringExtra("tvAvailableRcBalance"); //充值卡余额
 
-        if (giveType.equals("giveMyself")) {
+        if (giveType != null) {
             tvPayOrder.setText("运费");
             tvPayOrderPrice.setText(Double.valueOf(realPay).toString());
         } else {
