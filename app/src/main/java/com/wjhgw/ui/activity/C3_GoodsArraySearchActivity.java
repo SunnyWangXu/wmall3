@@ -21,13 +21,18 @@ import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
+import com.wjhgw.business.api.Address_del_Request;
 import com.wjhgw.business.bean.ActSearch;
 import com.wjhgw.business.bean.ActSearch_datas;
+import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.dialog.GoodsArrDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.ArrSearchAdapter;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +40,7 @@ import java.util.List;
 /**
  * 商品排列查询
  */
-public class C3_GoodsArraySearchActivity extends BaseActivity implements XListView.IXListViewListener,
+public class C3_GoodsArraySearchActivity extends BaseActivity implements BusinessResponse,XListView.IXListViewListener,
         View.OnClickListener, AbsListView.OnScrollListener, View.OnTouchListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener {
     private ImageView IvBack;
     private LinearLayout ll_GoodsArrSearch;
@@ -68,6 +73,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
     private LinearLayout llGoodsSearch;
     private String keyword;
     private String cate_id;
+    private Address_del_Request Request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +100,8 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
         mListView.setOnTouchListener(this);
         mListView.setOnItemLongClickListener(this);
 
+        Request = new Address_del_Request(this);
+        Request.addResponseListener(this);
     }
 
 
@@ -206,14 +214,6 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
                 ivArrBack.setVisibility(View.GONE);
                 break;
 
-            case R.id.btn_collect:
-                showToastShort("收藏成功");
-                break;
-
-            case R.id.btn_goodsarr_addshopcar:
-                showToastShort("加入购物车成功");
-                break;
-
             default:
                 break;
         }
@@ -321,15 +321,27 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
      * 长按ListView的Item事件
      */
     @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+    public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
         /**
          *对话框
          */
-        GoodsArrDialog arrDialog = new GoodsArrDialog(this, "收藏", "加入购物车");
+        final GoodsArrDialog arrDialog = new GoodsArrDialog(this, "收藏", "加入购物车");
         arrDialog.show();
 
-        arrDialog.btnCollect.setOnClickListener(this);
-        arrDialog.btnGoodsarrAddshopcar.setOnClickListener(this);
+        arrDialog.btnCollect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Request.favorites_add(actSearch_datas.get(position-2).goods_id,getKey());
+                arrDialog.dismiss();
+            }
+        });
+        arrDialog.btnGoodsarrAddshopcar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Request.cart_add(actSearch_datas.get(position-2).goods_id, getKey());
+                arrDialog.dismiss();
+            }
+        });
 
         return true;
     }
@@ -423,5 +435,10 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements XListVi
         startActivity(intent);
 
 
+    }
+
+    @Override
+    public void OnMessageResponse(String url, String response, JSONObject status) throws JSONException {
+        showToastShort("成功");
     }
 }

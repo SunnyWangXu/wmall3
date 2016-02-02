@@ -237,4 +237,45 @@ public class Address_del_Request extends BaseRequest {
             }
         });
     }
+
+    /**
+     * 添加购物接口
+     */
+    public void cart_add(String goods_id, String key) {
+        Dialog.ProgressDialog();
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+        params.addBodyParameter("goods_id", goods_id);
+        params.addBodyParameter("quantity", "1");
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Cart_add, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Dialog.dismiss();
+                Gson gson = new Gson();
+                if (responseInfo.result != null) {
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+                    if (status.status.code == 10000) {
+                        try {
+                            OnMessageResponse(BaseQuery.serviceUrl() + ApiInterface.Cart_add, responseInfo.result, null);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else if(status.status.code == 200103 || status.status.code == 200104){
+                        Toast.makeText(mContext, "登录超时或未登录", Toast.LENGTH_SHORT).show();
+                        mContext.getSharedPreferences("key", mContext.MODE_APPEND).edit().putString("key","0").commit();
+                        mContext.startActivity(new Intent(mContext, A0_LoginActivity.class));
+                    }else {
+                        Toast.makeText(mContext, status.status.msg, Toast.LENGTH_SHORT).show();
+                    }
+                    Dialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Toast.makeText(mContext, "网络错误", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
