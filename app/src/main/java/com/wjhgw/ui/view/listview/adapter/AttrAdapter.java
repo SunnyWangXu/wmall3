@@ -79,8 +79,10 @@ public class AttrAdapter extends BaseAdapter {
         //如果是第一条 热门品牌查询的字段不一样 专门设置适配器，其他的设置另外的适配器
         if (position == 0) {
             List<Goods_attr_data_value> dataValues = data.get(position).value;
-            AttrValueGVAdapter1 attrValueGVAdapter1 = new AttrValueGVAdapter1(mContext, dataValues);
-            holder.goodsValueGV.setAdapter(attrValueGVAdapter1);
+            if (dataValues != null) {
+                AttrValueGVAdapter1 attrValueGVAdapter1 = new AttrValueGVAdapter1(mContext, dataValues);
+                holder.goodsValueGV.setAdapter(attrValueGVAdapter1);
+            }
         } else {
             List<Goods_attr_data_value> dataValues = data.get(position).value;
             AttrValueGVAdapter2 attrValueGVAdapter2 = new AttrValueGVAdapter2(mContext, dataValues);

@@ -217,7 +217,10 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
             goods_class1 = gson.fromJson(responseInfoResult, Goods_class1.class);
 
             if (goods_class1.status.code == 10000) {
-                adapter = new goods_class_adapter(getActivity(), goods_class1.datas);
+                if(goods_class1.datas != null){
+                    adapter = new goods_class_adapter(getActivity(), goods_class1.datas);
+                }
+
                 mListView.setAdapter(adapter);
                 if (goods_class1.datas.size() > 0 && goods_class1.datas != null) {
                     APP.getApp().getImageLoader().displayImage(goods_class1.datas.get(MAK).gc_image, ivGoods, APP.getApp().getImageOptions());
