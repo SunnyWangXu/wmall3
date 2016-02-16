@@ -390,7 +390,30 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                     double tvRealPay1 = Double.valueOf(tvRealPay.getText() + "");
                     double tvAvailableRcBalance2 = Double.valueOf(tvAvailableRcBalance.getText() + "");
                     if (MAKEAVAILABLERCBALANCE % 2 == 0 && tvRealPay1 <= tvAvailableRcBalance2) {
+                        /**
+                         * 线上支付才能开启余额支付
+                         */
+                        if (!isDownlinePay) {
+                            MAKEBALANCE++;
+                            if (MAKEBALANCE % 2 == 0) {
+                                ivBalance.setImageResource(R.mipmap.ic_push_on);
+                                tvBalance.setTextColor(Color.parseColor("#333333"));
+                                //使用余额
+                                isUseBalance = true;
 
+                                ivAvailableRcBalance.setImageResource(R.mipmap.ic_push_off);
+                                tvRcBalance.setTextColor(Color.parseColor("#cccccc"));
+                                //不使用余额
+                                isUseRcBalance = false;
+                                MAKEAVAILABLERCBALANCE++;
+
+                            } else {
+                                ivBalance.setImageResource(R.mipmap.ic_push_off);
+                                tvBalance.setTextColor(Color.parseColor("#cccccc"));
+                                //不使用余额
+                                isUseBalance = false;
+                            }
+                        }
                     } else {
                         /**
                          * 线上支付才能开启余额支付
@@ -425,7 +448,30 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                     double tvRealPay1 = Double.valueOf(tvRealPay.getText() + "");
                     double tvAvailablePredeposit3 = Double.valueOf(tvAvailablePredeposit.getText() + "");
                     if (MAKEBALANCE % 2 == 0 && tvRealPay1 <= tvAvailablePredeposit3) {
+                        /**
+                         * 线上支付才能开启余额支付
+                         */
+                        if (!isDownlinePay) {
+                            MAKEAVAILABLERCBALANCE++;
+                            if (MAKEAVAILABLERCBALANCE % 2 == 0) {
+                                ivAvailableRcBalance.setImageResource(R.mipmap.ic_push_on);
+                                tvRcBalance.setTextColor(Color.parseColor("#333333"));
+                                //使用余额
+                                isUseRcBalance = true;
 
+                                ivBalance.setImageResource(R.mipmap.ic_push_off);
+                                tvBalance.setTextColor(Color.parseColor("#cccccc"));
+                                //不使用余额
+                                isUseBalance = false;
+                                MAKEBALANCE++;
+
+                            } else {
+                                ivAvailableRcBalance.setImageResource(R.mipmap.ic_push_off);
+                                tvRcBalance.setTextColor(Color.parseColor("#cccccc"));
+                                //不使用余额
+                                isUseRcBalance = false;
+                            }
+                        }
                     } else {
                         /**
                          * 线上支付才能开启余额支付
