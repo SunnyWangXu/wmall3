@@ -374,13 +374,6 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
                                 APP.getApp().getImageLoader().displayImage(cartList.datas.get(0).store_logo, iv_store_logo);
                             } else {
                                 listAdapter.List = cartList.datas.get(0).goods_list;
-                                if (!Edit) {
-                                    eliminate1();
-                                }
-                                if (!delete) {
-                                    delete = true;
-                                    eliminate1();
-                                }
                                 listAdapter.notifyDataSetChanged();
                             }
                         } else {
@@ -532,7 +525,7 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
             isSetAdapter = false;
             //刷新列表
             cart_list();
-            eliminate();
+            //eliminate();
         }
     }
 
