@@ -132,6 +132,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:visibility="gone"
             android:orientation="vertical">
 
             <ImageView
@@ -158,8 +159,7 @@
         <com.wjhgw.ui.view.listview.MyListView
             android:id="@+id/lv_array_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/tv_page_total"
