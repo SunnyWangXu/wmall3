@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/goods_class"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="65dp"
         android:gravity="center"
         android:textColor="@color/title_color"
         android:textSize="15sp" />
