@@ -74,6 +74,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
     private String keyword;
     private String cate_id;
     private Address_del_Request Request;
+    private LinearLayout llNoSearchresults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +120,8 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
     public void onFindViews() {
         IvBack = (ImageView) findViewById(R.id.iv_array_back);
         llGoodsSearch = (LinearLayout)findViewById(R.id.ll_goods_search);
+
+        llNoSearchresults = (LinearLayout)findViewById(R.id.ll_no_search_results);
 
         tvSearchDef = (TextView) findViewById(R.id.tv_search_default);
         tvSaleNum = (TextView) findViewById(R.id.tv_salenum);
@@ -408,9 +411,16 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
                             } else {
                                 mListView.setPullLoadEnable(false);
                             }
+                        }else{
+                            /**
+                             * 如果没有搜索到商品，展示的界面
+                             */
+                            mListView.setVisibility(View.GONE);
+                            llNoSearchresults.setVisibility(View.VISIBLE);
+
                         }
                     }else {
-                        overtime(actSearch.status.code,actSearch.status.msg);
+                        overtime(actSearch.status.code, actSearch.status.msg);
                     }
 
                 }
