@@ -316,43 +316,94 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
 
             case R.id.ll_use_balance:
 
-                MAKEBALANCE++;
-                if (MAKEBALANCE % 2 == 0) {
-                    ivUseBalance.setImageResource(R.mipmap.ic_push_on);
-                    tvUseBalance.setTextColor(Color.parseColor("#333333"));
+                Double balance = Double.valueOf(tvUseBalancePrice.getText().toString());
+                Double freight = Double.valueOf(tvFreight.getText().toString());
 
-                    isUseBalance = true;
+                if (MAKEAVAILABLERCBALANCE % 2 == 0 && balance >= freight) {
+
+                    MAKEBALANCE++;
+                    if (MAKEBALANCE % 2 == 0) {
+                        ivUseBalance.setImageResource(R.mipmap.ic_push_on);
+                        tvUseBalance.setTextColor(Color.parseColor("#333333"));
+                        isUseBalance = true;
+
+                        ivUseRcBalance.setImageResource(R.mipmap.ic_push_off);
+                        tvUseRcBalance.setTextColor(Color.parseColor("#999999"));
+                        isUseRcBalance = false;
+
+                        MAKEAVAILABLERCBALANCE ++;
+                    } else {
+                        ivUseBalance.setImageResource(R.mipmap.ic_push_off);
+                        tvUseBalance.setTextColor(Color.parseColor("#999999"));
+
+                        isUseBalance = false;
+                    }
                 } else {
-                    ivUseBalance.setImageResource(R.mipmap.ic_push_off);
-                    tvUseBalance.setTextColor(Color.parseColor("#999999"));
 
-                    isUseBalance = false;
+                    MAKEBALANCE++;
+                    if (MAKEBALANCE % 2 == 0) {
+                        ivUseBalance.setImageResource(R.mipmap.ic_push_on);
+                        tvUseBalance.setTextColor(Color.parseColor("#333333"));
+
+                        isUseBalance = true;
+                    } else {
+                        ivUseBalance.setImageResource(R.mipmap.ic_push_off);
+                        tvUseBalance.setTextColor(Color.parseColor("#999999"));
+
+                        isUseBalance = false;
+                    }
+
                 }
 
                 break;
 
             case R.id.ll_rc_balance:
-                MAKEAVAILABLERCBALANCE++;
-                if (MAKEAVAILABLERCBALANCE % 2 == 0) {
-                    ivUseRcBalance.setImageResource(R.mipmap.ic_push_on);
-                    tvUseRcBalance.setTextColor(Color.parseColor("#333333"));
 
-                    isUseRcBalance = true;
+                Double rcBalance = Double.valueOf(tvUseRcBalancePrice.getText().toString());
+                Double freight2 = Double.valueOf(tvFreight.getText().toString());
+                if (MAKEBALANCE % 2 == 0 && rcBalance >= freight2) {
+
+                    MAKEAVAILABLERCBALANCE++;
+                    if (MAKEAVAILABLERCBALANCE % 2 == 0) {
+                        ivUseRcBalance.setImageResource(R.mipmap.ic_push_on);
+                        tvUseRcBalance.setTextColor(Color.parseColor("#333333"));
+                        isUseRcBalance = true;
+
+                        ivUseBalance.setImageResource(R.mipmap.ic_push_off);
+                        tvUseBalance.setTextColor(Color.parseColor("#999999"));
+                        isUseBalance = false;
+
+                        MAKEBALANCE++;
+                    } else {
+                        ivUseRcBalance.setImageResource(R.mipmap.ic_push_off);
+                        tvUseRcBalance.setTextColor(Color.parseColor("#999999"));
+
+                        isUseRcBalance = false;
+                    }
+
                 } else {
-                    ivUseRcBalance.setImageResource(R.mipmap.ic_push_off);
-                    tvUseRcBalance.setTextColor(Color.parseColor("#999999"));
 
-                    isUseRcBalance = false;
+                    MAKEAVAILABLERCBALANCE++;
+                    if (MAKEAVAILABLERCBALANCE % 2 == 0) {
+                        ivUseRcBalance.setImageResource(R.mipmap.ic_push_on);
+                        tvUseRcBalance.setTextColor(Color.parseColor("#333333"));
+
+                        isUseRcBalance = true;
+                    } else {
+                        ivUseRcBalance.setImageResource(R.mipmap.ic_push_off);
+                        tvUseRcBalance.setTextColor(Color.parseColor("#999999"));
+
+                        isUseRcBalance = false;
+                    }
                 }
-
                 break;
 
             case R.id.tv_to_give_myself:
 //                if (isUseBalance || isUseRcBalance) {
-                    /**
-                     * 开启余额或充值卡余额支付判断是否有登录密码,没有就设置，有就去输入并走购买第二步下单
-                     */
-                    whetherHavePaypwd();
+                /**
+                 * 开启余额或充值卡余额支付判断是否有登录密码,没有就设置，有就去输入并走购买第二步下单
+                 */
+                whetherHavePaypwd();
 //                }
 //
 //                if (!isUseBalance && !isUseRcBalance) {
@@ -514,7 +565,7 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                          * 不使用余额或者余额充值卡余额金额不够时，跳转到选择支付方式使用第三方支付
                          */
                         Intent intent = new Intent(J4_GiveMyselfActivity.this, S3_SelectPaymentActivity.class);
-                        intent.putExtra("giveType","giveMyself");
+                        intent.putExtra("giveType", "giveMyself");
                         intent.putExtra("tvRealPay", freight + "");
                         if (isUseBalance) {
                             intent.putExtra("tvAvailablePredeposit", tvUseBalancePrice.getText());

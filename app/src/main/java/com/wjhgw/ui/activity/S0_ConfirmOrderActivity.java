@@ -403,7 +403,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
                                 ivAvailableRcBalance.setImageResource(R.mipmap.ic_push_off);
                                 tvRcBalance.setTextColor(Color.parseColor("#cccccc"));
-                                //不使用余额
+                                //不使用充值卡余额
                                 isUseRcBalance = false;
                                 MAKEAVAILABLERCBALANCE++;
 

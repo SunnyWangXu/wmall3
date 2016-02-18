@@ -121,10 +121,40 @@
          android:layout_height="1dp"
          android:background="@color/gray" />-->
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/ll_no_search_results"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="52dp"
+                android:layout_height="54dp"
+                android:layout_marginBottom="20dp"
+                android:src="@mipmap/ic_no_search_results" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="很抱歉！没有找到相关商品"
+                android:textColor="@color/light_gray"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="换个关键词试试看?"
+                android:textColor="@color/light_gray"
+                android:textSize="14sp" />
+        </LinearLayout>
 
         <com.wjhgw.ui.view.listview.MyListView
             android:id="@+id/lv_array_search"
