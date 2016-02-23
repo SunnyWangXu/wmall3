@@ -8,7 +8,7 @@
         android:layout_height="160dp"
         android:background="@mipmap/ic_background">
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/ll_lockbox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,16 +30,17 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="70dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginLeft="72dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/member_nickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:text="点击登陆"
                     android:textColor="#ffffff"
                     android:textSize="18sp" />
@@ -52,36 +53,20 @@
                     android:textColor="#ffffff"
                     android:textSize="14sp" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/iv_lockBox"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="个人资料管理"
-                        android:textColor="#f4f4f4"
-                        android:textSize="14sp" />
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="15dp"
-                        android:src="@mipmap/ic_arrow_right" />
-
                 </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="35dp"
+                android:layout_gravity="center_vertical|right"
+                android:src="@mipmap/ic_arrow_right" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_gravity="bottom"
-            android:background="#11666666"
+            android:background="#ffffff"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -102,10 +87,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="13dp"
+                    android:layout_marginTop="15dp"
                     android:gravity="center"
                     android:text="我的收藏"
-                    android:textColor="#ffffff"
+                    android:textColor="#666666"
                     android:textSize="12sp" />
             </FrameLayout>
 
@@ -120,16 +105,16 @@
                     android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"
-                    android:src="@mipmap/ic_my_promotion" />
+                    android:src="@mipmap/ic_promotion" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="13dp"
+                    android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:text="我的推广"
-                    android:textColor="#ffffff"
+                    android:text="福利推广"
+                    android:textColor="#666666"
                     android:textSize="12sp" />
             </FrameLayout>
 
@@ -144,42 +129,19 @@
                     android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"
-                    android:src="@mipmap/ic_my_micro_shop" />
+                    android:src="@mipmap/ic_shop" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="13dp"
+                    android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:text="我的微店"
-                    android:textColor="#ffffff"
+                    android:text="我要开店"
+                    android:textColor="#666666"
                     android:textSize="12sp" />
             </FrameLayout>
 
-            <FrameLayout
-                android:id="@+id/profile_head_GameCenter"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
-                    android:src="@mipmap/ic_merchants_settled" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="13dp"
-                    android:gravity="center"
-                    android:text="商家入驻"
-                    android:textColor="#ffffff"
-                    android:textSize="12sp" />
-            </FrameLayout>
         </LinearLayout>
 
     </FrameLayout>

@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -50,17 +51,19 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private TextView tv_vouchers;
     private LinearLayout ll_all_orders;
     private RelativeLayout rl_layout1;
+    private RelativeLayout rl_layout5;
     private RelativeLayout rl_layout2;
     private RelativeLayout rl_layout3;
     private RelativeLayout rl_layout4;
     private TextView tv_statistics1;
+    private TextView tv_statistics5;
     private TextView tv_statistics2;
     private TextView tv_statistics3;
     private TextView tv_statistics4;
     private ImageView iv_message;
     private String key;
     private ImageView ivSet;
-    private LinearLayout ll_LockBox;
+    private FrameLayout ll_LockBox;
     private LinearLayout ll_assets;
     private LinearLayout ll_Set;
     private String memberName;
@@ -128,10 +131,12 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         member_nickname = (TextView) MyMessageLayout.findViewById(R.id.member_nickname);
         ll_all_orders = (LinearLayout) MyOrderLayout.findViewById(R.id.ll_all_orders);
         rl_layout1 = (RelativeLayout) MyOrderLayout.findViewById(R.id.rl_layout1);
+        rl_layout5 = (RelativeLayout) MyOrderLayout.findViewById(R.id.rl_layout5);
         rl_layout2 = (RelativeLayout) MyOrderLayout.findViewById(R.id.rl_layout2);
         rl_layout3 = (RelativeLayout) MyOrderLayout.findViewById(R.id.rl_layout3);
         rl_layout4 = (RelativeLayout) MyOrderLayout.findViewById(R.id.rl_layout4);
         tv_statistics1 = (TextView) MyOrderLayout.findViewById(R.id.tv_statistics1);
+        tv_statistics5 = (TextView) MyOrderLayout.findViewById(R.id.tv_statistics5);
         tv_statistics2 = (TextView) MyOrderLayout.findViewById(R.id.tv_statistics2);
         tv_statistics3 = (TextView) MyOrderLayout.findViewById(R.id.tv_statistics3);
         tv_statistics4 = (TextView) MyOrderLayout.findViewById(R.id.tv_statistics4);
@@ -140,7 +145,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         tv_hgb = (TextView) MyAssetsLayout.findViewById(R.id.tv_hgb);
         tv_vouchers = (TextView) MyAssetsLayout.findViewById(R.id.tv_vouchers);
         ll_assets = (LinearLayout) MyAssetsLayout.findViewById(R.id.ll_assets);
-        ll_LockBox = (LinearLayout) MyMessageLayout.findViewById(R.id.ll_lockbox);
+        ll_LockBox = (FrameLayout) MyMessageLayout.findViewById(R.id.ll_lockbox);
 
 //        ll_Set = (LinearLayout) MyHelpLayout.findViewById(R.id.ll_set);
     }
@@ -156,6 +161,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         ll_all_orders.setOnClickListener(this);
         ll_assets.setOnClickListener(this);
         rl_layout1.setOnClickListener(this);
+        rl_layout5.setOnClickListener(this);
         rl_layout2.setOnClickListener(this);
         rl_layout3.setOnClickListener(this);
         rl_layout4.setOnClickListener(this);
@@ -222,6 +228,17 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                     intent.setClass(getActivity(), D0_OrderActivity.class);
                     intent.putExtra("order_state", "10");
                     intent.putExtra("name", "待付款");
+                    startActivity(intent);
+                }
+                break;
+            case R.id.rl_layout5:
+                if (key.equals("0") || key == null) {
+                    intent.setClass(getActivity(), A0_LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getActivity(), D0_OrderActivity.class);
+                    intent.putExtra("order_state", "20");
+                    intent.putExtra("name", "待发货");
                     startActivity(intent);
                 }
                 break;
@@ -305,6 +322,17 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                                 tv_statistics1.setText("9+");
                             } else {
                                 tv_statistics1.setText(orderAmount.datas.un_pay);
+                            }
+                        }
+
+                        if (orderAmount.datas.un_shipping.equals("0")) {
+                            tv_statistics5.setVisibility(View.GONE);
+                        } else {
+                            tv_statistics5.setVisibility(View.VISIBLE);
+                            if (Integer.parseInt(orderAmount.datas.un_shipping) > 9) {
+                                tv_statistics5.setText("9+");
+                            } else {
+                                tv_statistics5.setText(orderAmount.datas.un_shipping);
                             }
                         }
 
@@ -435,6 +463,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
             member_nickname.setText("点击登录");
             tv_statistics1.setVisibility(View.GONE);
             tv_statistics2.setVisibility(View.GONE);
+            tv_statistics5.setVisibility(View.GONE);
             tv_statistics3.setVisibility(View.GONE);
             tv_statistics4.setVisibility(View.GONE);
         } else {
