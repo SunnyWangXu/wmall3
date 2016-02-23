@@ -8,19 +8,196 @@
 
     <include layout="@layout/title_layout" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#e0e0e0" />
+
+    <LinearLayout
+        android:id="@+id/ll_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="41dp"
+                android:gravity="center"
+                android:text="全部"
+                android:textColor="#666666"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/v_view1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#f14f4f" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="41dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="代付款"
+                android:textColor="#666666"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/v_view2"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_text3"
+                android:layout_width="wrap_content"
+                android:layout_height="41dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="代发货"
+                android:textColor="#666666"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/v_view3"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_text4"
+                android:layout_width="wrap_content"
+                android:layout_height="41dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="待收货"
+                android:textColor="#666666"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/v_view4"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_text5"
+                android:layout_width="wrap_content"
+                android:layout_height="41dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="待评价"
+                android:textColor="#666666"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/v_view5"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--<LinearLayout
+        android:id="@+id/ll_layout2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="#ffffff">
+
+        <View
+            android:id="@+id/v_view1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#f14f4f"/>
+
+        <View
+            android:id="@+id/v_view2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <View
+            android:id="@+id/v_view3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <View
+            android:id="@+id/v_view4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <View
+            android:id="@+id/v_view5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>-->
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <com.wjhgw.ui.view.listview.MyListView
-        android:id="@+id/d0_list_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="1dp"
-        android:divider="#00000000"
-        android:dividerHeight="0dp"
-        android:fastScrollEnabled="false"
-        android:scrollbars="none"
-        android:visibility="gone"/>
+
+        <com.wjhgw.ui.view.listview.MyListView
+            android:id="@+id/d0_list_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:divider="#00000000"
+            android:dividerHeight="0dp"
+            android:fastScrollEnabled="false"
+            android:scrollbars="none"
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/ll_no_order"
@@ -30,27 +207,27 @@
             android:gravity="center"
             android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="112dp"
-            android:layout_height="112dp"
-            android:src="@mipmap/ic_on_order"
-            />
+            <ImageView
+                android:layout_width="112dp"
+                android:layout_height="112dp"
+                android:src="@mipmap/ic_on_order" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="7dp"
-            android:textSize="19dp"
-            android:textColor="#666666"
-            android:text="你目前没有相关的订单"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:textSize="13dp"
-            android:textColor="#999999"
-            android:text="你可以去看看有哪些想买"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:layout_marginTop="25dp"
+                android:text="你目前没有相关的订单"
+                android:textColor="#666666"
+                android:textSize="19dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="你可以去看看有哪些想买"
+                android:textColor="#999999"
+                android:textSize="13dp" />
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>

@@ -1,9 +1,11 @@
 package com.wjhgw.ui.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
@@ -36,6 +38,17 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
 
     private MyListView mListView;
     private LinearLayout ll_no_order;
+    private LinearLayout ll_layout1;
+    private View v_view1;
+    private View v_view2;
+    private View v_view3;
+    private View v_view4;
+    private View v_view5;
+    private TextView tv_text1;
+    private TextView tv_text2;
+    private TextView tv_text3;
+    private TextView tv_text4;
+    private TextView tv_text5;
     private String key;
     private D0_OrderAdapter listAdapter;
     private boolean isSetAdapter = true;
@@ -53,7 +66,8 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
         order_state = getIntent().getStringExtra("order_state");
         name = getIntent().getStringExtra("name");
         mListView = (MyListView) findViewById(R.id.d0_list_layout);
-        ll_no_order = (LinearLayout) findViewById(R.id.ll_no_order);
+
+
         setTitle(name);
         mListView.setPullLoadEnable(false);
         mListView.setPullRefreshEnable(true);
@@ -61,6 +75,10 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
         mListView.setRefreshTime();
         if (order_state.equals("100")) {
             refund_return_list();
+        } else if (order_state.equals("")) {
+            ll_layout1.setVisibility(View.VISIBLE);
+            order_list();
+            click(1);
         } else {
             order_list();
         }
@@ -75,7 +93,18 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
 
     @Override
     public void onFindViews() {
-
+        ll_no_order = (LinearLayout) findViewById(R.id.ll_no_order);
+        ll_layout1 = (LinearLayout) findViewById(R.id.ll_layout1);
+        v_view1 = (View) findViewById(R.id.v_view1);
+        v_view2 = (View) findViewById(R.id.v_view2);
+        v_view3 = (View) findViewById(R.id.v_view3);
+        v_view4 = (View) findViewById(R.id.v_view4);
+        v_view5 = (View) findViewById(R.id.v_view5);
+        tv_text1 = (TextView) findViewById(R.id.tv_text1);
+        tv_text2 = (TextView) findViewById(R.id.tv_text2);
+        tv_text3 = (TextView) findViewById(R.id.tv_text3);
+        tv_text4 = (TextView) findViewById(R.id.tv_text4);
+        tv_text5 = (TextView) findViewById(R.id.tv_text5);
     }
 
     @Override
@@ -85,7 +114,11 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
 
     @Override
     public void onBindListener() {
-
+        tv_text1.setOnClickListener(this);
+        tv_text2.setOnClickListener(this);
+        tv_text3.setOnClickListener(this);
+        tv_text4.setOnClickListener(this);
+        tv_text5.setOnClickListener(this);
     }
 
     @Override
@@ -97,9 +130,36 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-    /*	case R.id.e0_return:
-            finish();
-			break;*/
+            case R.id.tv_text1:
+                click(1);
+                order_state = "";
+                OrderList_data.clear();
+                order_list();
+                break;
+            case R.id.tv_text2:
+                click(2);
+                order_state = "10";
+                OrderList_data.clear();
+                order_list();
+                break;
+            case R.id.tv_text3:
+                click(3);
+                order_state = "20";
+                OrderList_data.clear();
+                order_list();
+                break;
+            case R.id.tv_text4:
+                click(4);
+                order_state = "30";
+                OrderList_data.clear();
+                order_list();
+                break;
+            case R.id.tv_text5:
+                click(5);
+                order_state = "60";
+                OrderList_data.clear();
+                order_list();
+                break;
 
             default:
                 break;
@@ -170,7 +230,7 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
                             mListView.setVisibility(View.GONE);
                         }
                     } else {
-                        overtime(orderList.status.code,orderList.status.msg);
+                        overtime(orderList.status.code, orderList.status.msg);
                     }
                 }
             }
@@ -224,8 +284,8 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 mListView.setPullLoadEnable(false);
                             }
                         }
-                    }else {
-                        overtime(orderList.status.code,orderList.status.msg);
+                    } else {
+                        overtime(orderList.status.code, orderList.status.msg);
                     }
                 }
             }
@@ -243,5 +303,35 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
         isSetAdapter = true;
         curpage = 1;
         order_list();
+    }
+
+    private void click(int i) {
+        v_view1.setBackgroundColor(Color.parseColor("#ffffff"));
+        v_view2.setBackgroundColor(Color.parseColor("#ffffff"));
+        v_view3.setBackgroundColor(Color.parseColor("#ffffff"));
+        v_view4.setBackgroundColor(Color.parseColor("#ffffff"));
+        v_view5.setBackgroundColor(Color.parseColor("#ffffff"));
+        tv_text1.setTextColor(Color.parseColor("#666666"));
+        tv_text2.setTextColor(Color.parseColor("#666666"));
+        tv_text3.setTextColor(Color.parseColor("#666666"));
+        tv_text4.setTextColor(Color.parseColor("#666666"));
+        tv_text5.setTextColor(Color.parseColor("#666666"));
+
+        if (i == 1) {
+            v_view1.setBackgroundColor(Color.parseColor("#f14f4f"));
+            tv_text1.setTextColor(Color.parseColor("#f14f4f"));
+        } else if (i == 2) {
+            v_view2.setBackgroundColor(Color.parseColor("#f14f4f"));
+            tv_text2.setTextColor(Color.parseColor("#f14f4f"));
+        } else if (i == 3) {
+            v_view3.setBackgroundColor(Color.parseColor("#f14f4f"));
+            tv_text3.setTextColor(Color.parseColor("#f14f4f"));
+        } else if (i == 4) {
+            v_view4.setBackgroundColor(Color.parseColor("#f14f4f"));
+            tv_text4.setTextColor(Color.parseColor("#f14f4f"));
+        } else if (i == 5) {
+            v_view5.setBackgroundColor(Color.parseColor("#f14f4f"));
+            tv_text5.setTextColor(Color.parseColor("#f14f4f"));
+        }
     }
 }
