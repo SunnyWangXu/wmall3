@@ -164,7 +164,8 @@ public class Address_del_Request extends BaseRequest {
         Dialog.ProgressDialog();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
-        params.addBodyParameter("goods_id", goods_id);
+        params.addBodyParameter("fav_id", goods_id);
+        params.addBodyParameter("fav_type", "goods");
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Favorites_add, params, new RequestCallBack<String>() {
             @Override
