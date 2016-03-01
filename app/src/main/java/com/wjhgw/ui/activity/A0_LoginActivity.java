@@ -197,7 +197,13 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                         getSharedPreferences("key",MODE_PRIVATE).edit().putString("key",login.datas.key).commit();
                         getSharedPreferences("username",MODE_PRIVATE).edit().putString("username",Number).commit();
                         showToastShort("登录成功");
+
+                        Intent intent = new Intent();
+                        intent.putExtra("forWhere", "forPrductDetail");
+                        setResult(12345, intent);
+
                         finish(false);
+
                     }else {
                         overtime(login.status.code,login.status.msg);
                     }

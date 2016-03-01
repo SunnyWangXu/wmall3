@@ -11,7 +11,6 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
@@ -36,7 +35,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 商品详情页
@@ -48,12 +46,26 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
     private LoadDialog Dialog;
     private String key;
     private String Shopping_Cart;
+    private HashMap<String, String> keyMap;
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prduct_detail);
+
         webView = (WebView) findViewById(R.id.wb_prduct_detail);
+
+        /**
+         * 加载WebView
+         */
+        toLoadWebView();
+    }
+
+    /**
+     * 加载WebView
+     */
+    private void toLoadWebView() {
         Dialog = new LoadDialog(this);
         WebSettings webSettings = webView.getSettings();
         ua = webSettings.getUserAgentString() + " WMall/3.0.0";
@@ -87,25 +99,24 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
         String id = getIntent().getStringExtra("goods_id");
         Shopping_Cart = getIntent().getStringExtra("Shopping_Cart");
         //BaseQuery.environment()
-        String url = BaseQuery.serviceUrl() + "/wap/index.php?act=goods&op=index&id=" + id;
+        url = BaseQuery.serviceUrl() + "/wap/index.php?act=goods&op=index&id=" + id;
 
-        Map<String, String> keyMap = new HashMap<>();
+        keyMap = new HashMap<>();
         keyMap.put("authentication", key);
         webView.loadUrl(url, keyMap);
 
-        // 打开网页时不调用系统浏览器， 而是在本WebView中显示：
+     /*   // 打开网页时不调用系统浏览器， 而是在本WebView中显示：
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return true;
             }
-        });
+        });*/
 
         webView.setWebChromeClient(new WebChromeClient());
         //调用javascript
         webView.addJavascriptInterface(new WMallBridge(this), "WMallBridge");
-
     }
 
     @Override
@@ -171,7 +182,7 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//它可以关掉所要到的界面中间的activity
                 startActivity(intent);
                 finish();
-                showToastShort(data);
+
             }
 
             if (handlerName.equals("goCartHandler")) {
@@ -193,7 +204,27 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
                     e.printStackTrace();
                 }
             }
+
+            if (handlerName.equals("loginHandler")) {
+                Intent intent = new Intent(PrductDetailActivity.this, A0_LoginActivity.class);
+                startActivityForResult(intent, 12345);
+
+            }
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (data != null && data.getStringExtra("forWhere").equals("forPrductDetail")) {
+
+            /**
+             * 加载WebView
+             */
+            toLoadWebView();
+        }
+
     }
 
     /**
@@ -241,4 +272,5 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
             }
         });
     }
+
 }
