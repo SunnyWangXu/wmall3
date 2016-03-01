@@ -87,12 +87,11 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
         String id = getIntent().getStringExtra("goods_id");
         Shopping_Cart = getIntent().getStringExtra("Shopping_Cart");
         //BaseQuery.environment()
-        String url = BaseQuery.serviceUrl()+"/wap/index.php?act=goods&op=index&id=" + id;
+        String url = BaseQuery.serviceUrl() + "/wap/index.php?act=goods&op=index&id=" + id;
+
         Map<String, String> keyMap = new HashMap<>();
-        if (!key.equals("0")) {
-            keyMap.put("authentication", key);
-            webView.loadUrl(url, keyMap);
-        }
+        keyMap.put("authentication", key);
+        webView.loadUrl(url, keyMap);
 
         // 打开网页时不调用系统浏览器， 而是在本WebView中显示：
         webView.setWebViewClient(new WebViewClient() {
@@ -176,10 +175,10 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
             }
 
             if (handlerName.equals("goCartHandler")) {
-                if(Shopping_Cart != null){
+                if (Shopping_Cart != null) {
                     finish();
-                }else {
-                    Intent intent = new Intent(PrductDetailActivity.this,ShoppingCartActivity.class);
+                } else {
+                    Intent intent = new Intent(PrductDetailActivity.this, ShoppingCartActivity.class);
                     startActivity(intent);
                 }
             }
@@ -188,7 +187,7 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
                 //Toast.makeText(mContxt, "赠送他人" + data, Toast.LENGTH_SHORT).show();
                 try {
                     JSONObject bject = new JSONObject(data);
-                    String cart_id = bject.getString("goods_id")+ "|" +bject.getString("goods_num");
+                    String cart_id = bject.getString("goods_id") + "|" + bject.getString("goods_num");
                     buy_step1(cart_id);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -227,7 +226,7 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
                         intent.putExtra("selectOrder", responseInfo.result);
                         //String tvTotal = tv_total.getText().toString();
                         intent.putExtra("cart_id", cart_id);
-                        intent.putExtra("tv_total", realPay+"");
+                        intent.putExtra("tv_total", realPay + "");
                         intent.putExtra("realPay", realPay);
                         startActivity(intent);
                     } else {
