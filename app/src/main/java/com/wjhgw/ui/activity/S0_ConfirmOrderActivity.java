@@ -914,6 +914,11 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
                 paymentWindow.dismiss();
                 tvPayMethod.setText("货到付款");
+                isDonate = false;
+                ivDonate.setImageResource(R.mipmap.ic_push_off);
+                llUseMessage.setVisibility(View.GONE);
+                tvDonate.setTextColor(Color.parseColor("#cccccc"));
+
             }
         });
     }
