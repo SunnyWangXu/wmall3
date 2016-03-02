@@ -105,10 +105,12 @@ public class Z0_AssetsActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.fl_prepaid_card_balance:
                 intent = new Intent(this, Z1_Prepaid_card_balanceActivity.class);
+                intent.putExtra("state","1");
                 startActivity(intent);
                 break;
             case R.id.fl_account_balance:
                 intent = new Intent(this, Z1_Prepaid_card_balanceActivity.class);
+                intent.putExtra("state","2");
                 startActivity(intent);
                 break;
             default:

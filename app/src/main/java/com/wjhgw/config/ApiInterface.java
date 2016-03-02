@@ -228,6 +228,10 @@ public class ApiInterface {
      */
     public static final String Rcb_log_list  ="/mobile/index.php?act=predeposit&op=rcb_log_list";
     /**
+     *账户余额明细
+     */
+    public static final String Pd_log_list  ="/mobile/index.php?act=predeposit&op=pd_log_list";
+    /**
      *判断是否登录过期
      */
     public static final String Check_logo_data  ="/mobile/index.php?act=member_info&op=check_logo_data";
