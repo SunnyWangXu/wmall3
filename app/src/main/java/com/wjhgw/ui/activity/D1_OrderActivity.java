@@ -443,10 +443,20 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 if (order_detail.datas.evaluation) {
                                     tv_button1.setVisibility(View.VISIBLE);
                                     tv_button1.setText("商品评价");
+                                    tv_state.setText("您的商品已签收，请对商品作出评价");
                                 }
-                                tv_state.setText("您的商品已签收，请对商品作出评价");
-                                //待评价
-                            } else if (order_detail.datas.order_state.equals("40")) {
+                                if (order_detail.datas.if_deliver) {
+                                    tv_button1.setVisibility(View.VISIBLE);
+                                    tv_button1.setText("查看物流");
+                                }
+                                if (order_detail.datas.delete) {
+                                    tv_button2.setVisibility(View.VISIBLE);
+                                    tv_button2.setText("删除订单");
+                                    tv_state.setText("订单交易成功");
+                                }
+
+                                //待评价 || 已完成
+                            } /*else if (order_detail.datas.order_state.equals("40")) {
                                 if (order_detail.datas.if_deliver) {
                                     tv_button1.setVisibility(View.VISIBLE);
                                     tv_button1.setText("查看物流");
@@ -456,8 +466,8 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                     tv_button2.setText("删除订单");
                                 }
                                 tv_state.setText("订单交易成功");
-                                //已完成
-                            } else if (order_detail.datas.order_state.equals("0")) {
+                                //
+                            }*/ else if (order_detail.datas.order_state.equals("0")) {
                                 if (order_detail.datas.delete) {
                                     tv_button1.setVisibility(View.VISIBLE);
                                     tv_button1.setText("删除订单");

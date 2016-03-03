@@ -169,8 +169,16 @@ public class D0_OrderAdapter extends BaseAdapter {
                 tv_button1.setVisibility(View.VISIBLE);
                 tv_button1.setText("商品评价");
             }
-            //待评价
-        } else if (List.get(position).order_state.equals("40")) {
+            if (List.get(position).if_deliver) {
+                tv_button1.setVisibility(View.VISIBLE);
+                tv_button1.setText("查看物流");
+            }
+            if (List.get(position).delete) {
+                tv_button2.setVisibility(View.VISIBLE);
+                tv_button2.setText("删除订单");
+            }
+            //待评价||和已完成
+        } /*else if (List.get(position).order_state.equals("40")) {
             if (List.get(position).if_deliver) {
                 tv_button1.setVisibility(View.VISIBLE);
                 tv_button1.setText("查看物流");
@@ -180,7 +188,7 @@ public class D0_OrderAdapter extends BaseAdapter {
                 tv_button2.setText("删除订单");
             }
             //已完成
-        } else if (List.get(position).order_state.equals("0")) {
+        }*/ else if (List.get(position).order_state.equals("0")) {
             if (List.get(position).delete) {
                 tv_button1.setVisibility(View.VISIBLE);
                 tv_button1.setText("删除订单");
