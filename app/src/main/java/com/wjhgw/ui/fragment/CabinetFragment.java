@@ -174,9 +174,10 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
             case R.id.tv_others:
                 if (listAdapter.num > 0) {
                     intent = new Intent(getActivity(), J0_SelectGiveObjectActivity.class);
-                    Type type = new TypeToken<ArrayList<CadList_data>>(){}.getType();
-                    String json = new Gson().toJson(listAdapter.List,type);
-                    intent.putExtra("list",json);
+                    Type type = new TypeToken<ArrayList<CadList_data>>() {
+                    }.getType();
+                    String json = new Gson().toJson(listAdapter.List, type);
+                    intent.putExtra("list", json);
                     startActivity(intent);
                 } else {
                     Toast.makeText(getActivity(), "你还没有选择商品哦", Toast.LENGTH_SHORT).show();
@@ -192,9 +193,10 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                     }*/
 
                     intent = new Intent(getActivity(), J4_GiveMyselfActivity.class);
-                    Type type = new TypeToken<ArrayList<CadList_data>>(){}.getType();
-                    String json = new Gson().toJson(listAdapter.List,type);
-                    intent.putExtra("list",json);
+                    Type type = new TypeToken<ArrayList<CadList_data>>() {
+                    }.getType();
+                    String json = new Gson().toJson(listAdapter.List, type);
+                    intent.putExtra("list", json);
                     startActivity(intent);
 
                 } else {
@@ -271,11 +273,11 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                             ll_null.setVisibility(View.VISIBLE);
                             mListView.setVisibility(View.GONE);
                         }
-                    }else if(cadList.status.code == 200103 || cadList.status.code == 200104){
+                    } else if (cadList.status.code == 200103 || cadList.status.code == 200104) {
                         Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
-                        getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key","0").commit();
+                        getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key", "0").commit();
                         startActivity(new Intent(getActivity(), A0_LoginActivity.class));
-                    }else {
+                    } else {
                         Toast.makeText(getActivity(), cadList.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }

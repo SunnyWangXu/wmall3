@@ -172,6 +172,11 @@ public class ApiInterface {
      */
     public static final String Buy_step2  ="/mobile/index.php?act=member_buy&op=buy_step2";
     /**
+     *添加发票
+     */
+    public static final String Add_invoice  ="/mobile/index.php?act=member_invoice&op=invoice_add";
+
+    /**
      *订单列表接口
      */
     public static final String Order_list  ="/mobile/index.php?act=member_order&op=order_list";
@@ -251,5 +256,6 @@ public class ApiInterface {
      *订单支付接口
      */
     public static final String Member_payment  ="/mobile/index.php?act=member_order&op=pay_order";
+
 
 }

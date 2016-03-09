@@ -120,6 +120,11 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private TextView tvRcBalance;
     private LinearLayout llUseMessage01;
     private TextView tvNotAddress;
+    private LinearLayout llInvoice;
+    private String invoice_id;
+    private String invoice_title;
+    private String invoice_content;
+    private TextView tvInvoice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -262,6 +267,9 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         tvPayMethod = (TextView) findViewById(R.id.tv_pay_method);
         tvCommitOrder = (TextView) findViewById(R.id.tv_commit_order);
 
+        llInvoice = (LinearLayout) findViewById(R.id.ll_invoice);
+        tvInvoice = (TextView) findViewById(R.id.tv_invoice);
+
         tvNotAddress = (TextView) findViewById(R.id.tv_not_address);
         tvUseName = (TextView) llConfirmOrderHeader.findViewById(R.id.tv_useName);
         tvUsePhone = (TextView) llConfirmOrderHeader.findViewById(R.id.tv_usePhone);
@@ -300,6 +308,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         tvNotAddress.setOnClickListener(this);
         llOrderAddress.setOnClickListener(this);
         llPayment.setOnClickListener(this);
+        llInvoice.setOnClickListener(this);
         llDonate.setOnClickListener(this);
         llUseBalance.setOnClickListener(this);
         llAvailableRcBalance.setOnClickListener(this);
@@ -313,24 +322,37 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data == null) {
-            llUseMessage01.setVisibility(View.GONE);
-            tvNotAddress.setVisibility(View.VISIBLE);
-        }
-        if (data != null) {
-            tvNotAddress.setVisibility(View.GONE);
-            llUseMessage01.setVisibility(View.VISIBLE);
-
-            useName = data.getStringExtra("tureName");
-            usePhone = data.getStringExtra("phone");
-            useAddressInfo = data.getStringExtra("addressInfo");
-            address_id = data.getStringExtra("addressId");
-
-            if (useName != null && usePhone != null && useAddressInfo != null) {
-                tvUseName.setText(useName);
-                tvUsePhone.setText(usePhone);
-                tvUseAddress.setText(useAddressInfo);
+        if (resultCode == 55555) {
+            if (data == null) {
+                llUseMessage01.setVisibility(View.GONE);
+                tvNotAddress.setVisibility(View.VISIBLE);
             }
+            if (data != null) {
+                tvNotAddress.setVisibility(View.GONE);
+                llUseMessage01.setVisibility(View.VISIBLE);
+
+                useName = data.getStringExtra("tureName");
+                usePhone = data.getStringExtra("phone");
+                useAddressInfo = data.getStringExtra("addressInfo");
+                address_id = data.getStringExtra("addressId");
+
+                if (useName != null && usePhone != null && useAddressInfo != null) {
+                    tvUseName.setText(useName);
+                    tvUsePhone.setText(usePhone);
+                    tvUseAddress.setText(useAddressInfo);
+                }
+            }
+        }
+
+        if (resultCode == 22222 && data != null) {
+
+            int invoice_id_int = data.getIntExtra("invoice_id", 0);
+
+            invoice_id = invoice_id_int + "";
+            invoice_title = data.getStringExtra("invoice_title");
+            invoice_content = data.getStringExtra("invoice_content");
+
+            tvInvoice.setText(invoice_title + "-" + invoice_content);
         }
     }
 
@@ -360,6 +382,11 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
                 break;
 
+            case R.id.ll_invoice:
+                intent.setClass(this, S2_InvoiceActivity.class);
+                startActivityForResult(intent, 22222);
+
+                break;
             case R.id.ll_donate:
                 if (!isDownlinePay) {
                     MAKEDONATE++;
@@ -554,6 +581,9 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             params.addBodyParameter("pay_name", "offline");
         }
 
+        if (invoice_id != null) {
+            params.addBodyParameter("invoice_id", invoice_id);
+        }
         if (isUseBalance) {
             params.addBodyParameter("pd_pay", "1");
             params.addBodyParameter("password", paypwd);
@@ -565,7 +595,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             params.addBodyParameter("rcb_pay", "1");
             params.addBodyParameter("password", paypwd);
 
-        }else{
+        } else {
             params.addBodyParameter("rcb_pay", "0");
         }
 
@@ -914,6 +944,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
                 paymentWindow.dismiss();
                 tvPayMethod.setText("货到付款");
+
                 isDonate = false;
                 ivDonate.setImageResource(R.mipmap.ic_push_off);
                 llUseMessage.setVisibility(View.GONE);

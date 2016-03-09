@@ -68,6 +68,7 @@
         <activity android:name=".ui.activity.D1_OrderActivity"/>
         <activity android:name=".ui.activity.D2_LogisticsActivity"/>
         <activity android:name=".ui.activity.S0_ConfirmOrderActivity" />
+        <activity android:name=".ui.activity.S2_InvoiceActivity" />
         <activity android:name=".ui.activity.S1_OrderAddressActivity" />
         <activity android:name=".ui.activity.S3_SelectPaymentActivity" />
         <activity android:name=".ui.activity.MessageCenterActivity" />
