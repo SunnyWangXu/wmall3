@@ -37,7 +37,7 @@
                 android:textColor="#666666"
                 android:textSize="15dp" />
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -46,7 +46,6 @@
                     android:id="@+id/tv_goods_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="100dp"
                     android:text="999"
                     android:textColor="#f14f4f"
                     android:textSize="16dp" />
@@ -56,10 +55,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginRight="10dp"
                     android:text="X1"
                     android:textColor="#666666"
                     android:textSize="15dp" />
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_refund"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:text="收货处理中"
+                    android:textColor="#f25252"
+                    android:textSize="15dp" />
+            </FrameLayout>
         </LinearLayout>
     </LinearLayout>
 

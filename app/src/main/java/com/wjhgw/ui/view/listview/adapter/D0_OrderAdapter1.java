@@ -67,11 +67,15 @@ public class D0_OrderAdapter1 extends BaseAdapter {
         TextView tv_goods_name = (TextView) cellView.findViewById(R.id.tv_goods_name);
         TextView tv_goods_price = (TextView) cellView.findViewById(R.id.tv_goods_price);
         TextView tv_goods_num = (TextView) cellView.findViewById(R.id.tv_goods_num);
+        TextView tv_refund = (TextView) cellView.findViewById(R.id.tv_refund);
 
         APP.getApp().getImageLoader().displayImage(List.get(position).goods_image_url, iv_goods_image_url, APP.getApp().getImageOptions());
         tv_goods_name.setText(List.get(position).goods_name);
         tv_goods_price.setText("¥ " + List.get(position).goods_price);
         tv_goods_num.setText("X " + List.get(position).goods_num);
+        if(List.get(position).refund.equals("0")){
+            tv_refund.setVisibility(View.VISIBLE);
+        }
         cellView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
