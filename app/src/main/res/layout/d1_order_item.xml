@@ -5,17 +5,43 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="#ffffff">
+
+        <TextView
+            android:id="@+id/tv_order_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="10dp"
+            android:text="¥9999.00(含运费0.00)"
+            android:textColor="#666666"
+            android:textSize="14dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="5dp"
+            android:background="#cccccc" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/ll_invoice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:background="#ffffff"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
+            android:layout_marginLeft="14dp"
             android:text="发票信息"
             android:textColor="#333333" />
 
@@ -105,38 +131,6 @@
         android:background="#ffffff"
         android:orientation="vertical">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="实付款："
-                android:textColor="#aeaeae"
-                android:textSize="14dp" />
-
-            <TextView
-                android:id="@+id/tv_order_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="55dp"
-                android:text="¥9999.00(含运费0.00)"
-                android:textColor="#666666"
-                android:textSize="14dp" />
-
-            <TextView
-                android:id="@+id/tv_payment_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="支付宝及其他"
-                android:textColor="#666666"
-                android:textSize="14dp" />
-        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -175,6 +169,32 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="支付方式："
+                android:textColor="#aeaeae"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/tv_payment_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="支付宝及其他"
+                android:textColor="#666666"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="下单时间："
                 android:textColor="#aeaeae"
                 android:textSize="14dp" />
@@ -194,18 +214,19 @@
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:layout_marginTop="12dp"
+            android:layout_marginBottom="15dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="付款时间："
+                android:text="订单备注："
                 android:textColor="#aeaeae"
                 android:textSize="14dp" />
 
             <TextView
-                android:id="@+id/tv_payment_time"
+                android:id="@+id/tv_remarks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
@@ -213,31 +234,6 @@
                 android:textSize="14dp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="12dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="寄出时间："
-                android:textColor="#aeaeae"
-                android:textSize="14dp" />
-
-            <TextView
-                android:id="@+id/tv_shipping_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="#666666"
-                android:textSize="14dp" />
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

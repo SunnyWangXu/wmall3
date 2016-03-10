@@ -48,9 +48,7 @@ import com.wjhgw.ui.dialog.MyDialog;
 import com.wjhgw.ui.dialog.Order_cancelDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * 订单列表适配器
@@ -67,7 +65,6 @@ public class D0_OrderAdapter extends BaseAdapter {
     private Order_cancelDialog order_cancelDialog;
     private String msg = "购买其他商品";
     private LoadDialog Dialog;
-
 
     public D0_OrderAdapter(Context c, ArrayList<OrderList_data> dataList, Order_Request Request, String key) {
         mInflater = LayoutInflater.from(c);
@@ -101,12 +98,9 @@ public class D0_OrderAdapter extends BaseAdapter {
         final TextView tv_button1 = (TextView) cellView.findViewById(R.id.tv_button1);
         final TextView tv_button2 = (TextView) cellView.findViewById(R.id.tv_button2);
         final TextView tv_button3 = (TextView) cellView.findViewById(R.id.tv_button3);
-        TextView tv_order_sn = (TextView) cellView.findViewById(R.id.tv_order_sn);
-        TextView tv_add_time = (TextView) cellView.findViewById(R.id.tv_add_time);
         TextView tv_store_name = (TextView) cellView.findViewById(R.id.tv_store_name);
         TextView tv_state_desc = (TextView) cellView.findViewById(R.id.tv_state_desc);
         TextView tv_order_amount = (TextView) cellView.findViewById(R.id.tv_order_amount);
-        TextView tv_payment_name = (TextView) cellView.findViewById(R.id.tv_payment_name);
         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) itemListView.getLayoutParams();
         linearParams.height = dip2px(c, 114) * List.get(position).extend_order_goods.size();// 当控件的高
         itemListView.setLayoutParams(linearParams);
@@ -122,15 +116,13 @@ public class D0_OrderAdapter extends BaseAdapter {
                 return true;
             }
         });
-
-        Date date = new Date(Long.parseLong(List.get(position).add_time) * 1000);
-        String timeString = new SimpleDateFormat("yyyy-MM-dd").format(date);
-        tv_order_sn.setText("订单号: " + List.get(position).order_sn);
-        tv_add_time.setText(timeString);
         tv_store_name.setText(List.get(position).store_name);
         tv_state_desc.setText(List.get(position).state_desc);
-        tv_order_amount.setText("¥" + List.get(position).order_amount + "(含运费" + List.get(position).shipping_fee + ")");
-        tv_payment_name.setText(List.get(position).payment_name);
+        int num = 0;
+        for(int i = 0; i < List.get(position).extend_order_goods.size(); i++){
+            num += Integer.parseInt(List.get(position).extend_order_goods.get(i).goods_num);
+        }
+        tv_order_amount.setText("共"+ num +"件商品,合计：¥" + List.get(position).order_amount + "(含运费" + List.get(position).shipping_fee + ")");
 
         if (List.get(position).order_state.equals("10")) {
             if (List.get(position).if_cancel) {

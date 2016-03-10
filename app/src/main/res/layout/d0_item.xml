@@ -39,6 +39,12 @@
                 android:textSize="13dp" />
         </RelativeLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="6dp"
+            android:background="#cccccc" />
+
         <com.wjhgw.ui.view.listview.MyListView
             android:id="@+id/d0_item_list"
             android:layout_width="match_parent"
@@ -52,63 +58,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
+            android:layout_marginLeft="40dp"
             android:layout_marginRight="12dp"
             android:layout_marginTop="5dp"
             android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="实付款："
-                android:textColor="#666666"
-                android:textSize="15dp" />
-
-            <TextView
                 android:id="@+id/tv_order_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:gravity="center"
-                android:text="¥999.00"
-                android:textColor="#666666"
-                android:textSize="13dp" />
-
-            <TextView
-                android:id="@+id/tv_payment_name"
                 android:layout_width="match_parent"
+                android:layout_marginRight="10dp"
                 android:layout_height="25dp"
-                android:gravity="right|center_vertical"
-                android:text="在线支付"
-                android:textColor="#666666"
+                android:gravity="center_vertical"
+                android:text="¥999.00"
+                android:textColor="#999999"
                 android:textSize="13dp" />
+
         </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:id="@+id/tv_order_sn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="订单号:134812168412"
-                android:textColor="#666666"
-                android:textSize="13dp" />
-
-            <TextView
-                android:id="@+id/tv_add_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="2015-06-03"
-                android:textColor="#666666"
-                android:textSize="13dp" />
-
-        </RelativeLayout>
 
         <FrameLayout
             android:layout_width="300dp"
