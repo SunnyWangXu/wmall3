@@ -47,7 +47,6 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
     private FrameLayout fl_logistics;
     private TextView tv_store_name;
     private TextView tv_state_desc;
-    private TextView tv_payment_name;
     private TextView tv_reciver_name;
     private TextView tv_state;
     private TextView tv_order_amount;
@@ -59,8 +58,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
     private TextView tv_invoice_rise;
     private TextView tv_invoice_content;
     private TextView tv_add_time;
-    private TextView tv_payment_time;
-    private TextView tv_shipping_time;
+    private TextView tv_remarks;
     private TextView tv_button1;
     private TextView tv_button2;
     private TextView tv_button3;
@@ -136,12 +134,11 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
         tv_invoice_type = (TextView) order3.findViewById(R.id.tv_invoice_type);
         tv_invoice_rise = (TextView) order3.findViewById(R.id.tv_invoice_rise);
         tv_invoice_content = (TextView) order3.findViewById(R.id.tv_invoice_content);
-        tv_payment_name = (TextView) order3.findViewById(R.id.tv_payment_name);
         tv_order_amount = (TextView) order3.findViewById(R.id.tv_order_amount);
         tv_order_sn = (TextView) order3.findViewById(R.id.tv_order_sn);
         tv_add_time = (TextView) order3.findViewById(R.id.tv_add_time);
-        tv_payment_time = (TextView) order3.findViewById(R.id.tv_payment_time);
-        tv_shipping_time = (TextView) order3.findViewById(R.id.tv_shipping_time);
+        tv_remarks = (TextView) order3.findViewById(R.id.tv_remarks);
+
 
         tv_button1 = (TextView) order3.findViewById(R.id.tv_button1);
         tv_button2 = (TextView) order3.findViewById(R.id.tv_button2);
@@ -382,8 +379,11 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                             tv_store_name.setText(order_detail.datas.store_name);
                             tv_state_desc.setText(order_detail.datas.state_desc);
                             tv_order_sn.setText(order_detail.datas.order_sn);
-                            tv_order_amount.setText("¥" + order_detail.datas.order_amount + "(含运费" + order_detail.datas.shipping_fee + ")");
-                            tv_payment_name.setText(order_detail.datas.payment_name);
+                            int num = 0;
+                            for(int i = 0; i < order_detail.datas.extend_order_goods.size(); i++){
+                                num += Integer.parseInt(order_detail.datas.extend_order_goods.get(i).goods_num);
+                            }
+                            tv_order_amount.setText("共"+ num +"件商品,合计：¥" + order_detail.datas.order_amount + "(含运费" + order_detail.datas.shipping_fee + ")");
 
                             if (order_detail.datas.extend_order_common.invoice_info == null) {
                                 ll_invoice.setVisibility(View.GONE);
@@ -401,8 +401,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                             }
 
                             tv_add_time.setText(order_detail.datas.add_time);
-                            tv_payment_time.setText(order_detail.datas.payment_time);
-                            tv_shipping_time.setText(order_detail.datas.extend_order_common.shipping_time);
+                            tv_remarks.setText(order_detail.datas.order_message);
 
                             if (order_detail.datas.order_state.equals("10")) {
                                 if (order_detail.datas.if_cancel) {

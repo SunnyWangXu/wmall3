@@ -11,6 +11,7 @@ public class Order_detail_data {
     public String order_sn;
     public String order_amount;
     public String payment_name;
+    public String order_message;
     public String add_time;
     public String shipping_fee;
     public String payment_time;
