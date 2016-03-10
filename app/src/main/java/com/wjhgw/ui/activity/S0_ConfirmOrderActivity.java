@@ -353,6 +353,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             invoice_content = data.getStringExtra("invoice_content");
 
             tvInvoice.setText(invoice_title + "-" + invoice_content);
+            tvInvoice.setTextColor(Color.parseColor("#333333"));
         }
     }
 

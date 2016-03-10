@@ -86,7 +86,7 @@
             android:layout_marginRight="30dp"
             android:ellipsize="end"
             android:gravity="center"
-            android:maxLength="10"
+            android:maxEms="10"
             android:singleLine="true"
             android:text="不需要发票"
             android:textColor="@color/gray"
