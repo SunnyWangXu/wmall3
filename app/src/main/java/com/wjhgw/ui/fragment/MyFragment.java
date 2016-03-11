@@ -29,6 +29,7 @@ import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.D0_OrderActivity;
 import com.wjhgw.ui.activity.M0_MyLockBoxActivity;
 import com.wjhgw.ui.activity.M6_SetActivity;
+import com.wjhgw.ui.activity.M7_MyCollectActivity;
 import com.wjhgw.ui.activity.Z0_AssetsActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.dialog.under_developmentDialog;
@@ -68,6 +69,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private LinearLayout ll_Set;
     private String memberName;
     private LoadDialog Dialog;
+    private FrameLayout flMyCollect;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -129,6 +131,9 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
 
         myAvatar = (ImageView) MyMessageLayout.findViewById(R.id.my_avatar);
         member_nickname = (TextView) MyMessageLayout.findViewById(R.id.member_nickname);
+
+        flMyCollect = (FrameLayout) MyMessageLayout.findViewById(R.id.fl_my_collect);
+
         ll_all_orders = (LinearLayout) MyOrderLayout.findViewById(R.id.ll_all_orders);
         rl_layout1 = (RelativeLayout) MyOrderLayout.findViewById(R.id.rl_layout1);
         rl_layout5 = (RelativeLayout) MyOrderLayout.findViewById(R.id.rl_layout5);
@@ -156,6 +161,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private void setClick() {
         iv_message.setOnClickListener(this);
         ll_LockBox.setOnClickListener(this);
+        flMyCollect.setOnClickListener(this);
         ivSet.setOnClickListener(this);
 //        ll_Set.setOnClickListener(this);
         ll_all_orders.setOnClickListener(this);
@@ -199,6 +205,17 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                     startActivity(intent);
                 }
                 break;
+
+            case R.id.fl_my_collect:
+                if (key.equals("0")) {
+                    intent.setClass(getActivity(), A0_LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getActivity(), M7_MyCollectActivity.class);
+                    startActivity(intent);
+                }
+                break;
+
             case R.id.iv_set:
 //                if (key.equals("0") || key == null) {
 //                    intent.setClass(getActivity(), A0_LoginActivity.class);
@@ -368,11 +385,11 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                                 tv_statistics4.setText(orderAmount.datas.un_done_fefund);
                             }
                         }
-                    }else if(orderAmount.status.code == 200103 || orderAmount.status.code == 200104){
+                    } else if (orderAmount.status.code == 200103 || orderAmount.status.code == 200104) {
                         Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
-                        getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key","0").commit();
+                        getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key", "0").commit();
                         startActivity(new Intent(getActivity(), A0_LoginActivity.class));
-                    }else {
+                    } else {
                         //Toast.makeText(getActivity(), userinformation.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -441,11 +458,11 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 tv_vouchers.setText(userinformation.datas.member_voucher);         //代金券
 
                 memberName = userinformation.datas.member_name;
-            }else if(userinformation.status.code == 200103 || userinformation.status.code == 200104){
+            } else if (userinformation.status.code == 200103 || userinformation.status.code == 200104) {
                 Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
-                getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key","0").commit();
+                getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key", "0").commit();
                 startActivity(new Intent(getActivity(), A0_LoginActivity.class));
-            }else {
+            } else {
                 //Toast.makeText(getActivity(), userinformation.status.msg, Toast.LENGTH_SHORT).show();
             }
         }

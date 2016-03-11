@@ -64,6 +64,7 @@
         <activity android:name=".ui.activity.M4_PaymentPasswordActivity" />
         <activity android:name=".ui.activity.M5_Change_mobileActivity" />
         <activity android:name=".ui.activity.M6_SetActivity"/>
+        <activity android:name=".ui.activity.M7_MyCollectActivity"/>
         <activity android:name=".ui.activity.D0_OrderActivity"/>
         <activity android:name=".ui.activity.D1_OrderActivity"/>
         <activity android:name=".ui.activity.D2_LogisticsActivity"/>

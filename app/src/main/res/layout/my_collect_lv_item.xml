@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="119dp"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="91dp"
+        android:layout_height="91dp"
+        android:layout_margin="12dp">
+
+        <ImageView
+            android:id="@+id/iv_mycollect_goods"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tv_mycollect_status"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/gray"
+            android:gravity="center"
+            android:text="无货"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="3dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_mycollect_goodsname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="12dp"
+            android:ellipsize="end"
+            android:maxLength="30"
+            android:maxLines="2"
+            android:text="奔富洛神山庄奔富洛神山庄奔富洛神山庄奔富洛神山庄奔富洛神山庄奔富洛神山庄奔富洛神山庄奔富洛神山庄奔富洛神山庄"
+            android:textColor="@color/title_color"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="21dp">
+
+            <TextView
+                android:id="@+id/tv_mycollect_goods_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:text="¥9999.00"
+                android:textColor="@color/btn_red" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_mycollect_goods_salenum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:text="售出：9999件" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

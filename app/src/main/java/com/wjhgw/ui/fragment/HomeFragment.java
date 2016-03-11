@@ -560,21 +560,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
-          /*  case R.id.group_purchase_layout:
-                intent.setClass(getActivity(), A0_LoginActivity.class);
-                startActivity(intent);
-                break;*/
-            /*case R.id.ll_menu_layout:
-
-                final under_developmentDialog underdevelopmentDialog1 = new under_developmentDialog(getActivity(), "功能正在开发中,敬请期待");
-                underdevelopmentDialog1.show();
-                underdevelopmentDialog1.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        underdevelopmentDialog1.dismiss();
-                    }
-                });
-                break;*/
             case R.id.iv_home_qrcode_scanner:
                 intent.setClass(getActivity(), C1_CaptureActivity.class);
                 startActivity(intent);

@@ -97,6 +97,7 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
          * 加载WebView的url和传key给H5端
          */
         String id = getIntent().getStringExtra("goods_id");
+
         Shopping_Cart = getIntent().getStringExtra("Shopping_Cart");
         //BaseQuery.environment()
         url = BaseQuery.serviceUrl() + "/wap/index.php?act=goods&op=index&id=" + id;
