@@ -41,7 +41,7 @@ import com.wjhgw.ui.activity.C2_SearchActivity;
 import com.wjhgw.ui.activity.C3_GoodsArraySearchActivity;
 import com.wjhgw.ui.activity.PrductDetailActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
-import com.wjhgw.ui.dialog.under_developmentDialog;
+import com.wjhgw.ui.dialog.Under_developmentDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView.IXListViewListener;
 import com.wjhgw.ui.view.listview.adapter.HomePagerAdapter;
@@ -329,7 +329,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         MenuLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final under_developmentDialog underdevelopmentDialog1 = new under_developmentDialog(getActivity(), "功能正在开发中,敬请期待");
+                final Under_developmentDialog underdevelopmentDialog1 = new Under_developmentDialog(getActivity(), "功能正在开发中,敬请期待");
                 underdevelopmentDialog1.show();
                 underdevelopmentDialog1.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -573,7 +573,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 break;
 
             case R.id.rl_home_message:
-                final under_developmentDialog underdevelopmentDialog = new under_developmentDialog(getActivity(), "功能正在开发中,敬请期待");
+                final Under_developmentDialog underdevelopmentDialog = new Under_developmentDialog(getActivity(), "功能正在开发中,敬请期待");
                 underdevelopmentDialog.show();
                 underdevelopmentDialog.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
                     @Override

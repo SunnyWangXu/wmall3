@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -24,7 +25,7 @@ import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.dialog.GoodsArrDialog;
 import com.wjhgw.ui.dialog.MyDialog;
-import com.wjhgw.ui.dialog.under_developmentDialog;
+import com.wjhgw.ui.dialog.Under_developmentDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.MyCollectAdapter;
@@ -50,6 +51,7 @@ public class M7_MyCollectActivity extends BaseActivity implements XListView.IXLi
     private Address_del_Request Request;
     private String fav_id;
     private MyDialog myDialog;
+    private LinearLayout llNull;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,7 @@ public class M7_MyCollectActivity extends BaseActivity implements XListView.IXLi
     @Override
     public void onFindViews() {
         lvMyCollect = (MyListView) findViewById(R.id.lv_my_collect);
+        llNull = (LinearLayout) findViewById(R.id.ll_null);
         tvCollectShop = (TextView) findViewById(R.id.tv_collect_shop);
 
     }
@@ -122,7 +125,7 @@ public class M7_MyCollectActivity extends BaseActivity implements XListView.IXLi
         switch (v.getId()) {
             case R.id.tv_collect_shop:
 
-                final under_developmentDialog underdevelopmentDialog1 = new under_developmentDialog(this, "功能正在开发中,敬请期待");
+                final Under_developmentDialog underdevelopmentDialog1 = new Under_developmentDialog(this, "功能正在开发中,敬请期待");
                 underdevelopmentDialog1.show();
                 underdevelopmentDialog1.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -144,6 +147,7 @@ public class M7_MyCollectActivity extends BaseActivity implements XListView.IXLi
      * 请求收藏列表
      */
     private void loadMyCollect() {
+        super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", getKey());
         params.addBodyParameter("curpage", CURPAGE + "");
@@ -156,26 +160,33 @@ public class M7_MyCollectActivity extends BaseActivity implements XListView.IXLi
                 MyCollect myCollect = gson.fromJson(responseInfo.result, MyCollect.class);
 
                 if (myCollect.status.code == 10000) {
+                    M7_MyCollectActivity.this.Dismiss();
 
-                    if (myCollect.datas.goods_list.size() > 0 && isRefressh) {
+
+                    if (myCollect.datas.goods_list.size() >= 0 && isRefressh) {
                         goodsList.clear();
                     }
                     goodsList.addAll(myCollect.datas.goods_list);
 
-                    if (isRefressh) {
-                        myCollectAdapter = new MyCollectAdapter(M7_MyCollectActivity.this, goodsList);
-                        lvMyCollect.setAdapter(myCollectAdapter);
+                    if (goodsList.size() == 0) {
+                        lvMyCollect.setVisibility(View.GONE);
+                        llNull.setVisibility(View.VISIBLE);
                     } else {
-                        goodsList = myCollect.datas.goods_list;
-                        myCollectAdapter.notifyDataSetChanged();
-                    }
 
-                    if (myCollect.pagination.hasmore) {
-                        lvMyCollect.setPullLoadEnable(true);
-                    } else {
-                        lvMyCollect.setPullLoadEnable(false);
-                    }
+                        if (isRefressh) {
+                                myCollectAdapter = new MyCollectAdapter(M7_MyCollectActivity.this, goodsList);
+                                lvMyCollect.setAdapter(myCollectAdapter);
+                        } else {
+                            goodsList = myCollect.datas.goods_list;
+                            myCollectAdapter.notifyDataSetChanged();
+                        }
 
+                        if (myCollect.pagination.hasmore) {
+                            lvMyCollect.setPullLoadEnable(true);
+                        } else {
+                            lvMyCollect.setPullLoadEnable(false);
+                        }
+                    }
 
                 } else {
                     overtime(myCollect.status.code, myCollect.status.msg);
@@ -258,12 +269,14 @@ public class M7_MyCollectActivity extends BaseActivity implements XListView.IXLi
      * 删除收藏的商品
      */
     private void loadDeleMyCollect(String fav_id) {
+        super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", getKey());
         params.addBodyParameter("fav_id", fav_id);
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Favorites_del, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                M7_MyCollectActivity.this.Dismiss();
                 Gson gson = new Gson();
                 DeleMyCollect deleMyCollect = gson.fromJson(responseInfo.result, DeleMyCollect.class);
                 if (deleMyCollect.status.code == 10000) {

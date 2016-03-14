@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.alipay.sdk.app.PayTask;
 import com.wjhgw.ui.activity.D0_OrderActivity;
 import com.wjhgw.ui.dialog.MyDialog;
-import com.wjhgw.ui.dialog.under_developmentDialog;
+import com.wjhgw.ui.dialog.Under_developmentDialog;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -222,7 +222,7 @@ public class payMethod {
                                 }
                             });
                         }else if(entrance.equals("2")){
-                            under_developmentDialog under = new under_developmentDialog(mContext,message);
+                            Under_developmentDialog under = new Under_developmentDialog(mContext,message);
                             under.show();
                             under.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -270,7 +270,7 @@ public class payMethod {
                         }else {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
                             message = "订单支付失败，请继续尝试支付！";
-                            under_developmentDialog under = new under_developmentDialog(mContext,message);
+                            Under_developmentDialog under = new Under_developmentDialog(mContext,message);
                             under.show();
                             under.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
                                 @Override

@@ -32,7 +32,7 @@ import com.wjhgw.ui.activity.M6_SetActivity;
 import com.wjhgw.ui.activity.M7_MyCollectActivity;
 import com.wjhgw.ui.activity.Z0_AssetsActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
-import com.wjhgw.ui.dialog.under_developmentDialog;
+import com.wjhgw.ui.dialog.Under_developmentDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 
@@ -301,7 +301,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 }
                 break;
             case R.id.iv_message:
-                final under_developmentDialog underdevelopmentDialog = new under_developmentDialog(getActivity(), "功能正在开发中,敬请期待");
+                final Under_developmentDialog underdevelopmentDialog = new Under_developmentDialog(getActivity(), "功能正在开发中,敬请期待");
                 underdevelopmentDialog.show();
                 underdevelopmentDialog.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
                     @Override

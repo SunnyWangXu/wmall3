@@ -29,7 +29,7 @@ import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.C1_CaptureActivity;
 import com.wjhgw.ui.activity.C2_SearchActivity;
-import com.wjhgw.ui.dialog.under_developmentDialog;
+import com.wjhgw.ui.dialog.Under_developmentDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.AttrAdapter;
@@ -136,7 +136,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
                 getActivity().startActivity(intent);
                 break;
             case R.id.rl_message:
-                final under_developmentDialog underdevelopmentDialog = new under_developmentDialog(getActivity(),"功能正在开发中,敬请期待");
+                final Under_developmentDialog underdevelopmentDialog = new Under_developmentDialog(getActivity(),"功能正在开发中,敬请期待");
                 underdevelopmentDialog.show();
                 underdevelopmentDialog.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
                     @Override
