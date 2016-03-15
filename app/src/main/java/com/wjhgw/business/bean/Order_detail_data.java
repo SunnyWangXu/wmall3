@@ -16,6 +16,7 @@ public class Order_detail_data {
     public String shipping_fee;
     public String payment_time;
     public String order_state;
+    public String lock_state;
     public String order_type;
     public String order_id;
     public String pay_sn;

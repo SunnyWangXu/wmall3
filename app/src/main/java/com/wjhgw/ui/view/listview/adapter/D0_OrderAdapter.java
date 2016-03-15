@@ -104,7 +104,11 @@ public class D0_OrderAdapter extends BaseAdapter {
         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) itemListView.getLayoutParams();
         linearParams.height = dip2px(c, 114) * List.get(position).extend_order_goods.size();// 当控件的高
         itemListView.setLayoutParams(linearParams);
-        listAdapter = new D0_OrderAdapter1(c, List.get(position).extend_order_goods, List.get(position).order_id);
+        boolean lock_state = false;
+        if(List.get(position).lock_state.equals("1") && List.get(position).order_state.equals("20")){
+            lock_state =true;
+        }
+        listAdapter = new D0_OrderAdapter1(c, List.get(position).extend_order_goods, List.get(position).order_id , lock_state);
         itemListView.setAdapter(listAdapter);
         /**
          * 设置listview不能滑动
