@@ -373,7 +373,11 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                             LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) mListView1.getLayoutParams();
                             linearParams.height = dip2px(D1_OrderActivity.this, 114) * order_detail.datas.extend_order_goods.size();// 当控件的高
                             mListView1.setLayoutParams(linearParams);
-                            listAdapter = new D0_OrderAdapter1(D1_OrderActivity.this, order_detail.datas.extend_order_goods, null);
+                            boolean lock_state = false;
+                            if(order_detail.datas.lock_state.equals("1") && order_detail.datas.order_state.equals("20")){
+                                lock_state = true;
+                            }
+                            listAdapter = new D0_OrderAdapter1(D1_OrderActivity.this, order_detail.datas.extend_order_goods, null, lock_state);
                             mListView1.setAdapter(listAdapter);
 
                             tv_store_name.setText(order_detail.datas.store_name);

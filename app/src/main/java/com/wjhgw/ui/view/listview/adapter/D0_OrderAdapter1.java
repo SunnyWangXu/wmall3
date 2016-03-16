@@ -38,12 +38,14 @@ public class D0_OrderAdapter1 extends BaseAdapter {
     public ArrayList<OrderList_goods_list_data> List;
     private LayoutInflater mInflater;
     private String order_id;
+    private boolean lock_state;
 
-    public D0_OrderAdapter1(Context c, ArrayList<OrderList_goods_list_data> dataList, String order_id) {
+    public D0_OrderAdapter1(Context c, ArrayList<OrderList_goods_list_data> dataList, String order_id, boolean lock_state) {
         mInflater = LayoutInflater.from(c);
         this.c = c;
         this.List = dataList;
         this.order_id = order_id;
+        this.lock_state = lock_state;
     }
 
     @Override
@@ -73,7 +75,7 @@ public class D0_OrderAdapter1 extends BaseAdapter {
         tv_goods_name.setText(List.get(position).goods_name);
         tv_goods_price.setText("¥ " + List.get(position).goods_price);
         tv_goods_num.setText("X " + List.get(position).goods_num);
-        if(List.get(position).refund.equals("0")){
+        if(List.get(position).refund.equals("0") || lock_state){
             tv_refund.setVisibility(View.VISIBLE);
         }
         cellView.setOnClickListener(new View.OnClickListener() {

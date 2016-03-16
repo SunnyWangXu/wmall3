@@ -15,6 +15,7 @@ public class OrderList_data {
     public String shipping_fee;
     public String order_state;
     public String order_id;
+    public String lock_state;
     public String pay_sn;       //下单支付秘钥
     public String pay_amount;   //订单金额
     public String rcb_amount;   //使用的充值卡金额
