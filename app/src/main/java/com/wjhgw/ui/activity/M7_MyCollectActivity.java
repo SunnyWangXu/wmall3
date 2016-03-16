@@ -174,8 +174,8 @@ public class M7_MyCollectActivity extends BaseActivity implements XListView.IXLi
                     } else {
 
                         if (isRefressh) {
-                                myCollectAdapter = new MyCollectAdapter(M7_MyCollectActivity.this, goodsList);
-                                lvMyCollect.setAdapter(myCollectAdapter);
+                            myCollectAdapter = new MyCollectAdapter(M7_MyCollectActivity.this, goodsList);
+                            lvMyCollect.setAdapter(myCollectAdapter);
                         } else {
                             goodsList = myCollect.datas.goods_list;
                             myCollectAdapter.notifyDataSetChanged();
@@ -262,7 +262,6 @@ public class M7_MyCollectActivity extends BaseActivity implements XListView.IXLi
         });
 
         return true;
-
     }
 
     /**

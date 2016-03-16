@@ -62,19 +62,15 @@ public class MyCollectAdapter extends BaseAdapter {
         holder = (Holder) convertView.getTag();
 
         APP.getApp().getImageLoader().displayImage(goodsList.get(position).goods_image_url, holder.ivGoodImage);
-        if(!goodsList.get(position).goods_state.equals("1")){
+        if (!goodsList.get(position).goods_state.equals("1") || goodsList.get(position).goods_storage.equals("0")) {
 
             holder.tvGoodStatus.setVisibility(View.VISIBLE);
-            if(goodsList.get(position).goods_state.equals("0") && goodsList.get(position).goods_storage.equals("0")){
+            if (goodsList.get(position).goods_state.equals("0") || goodsList.get(position).goods_state.equals("10")) {
                 holder.tvGoodStatus.setText("下架");
             }
-            if(goodsList.get(position).goods_storage.equals("0") && goodsList.get(position).goods_state.equals("0")){
+            if (goodsList.get(position).goods_state.equals("1") && goodsList.get(position).goods_storage.equals("0")) {
                 holder.tvGoodStatus.setText("无货");
             }
-            if (goodsList.get(position).goods_state.equals("10")){
-                holder.tvGoodStatus.setText("违规");
-            }
-
 
         }
 
