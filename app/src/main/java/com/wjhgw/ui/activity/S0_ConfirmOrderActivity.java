@@ -189,7 +189,12 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                  */
                 checkAddressSupport();
 
-                tvFreight.setText("+ ¥ " + freight);
+                if (isDonate) {
+                    tvFreight.setText("+ ¥ 0.0");
+                } else {
+                    tvFreight.setText("+ ¥ " + freight + ".0");
+                }
+
                 tvFreightMessage.setText(freightMessage);
 
                 realPay = getIntent().getDoubleExtra("realPay", 0);
@@ -406,6 +411,13 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                     }
                 }
 
+                if (isDonate) {
+                    tvFreight.setText("+ ¥ 0.0");
+                    tvRealPay.setText(realPay + "");
+                } else {
+                    tvFreight.setText("+ ¥ " + freight + ".0");
+                    tvRealPay.setText(realPay + Double.valueOf(freight) + "");
+                }
                 break;
             case R.id.ll_use_balance:
                 /**
