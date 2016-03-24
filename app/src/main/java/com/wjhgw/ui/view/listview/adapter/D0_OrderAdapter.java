@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -37,17 +38,20 @@ import com.wjhgw.R;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.api.Order_Request;
 import com.wjhgw.business.bean.OrderList_data;
+import com.wjhgw.business.bean.OrderList_goods_list_data;
 import com.wjhgw.business.bean.PayOrder;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.D2_LogisticsActivity;
 import com.wjhgw.ui.activity.D3_EvaluateActivity;
+import com.wjhgw.ui.activity.D4_Customer_serviceActivity;
 import com.wjhgw.ui.activity.S3_SelectPaymentActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.dialog.MyDialog;
 import com.wjhgw.ui.dialog.Order_cancelDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -55,7 +59,7 @@ import java.util.ArrayList;
  */
 public class D0_OrderAdapter extends BaseAdapter {
     public Context c;
-    private MyListView itemListView;
+    //private MyListView itemListView;
     private D0_OrderAdapter1 listAdapter;
     public ArrayList<OrderList_data> List;
     private LayoutInflater mInflater;
@@ -94,7 +98,7 @@ public class D0_OrderAdapter extends BaseAdapter {
 
         cellView = mInflater.inflate(R.layout.d0_item, null);
 
-        itemListView = (MyListView) cellView.findViewById(R.id.d0_item_list);
+        MyListView itemListView = (MyListView) cellView.findViewById(R.id.d0_item_list);
         final TextView tv_button1 = (TextView) cellView.findViewById(R.id.tv_button1);
         final TextView tv_button2 = (TextView) cellView.findViewById(R.id.tv_button2);
         final TextView tv_button3 = (TextView) cellView.findViewById(R.id.tv_button3);
@@ -104,29 +108,43 @@ public class D0_OrderAdapter extends BaseAdapter {
         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) itemListView.getLayoutParams();
         linearParams.height = dip2px(c, 114) * List.get(position).extend_order_goods.size();// 当控件的高
         itemListView.setLayoutParams(linearParams);
-        boolean lock_state = false;
-        if(List.get(position).lock_state.equals("1") && List.get(position).order_state.equals("20")){
-            lock_state =true;
-        }
-        listAdapter = new D0_OrderAdapter1(c, List.get(position).extend_order_goods, List.get(position).order_id , lock_state);
+
+        listAdapter = new D0_OrderAdapter1(c, List.get(position).extend_order_goods, List.get(position).lock_state,
+                List.get(position).order_state, List.get(position).order_sn,List.get(position).order_id );
         itemListView.setAdapter(listAdapter);
         /**
          * 设置listview不能滑动
          */
         itemListView.setOnTouchListener(new View.OnTouchListener() {
 
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return true;
             }
         });
+
+//       /* itemListView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(c, D1_OrderActivity.class);
+//                intent.putExtra("order_id", List.get(position).order_id);
+//                c.startActivity(intent);
+//            }
+//        });
         tv_store_name.setText(List.get(position).store_name);
         tv_state_desc.setText(List.get(position).state_desc);
         int num = 0;
         for(int i = 0; i < List.get(position).extend_order_goods.size(); i++){
             num += Integer.parseInt(List.get(position).extend_order_goods.get(i).goods_num);
         }
-        tv_order_amount.setText("共"+ num +"件商品,合计：¥" + List.get(position).order_amount + "(含运费" + List.get(position).shipping_fee + ")");
+        if(List.get(position).shipping_fee.equals("null")){
+            tv_order_amount.setText("共"+ num +"件商品,合计：¥" + List.get(position).order_amount + "(含运费0.00)");
+
+        }else {
+            tv_order_amount.setText("共"+ num +"件商品,合计：¥" + List.get(position).order_amount + "(含运费" + List.get(position).shipping_fee + ")");
+
+        }
 
         if (List.get(position).order_state.equals("10")) {
             if (List.get(position).if_cancel) {
@@ -145,8 +163,12 @@ public class D0_OrderAdapter extends BaseAdapter {
                 tv_button1.setVisibility(View.VISIBLE);
                 tv_button1.setText("提醒发货");
             }
-            tv_button2.setVisibility(View.VISIBLE);
-            tv_button2.setText("联系客服");
+            if (List.get(position).if_refund_cancel) {
+                tv_button2.setVisibility(View.VISIBLE);
+                tv_button2.setText("申请售后");
+            }
+            tv_button3.setVisibility(View.VISIBLE);
+            tv_button3.setText("联系客服");
             //待发货
         } else if (List.get(position).order_state.equals("30")) {
             if (List.get(position).if_receive) {
@@ -166,8 +188,8 @@ public class D0_OrderAdapter extends BaseAdapter {
                 tv_button1.setText("商品评价");
             }
             if (List.get(position).if_deliver) {
-                tv_button1.setVisibility(View.VISIBLE);
-                tv_button1.setText("查看物流");
+                tv_button2.setVisibility(View.VISIBLE);
+                tv_button2.setText("查看物流");
             }
             if (List.get(position).delete) {
                 tv_button2.setVisibility(View.VISIBLE);
@@ -237,7 +259,7 @@ public class D0_OrderAdapter extends BaseAdapter {
                         c.startActivity(intent);
                     }
                     //待评价
-                } else if (List.get(position).order_state.equals("40")) {
+                } /*else if (List.get(position).order_state.equals("40")) {
                     if (List.get(position).if_deliver) {
                         //Toast.makeText(c, "查看物流", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(c, D2_LogisticsActivity.class);
@@ -245,7 +267,7 @@ public class D0_OrderAdapter extends BaseAdapter {
                         c.startActivity(intent);
                     }
                     //已完成
-                } else if (List.get(position).order_state.equals("0")) {
+                }*/ else if (List.get(position).order_state.equals("0")) {
                     if (List.get(position).delete) {
                         //Toast.makeText(c, "删除订单", Toast.LENGTH_SHORT).show();
                         mDialog = new MyDialog(c, "确定要删除该订单？");
@@ -279,24 +301,19 @@ public class D0_OrderAdapter extends BaseAdapter {
                     }
                     //待付款
                 } else if (List.get(position).order_state.equals("20")) {
-                    mDialog = new MyDialog(c, "是否拨打客服电话");
-                    mDialog.show();
-                    mDialog.positive.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent1 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" +"4006569333"));
-                            c.startActivity(intent1);
-                            mDialog.dismiss();
-                        }
-                    });
-                    mDialog.negative.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mDialog.dismiss();
-                        }
-                    });
-                    //Toast.makeText(c, "联系客服", Toast.LENGTH_SHORT).show();
+                    if (List.get(position).if_refund_cancel) {
 
+                        Type type = new TypeToken<ArrayList<OrderList_goods_list_data>>() {
+                        }.getType();
+                        String json = new Gson().toJson(List.get(position).extend_order_goods, type);
+                        Intent intent = new Intent(c, D4_Customer_serviceActivity.class);
+                        intent.putExtra("goods", json);
+                        intent.putExtra("order_amount", List.get(position).order_amount);
+                        intent.putExtra("lock_state", List.get(position).order_state);
+                        intent.putExtra("order_sn", List.get(position).order_sn);
+                        c.startActivity(intent);
+                    }
+                    //申请售后
                 } else if (List.get(position).order_state.equals("30")) {
                     if (List.get(position).if_deliver) {
                         //Toast.makeText(c, "查看物流", Toast.LENGTH_SHORT).show();
@@ -306,23 +323,12 @@ public class D0_OrderAdapter extends BaseAdapter {
                     }
                     //待收货
                 } else if (List.get(position).order_state.equals("40")) {
-                    if (List.get(position).delete) {
-                        //Toast.makeText(c, "删除订单", Toast.LENGTH_SHORT).show();
-                        mDialog = new MyDialog(c, "确定要删除该订单？");
-                        mDialog.show();
-                        mDialog.positive.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Request.order_delete(List.get(position).order_id, key);
-                                mDialog.dismiss();
-                            }
-                        });
-                        mDialog.negative.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mDialog.dismiss();
-                            }
-                        });
+
+                    if (List.get(position).if_deliver) {
+                        //Toast.makeText(c, "查看物流", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(c, D2_LogisticsActivity.class);
+                        intent.putExtra("order_id", List.get(position).order_id);
+                        c.startActivity(intent);
                     }
                     //已完成
                 }

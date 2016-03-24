@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_gray"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:textColor="#ffffff"
+        android:text="退货原因"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_text1"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="11dp"
+        android:gravity="center_vertical"
+        android:textSize="14dp"
+        android:textColor="#333333"
+        android:text="不能按时发货"/>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="#cccccc" />
+    <TextView
+        android:id="@+id/tv_text2"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="11dp"
+        android:gravity="center_vertical"
+        android:textSize="14dp"
+        android:textColor="#333333"
+        android:text="认为是假货"/>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="#cccccc" />
+    <TextView
+        android:id="@+id/tv_text3"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="11dp"
+        android:gravity="center_vertical"
+        android:textSize="14dp"
+        android:textColor="#333333"
+        android:text="保质期不符"/>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="#cccccc" />
+    <TextView
+        android:id="@+id/tv_text4"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="11dp"
+        android:gravity="center_vertical"
+        android:textSize="14dp"
+        android:textColor="#333333"
+        android:text="商品破损、有污渍"/>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="#cccccc" />
+    <TextView
+        android:id="@+id/tv_text5"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="11dp"
+        android:gravity="center_vertical"
+        android:textSize="14dp"
+        android:textColor="#333333"
+        android:text="效果不好不喜欢"/>
+    </LinearLayout>
+</LinearLayout>

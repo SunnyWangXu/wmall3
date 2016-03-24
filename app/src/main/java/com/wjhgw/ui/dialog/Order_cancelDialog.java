@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.wjhgw.R;
 
 /**
- *
+ *评价专用
  */
 public class Order_cancelDialog {
 

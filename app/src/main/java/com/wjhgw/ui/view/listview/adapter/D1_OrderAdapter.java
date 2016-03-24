@@ -26,30 +26,28 @@ import android.widget.TextView;
 import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.business.bean.OrderList_goods_list_data;
-import com.wjhgw.ui.activity.D1_OrderActivity;
+import com.wjhgw.ui.activity.D4_Customer_serviceActivity;
 
 import java.util.ArrayList;
 
 /**
- * 订单列表iten
+ * 订单详情item
  */
-public class D0_OrderAdapter1 extends BaseAdapter {
+public class D1_OrderAdapter extends BaseAdapter {
     Context c;
     public ArrayList<OrderList_goods_list_data> List;
     private LayoutInflater mInflater;
-    private String order_id;
     private String rder_sn;
     private String lock_state; //是否处于售后中
     private String order_state; //是否是待发货状态
     private boolean state = false;
 
-    public D0_OrderAdapter1(Context c, ArrayList<OrderList_goods_list_data> dataList, String lock_state, String order_state, String rder_sn,String order_id) {
+    public D1_OrderAdapter(Context c, ArrayList<OrderList_goods_list_data> dataList, String lock_state, String order_state, String rder_sn) {
         mInflater = LayoutInflater.from(c);
         this.c = c;
         this.List = dataList;
         this.lock_state = lock_state;
         this.order_state = order_state;
-        this.order_id = order_id;
         this.rder_sn = rder_sn;
         if(lock_state.equals("1") && order_state.equals("20")){
             state =true;
@@ -89,19 +87,11 @@ public class D0_OrderAdapter1 extends BaseAdapter {
         if(lock_state.equals("1") && List.get(position).refund.equals("0") || state){
             tv_refund.setVisibility(View.VISIBLE);
             //待收货状态
-        }/*else if(order_state.equals("30") ||order_state.equals("40") ||order_state.equals("60")){
+        }else if(order_state.equals("30") ||order_state.equals("40") ||order_state.equals("60")){
             tv_button1.setVisibility(View.VISIBLE);
-        }*/
+        }
 
-        cellView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(c, D1_OrderActivity.class);
-                intent.putExtra("order_id", order_id);
-                c.startActivity(intent);
-            }
-        });
-        /*tv_button1.setOnClickListener(new View.OnClickListener() {
+        tv_button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(c, D4_Customer_serviceActivity.class);
@@ -113,7 +103,7 @@ public class D0_OrderAdapter1 extends BaseAdapter {
                 intent.putExtra("rder_sn", rder_sn);
                 c.startActivity(intent);
             }
-        });*/
+        });
         return cellView;
     }
 }

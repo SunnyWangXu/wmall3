@@ -86,9 +86,9 @@ public class D2_LogisticsActivity extends BaseActivity implements OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fl_logistics:
+            /*case R.id.fl_logistics:
                 finish();
-                break;
+                break;*/
 
             default:
                 break;

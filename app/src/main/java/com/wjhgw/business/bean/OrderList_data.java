@@ -28,6 +28,7 @@ public class OrderList_data {
     public boolean evaluation;  //是否可以评价
     public boolean delete;      //是否可以删除订单
     public boolean payment;     //是否可付款
+    public boolean if_refund_cancel;     //是否可申请售后
     public ArrayList<OrderList_goods_list_data> extend_order_goods;
 
 

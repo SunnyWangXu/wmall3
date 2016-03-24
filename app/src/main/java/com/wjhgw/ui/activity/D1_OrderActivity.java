@@ -32,7 +32,7 @@ import com.wjhgw.ui.dialog.MyDialog;
 import com.wjhgw.ui.dialog.Order_cancelDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
-import com.wjhgw.ui.view.listview.adapter.D0_OrderAdapter1;
+import com.wjhgw.ui.view.listview.adapter.D1_OrderAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,7 +63,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
     private TextView tv_button2;
     private TextView tv_button3;
     private String key;
-    private D0_OrderAdapter1 listAdapter;
+    private D1_OrderAdapter listAdapter;
     private String order_id = "";
     private LinearLayout order1;
     private LinearLayout order2;
@@ -373,11 +373,8 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                             LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) mListView1.getLayoutParams();
                             linearParams.height = dip2px(D1_OrderActivity.this, 114) * order_detail.datas.extend_order_goods.size();// 当控件的高
                             mListView1.setLayoutParams(linearParams);
-                            boolean lock_state = false;
-                            if(order_detail.datas.lock_state.equals("1") && order_detail.datas.order_state.equals("20")){
-                                lock_state = true;
-                            }
-                            listAdapter = new D0_OrderAdapter1(D1_OrderActivity.this, order_detail.datas.extend_order_goods, null, lock_state);
+
+                            listAdapter = new D1_OrderAdapter(D1_OrderActivity.this, order_detail.datas.extend_order_goods,order_detail.datas.lock_state,order_detail.datas.order_state,order_detail.datas.order_sn);
                             mListView1.setAdapter(listAdapter);
 
                             tv_store_name.setText(order_detail.datas.store_name);
@@ -387,7 +384,11 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                             for(int i = 0; i < order_detail.datas.extend_order_goods.size(); i++){
                                 num += Integer.parseInt(order_detail.datas.extend_order_goods.get(i).goods_num);
                             }
-                            tv_order_amount.setText("共"+ num +"件商品,合计：¥" + order_detail.datas.order_amount + "(含运费" + order_detail.datas.shipping_fee + ")");
+                            if(!order_detail.datas.shipping_fee.equals("null")){
+                                tv_order_amount.setText("共"+ num +"件商品,合计：¥" + order_detail.datas.order_amount + "(含运费" + order_detail.datas.shipping_fee + ")");
+                            }else {
+                                tv_order_amount.setText("共"+ num +"件商品,合计：¥" + order_detail.datas.order_amount + "(含运费0.00)");
+                            }
 
                             if (order_detail.datas.extend_order_common.invoice_info == null) {
                                 ll_invoice.setVisibility(View.GONE);
