@@ -87,6 +87,10 @@ public class ApiInterface {
      */
     public static final String Member_image = "/mobile/index.php?act=upload&op=member_image";
     /**
+     * 删除上传的图片
+     */
+    public static final String Del_img = "/mobile/index.php?act=upload&op=del_img";
+    /**
      * 校验登录密码
      */
     public static final String Check_password = "/mobile/index.php?act=member_info&op=check_password";

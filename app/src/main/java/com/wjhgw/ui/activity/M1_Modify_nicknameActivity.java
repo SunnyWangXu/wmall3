@@ -18,7 +18,7 @@ import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
-import com.wjhgw.business.bean.Nickname;
+import com.wjhgw.business.bean.Status;
 import com.wjhgw.config.ApiInterface;
 
 /**
@@ -30,7 +30,7 @@ public class M1_Modify_nicknameActivity extends BaseActivity implements View.OnC
     private ImageView iv_delete;
     private TextView tv_next;
     private String modifynickname;
-    private Nickname nickname;
+    private Status status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,12 +119,12 @@ public class M1_Modify_nicknameActivity extends BaseActivity implements View.OnC
                 M1_Modify_nicknameActivity.super.Dismiss();
                 Gson gson = new Gson();
                 if (responseInfo.result != null) {
-                    nickname = gson.fromJson(responseInfo.result, Nickname.class);
+                    status = gson.fromJson(responseInfo.result, Status.class);
 
-                    if (nickname.status.code == 10000) {
+                    if (status.status.code == 10000) {
                         finish(false);
                     } else {
-                        overtime(nickname.status.code, nickname.status.msg);
+                        overtime(status.status.code, status.status.msg);
                     }
                 }
             }

@@ -302,7 +302,6 @@ public class D0_OrderAdapter extends BaseAdapter {
                     //待付款
                 } else if (List.get(position).order_state.equals("20")) {
                     if (List.get(position).if_refund_cancel) {
-
                         Type type = new TypeToken<ArrayList<OrderList_goods_list_data>>() {
                         }.getType();
                         String json = new Gson().toJson(List.get(position).extend_order_goods, type);

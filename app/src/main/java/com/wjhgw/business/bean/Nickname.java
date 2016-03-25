@@ -5,4 +5,5 @@ package com.wjhgw.business.bean;
  */
 public class Nickname {
         public NetStatus status;
+        public String datas;
 }

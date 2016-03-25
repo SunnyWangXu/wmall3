@@ -1,8 +1,13 @@
 package com.wjhgw.ui.activity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -26,17 +31,26 @@ import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
+import com.wjhgw.business.bean.Nickname;
 import com.wjhgw.business.bean.OrderList_goods_list_data;
 import com.wjhgw.business.bean.Order_deliver;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.dialog.Customer_serviceDialog;
+import com.wjhgw.ui.dialog.GalleryDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.D2_deliverAdapter;
 import com.wjhgw.ui.view.listview.adapter.D4_customer_serviceAdapter;
+import com.wjhgw.utils.GalleryConstants;
+import com.wjhgw.utils.GalleryUtils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * 申请售后
@@ -72,7 +86,19 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
     private EditText et_d4_name2;
     private ImageView iv_d4_image1;
     private ImageView iv_d4_image2;
+    private ImageView iv_upload1;
+    private ImageView iv_upload2;
+    private ImageView iv_upload3;
+    private ImageView iv_delete1;
+    private ImageView iv_delete2;
+    private ImageView iv_delete3;
     private Customer_serviceDialog dialog;
+    private GalleryDialog Dialog;
+    private Bitmap bitmap; //上传的图片
+    private String position = "0"; //上传的图片的位置
+    private String position1 = "0"; //上传的图片的名称
+    private String position2 = "0"; //上传的图片的名称
+    private String position3 = "0"; //上传的图片的名称
     private ArrayList<OrderList_goods_list_data> extend_order_goods;
 
     @Override
@@ -89,6 +115,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
         mListView.addHeaderView(Customer_service2);
 
         key = getKey();
+        Dialog = new GalleryDialog(this);
         goods = getIntent().getStringExtra("goods");
         if (goods.equals("0")) {
             lock_state = getIntent().getStringExtra("lock_state");
@@ -122,7 +149,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
             D4_customer_serviceAdapter adapter = new D4_customer_serviceAdapter(this, extend_order_goods);
             mListView1.setAdapter(adapter);
 
-             //设置listview不能滑动
+            //设置listview不能滑动
             mListView1.setOnTouchListener(new View.OnTouchListener() {
 
                 @Override
@@ -224,6 +251,12 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
         iv_d4_image1 = (ImageView) Customer_service1.findViewById(R.id.iv_d4_image1);
         iv_d4_image2 = (ImageView) Customer_service1.findViewById(R.id.iv_d4_image2);
 
+        iv_upload1 = (ImageView) Customer_service2.findViewById(R.id.iv_upload1);
+        iv_upload2 = (ImageView) Customer_service2.findViewById(R.id.iv_upload2);
+        iv_upload3 = (ImageView) Customer_service2.findViewById(R.id.iv_upload3);
+        iv_delete1 = (ImageView) Customer_service2.findViewById(R.id.iv_delete1);
+        iv_delete2 = (ImageView) Customer_service2.findViewById(R.id.iv_delete2);
+        iv_delete3 = (ImageView) Customer_service2.findViewById(R.id.iv_delete3);
         tv_d4_goods_name = (TextView) Customer_service2.findViewById(R.id.tv_d4_goods_name);
         tv_d4_num = (TextView) Customer_service2.findViewById(R.id.tv_d4_num);
         tv_d4_rder_sn = (TextView) Customer_service2.findViewById(R.id.tv_d4_rder_sn);
@@ -240,6 +273,12 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
         fl_lauout1.setOnClickListener(this);
         fl_lauout2.setOnClickListener(this);
         fl_layout3.setOnClickListener(this);
+        iv_delete1.setOnClickListener(this);
+        iv_delete2.setOnClickListener(this);
+        iv_delete3.setOnClickListener(this);
+        iv_upload1.setOnClickListener(this);
+        iv_upload2.setOnClickListener(this);
+        iv_upload3.setOnClickListener(this);
     }
 
     @Override
@@ -267,12 +306,190 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
                     dialog.show();
                 }
                 break;
+            case R.id.iv_upload1:
+                if (position1.equals("0")) {
+                    position = "1";
+                    Dialog.Get_pictures_Dialog();
+                }
+                break;
+            case R.id.iv_upload2:
+                if (position2.equals("0")) {
+                    position = "2";
+                    Dialog.Get_pictures_Dialog();
+                }
+                break;
+            case R.id.iv_upload3:
+                if (position3.equals("0")) {
+                    position = "3";
+                    Dialog.Get_pictures_Dialog();
+                }
+                break;
+            case R.id.iv_delete1:
+                if (!position1.equals("0")) {
+                    position = "1";
+                    del_img(position1);
+                }
+            case R.id.iv_delete2:
+                if (!position2.equals("0")) {
+                    position = "2";
+                    del_img(position2);
+                }
+            case R.id.iv_delete3:
+                if (!position3.equals("0")) {
+                    position = "3";
+                    del_img(position3);
+                }
+                break;
             default:
                 break;
         }
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == GalleryConstants.PHOTO_RESOULT) {
+            File picture = new File(Environment.getExternalStorageDirectory()
+                    + "/temp.jpg");
+            GalleryUtils.getInstance().cropPicture(this, Uri.fromFile(picture));
+        }
+        if (null == data) {
+            return;
+        }
+        Uri uri = null;
+        if (requestCode == GalleryConstants.KITKAT_LESS) {
+            uri = data.getData();
+            // 调用裁剪方法
+            GalleryUtils.getInstance().cropPicture(this, uri);
+        } else if (requestCode == GalleryConstants.KITKAT_ABOVE) {
+            uri = data.getData();
+            // 先将这个uri转换为path，然后再转换为uri
+            String thePath = GalleryUtils.getInstance().getPath(this, uri);
+            GalleryUtils.getInstance().cropPicture(this,
+                    Uri.fromFile(new File(thePath)));
+        } else if (requestCode == GalleryConstants.INTENT_CROP) {
+            bitmap = data.getParcelableExtra("data");
+
+            File temp = new File(Environment.getExternalStorageDirectory()
+                    .getPath() + "/wjhg/");// 自已缓存文件夹
+            if (!temp.exists()) {
+                temp.mkdir();
+            }
+            File tempFile = new File(temp.getAbsolutePath() + "/"
+                    + Calendar.getInstance().getTimeInMillis() + ".jpg"); // 以时间秒为文件名
+
+            // 图像保存到文件中
+            FileOutputStream foutput = null;
+            try {
+                foutput = new FileOutputStream(tempFile);
+                if (bitmap.compress(Bitmap.CompressFormat.JPEG, 100, foutput)) {
+                    String imgPath = tempFile.getAbsolutePath();
+                    String sur = tempFile.getName();
+                    FileInputStream input = new FileInputStream(imgPath);
+                    StartLoading();
+                    RequestParams params = new RequestParams();
+                    params.addBodyParameter("key", key);
+                    params.addBodyParameter("usage_number", "1");
+                    params.addBodyParameter("data", input, tempFile.length(), sur);
+                    /**
+                     * 上传用户头像
+                     */
+                    load_member_image(params);
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 上传图片凭证
+     */
+    private void load_member_image(RequestParams params) {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Member_image, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                Dismiss();
+                if (responseInfo.result != null) {
+                    Nickname nickname = gson.fromJson(responseInfo.result, Nickname.class);
+                    if (nickname.status.code == 10000) {
+                        showToastLong(nickname.status.msg);
+                        if (position.equals("1")) {
+                            iv_upload1.setImageBitmap(bitmap);
+                            iv_delete1.setVisibility(View.VISIBLE);
+                            position1 = nickname.datas;
+                        } else if (position.equals("2")) {
+                            iv_upload2.setImageBitmap(bitmap);
+                            iv_delete2.setVisibility(View.VISIBLE);
+                            position2 = nickname.datas;
+                        } else if (position.equals("3")) {
+                            iv_upload3.setImageBitmap(bitmap);
+                            iv_delete3.setVisibility(View.VISIBLE);
+                            position3 = nickname.datas;
+                        }
+                    } else {
+                        overtime(nickname.status.code, nickname.status.msg);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                showToastLong("网络错误！");
+            }
+        });
+    }
+
+    /**
+     * 删除上传图片
+     */
+    private void del_img(String img_name) {
+        StartLoading();
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+        params.addBodyParameter("usage_number", "1");
+        params.addBodyParameter("img_name", img_name);
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Del_img, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                Dismiss();
+                if (responseInfo.result != null) {
+                    Nickname nickname = gson.fromJson(responseInfo.result, Nickname.class);
+                    if (nickname.status.code == 10000) {
+                        //showToastLong(nickname.status.msg);
+                        if (position.equals("1")) {
+                            iv_upload1.setImageResource(R.mipmap.ic_upload);
+                            iv_delete1.setVisibility(View.GONE);
+                            position1 = "0";
+                        } else if (position.equals("2")) {
+                            iv_upload2.setImageResource(R.mipmap.ic_upload);
+                            iv_delete2.setVisibility(View.GONE);
+                            position2 = "0";
+                        } else if (position.equals("3")) {
+                            iv_upload3.setImageResource(R.mipmap.ic_upload);
+                            iv_delete3.setVisibility(View.GONE);
+                            position3 = "0";
+                        }
+                    } else {
+                        overtime(nickname.status.code, nickname.status.msg);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                showToastLong("网络错误！");
+            }
+        });
+    }
 
     @Override
     public void onRefresh(int id) {

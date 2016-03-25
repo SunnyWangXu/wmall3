@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -24,6 +25,7 @@ import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.api.Order_Request;
+import com.wjhgw.business.bean.OrderList_goods_list_data;
 import com.wjhgw.business.bean.Order_detail;
 import com.wjhgw.business.bean.PayOrder;
 import com.wjhgw.business.response.BusinessResponse;
@@ -36,6 +38,9 @@ import com.wjhgw.ui.view.listview.adapter.D1_OrderAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 /**
  * 订单详情
@@ -269,23 +274,17 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                     }
                     //待付款
                 } else if (order_detail.datas.order_state.equals("20")) {
-                    //showToastShort("联系客服");
-                    mDialog = new MyDialog(this, "是否拨打客服电话");
-                    mDialog.show();
-                    mDialog.positive.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent1 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "4006569333"));
-                            startActivity(intent1);
-                            mDialog.dismiss();
-                        }
-                    });
-                    mDialog.negative.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mDialog.dismiss();
-                        }
-                    });
+                    if (order_detail.datas.if_refund_cancel) {
+                        Type type = new TypeToken<ArrayList<OrderList_goods_list_data>>() {
+                        }.getType();
+                        String json = new Gson().toJson(order_detail.datas.extend_order_goods, type);
+                        intent = new Intent(this, D4_Customer_serviceActivity.class);
+                        intent.putExtra("goods", json);
+                        intent.putExtra("order_amount", order_detail.datas.order_amount);
+                        intent.putExtra("lock_state", order_detail.datas.order_state);
+                        intent.putExtra("order_sn", order_detail.datas.order_sn);
+                        startActivity(intent);
+                    }
 
                 } else if (order_detail.datas.order_state.equals("30")) {
                     if (order_detail.datas.if_deliver) {
@@ -426,8 +425,12 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                     tv_button1.setVisibility(View.VISIBLE);
                                     tv_button1.setText("提醒发货");
                                 }
-                                tv_button2.setVisibility(View.VISIBLE);
-                                tv_button2.setText("联系客服");
+                                if (order_detail.datas.if_refund_cancel) {
+                                    tv_button2.setVisibility(View.VISIBLE);
+                                    tv_button2.setText("申请售后");
+                                }
+                                tv_button3.setVisibility(View.VISIBLE);
+                                tv_button3.setText("联系客服");
                                 tv_state.setText("正在为您打包商品，请耐心等待");
                                 //待发货
                             } else if (order_detail.datas.order_state.equals("30")) {
