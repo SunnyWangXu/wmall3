@@ -14,21 +14,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="龙皇长寿燕窝"
             android:ellipsize="end"
             android:maxEms="10"
             android:singleLine="true"
+            android:text="龙皇长寿燕窝"
             android:textColor="#333333"
-            android:textSize="16dp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_d4_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="12dp"
             android:text="¥69.00 * 1(数量)"
             android:textColor="#333333"
-            android:textSize="16dp" />
+            android:textSize="15sp" />
     </FrameLayout>
 
 </LinearLayout>

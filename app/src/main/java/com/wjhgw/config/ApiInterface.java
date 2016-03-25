@@ -189,6 +189,10 @@ public class ApiInterface {
      */
     public static final String Refund_return_list = "/mobile/index.php?act=return_refund&op=refund_return_list";
     /**
+     * 退款退货详情
+     */
+    public static final String Refund_return_detail = "/mobile/index.php?act=return_refund&op=view";
+    /**
      * 订单详情
      */
     public static final String Order_detail = "/mobile/index.php?act=member_order&op=order_detail";

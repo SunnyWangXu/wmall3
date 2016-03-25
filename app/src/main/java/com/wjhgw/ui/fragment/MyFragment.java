@@ -27,6 +27,7 @@ import com.wjhgw.business.bean.OrderAmount;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.D0_OrderActivity;
+import com.wjhgw.ui.activity.D5_AfterSaleDetailActivity;
 import com.wjhgw.ui.activity.M0_MyLockBoxActivity;
 import com.wjhgw.ui.activity.M6_SetActivity;
 import com.wjhgw.ui.activity.M7_MyCollectActivity;
@@ -227,6 +228,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
 //                }
                 break;
             case R.id.ll_all_orders:
+
                 if (key.equals("0") || key == null) {
                     intent.setClass(getActivity(), A0_LoginActivity.class);
                     startActivity(intent);
@@ -282,14 +284,17 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 }
                 break;
             case R.id.rl_layout4:
-                if (key.equals("0") || key == null) {
+               /* if (key.equals("0") || key == null) {
                     intent.setClass(getActivity(), A0_LoginActivity.class);
                     startActivity(intent);
                 } else {
                     intent.setClass(getActivity(), D0_OrderActivity.class);
                     intent.putExtra("order_state", "100");
                     startActivity(intent);
-                }
+                }*/
+
+                intent.setClass(getActivity(), D5_AfterSaleDetailActivity.class);
+                startActivity(intent);
                 break;
             case R.id.ll_assets:
                 if (key.equals("0") || key == null) {

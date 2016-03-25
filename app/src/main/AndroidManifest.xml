@@ -12,10 +12,10 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
-    <uses-sdk android:minSdkVersion="4"/>
+    <uses-sdk android:minSdkVersion="4" />
 
     <application
         android:name=".APP"
@@ -33,9 +33,9 @@
         </activity>
 
         <intent-filter>
-            <action android:name="android.intent.action.VIEW"/>
-            <category android:name="android.intent.category.DEFAULT"/>
-            <data android:scheme="wxd930ea5d5a258f4f"/>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <data android:scheme="wxd930ea5d5a258f4f" />
         </intent-filter>
 
         <activity android:name=".ui.activity.C1_CaptureActivity" />
@@ -44,7 +44,7 @@
         <activity android:name=".ui.activity.C4_UseServiceActivity" />
         <activity android:name="com.wjhgw.MainActivity" />
         <activity android:name="com.wjhgw.guide.GuideActivity" />
-        <activity android:name="com.wjhgw.ui.activity.A0_LoginActivity"/>
+        <activity android:name="com.wjhgw.ui.activity.A0_LoginActivity" />
         <activity android:name=".ui.activity.PrductDetailActivity" />
         <activity android:name=".ui.activity.A1_RegisterActivity1" />
         <activity android:name=".ui.activity.A1_RegisterActivity2" />
@@ -63,17 +63,18 @@
         <activity android:name=".ui.activity.M2_AddressDetailActvity" />
         <activity android:name=".ui.activity.M4_PaymentPasswordActivity" />
         <activity android:name=".ui.activity.M5_Change_mobileActivity" />
-        <activity android:name=".ui.activity.M6_SetActivity"/>
-        <activity android:name=".ui.activity.M7_MyCollectActivity"/>
-        <activity android:name=".ui.activity.D0_OrderActivity"/>
-        <activity android:name=".ui.activity.D1_OrderActivity"/>
-        <activity android:name=".ui.activity.D2_LogisticsActivity"/>
+        <activity android:name=".ui.activity.M6_SetActivity" />
+        <activity android:name=".ui.activity.M7_MyCollectActivity" />
+        <activity android:name=".ui.activity.D0_OrderActivity" />
+        <activity android:name=".ui.activity.D1_OrderActivity" />
+        <activity android:name=".ui.activity.D2_LogisticsActivity" />
+        <activity android:name=".ui.activity.D3_EvaluateActivity" />
+        <activity android:name=".ui.activity.D5_AfterSaleDetailActivity" />
         <activity android:name=".ui.activity.S0_ConfirmOrderActivity" />
         <activity android:name=".ui.activity.S2_InvoiceActivity" />
         <activity android:name=".ui.activity.S1_OrderAddressActivity" />
         <activity android:name=".ui.activity.S3_SelectPaymentActivity" />
         <activity android:name=".ui.activity.MessageCenterActivity" />
-        <activity android:name=".ui.activity.D3_EvaluateActivity" />
 
         <activity android:name=".ui.activity.Z0_AssetsActivity" />
         <activity android:name=".ui.activity.Z1_Prepaid_card_balanceActivity" />
@@ -83,28 +84,26 @@
         <!--友盟更新-->
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
-        </activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
 
         <!--友盟更新-->
         <service
             android:name="com.umeng.update.net.DownloadingService"
-            android:process=":DownloadingService" >
-        </service>
+            android:process=":DownloadingService"></service>
 
         <!--微信支付返回-->
         <activity
             android:name="com.wjhgw.wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
 
         <!--微信分享返回-->
         <activity
             android:name="com.wjhgw.wxapi.WXEntryActivity"
-            android:launchMode="singleInstance"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden"
-            android:screenOrientation="portrait"/>
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden" />
         <!-- alipay sdk begin -->
 
         <activity
@@ -112,14 +111,17 @@
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
 
         <!-- alipay sdk end -->
 
         //友盟统计
-        <meta-data android:value="53ec8af1fd98c5ceef00aa5b" android:name="UMENG_APPKEY"/>
-        <meta-data android:name="UMENG_CHANNEL" android:value="Channel ID"/>
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="53ec8af1fd98c5ceef00aa5b" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Channel ID" />
     </application>
 
 </manifest>
