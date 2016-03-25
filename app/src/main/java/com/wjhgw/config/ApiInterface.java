@@ -273,5 +273,13 @@ public class ApiInterface {
      * 收藏删除接口
      */
     public static final String Favorites_del = "/mobile/index.php?act=member_favorites&op=favorites_del";
+    /**
+     * 售前退款申请
+     */
+    public static final String Add_refund_all = "/mobile/index.php?act=return_refund&op=add_refund_all";
+    /**
+     * 商品部分退款,退货
+     */
+    public static final String Add_refund = "/mobile/index.php?act=return_refund&op=add_refund";
 
 }

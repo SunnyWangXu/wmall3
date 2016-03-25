@@ -33,7 +33,7 @@ import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.Nickname;
 import com.wjhgw.business.bean.OrderList_goods_list_data;
-import com.wjhgw.business.bean.Order_deliver;
+import com.wjhgw.business.bean.Status;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.dialog.Customer_serviceDialog;
 import com.wjhgw.ui.dialog.GalleryDialog;
@@ -126,7 +126,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
             rder_sn = getIntent().getStringExtra("rder_sn");
             order_amount = Double.parseDouble(goods_price) * Double.parseDouble(goods_num);
             tv_d4_text4.setText("最多" + order_amount + "元");
-            tv_d4_text5.setText("最多" + goods_num + "件");
+            tv_d4_text5.setText("最多" + 0 + "件");
             tv_d4_goods_name.setText(goods_name);
             tv_d4_num.setText("¥" + goods_price + "*" + goods_num + "(数量)");
             tv_d4_rder_sn.setText(rder_sn);
@@ -279,6 +279,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
         iv_upload1.setOnClickListener(this);
         iv_upload2.setOnClickListener(this);
         iv_upload3.setOnClickListener(this);
+        tv_d4_next.setOnClickListener(this);
     }
 
     @Override
@@ -293,11 +294,19 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
             case R.id.fl_lauout1:
                 if (!lock_state.equals("20")) {
                     click(1);
+                    tv_d4_text5.setText("最多" + 0 + "件");
+                    et_d4_name2.setText("0");
+                    et_d4_name2.setTextColor(Color.parseColor("#cccccc"));
+                    et_d4_name2.setEnabled(false);
                 }
                 break;
             case R.id.fl_lauout2:
                 if (!lock_state.equals("20")) {
                     click(2);
+                    tv_d4_text5.setText("最多" + goods_num + "件");
+                    et_d4_name2.setText("");
+                    et_d4_name2.setTextColor(Color.parseColor("#333333"));
+                    et_d4_name2.setEnabled(true);
                 }
                 break;
             case R.id.fl_layout3:
@@ -339,6 +348,9 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
                     position = "3";
                     del_img(position3);
                 }
+                break;
+            case R.id.tv_d4_next:
+                showToastShort("还在开发中呢！点你妹啊！");
                 break;
             default:
                 break;
@@ -481,7 +493,6 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
                         overtime(nickname.status.code, nickname.status.msg);
                     }
                 }
-
             }
 
             @Override
@@ -500,28 +511,28 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
     }
 
     /**
-     * 物流详情
+     * 售前退款申请
      */
-    private void order_deliver() {
+    private void add_refund_all() {
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
+        params.addBodyParameter("refund_type", key);
+        params.addBodyParameter("order_id", key);
+        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", key);
 
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Order_deliver, params, new RequestCallBack<String>() {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Add_refund_all, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Gson gson = new Gson();
                 if (null != responseInfo) {
-                    Order_deliver order_deliver = gson.fromJson(responseInfo.result, Order_deliver.class);
-                    if (order_deliver.status.code == 10000) {
-                        mListView.stopRefresh();
-                        mListView.stopLoadMore();
-                        mListView.setRefreshTime();
-                        if (order_deliver.datas != null) {
-                            listAdapter = new D2_deliverAdapter(D4_Customer_serviceActivity.this, order_deliver.datas.data);
-                            mListView.setAdapter(listAdapter);
-                        }
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+                    if (status.status.code == 10000) {
+
                     } else {
-                        overtime(order_deliver.status.code, order_deliver.status.msg);
+                        overtime(status.status.code, status.status.msg);
                     }
                 }
             }
