@@ -90,12 +90,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:divider="#00000000"
+        android:divider="@null"
         android:dividerHeight="0dp"
         android:fastScrollEnabled="false"
         android:scrollbars="none" />
 
     <FrameLayout
+        android:id="@+id/fl_layotu"
         android:layout_width="match_parent"
         android:layout_height="28dp"
         android:background="#ffffff">

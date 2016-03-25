@@ -70,6 +70,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
     private D2_deliverAdapter listAdapter;
     private LinearLayout Customer_service1;
     private LinearLayout Customer_service2;
+    private FrameLayout fl_layotu;
     private FrameLayout fl_lauout1;
     private FrameLayout fl_lauout2;
     private FrameLayout fl_layout3;
@@ -139,9 +140,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
             }.getType();
             extend_order_goods = new Gson().fromJson(goods, type);
             tv_d4_text5.setText("最多0件");
-            tv_d4_goods_name.setVisibility(View.GONE);
-            tv_d4_num.setVisibility(View.GONE);
-
+            fl_layotu.setVisibility(View.GONE);
 
             LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) mListView1.getLayoutParams();
             linearParams.height = dip2px(this, 24) * extend_order_goods.size();// 当控件的高
@@ -257,6 +256,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
         iv_delete1 = (ImageView) Customer_service2.findViewById(R.id.iv_delete1);
         iv_delete2 = (ImageView) Customer_service2.findViewById(R.id.iv_delete2);
         iv_delete3 = (ImageView) Customer_service2.findViewById(R.id.iv_delete3);
+        fl_layotu = (FrameLayout) Customer_service2.findViewById(R.id.fl_layotu);
         tv_d4_goods_name = (TextView) Customer_service2.findViewById(R.id.tv_d4_goods_name);
         tv_d4_num = (TextView) Customer_service2.findViewById(R.id.tv_d4_num);
         tv_d4_rder_sn = (TextView) Customer_service2.findViewById(R.id.tv_d4_rder_sn);
