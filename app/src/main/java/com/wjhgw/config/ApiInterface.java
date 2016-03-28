@@ -281,5 +281,12 @@ public class ApiInterface {
      * 商品部分退款,退货
      */
     public static final String Add_refund = "/mobile/index.php?act=return_refund&op=add_refund";
-
+    /**
+     * 获取支持的快递列表接口
+     */
+    public static final String Express_list = "/mobile/index.php?act=common&op=express_list";
+    /**
+     * 用户退货发货接口
+     */
+    public static final String Refund_express = "/mobile/index.php?act=return_refund&op=ship";
 }

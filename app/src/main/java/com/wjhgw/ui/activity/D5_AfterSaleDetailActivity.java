@@ -1,6 +1,7 @@
 package com.wjhgw.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,7 +31,7 @@ import java.util.List;
 /**
  * 售后详情Activity
  */
-public class D5_AfterSaleDetailActivity extends BaseActivity {
+public class D5_AfterSaleDetailActivity extends BaseActivity implements View.OnClickListener {
     private ListView lvGoodsMessage;
     private MyListView lvAfterSale;
     private LinearLayout afterSaleHeader1;
@@ -53,15 +54,13 @@ public class D5_AfterSaleDetailActivity extends BaseActivity {
     private ImageView ivRefund3;
     private LinearLayout llrefund33;
     private TextView tvRefund13;
+    private boolean isCanWrite = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_after_sale_detail);
-        /**
-         * 加载退货详情
-         */
-        loadRefundDetail();
+
     }
 
 
@@ -119,6 +118,7 @@ public class D5_AfterSaleDetailActivity extends BaseActivity {
     @Override
     public void onBindListener() {
 
+        tvRefund13.setOnClickListener(this);
     }
 
 
@@ -129,7 +129,7 @@ public class D5_AfterSaleDetailActivity extends BaseActivity {
         super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", getKey());
-        params.addBodyParameter("refund_id", "10");
+        params.addBodyParameter("refund_id", "20");
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Refund_return_detail, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -160,14 +160,16 @@ public class D5_AfterSaleDetailActivity extends BaseActivity {
                     tvRefund12.setText(datas.invoice_no);
 
                     String[] picInfo = datas.pic_info;
-                    if (!picInfo[0].equals("")) {
-                        APP.getApp().getImageLoader().displayImage(picInfo[0], ivRefund1);
-                    }
-                    if (!picInfo[1].equals("")) {
-                        APP.getApp().getImageLoader().displayImage(picInfo[1], ivRefund2);
-                    }
-                    if (!picInfo[2].equals("")) {
-                        APP.getApp().getImageLoader().displayImage(picInfo[2], ivRefund3);
+                    if (picInfo.length != 0) {
+                        if (picInfo.length == 1) {
+                            APP.getApp().getImageLoader().displayImage(picInfo[0], ivRefund1);
+                        }
+                        if (picInfo.length == 2) {
+                            APP.getApp().getImageLoader().displayImage(picInfo[1], ivRefund2);
+                        }
+                        if (picInfo.length == 3) {
+                            APP.getApp().getImageLoader().displayImage(picInfo[2], ivRefund3);
+                        }
                     }
 
                     List<RefundDetailList> refundDetailList = datas.goods_list;
@@ -181,8 +183,9 @@ public class D5_AfterSaleDetailActivity extends BaseActivity {
                     if (datas.express_name.equals("") || datas.invoice_no.equals("null")) {
                         llrefund33.setVisibility(View.GONE);
                     }
-                    if(datas.ship_goods.equals("1")){
+                    if (datas.ship_goods.equals("1")) {
                         tvRefund13.setBackgroundResource(R.drawable.after_sale_red);
+                        isCanWrite = true;
                     }
 
                 } else {
@@ -209,4 +212,32 @@ public class D5_AfterSaleDetailActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent();
+
+        switch (v.getId()) {
+            case R.id.tv_refund13:
+                if (isCanWrite) {
+                    intent.setClass(this, D6_RefundMessageActivity.class);
+                    startActivity(intent);
+                }
+
+
+                break;
+
+            default:
+                break;
+        }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        /**
+         * 加载退货详情
+         */
+        loadRefundDetail();
+    }
 }

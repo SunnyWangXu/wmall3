@@ -70,12 +70,13 @@
         <activity android:name=".ui.activity.D2_LogisticsActivity" />
         <activity android:name=".ui.activity.D3_EvaluateActivity" />
         <activity android:name=".ui.activity.D5_AfterSaleDetailActivity" />
+        <activity android:name=".ui.activity.D6_RefundMessageActivity" />
+        <activity android:name=".ui.activity.D7_RefundExpressActivity" />
         <activity android:name=".ui.activity.S0_ConfirmOrderActivity" />
         <activity android:name=".ui.activity.S2_InvoiceActivity" />
         <activity android:name=".ui.activity.S1_OrderAddressActivity" />
         <activity android:name=".ui.activity.S3_SelectPaymentActivity" />
         <activity android:name=".ui.activity.MessageCenterActivity" />
-
         <activity android:name=".ui.activity.Z0_AssetsActivity" />
         <activity android:name=".ui.activity.Z1_Prepaid_card_balanceActivity" />
         <activity android:name=".ui.activity.ShoppingCartActivity" />
