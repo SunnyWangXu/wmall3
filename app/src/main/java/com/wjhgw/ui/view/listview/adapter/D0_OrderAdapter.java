@@ -103,7 +103,7 @@ public class D0_OrderAdapter extends BaseAdapter {
         TextView tv_state_desc = (TextView) cellView.findViewById(R.id.tv_state_desc);
         TextView tv_order_amount = (TextView) cellView.findViewById(R.id.tv_order_amount);
         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) itemListView.getLayoutParams();
-        linearParams.height = dip2px(c, 114) * List.get(position).extend_order_goods.size();// 当控件的高
+        linearParams.height = dip2px(c, 115) * List.get(position).extend_order_goods.size();// 当控件的高
         itemListView.setLayoutParams(linearParams);
 
         listAdapter = new D0_OrderAdapter1(c, List.get(position).extend_order_goods, List.get(position).lock_state,
