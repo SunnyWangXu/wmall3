@@ -27,7 +27,7 @@ import android.widget.TextView;
 import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.business.bean.return_refund_list_data;
-import com.wjhgw.ui.activity.D5_AfterSaleDetailActivity;
+import com.wjhgw.ui.activity.D6_AfterSaleDetailActivity;
 
 import java.util.ArrayList;
 
@@ -86,7 +86,7 @@ public class D6_customerAdapter extends BaseAdapter {
         ll_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(c, D5_AfterSaleDetailActivity.class);
+                Intent intent = new Intent(c, D6_AfterSaleDetailActivity.class);
                 intent.putExtra("refund_id",List.get(position).refund_id);
                 c.startActivity(intent);
             }

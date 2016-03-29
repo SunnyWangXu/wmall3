@@ -29,7 +29,7 @@ import java.util.ArrayList;
 /**
  * 退款/退货申请列表
  */
-public class D6_CustomerActivity extends BaseActivity implements OnClickListener, XListView.IXListViewListener {
+public class D5_CustomerActivity extends BaseActivity implements OnClickListener, XListView.IXListViewListener {
 
     private MyListView mListView;
     private LinearLayout ll_null;
@@ -48,7 +48,7 @@ public class D6_CustomerActivity extends BaseActivity implements OnClickListener
         setContentView(R.layout.d6_customer_layout);
 
         mListView.setPullLoadEnable(false);
-        mListView.setPullRefreshEnable(false);
+        mListView.setPullRefreshEnable(true);
         mListView.setXListViewListener(this, 1);
         mListView.setRefreshTime();
         mListView.setAdapter(null);
@@ -130,7 +130,7 @@ public class D6_CustomerActivity extends BaseActivity implements OnClickListener
                             }
                             return_refund_list.addAll(refun.datas);
                             if (isSetAdapter) {
-                                listAdapter = new D6_customerAdapter(D6_CustomerActivity.this, return_refund_list);
+                                listAdapter = new D6_customerAdapter(D5_CustomerActivity.this, return_refund_list);
                                 mListView.setAdapter(listAdapter);
                             } else {
                                 listAdapter.List = return_refund_list;

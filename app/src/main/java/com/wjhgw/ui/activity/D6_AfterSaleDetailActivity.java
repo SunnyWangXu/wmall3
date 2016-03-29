@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * 售后详情Activity
  */
-public class D5_AfterSaleDetailActivity extends BaseActivity implements View.OnClickListener {
+public class D6_AfterSaleDetailActivity extends BaseActivity implements View.OnClickListener {
     private ListView lvGoodsMessage;
     private MyListView lvAfterSale;
     private LinearLayout afterSaleHeader1;
@@ -177,10 +177,10 @@ public class D5_AfterSaleDetailActivity extends BaseActivity implements View.OnC
 
                     List<RefundDetailList> refundDetailList = datas.goods_list;
                     LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) lvGoodsMessage.getLayoutParams();
-                    linearParams.height = dip2px(D5_AfterSaleDetailActivity.this, 24) * refundDetailList.size();// 当控件的高
+                    linearParams.height = dip2px(D6_AfterSaleDetailActivity.this, 24) * refundDetailList.size();// 当控件的高
                     lvGoodsMessage.setLayoutParams(linearParams);
 
-                    RefundListAdapter mAdapter = new RefundListAdapter(D5_AfterSaleDetailActivity.this, refundDetailList);
+                    RefundListAdapter mAdapter = new RefundListAdapter(D6_AfterSaleDetailActivity.this, refundDetailList);
                     lvGoodsMessage.setAdapter(mAdapter);
 
                     if (datas.express_name.equals("") || datas.invoice_no.equals("null")) {
@@ -225,7 +225,8 @@ public class D5_AfterSaleDetailActivity extends BaseActivity implements View.OnC
         switch (v.getId()) {
             case R.id.tv_refund13:
                 if (isCanWrite) {
-                    intent.setClass(this, D6_RefundMessageActivity.class);
+                    intent.setClass(this, D7_RefundMessageActivity.class);
+                    intent.putExtra("refund_id", refund_id);
                     startActivity(intent);
                 }
 
@@ -244,7 +245,7 @@ public class D5_AfterSaleDetailActivity extends BaseActivity implements View.OnC
         /**
          * 加载退货详情
          */
-        if(!refund_id.equals("")){
+        if (!refund_id.equals("")) {
             loadRefundDetail();
         }
     }

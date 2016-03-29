@@ -71,9 +71,9 @@
         <activity android:name=".ui.activity.D1_OrderActivity" />
         <activity android:name=".ui.activity.D2_LogisticsActivity" />
         <activity android:name=".ui.activity.D3_EvaluateActivity" />
-        <activity android:name=".ui.activity.D5_AfterSaleDetailActivity" />
-        <activity android:name=".ui.activity.D6_RefundMessageActivity" />
-        <activity android:name=".ui.activity.D7_RefundExpressActivity" />
+        <activity android:name=".ui.activity.D6_AfterSaleDetailActivity" />
+        <activity android:name=".ui.activity.D7_RefundMessageActivity" />
+        <activity android:name=".ui.activity.D8_RefundExpressActivity" />
         <activity android:name=".ui.activity.S0_ConfirmOrderActivity" />
         <activity android:name=".ui.activity.S2_InvoiceActivity" />
         <activity android:name=".ui.activity.S1_OrderAddressActivity" />
@@ -83,7 +83,7 @@
         <activity android:name=".ui.activity.Z1_Prepaid_card_balanceActivity" />
         <activity android:name=".ui.activity.ShoppingCartActivity" />
         <activity android:name=".ui.activity.D4_Customer_serviceActivity" />
-        <activity android:name=".ui.activity.D6_CustomerActivity" />
+        <activity android:name=".ui.activity.D5_CustomerActivity" />
 
         <!--友盟更新-->
         <activity

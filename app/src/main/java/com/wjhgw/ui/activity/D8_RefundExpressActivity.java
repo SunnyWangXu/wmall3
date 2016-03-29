@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * 获取支持的快递列表的 Activity
  */
-public class D7_RefundExpressActivity extends BaseActivity implements AdapterView.OnItemClickListener {
+public class D8_RefundExpressActivity extends BaseActivity implements AdapterView.OnItemClickListener {
     private ListView lvRefundMes;
     private RefundExpress refundExpress;
     private List<RefundExpressDatas> expressDatas;
@@ -93,7 +93,7 @@ public class D7_RefundExpressActivity extends BaseActivity implements AdapterVie
                 if (refundExpress.status.code == 10000) {
 
                     expressDatas = refundExpress.datas;
-                    ExpressAdapter expressAdapter = new ExpressAdapter(D7_RefundExpressActivity.this, expressDatas);
+                    ExpressAdapter expressAdapter = new ExpressAdapter(D8_RefundExpressActivity.this, expressDatas);
                     lvRefundMes.setAdapter(expressAdapter);
 
                 } else {

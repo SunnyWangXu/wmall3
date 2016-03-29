@@ -26,7 +26,7 @@ import com.wjhgw.config.ApiInterface;
 /**
  * 填写退货发货信息Activity
  */
-public class D6_RefundMessageActivity extends BaseActivity implements View.OnClickListener, TextWatcher {
+public class D7_RefundMessageActivity extends BaseActivity implements View.OnClickListener, TextWatcher {
     private LinearLayout llSelectExpress;
     private TextView tvSelectExpress;
     private EditText edInvoiceNo;
@@ -34,13 +34,14 @@ public class D6_RefundMessageActivity extends BaseActivity implements View.OnCli
     private boolean isCommitExpress = false;
     private String tvName;
     private String eId;
+    private String refund_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_refund_message);
 
-
+        refund_id = getIntent().getStringExtra("refund_id");
     }
 
     @Override
@@ -78,7 +79,7 @@ public class D6_RefundMessageActivity extends BaseActivity implements View.OnCli
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.ll_select_express:
-                intent.setClass(this, D7_RefundExpressActivity.class);
+                intent.setClass(this, D8_RefundExpressActivity.class);
                 startActivityForResult(intent, 44444);
 
                 break;
@@ -105,7 +106,7 @@ public class D6_RefundMessageActivity extends BaseActivity implements View.OnCli
     private void loadExpressCommit() {
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", getKey());
-        params.addBodyParameter("refund_id", "20");
+        params.addBodyParameter("refund_id", refund_id);
         params.addBodyParameter("express_id", eId);
         params.addBodyParameter("invoice_no", edInvoiceNo.getText().toString());
 
