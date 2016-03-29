@@ -211,17 +211,19 @@ public class C2_SearchActivity extends BaseActivity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.search:
+
                 String keyword = search_name.getText().toString().trim();
-                if(!keyword.equals("")){
+                if (!keyword.equals("")) {
                     saveSearchHistory();
+                    search_name.setText("");
                     mSearchAutoAdapter.initSearchHistory();
                     mSearchAutoAdapter = new SearchAutoAdapter(this, 10, null);
                     mAutoListView.setAdapter(mSearchAutoAdapter);
-                    intent = new Intent(this,C3_GoodsArraySearchActivity.class);
+                    intent = new Intent(this, C3_GoodsArraySearchActivity.class);
                     intent.putExtra("keyword", keyword);
                     startActivity(intent);
                     finish(false);
-                }else{
+                } else {
                     showToastShort("请输入您想要搜索的商品");
                 }
 
@@ -241,7 +243,7 @@ public class C2_SearchActivity extends BaseActivity implements OnClickListener {
                 d2_eliminate.setText("暂无历史记录");
                 break;
             case R.id.iv_title_back:
-                finish(false);
+                finish();
                 break;
 
             default:

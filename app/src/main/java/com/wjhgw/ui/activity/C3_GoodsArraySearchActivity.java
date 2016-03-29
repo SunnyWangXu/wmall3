@@ -40,7 +40,7 @@ import java.util.List;
 /**
  * 商品排列查询
  */
-public class C3_GoodsArraySearchActivity extends BaseActivity implements BusinessResponse,XListView.IXListViewListener,
+public class C3_GoodsArraySearchActivity extends BaseActivity implements BusinessResponse, XListView.IXListViewListener,
         View.OnClickListener, AbsListView.OnScrollListener, View.OnTouchListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener {
     private ImageView IvBack;
     private LinearLayout ll_GoodsArrSearch;
@@ -119,9 +119,9 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
     @Override
     public void onFindViews() {
         IvBack = (ImageView) findViewById(R.id.iv_array_back);
-        llGoodsSearch = (LinearLayout)findViewById(R.id.ll_goods_search);
+        llGoodsSearch = (LinearLayout) findViewById(R.id.ll_goods_search);
 
-        llNoSearchresults = (LinearLayout)findViewById(R.id.ll_no_search_results);
+        llNoSearchresults = (LinearLayout) findViewById(R.id.ll_no_search_results);
 
         tvSearchDef = (TextView) findViewById(R.id.tv_search_default);
         tvSaleNum = (TextView) findViewById(R.id.tv_salenum);
@@ -164,6 +164,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
                 break;
 
             case R.id.ll_goods_search:
+                finish(false);
                 Intent intent = new Intent(this, C2_SearchActivity.class);
                 startActivity(intent);
                 break;
@@ -334,14 +335,14 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
         arrDialog.btnCollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Request.favorites_add(actSearch_datas.get(position-2).goods_id,getKey());
+                Request.favorites_add(actSearch_datas.get(position - 2).goods_id, getKey());
                 arrDialog.dismiss();
             }
         });
         arrDialog.btnGoodsarrAddshopcar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Request.cart_add(actSearch_datas.get(position-2).goods_id, getKey());
+                Request.cart_add(actSearch_datas.get(position - 2).goods_id, getKey());
                 arrDialog.dismiss();
             }
         });
@@ -411,7 +412,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
                             } else {
                                 mListView.setPullLoadEnable(false);
                             }
-                        }else{
+                        } else {
                             /**
                              * 如果没有搜索到商品，展示的界面
                              */
@@ -419,7 +420,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
                             llNoSearchresults.setVisibility(View.VISIBLE);
 
                         }
-                    }else {
+                    } else {
                         overtime(actSearch.status.code, actSearch.status.msg);
                     }
 
@@ -439,7 +440,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        String goods_id = actSearch_datas.get(position - 2 ).goods_id;
+        String goods_id = actSearch_datas.get(position - 2).goods_id;
         Intent intent = new Intent(C3_GoodsArraySearchActivity.this, PrductDetailActivity.class);
         intent.putExtra("goods_id", goods_id);
         startActivity(intent);

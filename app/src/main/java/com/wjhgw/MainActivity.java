@@ -1,5 +1,6 @@
 package com.wjhgw;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.MainMessageNum;
 import com.wjhgw.business.bean.Status;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.fragment.CabinetFragment;
 import com.wjhgw.ui.fragment.CategoryFragment;
 import com.wjhgw.ui.fragment.HomeFragment;
@@ -142,11 +144,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      * @param index 每个tab页对应的下标。0首页，  1分类  2发现 3购物车 4我的
      */
     public void setTabSelection(int index) {
-        clearSelection();
+
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         // hideFragments(transaction);
+        Intent intent = new Intent();
         switch (index) {
             case 0:
+                clearSelection();
                 indexImage.setImageResource(R.mipmap.ic_homepage_select);
                 indexText.setTextColor(Color.parseColor("#d63235"));
                 homeFragment = new HomeFragment();
@@ -161,6 +165,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                 break;
             case 1:
+                clearSelection();
                 classification_image.setImageResource(R.mipmap.ic_search_select);
                 classification_text.setTextColor(Color.parseColor("#d63235"));
                 categoryFragment = new CategoryFragment();
@@ -168,18 +173,34 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                 break;
             case 2:
-                ivCabinet.setImageResource(R.mipmap.ic_cabinet_select);
-                contactsText.setTextColor(Color.parseColor("#d63235"));
-                cabinetFragment = new CabinetFragment();
-                transaction.replace(R.id.content, cabinetFragment);
+                if (getKey().equals("0")) {
+                    tvCabNum.setVisibility(View.GONE);
+                    tvCartNum.setVisibility(View.GONE);
+                    intent.setClass(this, A0_LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    clearSelection();
+                    ivCabinet.setImageResource(R.mipmap.ic_cabinet_select);
+                    contactsText.setTextColor(Color.parseColor("#d63235"));
+                    cabinetFragment = new CabinetFragment();
+                    transaction.replace(R.id.content, cabinetFragment);
+                }
 
                 break;
 
             case 3:
-                shopping_car_image.setImageResource(R.mipmap.ic_shopping_cart_select);
-                shopping_car_text.setTextColor(Color.parseColor("#d63235"));
-                shoppingCartFragment = new ShoppingCartFragment();
-                transaction.replace(R.id.content, shoppingCartFragment);
+                if (getKey().equals("0")) {
+                    tvCabNum.setVisibility(View.GONE);
+                    tvCartNum.setVisibility(View.GONE);
+                    intent.setClass(this, A0_LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    clearSelection();
+                    shopping_car_image.setImageResource(R.mipmap.ic_shopping_cart_select);
+                    shopping_car_text.setTextColor(Color.parseColor("#d63235"));
+                    shoppingCartFragment = new ShoppingCartFragment();
+                    transaction.replace(R.id.content, shoppingCartFragment);
+                }
                 /*if (shoppingCartFragment == null) {
                     shoppingCartFragment = new ShoppingCartFragment();
                     transaction.replace(R.id.content, shoppingCartFragment);
@@ -190,6 +211,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case 4:
             default:
+                clearSelection();
                 settingImage.setImageResource(R.mipmap.ic_mine_select);
                 settingText.setTextColor(Color.parseColor("#d63235"));
                 mineFragment = new MyFragment();
