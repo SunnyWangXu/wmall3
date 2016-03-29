@@ -21,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -34,6 +33,8 @@ import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.Nickname;
 import com.wjhgw.business.bean.OrderList_goods_list_data;
 import com.wjhgw.business.bean.Status;
+import com.wjhgw.business.bean.add_refundList;
+import com.wjhgw.business.bean.refund_allList;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.dialog.Customer_serviceDialog;
 import com.wjhgw.ui.dialog.GalleryDialog;
@@ -48,7 +49,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -60,12 +60,11 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
     private MyListView mListView;
     private MyListView mListView1;
     private String lock_state;
-    private String goods_price;
+    private String rec_id;
     private String goods_num;
     private String goods_name;
-    private String rder_sn;
     private Double order_amount;
-    private String goods;  //判断是为商品入口还是订单入口
+    private String order_id;
     private String key;
     private D2_deliverAdapter listAdapter;
     private LinearLayout Customer_service1;
@@ -83,8 +82,9 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
     private TextView tv_d4_text3;
     private TextView tv_d4_text4;
     private TextView tv_d4_text5;
-    private EditText et_d4_name1;
+    public EditText et_d4_name1;
     private EditText et_d4_name2;
+    private EditText et_d4_name;
     private ImageView iv_d4_image1;
     private ImageView iv_d4_image2;
     private ImageView iv_upload1;
@@ -100,6 +100,8 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
     private String position1 = "0"; //上传的图片的名称
     private String position2 = "0"; //上传的图片的名称
     private String position3 = "0"; //上传的图片的名称
+    private String refund_type = "1";
+    private refund_allList refund;
     private ArrayList<OrderList_goods_list_data> extend_order_goods;
 
     @Override
@@ -117,67 +119,42 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
 
         key = getKey();
         Dialog = new GalleryDialog(this);
-        goods = getIntent().getStringExtra("goods");
-        if (goods.equals("0")) {
-            lock_state = getIntent().getStringExtra("lock_state");
-            goods_price = getIntent().getStringExtra("goods_price");
-            goods_num = getIntent().getStringExtra("goods_num");
-            goods_name = getIntent().getStringExtra("goods_name");
-            rder_sn = getIntent().getStringExtra("rder_sn");
-            order_amount = Double.parseDouble(goods_price) * Double.parseDouble(goods_num);
-            tv_d4_text4.setText("最多" + order_amount + "元");
-            tv_d4_text5.setText("最多" + 0 + "件");
-            tv_d4_goods_name.setText(goods_name);
-            tv_d4_num.setText("¥" + goods_price + "*" + goods_num + "(数量)");
-            tv_d4_rder_sn.setText(rder_sn);
-        } else {
-            lock_state = getIntent().getStringExtra("lock_state");
-            rder_sn = getIntent().getStringExtra("rder_sn");
-            order_amount = Double.parseDouble(getIntent().getStringExtra("order_amount"));
-
-            tv_d4_text4.setText("最多" + order_amount + "元");
-            Type type = new TypeToken<ArrayList<OrderList_goods_list_data>>() {
-            }.getType();
-            extend_order_goods = new Gson().fromJson(goods, type);
-            tv_d4_text5.setText("最多0件");
-            fl_layotu.setVisibility(View.GONE);
-
-            LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) mListView1.getLayoutParams();
-            linearParams.height = dip2px(this, 24) * extend_order_goods.size();// 当控件的高
-            mListView1.setLayoutParams(linearParams);
-            D4_customer_serviceAdapter adapter = new D4_customer_serviceAdapter(this, extend_order_goods);
-            mListView1.setAdapter(adapter);
-
-            //设置listview不能滑动
-            mListView1.setOnTouchListener(new View.OnTouchListener() {
-
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    return true;
-                }
-            });
-        }
+        order_id = getIntent().getStringExtra("order_id");
+        lock_state = getIntent().getStringExtra("lock_state");
+        rec_id = getIntent().getStringExtra("rec_id");
 
         if (lock_state.equals("20")) {
             click(1);
-            tv_d4_text2.setTextColor(Color.parseColor("#999999"));
+            add_refund_all_step1();
+            //et_d4_name1.setText("" + order_amount);
+            et_d4_name1.setTextColor(Color.parseColor("#cccccc"));
+            et_d4_name1.setEnabled(false);
             et_d4_name2.setText("0");
             et_d4_name2.setTextColor(Color.parseColor("#cccccc"));
             et_d4_name2.setEnabled(false);
+
+            fl_layotu.setVisibility(View.GONE);
+            tv_d4_text5.setText("最多0件");
+            tv_d4_text2.setTextColor(Color.parseColor("#999999"));
             tv_d4_text3.setText("取消订单，全部退款");
         } else {
             click(1);
+            add_refund_step1();
+            tv_d4_text5.setText("最多0件");
+            et_d4_name2.setText("0");
+            et_d4_name2.setTextColor(Color.parseColor("#cccccc"));
+            et_d4_name2.setEnabled(false);
         }
         et_d4_name1.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (start != 0) {
-                    if (order_amount < Integer.parseInt(et_d4_name1.getText().toString())) {
+                    if (order_amount < Double.parseDouble(et_d4_name1.getText().toString())) {
                         et_d4_name1.getText().delete(et_d4_name1.length() - 1, et_d4_name1.length());
                     }
                 } else {
                     if (start == 0 && count > 0) {
-                        if (order_amount < Integer.parseInt(et_d4_name1.getText().toString())) {
+                        if (order_amount < Double.parseDouble(et_d4_name1.getText().toString())) {
                             et_d4_name1.getText().delete(et_d4_name1.length() - 1, et_d4_name1.length());
                         }
                     } else {
@@ -198,12 +175,12 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (start != 0) {
-                    if (Integer.parseInt(goods_num) < Integer.parseInt(et_d4_name2.getText().toString())) {
+                    if (Double.parseDouble(goods_num) < Double.parseDouble(et_d4_name2.getText().toString())) {
                         et_d4_name2.getText().delete(et_d4_name2.length() - 1, et_d4_name2.length());
                     }
                 } else {
                     if (start == 0 && count > 0) {
-                        if (Integer.parseInt(goods_num) < Integer.parseInt(et_d4_name2.getText().toString())) {
+                        if (Double.parseDouble(goods_num) < Double.parseDouble(et_d4_name2.getText().toString())) {
                             et_d4_name2.getText().delete(et_d4_name2.length() - 1, et_d4_name2.length());
                         }
                     } else {
@@ -247,6 +224,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
         tv_d4_text5 = (TextView) Customer_service1.findViewById(R.id.tv_d4_text5);
         et_d4_name1 = (EditText) Customer_service1.findViewById(R.id.et_d4_name1);
         et_d4_name2 = (EditText) Customer_service1.findViewById(R.id.et_d4_name2);
+        et_d4_name = (EditText) Customer_service1.findViewById(R.id.et_d4_name);
         iv_d4_image1 = (ImageView) Customer_service1.findViewById(R.id.iv_d4_image1);
         iv_d4_image2 = (ImageView) Customer_service1.findViewById(R.id.iv_d4_image2);
 
@@ -294,7 +272,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
             case R.id.fl_lauout1:
                 if (!lock_state.equals("20")) {
                     click(1);
-                    tv_d4_text5.setText("最多" + 0 + "件");
+                    tv_d4_text5.setText("最多0件");
                     et_d4_name2.setText("0");
                     et_d4_name2.setTextColor(Color.parseColor("#cccccc"));
                     et_d4_name2.setEnabled(false);
@@ -304,6 +282,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
                 if (!lock_state.equals("20")) {
                     click(2);
                     tv_d4_text5.setText("最多" + goods_num + "件");
+
                     et_d4_name2.setText("");
                     et_d4_name2.setTextColor(Color.parseColor("#333333"));
                     et_d4_name2.setEnabled(true);
@@ -350,7 +329,35 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
                 }
                 break;
             case R.id.tv_d4_next:
-                showToastShort("还在开发中呢！点你妹啊！");
+                String s = "";
+                if (!position1.equals("0")) {
+                    s += position1 + "|**|";
+                }
+                if (!position2.equals("0")) {
+                    s += position2 + "|**|";
+                }
+                if (!position3.equals("0")) {
+                    s += position3;
+                }
+                String buyer_message = et_d4_name.getText().toString();
+                if (lock_state.equals("20")) {
+                    add_refund_all_step2(buyer_message, s);
+                } else {
+                    String reason_info = tv_d4_text3.getText().toString();
+                    String refund_amount = et_d4_name1.getText().toString();
+                    String goods_num = et_d4_name2.getText().toString();
+
+                    if (reason_info.equals("请选择售后原因")) {
+                        reason_info = "其他";
+                    }
+
+                    if (refund_amount.length() > 0 && goods_num.length() > 0) {
+                        add_refund_step2(buyer_message, s, refund_amount, goods_num, reason_info);
+                    } else {
+                        showToastShort("退款金额或退款数量不能为空");
+                    }
+                }
+
                 break;
             default:
                 break;
@@ -511,26 +518,151 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
     }
 
     /**
-     * 售前退款申请
+     * 售前退款第一步
      */
-    private void add_refund_all() {
+    private void add_refund_all_step1() {
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
-        params.addBodyParameter("refund_type", key);
-        params.addBodyParameter("order_id", key);
-        params.addBodyParameter("key", key);
-        params.addBodyParameter("key", key);
-        params.addBodyParameter("key", key);
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("order_id", order_id);
 
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Add_refund_all, params, new RequestCallBack<String>() {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Add_refund_all_step1, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Gson gson = new Gson();
                 if (null != responseInfo) {
+                    refund = gson.fromJson(responseInfo.result, refund_allList.class);
+                    if (refund.status.code == 10000) {
+                        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) mListView1.getLayoutParams();
+                        linearParams.height = dip2px(D4_Customer_serviceActivity.this, 24) * refund.datas.goods_list.size();// 当控件的高
+                        mListView1.setLayoutParams(linearParams);
+                        D4_customer_serviceAdapter adapter = new D4_customer_serviceAdapter(D4_Customer_serviceActivity.this, refund.datas.goods_list);
+                        mListView1.setAdapter(adapter);
+
+                        //设置listview不能滑动
+                        mListView1.setOnTouchListener(new View.OnTouchListener() {
+
+                            @Override
+                            public boolean onTouch(View v, MotionEvent event) {
+                                return true;
+                            }
+                        });
+
+                        order_amount = Double.parseDouble(refund.datas.order_amount);
+                        tv_d4_rder_sn.setText(refund.datas.order_sn);
+                        tv_d4_text4.setText("最多" + order_amount + "元");
+                        et_d4_name1.setText("" + refund.datas.order_amount);
+
+                    } else {
+                        overtime(refund.status.code, refund.status.msg);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                showToastShort("网络错误");
+            }
+
+        });
+    }
+
+    /**
+     * 售前退款第二步
+     */
+    private void add_refund_all_step2(String buyer_message, String pic_info) {
+        StartLoading();
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+        params.addBodyParameter("order_id", order_id);
+        params.addBodyParameter("buyer_message", buyer_message);
+        params.addBodyParameter("pic_info", pic_info);
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Add_refund_all_step2, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                Dismiss();
+                if (null != responseInfo) {
                     Status status = gson.fromJson(responseInfo.result, Status.class);
                     if (status.status.code == 10000) {
+                        showToastShort(status.status.msg);
+                        finish();
+                    } else {
+                        overtime(status.status.code, status.status.msg);
+                    }
+                }
+            }
 
+            @Override
+            public void onFailure(HttpException e, String s) {
+                showToastShort("网络错误");
+            }
+
+        });
+    }
+
+    /**
+     * 售后退款,退货第一步
+     */
+    private void add_refund_step1() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+        params.addBodyParameter("order_id", order_id);
+        params.addBodyParameter("rec_id", rec_id);
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Add_refund_step1, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (null != responseInfo) {
+                    add_refundList add_refund = gson.fromJson(responseInfo.result, add_refundList.class);
+                    if (add_refund.status.code == 10000) {
+                        order_amount = Double.parseDouble(add_refund.datas.goods_list.goods_price);
+                        goods_num = add_refund.datas.goods_list.goods_num;
+                        tv_d4_text4.setText("最多" + order_amount + "元");
+                        tv_d4_goods_name.setText(add_refund.datas.goods_list.goods_name);
+                        tv_d4_num.setText("¥" + order_amount + "*" + goods_num + "(数量)");
+                        tv_d4_rder_sn.setText(add_refund.datas.order_info.order_sn);
+                    } else {
+                        overtime(add_refund.status.code, add_refund.status.msg);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                showToastShort("网络错误");
+            }
+
+        });
+    }
+
+    /**
+     * 售后退款,退货第二步
+     */
+    private void add_refund_step2(String buyer_message, String pic_info,
+                                  String refund_amount, String goods_num, String reason_info) {
+        StartLoading();
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", key);
+        params.addBodyParameter("order_id", order_id);
+        params.addBodyParameter("refund_type", refund_type);  //退款类型
+        params.addBodyParameter("rec_id", rec_id);    //记录编号
+        params.addBodyParameter("refund_amount", refund_amount); //退款金额
+        params.addBodyParameter("goods_num", goods_num);     //数量
+        params.addBodyParameter("reason_info", reason_info);   //退款原因
+        params.addBodyParameter("buyer_message", buyer_message);
+        params.addBodyParameter("pic_info", pic_info);
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Add_refund_step2, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                Dismiss();
+                if (null != responseInfo) {
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+                    if (status.status.code == 10000) {
+                        showToastShort(status.status.msg);
+                        finish();
                     } else {
                         overtime(status.status.code, status.status.msg);
                     }
@@ -561,7 +693,9 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
         if (i == 1) {
             tv_d4_text1.setTextColor(Color.parseColor("#f25252"));
             iv_d4_image1.setVisibility(View.VISIBLE);
+            refund_type = "1";
         } else if (i == 2) {
+            refund_type = "2";
             tv_d4_text2.setTextColor(Color.parseColor("#f25252"));
             iv_d4_image2.setVisibility(View.VISIBLE);
         }

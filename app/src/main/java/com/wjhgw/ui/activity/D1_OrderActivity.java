@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -25,7 +24,6 @@ import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.api.Order_Request;
-import com.wjhgw.business.bean.OrderList_goods_list_data;
 import com.wjhgw.business.bean.Order_detail;
 import com.wjhgw.business.bean.PayOrder;
 import com.wjhgw.business.response.BusinessResponse;
@@ -38,9 +36,6 @@ import com.wjhgw.ui.view.listview.adapter.D1_OrderAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 /**
  * 订单详情
@@ -275,14 +270,9 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                     //待付款
                 } else if (order_detail.datas.order_state.equals("20")) {
                     if (order_detail.datas.if_refund_cancel) {
-                        Type type = new TypeToken<ArrayList<OrderList_goods_list_data>>() {
-                        }.getType();
-                        String json = new Gson().toJson(order_detail.datas.extend_order_goods, type);
                         intent = new Intent(this, D4_Customer_serviceActivity.class);
-                        intent.putExtra("goods", json);
-                        intent.putExtra("order_amount", order_detail.datas.order_amount);
                         intent.putExtra("lock_state", order_detail.datas.order_state);
-                        intent.putExtra("order_sn", order_detail.datas.order_sn);
+                        intent.putExtra("order_sn", order_detail.datas.order_id);
                         startActivity(intent);
                     }
 
@@ -354,6 +344,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
      * 订单详情
      */
     private void Order_detail() {
+        StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
         params.addBodyParameter("order_id", order_id);
@@ -362,6 +353,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Gson gson = new Gson();
+                Dismiss();
                 if (null != responseInfo) {
                     order_detail = gson.fromJson(responseInfo.result, Order_detail.class);
                     if (order_detail.status.code == 10000) {
@@ -373,7 +365,8 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                             linearParams.height = dip2px(D1_OrderActivity.this, 114) * order_detail.datas.extend_order_goods.size();// 当控件的高
                             mListView1.setLayoutParams(linearParams);
 
-                            listAdapter = new D1_OrderAdapter(D1_OrderActivity.this, order_detail.datas.extend_order_goods,order_detail.datas.lock_state,order_detail.datas.order_state,order_detail.datas.order_sn);
+                            listAdapter = new D1_OrderAdapter(D1_OrderActivity.this, order_detail.datas.extend_order_goods,
+                                    order_detail.datas.lock_state,order_detail.datas.order_state,order_detail.datas.order_id);
                             mListView1.setAdapter(listAdapter);
 
                             tv_store_name.setText(order_detail.datas.store_name);

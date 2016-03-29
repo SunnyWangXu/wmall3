@@ -37,18 +37,18 @@ public class D1_OrderAdapter extends BaseAdapter {
     Context c;
     public ArrayList<OrderList_goods_list_data> List;
     private LayoutInflater mInflater;
-    private String rder_sn;
+    private String order_id;
     private String lock_state; //是否处于售后中
     private String order_state; //是否是待发货状态
     private boolean state = false;
 
-    public D1_OrderAdapter(Context c, ArrayList<OrderList_goods_list_data> dataList, String lock_state, String order_state, String rder_sn) {
+    public D1_OrderAdapter(Context c, ArrayList<OrderList_goods_list_data> dataList, String lock_state, String order_state, String order_id) {
         mInflater = LayoutInflater.from(c);
         this.c = c;
         this.List = dataList;
         this.lock_state = lock_state;
         this.order_state = order_state;
-        this.rder_sn = rder_sn;
+        this.order_id = order_id;
         if(lock_state.equals("1") && order_state.equals("20")){
             state =true;
             //售后中和待发货状态
@@ -95,12 +95,12 @@ public class D1_OrderAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(c, D4_Customer_serviceActivity.class);
-                intent.putExtra("goods", "0");
                 intent.putExtra("lock_state", order_state);
-                intent.putExtra("goods_price", List.get(position).goods_price);
+                /*intent.putExtra("goods_price", List.get(position).goods_price);
                 intent.putExtra("goods_num", List.get(position).goods_num);
-                intent.putExtra("goods_name", List.get(position).goods_name);
-                intent.putExtra("rder_sn", rder_sn);
+                intent.putExtra("goods_name", List.get(position).goods_name);*/
+                intent.putExtra("rec_id", List.get(position).rec_id);
+                intent.putExtra("order_id", order_id);
                 c.startActivity(intent);
             }
         });

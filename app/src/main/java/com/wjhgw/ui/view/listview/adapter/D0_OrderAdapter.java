@@ -27,7 +27,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -38,7 +37,6 @@ import com.wjhgw.R;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.api.Order_Request;
 import com.wjhgw.business.bean.OrderList_data;
-import com.wjhgw.business.bean.OrderList_goods_list_data;
 import com.wjhgw.business.bean.PayOrder;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
@@ -51,7 +49,6 @@ import com.wjhgw.ui.dialog.MyDialog;
 import com.wjhgw.ui.dialog.Order_cancelDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -302,14 +299,9 @@ public class D0_OrderAdapter extends BaseAdapter {
                     //待付款
                 } else if (List.get(position).order_state.equals("20")) {
                     if (List.get(position).if_refund_cancel) {
-                        Type type = new TypeToken<ArrayList<OrderList_goods_list_data>>() {
-                        }.getType();
-                        String json = new Gson().toJson(List.get(position).extend_order_goods, type);
                         Intent intent = new Intent(c, D4_Customer_serviceActivity.class);
-                        intent.putExtra("goods", json);
-                        intent.putExtra("order_amount", List.get(position).order_amount);
                         intent.putExtra("lock_state", List.get(position).order_state);
-                        intent.putExtra("order_sn", List.get(position).order_sn);
+                        intent.putExtra("order_id", List.get(position).order_id);
                         c.startActivity(intent);
                     }
                     //申请售后

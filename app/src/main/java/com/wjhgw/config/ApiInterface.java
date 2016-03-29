@@ -274,13 +274,13 @@ public class ApiInterface {
      */
     public static final String Favorites_del = "/mobile/index.php?act=member_favorites&op=favorites_del";
     /**
-     * 售前退款申请
+     * 售前退款第二步
      */
-    public static final String Add_refund_all = "/mobile/index.php?act=return_refund&op=add_refund_all";
+    public static final String Add_refund_all_step2 = "/mobile/index.php?act=return_refund&op=add_refund_all_step2";
     /**
-     * 商品部分退款,退货
+     * 售后退款,退货第二步
      */
-    public static final String Add_refund = "/mobile/index.php?act=return_refund&op=add_refund";
+    public static final String Add_refund_step2 = "/mobile/index.php?act=return_refund&op=add_refund_step2";
     /**
      * 获取支持的快递列表接口
      */
@@ -289,4 +289,13 @@ public class ApiInterface {
      * 用户退货发货接口
      */
     public static final String Refund_express = "/mobile/index.php?act=return_refund&op=ship";
+    /**
+     * 售前退款第一步
+     */
+    public static final String Add_refund_all_step1 = "/mobile/index.php?act=return_refund&op=add_refund_all_step1";
+    /**
+     * 售后退款,退货第一步
+     */
+    public static final String Add_refund_step1 = "/mobile/index.php?act=return_refund&op=add_refund_step1";
+
 }
