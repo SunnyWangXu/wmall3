@@ -411,7 +411,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 }
                                 tv_button3.setVisibility(View.VISIBLE);
                                 tv_button3.setText("联系客服");
-                                tv_state.setText("");
+                                tv_state.setText("订单已经提交，等待买家付款，系统将于" + order_detail.datas.warning_time + "自动关闭该订单");
                                 //待付款
                             } else if (order_detail.datas.order_state.equals("20")) {
                                 if (order_detail.datas.if_remind) {
@@ -424,7 +424,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 }
                                 tv_button3.setVisibility(View.VISIBLE);
                                 tv_button3.setText("联系客服");
-                                tv_state.setText("正在为您打包商品，请耐心等待");
+                                tv_state.setText("已支付成功,订单已提交商家进行备货发货准备");
                                 //待发货
                             } else if (order_detail.datas.order_state.equals("30")) {
                                 if (order_detail.datas.if_receive) {
@@ -437,13 +437,13 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 }
                                 tv_button3.setVisibility(View.VISIBLE);
                                 tv_button3.setText("联系客服");
-                                tv_state.setText("已为您发货，请注意查收并确认收货");
+                                tv_state.setText("商家已发货，系统将于" + order_detail.datas.warning_time+ "自动完成[确认收货],完成交易");
                                 //待收货
                             } else if (order_detail.datas.order_state.equals("40")) {
                                 if (order_detail.datas.evaluation) {
                                     tv_button1.setVisibility(View.VISIBLE);
                                     tv_button1.setText("商品评价");
-                                    tv_state.setText("您的商品已签收，请对商品作出评价");
+                                    tv_state.setText("交易已完成,你可以对购买的商品及商家的服务进行评价及晒单");
                                 }
                                 if (order_detail.datas.if_deliver) {
                                     tv_button1.setVisibility(View.VISIBLE);
@@ -452,7 +452,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 if (order_detail.datas.delete) {
                                     tv_button2.setVisibility(View.VISIBLE);
                                     tv_button2.setText("删除订单");
-                                    tv_state.setText("订单交易成功");
+                                    tv_state.setText("已完成(已评价):交易已完成");
                                 }
 
                                 //待评价 || 已完成

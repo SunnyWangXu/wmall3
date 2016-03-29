@@ -24,6 +24,7 @@ public class Order_detail_data {
     public String pd_amount;
     public ArrayList<OrderList_goods_list_data> extend_order_goods;
     public Extend_order_common extend_order_common;
+    public String warning_time;
     public boolean if_cancel;   //是否可用取消
     public boolean if_receive;  //是否可以收货
     public boolean if_lock;     //是否可以锁定（退款退货为锁定）
