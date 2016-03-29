@@ -132,11 +132,12 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
                 getActivity().startActivity(intent);
                 break;
             case R.id.ll_goods_search:
+
                 intent = new Intent(getActivity(), C2_SearchActivity.class);
                 getActivity().startActivity(intent);
                 break;
             case R.id.rl_message:
-                final Under_developmentDialog underdevelopmentDialog = new Under_developmentDialog(getActivity(),"功能正在开发中,敬请期待");
+                final Under_developmentDialog underdevelopmentDialog = new Under_developmentDialog(getActivity(), "功能正在开发中,敬请期待");
                 underdevelopmentDialog.show();
                 underdevelopmentDialog.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -217,7 +218,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
             goods_class1 = gson.fromJson(responseInfoResult, Goods_class1.class);
 
             if (goods_class1.status.code == 10000) {
-                if(goods_class1.datas != null){
+                if (goods_class1.datas != null) {
                     adapter = new goods_class_adapter(getActivity(), goods_class1.datas);
                 }
 

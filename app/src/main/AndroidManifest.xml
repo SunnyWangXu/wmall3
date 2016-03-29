@@ -25,7 +25,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".StartActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -38,18 +39,19 @@
             <data android:scheme="wxd930ea5d5a258f4f" />
         </intent-filter>
 
-        <activity android:name=".ui.activity.C1_CaptureActivity" />
-        <activity android:name=".ui.activity.C2_SearchActivity" />
-        <activity android:name=".ui.activity.C3_GoodsArraySearchActivity" />
-        <activity android:name=".ui.activity.C4_UseServiceActivity" />
         <activity android:name="com.wjhgw.MainActivity" />
-        <activity android:name="com.wjhgw.guide.GuideActivity" />
+        <activity android:name="com.wjhgw.guide.GuideActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name="com.wjhgw.ui.activity.A0_LoginActivity" />
         <activity android:name=".ui.activity.PrductDetailActivity" />
         <activity android:name=".ui.activity.A1_RegisterActivity1" />
         <activity android:name=".ui.activity.A1_RegisterActivity2" />
         <activity android:name=".ui.activity.A2_ResetPassActivity1" />
         <activity android:name=".ui.activity.A2_ResetPassActivity2" />
+        <activity android:name=".ui.activity.C1_CaptureActivity" />
+        <activity android:name=".ui.activity.C2_SearchActivity" />
+        <activity android:name=".ui.activity.C3_GoodsArraySearchActivity" />
+        <activity android:name=".ui.activity.C4_UseServiceActivity" />
         <activity android:name=".ui.activity.J0_SelectGiveObjectActivity" />
         <activity android:name=".ui.activity.J1_RecordActivity" />
         <activity android:name=".ui.activity.J2_GiveOneActivity" />

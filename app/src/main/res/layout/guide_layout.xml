@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginBottom="60dp"
+                android:layout_marginBottom="70dp"
                 android:src="@mipmap/guide03_button" />
         </FrameLayout>
     </com.wjhgw.guide.GuideScrollLayout>

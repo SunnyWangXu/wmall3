@@ -51,6 +51,7 @@ public class StartActivity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         final View startView = View.inflate(this, R.layout.boot_layout, null);
         setContentView(startView);
         /*MobclickAgent.openActivityDurationTrack(false);
