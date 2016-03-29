@@ -126,7 +126,7 @@ public class D5_AfterSaleDetailActivity extends BaseActivity implements View.OnC
      * 加载退货详情
      */
     private void loadRefundDetail() {
-        super.StartLoading();
+        StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", getKey());
         params.addBodyParameter("refund_id", "20");
@@ -134,11 +134,9 @@ public class D5_AfterSaleDetailActivity extends BaseActivity implements View.OnC
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Gson gson = new Gson();
-
+                Dismiss();
                 RefundDetail refundDetail = gson.fromJson(responseInfo.result, RefundDetail.class);
                 if (refundDetail.status.code == 10000) {
-                    D5_AfterSaleDetailActivity.this.Dismiss();
-
                     RefundDetailDatas datas = refundDetail.datas;
 
                     tvRefund1.setText(datas.seller_state_desc);
@@ -186,6 +184,9 @@ public class D5_AfterSaleDetailActivity extends BaseActivity implements View.OnC
                     if (datas.ship_goods.equals("1")) {
                         tvRefund13.setBackgroundResource(R.drawable.after_sale_red);
                         isCanWrite = true;
+                    } else {
+                        tvRefund13.setBackgroundResource(R.drawable.after_sale_gray);
+                        isCanWrite = false;
                     }
 
                 } else {
