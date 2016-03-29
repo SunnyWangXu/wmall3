@@ -81,6 +81,7 @@
         <activity android:name=".ui.activity.Z1_Prepaid_card_balanceActivity" />
         <activity android:name=".ui.activity.ShoppingCartActivity" />
         <activity android:name=".ui.activity.D4_Customer_serviceActivity" />
+        <activity android:name=".ui.activity.D6_CustomerActivity" />
 
         <!--友盟更新-->
         <activity

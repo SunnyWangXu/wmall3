@@ -297,5 +297,9 @@ public class ApiInterface {
      * 售后退款,退货第一步
      */
     public static final String Add_refund_step1 = "/mobile/index.php?act=return_refund&op=add_refund_step1";
+    /**
+     * 退款/退货申请列表
+     */
+    public static final String Return_refund_list = "/mobile/index.php?act=return_refund&op=return_refund_list";
 
 }

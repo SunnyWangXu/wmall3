@@ -27,7 +27,7 @@ import com.wjhgw.business.bean.OrderList_goods_list_data;
 import java.util.ArrayList;
 
 /**
- * @author
+ * 售后申请
  */
 public class D4_customer_serviceAdapter extends BaseAdapter {
     Context c;

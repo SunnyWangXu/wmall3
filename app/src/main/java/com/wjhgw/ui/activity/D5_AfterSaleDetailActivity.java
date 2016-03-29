@@ -53,14 +53,17 @@ public class D5_AfterSaleDetailActivity extends BaseActivity implements View.OnC
     private ImageView ivRefund2;
     private ImageView ivRefund3;
     private LinearLayout llrefund33;
+    private LinearLayout ll_layout;
     private TextView tvRefund13;
     private boolean isCanWrite = false;
+    private String refund_id = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_after_sale_detail);
 
+        refund_id = getIntent().getStringExtra("refund_id");
     }
 
 
@@ -105,6 +108,7 @@ public class D5_AfterSaleDetailActivity extends BaseActivity implements View.OnC
         tvRefund13 = (TextView) afterSaleHeader3.findViewById(R.id.tv_refund13);
 
         llrefund33 = (LinearLayout) afterSaleHeader3.findViewById(R.id.ll_refund_express);
+        ll_layout = (LinearLayout) afterSaleHeader1.findViewById(R.id.ll_layout);
 
         lvGoodsMessage = (ListView) afterSaleHeader2.findViewById(R.id.lv_goods_message);
 
@@ -129,7 +133,7 @@ public class D5_AfterSaleDetailActivity extends BaseActivity implements View.OnC
         StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", getKey());
-        params.addBodyParameter("refund_id", "20");
+        params.addBodyParameter("refund_id", refund_id);
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Refund_return_detail, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -145,13 +149,14 @@ public class D5_AfterSaleDetailActivity extends BaseActivity implements View.OnC
                     tvRefund4.setText(datas.store_name);
                     if (datas.refund_type.equals("1")) {
                         tvRefund5.setText("退款");
+                        ll_layout.setVisibility(View.GONE);
                     }
                     if (datas.refund_type.equals("2")) {
                         tvRefund5.setText("退货");
+                        tvRefund8.setText(datas.goods_num);
                     }
                     tvRefund6.setText(datas.reason_info);
                     tvRefund7.setText(datas.refund_amount + "元");
-                    tvRefund8.setText(datas.goods_num);
                     tvRefund9.setText(datas.buyer_message);
                     tvRefund10.setText(datas.order_sn);
                     tvRefund11.setText(datas.express_name);
@@ -239,6 +244,8 @@ public class D5_AfterSaleDetailActivity extends BaseActivity implements View.OnC
         /**
          * 加载退货详情
          */
-        loadRefundDetail();
+        if(!refund_id.equals("")){
+            loadRefundDetail();
+        }
     }
 }

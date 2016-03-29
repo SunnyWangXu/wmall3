@@ -73,15 +73,7 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
         mListView.setPullRefreshEnable(true);
         mListView.setXListViewListener(this, 1);
         mListView.setRefreshTime();
-        if (order_state.equals("100")) {
-            refund_return_list();
-        } else if (order_state.equals("")) {
-            ll_layout1.setVisibility(View.VISIBLE);
-            order_list();
-            click(1);
-        } else {
-            order_list();
-        }
+
         Request = new Order_Request(this);
         Request.addResponseListener(this);
     }
@@ -126,6 +118,17 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
         super.onDestroy();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (order_state.equals("")) {
+            ll_layout1.setVisibility(View.VISIBLE);
+            order_list();
+            click(1);
+        } else {
+            order_list();
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -228,61 +231,6 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
                         } else {
                             ll_no_order.setVisibility(View.VISIBLE);
                             mListView.setVisibility(View.GONE);
-                        }
-                    } else {
-                        overtime(orderList.status.code, orderList.status.msg);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-                showToastShort("网络错误");
-            }
-
-        });
-    }
-
-    /**
-     * 售后数据接口
-     */
-    private void refund_return_list() {
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
-        params.addBodyParameter("curpage", Integer.toString(curpage));
-        params.addBodyParameter("page", "10");
-        if (order_state != null) {
-            params.addBodyParameter("re_type", "1");
-        }
-
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Refund_return_list, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                Gson gson = new Gson();
-                if (null != responseInfo) {
-                    OrderList orderList = gson.fromJson(responseInfo.result, OrderList.class);
-                    if (orderList.status.code == 10000) {
-                        mListView.stopRefresh();
-                        mListView.stopLoadMore();
-                        mListView.setRefreshTime();
-                        if (orderList.datas != null) {
-                            if (OrderList_data.size() > 0 && isSetAdapter) {
-                                OrderList_data.clear();
-                            }
-                            OrderList_data.addAll(orderList.datas);
-                            if (isSetAdapter) {
-                                listAdapter = new D0_OrderAdapter(D0_OrderActivity.this, OrderList_data, Request, key);
-                                mListView.setAdapter(listAdapter);
-                            } else {
-                                listAdapter.List = OrderList_data;
-                                listAdapter.notifyDataSetChanged();
-                            }
-
-                            if (orderList.pagination.hasmore) {
-                                mListView.setPullLoadEnable(true);
-                            } else {
-                                mListView.setPullLoadEnable(false);
-                            }
                         }
                     } else {
                         overtime(orderList.status.code, orderList.status.msg);
