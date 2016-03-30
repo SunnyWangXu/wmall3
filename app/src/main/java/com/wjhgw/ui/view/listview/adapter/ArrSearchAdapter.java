@@ -18,8 +18,8 @@ import java.util.List;
  * 排列商品查询ListView适配器
  */
 public class ArrSearchAdapter extends BaseAdapter {
-    public  List<ActSearch_datas> actSearch_datas;
-    private  Context mContext;
+    public List<ActSearch_datas> actSearch_datas;
+    private Context mContext;
     private ImageView ivSearchGoods;
     private TextView tvSearchName;
     private TextView tvSearchPice;
@@ -48,14 +48,14 @@ public class ArrSearchAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.lv_actsearch_item, null);
-            ivSearchGoods = (ImageView) convertView.findViewById(R.id.iv_search_goods);
-            tvSearchName = (TextView) convertView.findViewById(R.id.tv_search_name);
-            tvSearchPice = (TextView) convertView.findViewById(R.id.tv_search_pice);
-            tvSearchSale = (TextView) convertView.findViewById(R.id.tv_search_sale);
+        convertView = LayoutInflater.from(mContext).inflate(R.layout.lv_actsearch_item, null);
+        ivSearchGoods = (ImageView) convertView.findViewById(R.id.iv_search_goods);
+        tvSearchName = (TextView) convertView.findViewById(R.id.tv_search_name);
+        tvSearchPice = (TextView) convertView.findViewById(R.id.tv_search_pice);
+        tvSearchSale = (TextView) convertView.findViewById(R.id.tv_search_sale);
 
         String imageUrl = actSearch_datas.get(position).goods_image_url;
-        APP.getApp().getImageLoader().displayImage(imageUrl,ivSearchGoods);
+        APP.getApp().getImageLoader().displayImage(imageUrl, ivSearchGoods, APP.getApp().getImageOptions());
         tvSearchName.setText(actSearch_datas.get(position).goods_name);
         tvSearchPice.setText("¥ " + actSearch_datas.get(position).goods_price);
         tvSearchSale.setText("销量 " + actSearch_datas.get(position).goods_salenum);

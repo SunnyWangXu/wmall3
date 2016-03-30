@@ -125,6 +125,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private String invoice_title;
     private String invoice_content;
     private TextView tvInvoice;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -571,7 +572,9 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             params.addBodyParameter("cabinet_operation", "1");
             params.addBodyParameter("send_other", "1");
         }
-        params.addBodyParameter("ifcart", "1");
+        if (getIntent().getStringExtra("for").equals("forShopp")) {
+            params.addBodyParameter("ifcart", "1");
+        }
         if (cart_id != null) {
             params.addBodyParameter("cart_id", cart_id);
         }
@@ -666,7 +669,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                                 /**
                                  * 选择了余额支付或者使用充值卡余额支付但是余额小于选中商品金额还是要跳转到选择支付界面付款余下的金额
                                  */
-                                Intent intent = new Intent(S0_ConfirmOrderActivity.this, S3_SelectPaymentActivity.class);
+                                intent = new Intent(S0_ConfirmOrderActivity.this, S3_SelectPaymentActivity.class);
                                 intent.putExtra("tvRealPay", tvRealPay.getText());
                                 if (isUseBalance) {
                                     intent.putExtra("tvAvailablePredeposit", tvAvailablePredeposit.getText());
@@ -690,7 +693,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                                 intent.putExtra("goodsDetail", goodsDetail);
                                 intent.putExtra("entrance", "1");
 
-                                if (Double.valueOf(totalFee) > 0 && paySn != null) {
+                                if (Double.parseDouble(totalFee) > 0 && paySn != null) {
                                     startActivity(intent);
                                     finish();
                                 } else {

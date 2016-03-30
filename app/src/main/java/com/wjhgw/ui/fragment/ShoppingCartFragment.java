@@ -436,6 +436,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                         intent.putExtra("cart_id", cart_id);
                         intent.putExtra("tv_total", realPay+"");
                         intent.putExtra("realPay", realPay);
+                        intent.putExtra("for", "forShopp");
                         startActivity(intent);
 
                     }else if(selectOrder.status.code == 200103 || selectOrder.status.code == 200104){

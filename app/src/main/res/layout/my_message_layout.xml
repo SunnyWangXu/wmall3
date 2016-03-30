@@ -53,12 +53,13 @@
                     android:textColor="#ffffff"
                     android:textSize="14sp" />
 
-                </LinearLayout>
+            </LinearLayout>
+
             <ImageView
                 android:layout_width="15dp"
                 android:layout_height="25dp"
-                android:layout_marginRight="35dp"
                 android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="35dp"
                 android:src="@mipmap/ic_arrow_right" />
         </FrameLayout>
 
