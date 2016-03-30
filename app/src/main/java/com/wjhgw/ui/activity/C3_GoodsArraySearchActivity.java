@@ -111,9 +111,9 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
         mListView = (MyListView) findViewById(R.id.lv_array_search);
 
 //        ll_GoodsArrSearch = (LinearLayout) getLayoutInflater().inflate(R.layout.goods_arr_search, null);
-        ll_GoodsSearchTab = (LinearLayout) getLayoutInflater().inflate(R.layout.goods_arr_tab, null);
+//        ll_GoodsSearchTab = (LinearLayout) getLayoutInflater().inflate(R.layout.goods_arr_tab, null);
 //        mListView.addHeaderView(ll_GoodsArrSearch);
-        mListView.addHeaderView(ll_GoodsSearchTab);
+//        mListView.addHeaderView(ll_GoodsSearchTab);
     }
 
     @Override
@@ -335,14 +335,14 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
         arrDialog.btnCollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Request.favorites_add(actSearch_datas.get(position - 2).goods_id, getKey());
+                Request.favorites_add(actSearch_datas.get(position - 1).goods_id, getKey());
                 arrDialog.dismiss();
             }
         });
         arrDialog.btnGoodsarrAddshopcar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Request.cart_add(actSearch_datas.get(position - 2).goods_id, getKey());
+                Request.cart_add(actSearch_datas.get(position - 1).goods_id, getKey());
                 arrDialog.dismiss();
             }
         });
@@ -440,7 +440,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        String goods_id = actSearch_datas.get(position - 2).goods_id;
+        String goods_id = actSearch_datas.get(position - 1).goods_id;
         Intent intent = new Intent(C3_GoodsArraySearchActivity.this, PrductDetailActivity.class);
         intent.putExtra("goods_id", goods_id);
         startActivity(intent);
