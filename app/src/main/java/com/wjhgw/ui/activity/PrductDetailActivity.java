@@ -260,6 +260,7 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
                         intent.putExtra("cart_id", cart_id);
                         intent.putExtra("tv_total", realPay + "");
                         intent.putExtra("realPay", realPay);
+                        intent.putExtra("for", "forDetail");
                         startActivity(intent);
                     } else {
                         overtime(selectOrder.status.code, selectOrder.status.msg);

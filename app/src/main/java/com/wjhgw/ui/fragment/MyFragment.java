@@ -96,7 +96,6 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
          */
         listAddHeader();
 
-
         mListView.setPullLoadEnable(false);
         mListView.setPullRefreshEnable(true);
         mListView.setXListViewListener(this, 1);
