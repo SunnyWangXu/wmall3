@@ -30,6 +30,8 @@ public class Address_del_Request extends BaseRequest {
     private StringRequest stringRequest;
     public static volatile String cookies;
     private LoadDialog Dialog;
+    public int total_num1;
+    public double total1;
 
     public Address_del_Request(Context context) {
         super(context);
@@ -120,7 +122,8 @@ public class Address_del_Request extends BaseRequest {
     /**
      * 购物车修改数量接口
      */
-    public void cart_edit_quantity(String cart_id, String quantity, String key) {
+    public void cart_edit_quantity(String cart_id, String quantity, String key, final String add, final Boolean judge,
+                                   final double total, final int total_num, final int position) {
         Dialog.ProgressDialog();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
@@ -134,8 +137,21 @@ public class Address_del_Request extends BaseRequest {
                     Status status = gson.fromJson(responseInfo.result, Status.class);
                     if (status.status.code == 10000) {
                         try {
-                            OnMessageResponse(BaseQuery.serviceUrl() + ApiInterface.Cart_edit_quantity, responseInfo.result, null);
-
+                            String i = "default";
+                            if(add.equals("1") && judge){
+                                i = "add";
+                                total1 = total;
+                                total_num1 = total_num;
+                            }else if(add.equals("0") && judge){
+                                i = "reduce";
+                                total1 = total;
+                                total_num1 = total_num;
+                            }else if(add.equals("3") && judge){
+                                i = ""+position;
+                                total1 = total;
+                                total_num1 = total_num;
+                            }
+                            OnMessageResponse(BaseQuery.serviceUrl() + ApiInterface.Cart_edit_quantity, i, null);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

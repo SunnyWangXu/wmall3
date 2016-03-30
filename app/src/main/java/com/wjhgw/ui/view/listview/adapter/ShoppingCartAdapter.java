@@ -203,7 +203,9 @@ public class ShoppingCartAdapter extends BaseAdapter {
                     public void onClick(View v) {
                         et_num = Integer.parseInt(shoppingDialog.et_num.getText().toString());
                         if (num < 99) {
-                            Request.cart_edit_quantity(List.get(position).cart_id, et_num + "", c.getSharedPreferences("key", c.MODE_APPEND).getString("key", "0"));
+                            Request.cart_edit_quantity(List.get(position).cart_id, et_num + "", key,"3" ,
+                                    !goods_id[position].equals("0"),Double.parseDouble(List.get(position).goods_price),
+                                    Integer.parseInt(List.get(position).goods_num),position);
                         }
                         shoppingDialog.dismiss();
                     }
@@ -264,14 +266,10 @@ public class ShoppingCartAdapter extends BaseAdapter {
             public void onClick(View v) {
                 int num = Integer.parseInt(List.get(position).goods_num);
                 if (num < 99) {
-                    Request.cart_edit_quantity(List.get(position).cart_id, ++num + "", key);
-
-                    if (!goods_id[position].equals("0")) {
-                        BigDecimal f = new BigDecimal(total + Double.parseDouble(List.get(position).goods_price));
-                        total = f.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
-                        tv_total.setText("¥ " + total);
-                        tv_total_num.setText("(" + ++total_num + ")");
-                    }
+                    BigDecimal f = new BigDecimal(total + Double.parseDouble(List.get(position).goods_price));
+                    Request.cart_edit_quantity(List.get(position).cart_id, ++num + "", key,"1" ,
+                            !goods_id[position].equals("0"),f.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue(),
+                            total_num+1,position);
                 }
             }
         });
@@ -284,14 +282,11 @@ public class ShoppingCartAdapter extends BaseAdapter {
             public void onClick(View v) {
                 int num = Integer.parseInt(List.get(position).goods_num);
                 if (num > 1) {
-                    Request.cart_edit_quantity(List.get(position).cart_id, --num + "", key);
+                    BigDecimal f = new BigDecimal(total - Double.parseDouble(List.get(position).goods_price));
+                    Request.cart_edit_quantity(List.get(position).cart_id, --num + "", key,"0" ,
+                            !goods_id[position].equals("0"),f.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue(),
+                            total_num-1,position);
 
-                    if (!goods_id[position].equals("0")) {
-                        BigDecimal f = new BigDecimal(total - Double.parseDouble(List.get(position).goods_price));
-                        total = f.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
-                        tv_total.setText("¥ " + total);
-                        tv_total_num.setText("(" + --total_num + ")");
-                    }
                 }
             }
         });

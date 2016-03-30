@@ -84,7 +84,7 @@ public class D1_OrderAdapter extends BaseAdapter {
         tv_goods_price.setText("¥ " + List.get(position).goods_price);
         tv_goods_num.setText("X " + List.get(position).goods_num);
 
-        if(lock_state.equals("1") && List.get(position).refund.equals("0") || state){
+        if(!lock_state.equals("0") && List.get(position).refund.equals("0") || state){
             tv_refund.setVisibility(View.VISIBLE);
             //待收货状态
         }else if(order_state.equals("30") ||order_state.equals("40") ||order_state.equals("60")){
