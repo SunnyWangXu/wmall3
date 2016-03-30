@@ -466,11 +466,9 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                 tv_total_num.setText("(" + listAdapter.total_num + ")");
             }else if(response.equals("default")){
             }else {
-                double s = Request.total_num1*Request.total1;
                 double y = Double.parseDouble(listAdapter.List.get(Integer.parseInt(response)).goods_price);//编辑前的一个商品价格
-                int i = Integer.parseInt(listAdapter.List.get(Integer.parseInt(response)).goods_num); //编辑前的商品数量
-                listAdapter.total = listAdapter.total - s + y*i;
-                listAdapter.total_num = listAdapter.total_num - Request.total_num1 + i;
+                listAdapter.total = listAdapter.total + Request.total_num1*y;
+                listAdapter.total_num = listAdapter.total_num + Request.total_num1;
 
                 tv_total.setText("¥ " + listAdapter.total);
                 tv_total_num.setText("(" + listAdapter.total_num + ")");

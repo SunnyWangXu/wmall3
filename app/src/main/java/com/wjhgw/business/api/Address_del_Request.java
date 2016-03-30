@@ -122,7 +122,7 @@ public class Address_del_Request extends BaseRequest {
     /**
      * 购物车修改数量接口
      */
-    public void cart_edit_quantity(String cart_id, String quantity, String key, final String add, final Boolean judge,
+    public void cart_edit_quantity(String cart_id, final String quantity, String key, final String add, final Boolean judge,
                                    final double total, final int total_num, final int position) {
         Dialog.ProgressDialog();
         RequestParams params = new RequestParams();
@@ -149,7 +149,7 @@ public class Address_del_Request extends BaseRequest {
                             }else if(add.equals("3") && judge){
                                 i = ""+position;
                                 total1 = total;
-                                total_num1 = total_num;
+                                total_num1 = Integer.parseInt(quantity) - total_num;
                             }
                             OnMessageResponse(BaseQuery.serviceUrl() + ApiInterface.Cart_edit_quantity, i, null);
                         } catch (JSONException e) {
