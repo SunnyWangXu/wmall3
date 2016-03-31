@@ -57,8 +57,8 @@ public class LvOrderListAdapter extends BaseAdapter {
         tvOrderGoodsNum = (TextView) convertView.findViewById(R.id.tv_order_goods_num);
 
         tvOrderGoodsName.setText(order_goods_lists.get(position).goods_name);
-        tvOrderGoodsPrice.setText(order_goods_lists.get(position).goods_price);
-        tvOrderGoodsNum.setText(order_goods_lists.get(position).goods_num);
+        tvOrderGoodsPrice.setText("¥" + order_goods_lists.get(position).goods_price);
+        tvOrderGoodsNum.setText("x" + order_goods_lists.get(position).goods_num);
 
         APP.getApp().getImageLoader().displayImage(order_goods_lists.get(position).goods_image_url, ivOrderListImage);
 

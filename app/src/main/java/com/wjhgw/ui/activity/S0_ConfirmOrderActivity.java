@@ -425,15 +425,38 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                  * 余额为0.00 不能开启余额支付
                  */
                 if (!tvAvailablePredeposit.getText().equals("0.00")) {
+
                     /**
-                     * 余额支付和充值卡支付只能开启一个
+                     * 线上支付才能开启余额支付
                      */
+                    if (!isDownlinePay) {
+                        MAKEBALANCE++;
+                        if (MAKEBALANCE % 2 == 0) {
+                            ivBalance.setImageResource(R.mipmap.ic_push_on);
+                            tvBalance.setTextColor(Color.parseColor("#333333"));
+                            //使用余额
+                            isUseBalance = true;
+
+                        } else {
+                            ivBalance.setImageResource(R.mipmap.ic_push_off);
+                            tvBalance.setTextColor(Color.parseColor("#cccccc"));
+                            //不使用余额
+                            isUseBalance = false;
+                        }
+
+                        if (isUseBalance && isUseRcBalance) {
+                            showToastLong("余额支付和充值卡支付同时使用时，系统优先使用充值卡支付！");
+                        }
+                    }
+                   /* *//**
+                     * 余额支付和充值卡支付只能开启一个
+                     *//*
                     double tvRealPay1 = Double.valueOf(tvRealPay.getText() + "");
                     double tvAvailableRcBalance2 = Double.valueOf(tvAvailableRcBalance.getText() + "");
                     if (MAKEAVAILABLERCBALANCE % 2 == 0 && tvRealPay1 <= tvAvailableRcBalance2) {
-                        /**
-                         * 线上支付才能开启余额支付
-                         */
+                        *//**
+                     * 线上支付才能开启余额支付
+                     *//*
                         if (!isDownlinePay) {
                             MAKEBALANCE++;
                             if (MAKEBALANCE % 2 == 0) {
@@ -456,25 +479,8 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                             }
                         }
                     } else {
-                        /**
-                         * 线上支付才能开启余额支付
-                         */
-                        if (!isDownlinePay) {
-                            MAKEBALANCE++;
-                            if (MAKEBALANCE % 2 == 0) {
-                                ivBalance.setImageResource(R.mipmap.ic_push_on);
-                                tvBalance.setTextColor(Color.parseColor("#333333"));
-                                //使用余额
-                                isUseBalance = true;
 
-                            } else {
-                                ivBalance.setImageResource(R.mipmap.ic_push_off);
-                                tvBalance.setTextColor(Color.parseColor("#cccccc"));
-                                //不使用余额
-                                isUseBalance = false;
-                            }
-                        }
-                    }
+                    }*/
                 }
                 break;
 
@@ -483,15 +489,37 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                  * 充值卡余额为0.00 不能开启使用充值卡余额
                  */
                 if (!tvAvailableRcBalance.getText().equals("0.00")) {
+
                     /**
-                     * 余额支付和充值卡支付只能开启一个
+                     * 线上支付才能开启余额支付
                      */
+                    if (!isDownlinePay) {
+                        MAKEAVAILABLERCBALANCE++;
+                        if (MAKEAVAILABLERCBALANCE % 2 == 0) {
+                            ivAvailableRcBalance.setImageResource(R.mipmap.ic_push_on);
+                            tvRcBalance.setTextColor(Color.parseColor("#333333"));
+                            //使用余额
+                            isUseRcBalance = true;
+
+                        } else {
+                            ivAvailableRcBalance.setImageResource(R.mipmap.ic_push_off);
+                            tvRcBalance.setTextColor(Color.parseColor("#cccccc"));
+                            //不使用余额
+                            isUseRcBalance = false;
+                        }
+                        if (isUseBalance && isUseRcBalance) {
+                            showToastLong   ("余额支付和充值卡支付同时使用时，系统优先使用充值卡支付！");
+                        }
+                    }
+                   /* *//**
+                     * 余额支付和充值卡支付只能开启一个
+                     *//*
                     double tvRealPay1 = Double.valueOf(tvRealPay.getText() + "");
                     double tvAvailablePredeposit3 = Double.valueOf(tvAvailablePredeposit.getText() + "");
                     if (MAKEBALANCE % 2 == 0 && tvRealPay1 <= tvAvailablePredeposit3) {
-                        /**
-                         * 线上支付才能开启余额支付
-                         */
+                        *//**
+                     * 线上支付才能开启余额支付
+                     *//*
                         if (!isDownlinePay) {
                             MAKEAVAILABLERCBALANCE++;
                             if (MAKEAVAILABLERCBALANCE % 2 == 0) {
@@ -514,25 +542,8 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                             }
                         }
                     } else {
-                        /**
-                         * 线上支付才能开启余额支付
-                         */
-                        if (!isDownlinePay) {
-                            MAKEAVAILABLERCBALANCE++;
-                            if (MAKEAVAILABLERCBALANCE % 2 == 0) {
-                                ivAvailableRcBalance.setImageResource(R.mipmap.ic_push_on);
-                                tvRcBalance.setTextColor(Color.parseColor("#333333"));
-                                //使用余额
-                                isUseRcBalance = true;
 
-                            } else {
-                                ivAvailableRcBalance.setImageResource(R.mipmap.ic_push_off);
-                                tvRcBalance.setTextColor(Color.parseColor("#cccccc"));
-                                //不使用余额
-                                isUseRcBalance = false;
-                            }
-                        }
-                    }
+                    }*/
 
                 }
                 break;
