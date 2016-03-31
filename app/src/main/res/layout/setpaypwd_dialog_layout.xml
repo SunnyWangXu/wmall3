@@ -15,7 +15,6 @@
             android:id="@+id/dialog_title"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:layout_marginLeft="15dp"
             android:gravity="center"
             android:text="title"
             android:textColor="#333333"
@@ -26,14 +25,14 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:minHeight="60dp"
+            android:minHeight="50dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/dialog_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_marginBottom="10dp"
                 android:text="message"
                 android:textColor="#333333"
                 android:textSize="18dp" />

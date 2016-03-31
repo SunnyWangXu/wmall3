@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.wjhgw.R;
 
 /**
- * 设置支付密码对话框
+ * 设置支付密码对话框(通用)
  */
 public class SetPaypwdDialog {
 

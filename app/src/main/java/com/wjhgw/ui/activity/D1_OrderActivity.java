@@ -2,6 +2,7 @@ package com.wjhgw.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.dialog.MyDialog;
 import com.wjhgw.ui.dialog.Order_cancelDialog;
+import com.wjhgw.ui.dialog.SetPaypwdDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.D1_OrderAdapter;
@@ -303,25 +305,33 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                             }
                         });
                     }
+                    if (order_detail.datas.if_deliver) {
+                        //Toast.makeText(c, "查看物流", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(this, D2_LogisticsActivity.class);
+                        intent.putExtra("order_id", order_detail.datas.order_id);
+                        startActivity(intent);
+                    }
                     //已完成
                 }
                 break;
             case R.id.tv_button3:
                 //showToastShort("联系客服");
-                mDialog = new MyDialog(this, "是否拨打客服电话");
-                mDialog.show();
-                mDialog.positive.setOnClickListener(new View.OnClickListener() {
+                final SetPaypwdDialog Dialog = new SetPaypwdDialog(this, "联系客服","客服电话:400-6569333");
+                Dialog.show();
+                Dialog.tvGotoSetpaypwd.setText("拨打");
+                Dialog.tvCancel.setTextColor(Color.parseColor("#333333"));
+                Dialog.tvGotoSetpaypwd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent1 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "4006569333"));
+                        Intent intent1 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" +"4006569333"));
                         startActivity(intent1);
-                        mDialog.dismiss();
+                        Dialog.dismiss();
                     }
                 });
-                mDialog.negative.setOnClickListener(new View.OnClickListener() {
+                Dialog.tvCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mDialog.dismiss();
+                        Dialog.dismiss();
                     }
                 });
                 break;
@@ -446,8 +456,8 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                     tv_state.setText("交易已完成,你可以对购买的商品及商家的服务进行评价及晒单");
                                 }
                                 if (order_detail.datas.if_deliver) {
-                                    tv_button1.setVisibility(View.VISIBLE);
-                                    tv_button1.setText("查看物流");
+                                    tv_button2.setVisibility(View.VISIBLE);
+                                    tv_button2.setText("查看物流");
                                 }
                                 if (order_detail.datas.delete) {
                                     tv_button2.setVisibility(View.VISIBLE);

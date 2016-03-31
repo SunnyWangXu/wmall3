@@ -16,6 +16,7 @@ package com.wjhgw.ui.view.listview.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -47,6 +48,7 @@ import com.wjhgw.ui.activity.S3_SelectPaymentActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.dialog.MyDialog;
 import com.wjhgw.ui.dialog.Order_cancelDialog;
+import com.wjhgw.ui.dialog.SetPaypwdDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 
 import java.util.ArrayList;
@@ -329,20 +331,22 @@ public class D0_OrderAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(c, "联系客服", Toast.LENGTH_SHORT).show();
-                mDialog = new MyDialog(c, "是否拨打客服电话");
-                mDialog.show();
-                mDialog.positive.setOnClickListener(new View.OnClickListener() {
+                final SetPaypwdDialog Dialog = new SetPaypwdDialog(c, "联系客服","客服电话:400-6569333");
+                Dialog.show();
+                Dialog.tvGotoSetpaypwd.setText("拨打");
+                Dialog.tvCancel.setTextColor(Color.parseColor("#333333"));
+                Dialog.tvGotoSetpaypwd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent1 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" +"4006569333"));
                         c.startActivity(intent1);
-                        mDialog.dismiss();
+                        Dialog.dismiss();
                     }
                 });
-                mDialog.negative.setOnClickListener(new View.OnClickListener() {
+                Dialog.tvCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mDialog.dismiss();
+                        Dialog.dismiss();
                     }
                 });
             }
