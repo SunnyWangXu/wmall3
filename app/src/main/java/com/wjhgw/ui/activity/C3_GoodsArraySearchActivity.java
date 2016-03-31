@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
@@ -53,8 +52,8 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
     private TextView tvSaleNum;
     private LinearLayout llPriceArr;
     private TextView tvMoods;
-    private String k;
-    private String order;
+    private String k = "";
+    private String order = "";
     private ArrSearchAdapter arrSearchAdapter;
     private TextView tvSearchDef;
     private TextView tvPriceArr;
@@ -81,11 +80,28 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goodsarray_search);
 
-        b_id = getIntent().getStringExtra("b_id");
-        a_id = getIntent().getStringExtra("a_id");
+        if (getIntent().getStringExtra("b_id") == null) {
+            b_id = "";
+        } else {
+            b_id = getIntent().getStringExtra("b_id");
+        }
 
-        keyword = getIntent().getStringExtra("keyword");
-        cate_id = getIntent().getStringExtra("cate_id");
+        if (getIntent().getStringExtra("a_id") == null) {
+            a_id = "";
+        } else {
+            a_id = getIntent().getStringExtra("a_id");
+        }
+
+        if (getIntent().getStringExtra("keyword") == null) {
+            keyword = "";
+        } else {
+            keyword = getIntent().getStringExtra("keyword");
+        }
+        if (getIntent().getStringExtra("cate_id") == null) {
+            cate_id = "";
+        } else {
+            cate_id = getIntent().getStringExtra("cate_id");
+        }
 
         /**
          * 请求商品排序进来为默认排序
@@ -173,8 +189,6 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
                 clearTvstate();
                 tvSearchDef.setTextColor(Color.parseColor("#d63235"));
                 PriceCount = 0;
-                k = null;
-                order = null;
                 loadSearchGoodsArr();
                 break;
 
@@ -354,33 +368,12 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
      * 请求商品排序
      */
     private void loadSearchGoodsArr() {
-        super.StartLoading();
-        RequestParams params = new RequestParams();
-        if (b_id != null) {
-            params.addBodyParameter("b_id", b_id);
-        }
-        if (a_id != null) {
-            params.addBodyParameter("a_id", a_id);
-        }
-        params.addBodyParameter("page", "10");
-        params.addBodyParameter("curpage", curpage + "");
-        if (k != null) {
-            params.addBodyParameter("k", k);
-        }
-        if (order != null) {
-            params.addBodyParameter("order", order);
-        }
-
-        if (keyword != null) {
-            params.addBodyParameter("keyword", keyword);
-        }
-        if (cate_id != null) {
-            params.addBodyParameter("cate_id", cate_id);
-        }
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Act_search, params, new RequestCallBack<String>() {
+        StartLoading();
+            APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.GET, BaseQuery.serviceUrl() + ApiInterface.Act_search + "&b_id=" + b_id + "&a_id=" + a_id +
+                "&page=10" + "&curpage=" + curpage + "&k=" + k + "&order=" + order + "&keyword=" + keyword + "&cate_id=" + cate_id, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-                C3_GoodsArraySearchActivity.super.Dismiss();
+                Dismiss();
                 Gson gson = new Gson();
                 if (responseInfo != null) {
                     ActSearch actSearch = gson.fromJson(responseInfo.result, ActSearch.class);
@@ -425,7 +418,6 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
                     }
 
                 }
-
             }
 
             @Override
@@ -434,6 +426,89 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
                 showToastShort("网络错误");
             }
         });
+
+    /*    RequestParams params = new RequestParams();
+        if (b_id != null) {
+            params.addBodyParameter("b_id", b_id);
+        }
+        if (a_id != null) {
+            params.addBodyParameter("a_id", a_id);
+        }
+        params.addBodyParameter("page", "10");
+        params.addBodyParameter("curpage", curpage + "");
+        if (k != null) {
+            params.addBodyParameter("k", k);
+        }
+        if (order != null) {
+            params.addBodyParameter("order", order);
+        }
+
+        if (keyword != null) {
+            params.addBodyParameter("keyword", keyword);
+        }
+        if (cate_id != null) {
+            params.addBodyParameter("cate_id", cate_id);
+        }*/
+       /* APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.GET, BaseQuery.serviceUrl() + ApiInterface.Act_search + "&b_id=" + b_id + "&a_id =" + a_id +
+                "&page = 10" + "&curpage=" + curpage + "&k=" + k + "&order = " + order + "&keyword = " + keyword + "&cate_id= " + cate_id, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                C3_GoodsArraySearchActivity.super.Dismiss();
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    ActSearch actSearch = gson.fromJson(responseInfo.result, ActSearch.class);
+                    if (actSearch.status.code == 10000) {
+                        mListView.stopRefresh();
+                        mListView.stopLoadMore();
+                        mListView.setRefreshTime();
+
+                        if (actSearch.datas != null) {
+                            if (actSearch_datas.size() > 0 && isSetAdapter) {
+                                actSearch_datas.clear();
+                            }
+                            actSearch_datas.addAll(actSearch.datas);
+                            //总共有多少页
+                            pageTotal = actSearch.pagination.page_total;
+                            //是否有下一页
+                            hasMore = actSearch.pagination.hasmore;
+
+                            if (isSetAdapter) {
+                                arrSearchAdapter = new ArrSearchAdapter(C3_GoodsArraySearchActivity.this, actSearch_datas);
+                                mListView.setAdapter(arrSearchAdapter);
+                            } else {
+                                arrSearchAdapter.actSearch_datas = actSearch_datas;
+                                arrSearchAdapter.notifyDataSetChanged();
+                            }
+
+                            if (actSearch.pagination.hasmore) {
+                                mListView.setPullLoadEnable(true);
+                            } else {
+                                mListView.setPullLoadEnable(false);
+                            }
+                        } else {
+                            *//**
+         * 如果没有搜索到商品，展示的界面
+         *//*
+                            mListView.setVisibility(View.GONE);
+                            llNoSearchresults.setVisibility(View.VISIBLE);
+
+                        }
+                    } else {
+                        overtime(actSearch.status.code, actSearch.status.msg);
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+                showToastShort("网络错误");
+            }
+        });*/
+
+
     }
 
 

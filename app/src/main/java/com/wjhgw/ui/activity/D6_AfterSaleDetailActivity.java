@@ -168,9 +168,12 @@ public class D6_AfterSaleDetailActivity extends BaseActivity implements View.OnC
                             APP.getApp().getImageLoader().displayImage(picInfo[0], ivRefund1);
                         }
                         if (picInfo.length == 2) {
+                            APP.getApp().getImageLoader().displayImage(picInfo[0], ivRefund1);
                             APP.getApp().getImageLoader().displayImage(picInfo[1], ivRefund2);
                         }
                         if (picInfo.length == 3) {
+                            APP.getApp().getImageLoader().displayImage(picInfo[0], ivRefund1);
+                            APP.getApp().getImageLoader().displayImage(picInfo[1], ivRefund2);
                             APP.getApp().getImageLoader().displayImage(picInfo[2], ivRefund3);
                         }
                     }
