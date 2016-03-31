@@ -166,6 +166,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //super.onSaveInstanceState(outState);
+        /**
+         * 让其不再保存Fragment的状态，达到fragment随MyActivity一起销毁的目的。
+         */
+    }
+
+    @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
         overridePendingTransition(R.anim.push_right_in,

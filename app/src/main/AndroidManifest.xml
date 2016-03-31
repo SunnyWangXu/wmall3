@@ -40,54 +40,54 @@
         </intent-filter>
 
         <activity android:name="com.wjhgw.MainActivity" />
-        <activity android:name="com.wjhgw.guide.GuideActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.wjhgw.ui.activity.A0_LoginActivity" />
-        <activity android:name=".ui.activity.PrductDetailActivity" />
-        <activity android:name=".ui.activity.A1_RegisterActivity1" />
-        <activity android:name=".ui.activity.A1_RegisterActivity2" />
-        <activity android:name=".ui.activity.A2_ResetPassActivity1" />
-        <activity android:name=".ui.activity.A2_ResetPassActivity2" />
-        <activity android:name=".ui.activity.C1_CaptureActivity" />
-        <activity android:name=".ui.activity.C2_SearchActivity" />
-        <activity android:name=".ui.activity.C3_GoodsArraySearchActivity" />
-        <activity android:name=".ui.activity.C4_UseServiceActivity" />
-        <activity android:name=".ui.activity.J0_SelectGiveObjectActivity" />
-        <activity android:name=".ui.activity.J1_RecordActivity" />
-        <activity android:name=".ui.activity.J2_GiveOneActivity" />
-        <activity android:name=".ui.activity.J3_GiveMoreActivity" />
-        <activity android:name=".ui.activity.J4_GiveMyselfActivity" />
-        <activity android:name=".ui.activity.VerificationCodeActivity" />
-        <activity android:name=".ui.activity.M0_MyLockBoxActivity" />
-        <activity android:name=".ui.activity.M1_Modify_nicknameActivity" />
-        <activity android:name=".ui.activity.M3_ChangePasswordActivity" />
-        <activity android:name=".ui.activity.M2_Manage_Address_Activity" />
-        <activity android:name=".ui.activity.M2_AddressDetailActvity" />
-        <activity android:name=".ui.activity.M4_PaymentPasswordActivity" />
-        <activity android:name=".ui.activity.M5_Change_mobileActivity" />
-        <activity android:name=".ui.activity.M6_SetActivity" />
-        <activity android:name=".ui.activity.M7_MyCollectActivity" />
-        <activity android:name=".ui.activity.D0_OrderActivity" />
-        <activity android:name=".ui.activity.D1_OrderActivity" />
-        <activity android:name=".ui.activity.D2_LogisticsActivity" />
-        <activity android:name=".ui.activity.D3_EvaluateActivity" />
-        <activity android:name=".ui.activity.D6_AfterSaleDetailActivity" />
-        <activity android:name=".ui.activity.D7_RefundMessageActivity" />
-        <activity android:name=".ui.activity.D8_RefundExpressActivity" />
-        <activity android:name=".ui.activity.S0_ConfirmOrderActivity" />
-        <activity android:name=".ui.activity.S2_InvoiceActivity" />
-        <activity android:name=".ui.activity.S1_OrderAddressActivity" />
-        <activity android:name=".ui.activity.S3_SelectPaymentActivity" />
-        <activity android:name=".ui.activity.MessageCenterActivity" />
-        <activity android:name=".ui.activity.Z0_AssetsActivity" />
-        <activity android:name=".ui.activity.Z1_Prepaid_card_balanceActivity" />
-        <activity android:name=".ui.activity.ShoppingCartActivity" />
-        <activity android:name=".ui.activity.D4_Customer_serviceActivity" />
-        <activity android:name=".ui.activity.D5_CustomerActivity" />
+        <activity android:name="com.wjhgw.guide.GuideActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.wjhgw.ui.activity.A0_LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.PrductDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.A1_RegisterActivity1" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.A1_RegisterActivity2" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.A2_ResetPassActivity1" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.A2_ResetPassActivity2" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.C1_CaptureActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.C2_SearchActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.C3_GoodsArraySearchActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.C4_UseServiceActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.J0_SelectGiveObjectActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.J1_RecordActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.J2_GiveOneActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.J3_GiveMoreActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.J4_GiveMyselfActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.VerificationCodeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.M0_MyLockBoxActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.M1_Modify_nicknameActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.M3_ChangePasswordActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.M2_Manage_Address_Activity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.M2_AddressDetailActvity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.M4_PaymentPasswordActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.M5_Change_mobileActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.M6_SetActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.M7_MyCollectActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.D0_OrderActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.D1_OrderActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.D2_LogisticsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.D3_EvaluateActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.D6_AfterSaleDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.D7_RefundMessageActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.D8_RefundExpressActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.S0_ConfirmOrderActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.S2_InvoiceActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.S1_OrderAddressActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.S3_SelectPaymentActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.MessageCenterActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.Z0_AssetsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.Z1_Prepaid_card_balanceActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.ShoppingCartActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.D4_Customer_serviceActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.D5_CustomerActivity" android:screenOrientation="portrait"/>
 
         <!--友盟更新-->
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
 
         <!--友盟更新-->
@@ -98,6 +98,7 @@
         <!--微信支付返回-->
         <activity
             android:name="com.wjhgw.wxapi.WXPayEntryActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:launchMode="singleTop" />
 

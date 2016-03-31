@@ -232,81 +232,91 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         }
     };
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            String FRAGMENTS_TAG = "android:support:fragments";
+            savedInstanceState.remove(FRAGMENTS_TAG);
 
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Dialog = new LoadDialog(getActivity());
         homeLayout = inflater.inflate(R.layout.home_layout, container, false);
-        key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
+            key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
 
-        /**
-         * 加载视图
-         */
-        setInflaterView();
+            /**
+             * 加载视图
+             */
+            setInflaterView();
 
-        /**
-         * 初始化控件
-         */
-        initView();
-        /**
-         * 首页消息的小红点
-         */
-        if (!key.equals("0")) {
-            loadHomeMessageDot();
-        }
-
-        /**
-         * 请求首页焦点图
-         */
-        loadHomePager();
-        /**
-         * 请求拍卖和团购数据
-         */
-        load_auction_super_value();
-        /**
-         * 请求折扣街数据
-         */
-        loadGroupBuy();
-        /**
-         * 主题街数据请求
-         */
-        load_theme_street();
-
-        /**
-         *  请求猜你喜欢数据
-         */
-        loadGuessLike();
-
-        homePager.addOnPageChangeListener(this);
-        handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                if (msg.what == HANDLERID) {
-
-                    homePager.setCurrentItem((homePager.getCurrentItem() + 1));
-
-                    sendEmptyMessageDelayed(HANDLERID, 3000);
-                }
+            /**
+             * 初始化控件
+             */
+            initView();
+            /**
+             * 首页消息的小红点
+             */
+            if (!key.equals("0")) {
+                loadHomeMessageDot();
             }
-        };
+
+            /**
+             * 请求首页焦点图
+             */
+        if (getActivity() != null) {
+            Dialog = new LoadDialog(getActivity());
+            loadHomePager();
+            /**
+             * 请求拍卖和团购数据
+             */
+            load_auction_super_value();
+            /**
+             * 请求折扣街数据
+             */
+            loadGroupBuy();
+            /**
+             * 主题街数据请求
+             */
+            load_theme_street();
+
+            /**
+             *  请求猜你喜欢数据
+             */
+            loadGuessLike();
+
+            homePager.addOnPageChangeListener(this);
+            handler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    if (msg.what == HANDLERID) {
+
+                        homePager.setCurrentItem((homePager.getCurrentItem() + 1));
+
+                        sendEmptyMessageDelayed(HANDLERID, 3000);
+                    }
+                }
+            };
 
 
-        /**
-         * 给ListView添加视图
-         */
-        listAddHeader();
+            /**
+             * 给ListView添加视图
+             */
+            listAddHeader();
 
-        mListView.setPullLoadEnable(false);
-        mListView.setPullRefreshEnable(true);
-        mListView.setXListViewListener(this, 1);
-        mListView.setRefreshTime();
-        mListView.setAdapter(null);
+            mListView.setPullLoadEnable(false);
+            mListView.setPullRefreshEnable(true);
+            mListView.setXListViewListener(this, 1);
+            mListView.setRefreshTime();
+            mListView.setAdapter(null);
 
-        /**
-         * 设置监听事件
-         */
-        setClick();
+            /**
+             * 设置监听事件
+             */
+            setClick();
+        }
 
         return homeLayout;
     }
@@ -721,7 +731,10 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                  * 解析首頁焦点图数据，并适配ViewPager
                  */
                 parseHomePagerData(responseInfo.result);
-                Dialog.dismiss();
+                if(getActivity() != null){
+                    Dialog.dismiss();
+                }
+
             }
 
             @Override
@@ -767,7 +780,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         /**
          * 添加圆点发送消息，轮播ViewPager
          */
-        if (START == 1 && pager_data != null) {
+        if (START == 1 && pager_data != null && getActivity() != null) {
             addPoints();
 
             handler.sendEmptyMessageDelayed(HANDLERID, 3000);
