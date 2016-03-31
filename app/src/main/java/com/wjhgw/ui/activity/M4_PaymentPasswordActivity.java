@@ -38,6 +38,7 @@ public class M4_PaymentPasswordActivity extends BaseActivity implements OnClickL
     private ImageView iv_delete3;
     private TextView change_password;
     private String password = "";
+    private String state = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,13 +103,15 @@ public class M4_PaymentPasswordActivity extends BaseActivity implements OnClickL
         });*/
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+
+        state = getIntent().getStringExtra("paypwd");
     }
 
     @Override
     public void onInit() {
         setUp();
-        if(getIntent().getStringExtra("paypwd").equals("0")){
-            setTitle("支付密码");
+        if(state.equals("0")){
+            setTitle("开启支付密码");
         }else {
             setTitle("修改支付密码");
         }

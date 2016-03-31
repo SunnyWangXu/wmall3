@@ -64,6 +64,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
     private TextView tv_button1;
     private TextView tv_button2;
     private TextView tv_button3;
+    private TextView tv_payment_name;
     private String key;
     private D1_OrderAdapter listAdapter;
     private String order_id = "";
@@ -140,6 +141,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
         tv_order_sn = (TextView) order3.findViewById(R.id.tv_order_sn);
         tv_add_time = (TextView) order3.findViewById(R.id.tv_add_time);
         tv_remarks = (TextView) order3.findViewById(R.id.tv_remarks);
+        tv_payment_name = (TextView) order3.findViewById(R.id.tv_payment_name);
 
 
         tv_button1 = (TextView) order3.findViewById(R.id.tv_button1);
@@ -382,6 +384,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                             tv_store_name.setText(order_detail.datas.store_name);
                             tv_state_desc.setText(order_detail.datas.state_desc);
                             tv_order_sn.setText(order_detail.datas.order_sn);
+                            tv_payment_name.setText(order_detail.datas.payment_name);
                             int num = 0;
                             for(int i = 0; i < order_detail.datas.extend_order_goods.size(); i++){
                                 num += Integer.parseInt(order_detail.datas.extend_order_goods.get(i).goods_num);
