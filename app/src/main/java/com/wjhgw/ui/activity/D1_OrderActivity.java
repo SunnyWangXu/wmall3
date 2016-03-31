@@ -516,56 +516,35 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
     private void dialog() {
         order_cancelDialog = new Order_cancelDialog(this);
         order_cancelDialog.show();
-        order_cancelDialog.iv_button1.setOnClickListener(new View.OnClickListener() {
+        order_cancelDialog.tv_text1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                order_cancelDialog.iv_button1.setImageResource(R.mipmap.ic_order_select);
-                order_cancelDialog.iv_button2.setImageResource(R.mipmap.ic_order_blank);
-                order_cancelDialog.iv_button3.setImageResource(R.mipmap.ic_order_blank);
-                order_cancelDialog.iv_button4.setImageResource(R.mipmap.ic_order_blank);
                 msg = "购买其他商品";
-            }
-        });
-        order_cancelDialog.iv_button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                order_cancelDialog.iv_button1.setImageResource(R.mipmap.ic_order_blank);
-                order_cancelDialog.iv_button2.setImageResource(R.mipmap.ic_order_select);
-                order_cancelDialog.iv_button3.setImageResource(R.mipmap.ic_order_blank);
-                order_cancelDialog.iv_button4.setImageResource(R.mipmap.ic_order_blank);
-                msg = "改用其他配送方法";
-            }
-        });
-        order_cancelDialog.iv_button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                order_cancelDialog.iv_button1.setImageResource(R.mipmap.ic_order_blank);
-                order_cancelDialog.iv_button2.setImageResource(R.mipmap.ic_order_blank);
-                order_cancelDialog.iv_button3.setImageResource(R.mipmap.ic_order_select);
-                order_cancelDialog.iv_button4.setImageResource(R.mipmap.ic_order_blank);
-                msg = "从其它店铺购买";
-            }
-        });
-        order_cancelDialog.iv_button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                order_cancelDialog.iv_button1.setImageResource(R.mipmap.ic_order_blank);
-                order_cancelDialog.iv_button2.setImageResource(R.mipmap.ic_order_blank);
-                order_cancelDialog.iv_button3.setImageResource(R.mipmap.ic_order_blank);
-                order_cancelDialog.iv_button4.setImageResource(R.mipmap.ic_order_select);
-                msg = "其它原因";
-            }
-        });
-        order_cancelDialog.tv_determine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Request.order_cancel(order_id, key, msg + "/" + order_cancelDialog.et_content.getText().toString());
+                Request.order_cancel(order_id, key, msg);
                 order_cancelDialog.dismiss();
             }
         });
-        order_cancelDialog.tv_cancel.setOnClickListener(new View.OnClickListener() {
+        order_cancelDialog.tv_text2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                msg = "改用其他配送方法";
+                Request.order_cancel(order_id, key, msg);
+                order_cancelDialog.dismiss();
+            }
+        });
+        order_cancelDialog.tv_text3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                msg = "从其它店铺购买";
+                Request.order_cancel(order_id, key, msg);
+                order_cancelDialog.dismiss();
+            }
+        });
+        order_cancelDialog.tv_text4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                msg = "其它原因";
+                Request.order_cancel(order_id, key, msg);
                 order_cancelDialog.dismiss();
             }
         });

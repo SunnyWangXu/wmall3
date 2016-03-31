@@ -2,15 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="bottom"
+    android:background="@drawable/bg_gray"
     android:orientation="vertical">
-    <!--    <View
-            android:id="@+id/v_window"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:alpha="0.3"
-            android:background="#00000000" />-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:textColor="#ffffff"
+        android:text="请选择取消原因"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,167 +19,54 @@
         android:background="#ffffff"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/photo_album"
-            android:layout_width="fill_parent"
-            android:layout_height="62dp"
-            android:background="#ffffff"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="请选择取消原因"
-                android:textColor="#000000"
-                android:textSize="20dp" />
-        </LinearLayout>
-
+        <TextView
+            android:id="@+id/tv_text1"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginLeft="11dp"
+            android:gravity="center_vertical"
+            android:textSize="14dp"
+            android:textColor="#333333"
+            android:text="购买其他商品"/>
         <View
             android:layout_width="fill_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginRight="14dp"
             android:background="#cccccc" />
-
-        <FrameLayout
-            android:layout_width="fill_parent"
-            android:layout_height="55dp"
-            android:background="#ffffff">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="16dp"
-                android:text="购买其他商品"
-                android:textColor="#333333"
-                android:textSize="20dp" />
-
-            <ImageView
-                android:id="@+id/iv_button1"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginRight="15dp"
-                android:src="@mipmap/ic_order_select" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="fill_parent"
-            android:layout_height="55dp"
-            android:background="#ffffff">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="16dp"
-                android:text="改用其他配送方式"
-                android:textColor="#333333"
-                android:textSize="20dp" />
-
-            <ImageView
-                android:id="@+id/iv_button2"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginRight="15dp"
-                android:src="@mipmap/ic_order_blank" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="fill_parent"
-            android:layout_height="55dp"
-            android:background="#ffffff">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="16dp"
-                android:text="从其他店铺购买"
-                android:textColor="#333333"
-                android:textSize="20dp" />
-
-            <ImageView
-                android:id="@+id/iv_button3"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginRight="15dp"
-                android:src="@mipmap/ic_order_blank" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="fill_parent"
-            android:layout_height="55dp"
-            android:background="#ffffff">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="16dp"
-                android:text="其它原因"
-                android:textColor="#333333"
-                android:textSize="20dp" />
-
-            <ImageView
-                android:id="@+id/iv_button4"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginRight="15dp"
-                android:src="@mipmap/ic_order_blank" />
-        </FrameLayout>
-
-        <EditText
-            android:id="@+id/et_content"
+        <TextView
+            android:id="@+id/tv_text2"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="27dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/background_gray"
-            android:hint="输入框"
-            android:maxLength="200"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="11dp"
+            android:gravity="center_vertical"
+            android:textSize="14dp"
             android:textColor="#333333"
-            android:textSize="17sp" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/cancel"
-        android:layout_width="fill_parent"
-        android:layout_height="55dp">
-
+            android:text="改用其他配送方式"/>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:background="#cccccc" />
         <TextView
-            android:id="@+id/tv_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:text="取消"
-            android:textColor="#ffffff"
-            android:textSize="20dp" />
-
+            android:id="@+id/tv_text3"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginLeft="11dp"
+            android:gravity="center_vertical"
+            android:textSize="14dp"
+            android:textColor="#333333"
+            android:text="从其他店铺购买"/>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:background="#cccccc" />
         <TextView
-            android:id="@+id/tv_determine"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#f25252"
-            android:gravity="center"
-            android:text="确定"
-            android:textColor="#ffffff"
-            android:textSize="20dp" />
+            android:id="@+id/tv_text4"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginLeft="11dp"
+            android:gravity="center_vertical"
+            android:textSize="14dp"
+            android:textColor="#333333"
+            android:text="其它"/>
     </LinearLayout>
 
 </LinearLayout>
