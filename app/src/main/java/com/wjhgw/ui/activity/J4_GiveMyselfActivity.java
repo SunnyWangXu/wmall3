@@ -331,7 +331,7 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                         tvUseRcBalance.setTextColor(Color.parseColor("#999999"));
                         isUseRcBalance = false;
 
-                        MAKEAVAILABLERCBALANCE ++;
+                        MAKEAVAILABLERCBALANCE++;
                     } else {
                         ivUseBalance.setImageResource(R.mipmap.ic_push_off);
                         tvUseBalance.setTextColor(Color.parseColor("#999999"));
@@ -657,7 +657,7 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (data == null) {
+        if (data == null && giveMyselfName.getText().equals("")) {
             llMyselfMessage.setVisibility(View.GONE);
             tvMyselfNotAddress.setVisibility(View.VISIBLE);
         }
