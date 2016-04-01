@@ -48,7 +48,6 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
         super.onCreate(savedInstanceState);
         setContentView(R.layout.m2_manage_address_item);
         mListView = (MyListView) findViewById(R.id.home_listview1);
-        key = getKey();
         //mListView.setVerticalScrollBarEnabled(true);
 
         Request = new Address_del_Request(this);
@@ -92,7 +91,7 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
         if (!key.equals("0")) {
             params.addBodyParameter("key", key);
         }
-        params.addBodyParameter("address_type","0");
+        params.addBodyParameter("address_type", "0");
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Address_list, params, new RequestCallBack<String>() {
 
             @Override
@@ -108,8 +107,8 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
                             listAdapter = new manage_address_adapter(M2_Manage_Address_Activity.this, address_list_data, Request, key);
                             mListView.setAdapter(listAdapter);
                         }
-                    }else {
-                        overtime(address_list.status.code,address_list.status.msg);
+                    } else {
+                        overtime(address_list.status.code, address_list.status.msg);
                     }
                 }
             }
@@ -150,6 +149,7 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
     @Override
     protected void onResume() {
         super.onResume();
+        key = getKey();
 
         /**
          * 请求地址列表

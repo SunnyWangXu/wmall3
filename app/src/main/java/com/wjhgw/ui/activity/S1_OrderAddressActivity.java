@@ -38,7 +38,6 @@ public class S1_OrderAddressActivity extends BaseActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_address);
-        key = getKey();
 
     }
 
@@ -127,6 +126,7 @@ public class S1_OrderAddressActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onResume() {
         super.onResume();
+        key = getKey();
         /**
          * 请求地址列表
          */
@@ -140,7 +140,7 @@ public class S1_OrderAddressActivity extends BaseActivity implements View.OnClic
         intent.putExtra("tureName", order_address_list.get(position).true_name);
         intent.putExtra("phone", order_address_list.get(position).mob_phone);
         intent.putExtra("addressInfo", order_address_list.get(position).area_info + " " + order_address_list.get(position).address);
-        intent.putExtra("addressId",order_address_list.get(position).address_id);
+        intent.putExtra("addressId", order_address_list.get(position).address_id);
 
         setResult(55555, intent);
         finish(false);

@@ -42,7 +42,7 @@ public class S2_InvoiceActivity extends BaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invoice);
 
-        key = getKey();
+
     }
 
     @Override
@@ -120,15 +120,15 @@ public class S2_InvoiceActivity extends BaseActivity implements View.OnClickList
                 break;
 
             case R.id.btn_invoice_save:
-               edTitle = edInvoiceTitle.getText().toString();
-               if(edTitle.equals("")) {
-                   showToastShort("请输入个人或者单位名称");
-               }else {
-                   /**
-                    * 添加发票
-                    */
+                edTitle = edInvoiceTitle.getText().toString();
+                if (edTitle.equals("")) {
+                    showToastShort("请输入个人或者单位名称");
+                } else {
+                    /**
+                     * 添加发票
+                     */
                     addInvoice();
-               }
+                }
 
                 break;
             default:
@@ -142,14 +142,14 @@ public class S2_InvoiceActivity extends BaseActivity implements View.OnClickList
     private void addInvoice() {
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
-        if(isPerson){
+        if (isPerson) {
             params.addBodyParameter("inv_title_select", "person");
-        }else {
+        } else {
             params.addBodyParameter("inv_title_select", "company");
         }
 
         params.addBodyParameter("inv_title", edTitle);
-        params.addBodyParameter("inv_content", "明细" );
+        params.addBodyParameter("inv_content", "明细");
 
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Add_invoice, params, new RequestCallBack<String>() {
@@ -157,7 +157,7 @@ public class S2_InvoiceActivity extends BaseActivity implements View.OnClickList
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Gson gson = new Gson();
                 Invoice invoice = gson.fromJson(responseInfo.result, Invoice.class);
-                if(invoice.status.code == 10000){
+                if (invoice.status.code == 10000) {
 
                     int invoice_id = invoice.datas.invoice_id;
 
@@ -169,7 +169,7 @@ public class S2_InvoiceActivity extends BaseActivity implements View.OnClickList
                     setResult(22222, intent);
                     finish();
 
-                }else {
+                } else {
                     overtime(invoice.status.code, invoice.status.msg);
                 }
 
@@ -181,5 +181,11 @@ public class S2_InvoiceActivity extends BaseActivity implements View.OnClickList
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        key = getKey();
     }
 }

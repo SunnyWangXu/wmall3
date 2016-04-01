@@ -36,15 +36,12 @@ import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.Status;
 import com.wjhgw.config.ApiInterface;
-import com.wjhgw.pay.WeChat.MD5;
 import com.wjhgw.utils.FileUtils;
 
-import org.apache.http.NameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.List;
 
 /**
  * 设置的Activity
@@ -286,7 +283,7 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
     };
 
 
-    private String genAppSign(List<NameValuePair> params) {
+  /*  private String genAppSign(List<NameValuePair> params) {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < params.size(); i++) {
@@ -302,6 +299,6 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
         String appSign = MD5.getMessageDigest(sb.toString().getBytes());
         //Log.e("orion", appSign);
         return appSign;
-    }
+    }*/
 
 }

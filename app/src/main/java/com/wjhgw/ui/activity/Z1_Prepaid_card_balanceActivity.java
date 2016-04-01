@@ -50,7 +50,7 @@ public class Z1_Prepaid_card_balanceActivity extends BaseActivity implements OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.z1_layout);
-        key = getKey();
+
         mListView = (MyListView) findViewById(R.id.lv_z1_list);
         ll_null = (LinearLayout) findViewById(R.id.ll_null);
         ll_null.setVisibility(View.GONE);
@@ -62,13 +62,20 @@ public class Z1_Prepaid_card_balanceActivity extends BaseActivity implements OnC
         /*listAdapter = new Z1_Adapter(this,null);
         mListView.setAdapter(listAdapter);*/
         state = getIntent().getStringExtra("state");
-        if(state.equals("1")){
+        if (state.equals("1")) {
             setTitle("充值卡余额明细");
             rcb_log_list();
-        }else if (state.equals("2")){
+        } else if (state.equals("2")) {
             setTitle("账户余额明细");
             Pd_log_list();
         }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        key = getKey();
 
     }
 
@@ -115,9 +122,9 @@ public class Z1_Prepaid_card_balanceActivity extends BaseActivity implements OnC
     public void onRefresh(int id) {
         isSetAdapter = true;
         curpage = 1;
-        if(state.equals("1")){
+        if (state.equals("1")) {
             rcb_log_list();
-        }else if (state.equals("2")){
+        } else if (state.equals("2")) {
             Pd_log_list();
         }
     }
@@ -126,9 +133,9 @@ public class Z1_Prepaid_card_balanceActivity extends BaseActivity implements OnC
     public void onLoadMore(int id) {
         isSetAdapter = false;
         curpage++;
-        if(state.equals("1")){
+        if (state.equals("1")) {
             rcb_log_list();
-        }else if (state.equals("2")){
+        } else if (state.equals("2")) {
             Pd_log_list();
         }
     }
@@ -176,7 +183,7 @@ public class Z1_Prepaid_card_balanceActivity extends BaseActivity implements OnC
                             ll_null.setVisibility(View.VISIBLE);
                             mListView.setVisibility(View.GONE);
                         }
-                    }else {
+                    } else {
                         overtime(assetsList.status.code, assetsList.status.msg);
                     }
                 }
@@ -233,7 +240,7 @@ public class Z1_Prepaid_card_balanceActivity extends BaseActivity implements OnC
                             ll_null.setVisibility(View.VISIBLE);
                             mListView.setVisibility(View.GONE);
                         }
-                    }else {
+                    } else {
                         overtime(pd_list.status.code, pd_list.status.msg);
                     }
                 }

@@ -131,11 +131,17 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_order);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        key = getKey();
         String selectOrder = getIntent().getStringExtra("selectOrder");
 
         cart_id = getIntent().getStringExtra("cart_id");
-
-        key = getKey();
 
         if (!key.equals("0") && key != null) {
             /**
@@ -150,6 +156,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
              */
             parseSelectOrdert(selectOrder);
         }
+        
     }
 
     /**
@@ -508,7 +515,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                             isUseRcBalance = false;
                         }
                         if (isUseBalance && isUseRcBalance) {
-                            showToastLong   ("余额支付和充值卡支付同时使用时，系统优先使用充值卡支付！");
+                            showToastLong("余额支付和充值卡支付同时使用时，系统优先使用充值卡支付！");
                         }
                     }
                    /* *//**

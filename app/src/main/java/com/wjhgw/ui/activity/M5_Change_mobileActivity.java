@@ -97,6 +97,12 @@ public class M5_Change_mobileActivity extends BaseActivity implements OnClickLis
         });
 
         time = new TimeCount(60000, 1000);//构造CountDownTimer对象
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         key = getKey();
     }
 
@@ -241,7 +247,7 @@ public class M5_Change_mobileActivity extends BaseActivity implements OnClickLis
                     M5_Change_mobileActivity.super.Dismiss();
                     if (status.status.code == 10000) {
                         change_mobile();
-                    }else {
+                    } else {
                         overtime(status.status.code, status.status.msg);
                     }
                 }

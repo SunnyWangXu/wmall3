@@ -73,9 +73,15 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
         time = new TimeCount(60000, 1000);//构造CountDownTimer对象
         time.start();
         tv_verificationcode.setBackgroundColor(0xffcccccc);
-        key = getKey();
+
 
         Verification_code();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        key = getKey();
     }
 
     @Override
