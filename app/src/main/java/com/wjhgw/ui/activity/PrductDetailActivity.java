@@ -101,7 +101,7 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
         url = BaseQuery.serviceUrl() + "/wap/index.php?act=goods&op=index&id=" + id;
 
         keyMap = new HashMap<>();
-        if(getKey().equals("0")){
+        if(!getKey().equals("0")){
             keyMap.put("authentication", getKey());
         }else {
             showToastShort("登录超时,请重新登录!");
