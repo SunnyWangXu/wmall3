@@ -25,7 +25,7 @@ import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.dialog.GoodsArrDialog;
 import com.wjhgw.ui.dialog.MyDialog;
-import com.wjhgw.ui.dialog.Under_developmentDialog;
+import com.wjhgw.ui.dialog.UnderDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.MyCollectAdapter;
@@ -125,7 +125,7 @@ public class M7_MyCollectActivity extends BaseActivity implements XListView.IXLi
         switch (v.getId()) {
             case R.id.tv_collect_shop:
 
-                final Under_developmentDialog underdevelopmentDialog1 = new Under_developmentDialog(this, "功能正在开发中,敬请期待");
+                final UnderDialog underdevelopmentDialog1 = new UnderDialog(this, "功能正在开发中,敬请期待");
                 underdevelopmentDialog1.show();
                 underdevelopmentDialog1.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
                     @Override

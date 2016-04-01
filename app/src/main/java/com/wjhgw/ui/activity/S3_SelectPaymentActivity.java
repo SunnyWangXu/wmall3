@@ -19,7 +19,7 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.pay.Alipay.payMethod;
-import com.wjhgw.ui.dialog.Under_developmentDialog;
+import com.wjhgw.ui.dialog.UnderDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -158,7 +158,7 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
             case R.id.btn_confirm_pay:
                 if (isWeixin) {
                     // buy();
-                    final Under_developmentDialog underdevelopmentDialog = new Under_developmentDialog(this, "功能正在开发中,敬请期待");
+                    final UnderDialog underdevelopmentDialog = new UnderDialog(this, "功能正在开发中,敬请期待");
                     underdevelopmentDialog.show();
                     underdevelopmentDialog.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
                         @Override

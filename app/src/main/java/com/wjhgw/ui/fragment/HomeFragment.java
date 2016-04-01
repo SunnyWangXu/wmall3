@@ -42,7 +42,7 @@ import com.wjhgw.ui.activity.C3_GoodsArraySearchActivity;
 import com.wjhgw.ui.activity.M7_MyCollectActivity;
 import com.wjhgw.ui.activity.PrductDetailActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
-import com.wjhgw.ui.dialog.Under_developmentDialog;
+import com.wjhgw.ui.dialog.UnderDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView.IXListViewListener;
 import com.wjhgw.ui.view.listview.adapter.HomePagerAdapter;
@@ -198,7 +198,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private LinearLayout llGuessLike03;
     private LinearLayout llGuessLike04;
 
-    private Under_developmentDialog underdevelopmentDialog1;
+    private UnderDialog underdevelopmentDialog1;
 
 
     private Handler mHandler = new Handler() {
@@ -276,7 +276,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
              */
         if (getActivity() != null) {
             Dialog = new LoadDialog(getActivity());
-            underdevelopmentDialog1 = new Under_developmentDialog(getActivity(), "功能正在开发中,敬请期待");
+            underdevelopmentDialog1 = new UnderDialog(getActivity(), "功能正在开发中,敬请期待");
             loadHomePager();
             /**
              * 请求拍卖和团购数据
@@ -615,7 +615,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 startActivity(intent);
                 break;
             case R.id.rl_home_message:
-                final Under_developmentDialog underdevelopmentDialog = new Under_developmentDialog(getActivity(), "功能正在开发中,敬请期待");
+                final UnderDialog underdevelopmentDialog = new UnderDialog(getActivity(), "功能正在开发中,敬请期待");
                 underdevelopmentDialog.show();
                 underdevelopmentDialog.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
                     @Override
