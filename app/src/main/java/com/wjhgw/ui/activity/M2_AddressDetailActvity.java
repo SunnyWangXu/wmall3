@@ -72,8 +72,14 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
         setUpListener();
         setUpData();
 
-        key = getSharedPreferences("key", this.MODE_APPEND).getString("key", "0");
         address_id = getIntent().getStringExtra("addressId");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        key = getSharedPreferences("key", this.MODE_APPEND).getString("key", "0");
+
     }
 
     private void setUpViews() {

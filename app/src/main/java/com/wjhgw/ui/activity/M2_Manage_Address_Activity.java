@@ -38,7 +38,6 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
 
     private MyListView mListView;
     private manage_address_adapter listAdapter;
-    private String key;
     private Address_del_Request Request;
     private List<address_data> address_list_data = new ArrayList<>();
     private TextView tvAddAddress;
@@ -86,10 +85,10 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
      * 请求地址列表
      */
     public void load_Address_list() {
-        super.StartLoading();
+        StartLoading();
         RequestParams params = new RequestParams();
-        if (!key.equals("0")) {
-            params.addBodyParameter("key", key);
+        if (!getKey().equals("0")) {
+            params.addBodyParameter("key", getKey());
         }
         params.addBodyParameter("address_type", "0");
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Address_list, params, new RequestCallBack<String>() {
@@ -97,15 +96,17 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Gson gson = new Gson();
+                Dismiss();
                 if (responseInfo != null) {
                     Address_list address_list = gson.fromJson(responseInfo.result, Address_list.class);
-                    M2_Manage_Address_Activity.super.Dismiss();
                     if (address_list.status.code == 10000) {
                         address_list_data.clear();
                         if (address_list.datas != null) {
                             address_list_data.addAll(address_list.datas);
-                            listAdapter = new manage_address_adapter(M2_Manage_Address_Activity.this, address_list_data, Request, key);
+                            listAdapter = new manage_address_adapter(M2_Manage_Address_Activity.this, address_list_data, Request, getKey());
                             mListView.setAdapter(listAdapter);
+                        } else {
+                            mListView.setAdapter(null);
                         }
                     } else {
                         overtime(address_list.status.code, address_list.status.msg);
@@ -149,8 +150,6 @@ public class M2_Manage_Address_Activity extends BaseActivity implements Business
     @Override
     protected void onResume() {
         super.onResume();
-        key = getKey();
-
         /**
          * 请求地址列表
          */

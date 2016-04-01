@@ -347,11 +347,11 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                             mListView.setVisibility(View.GONE);
                             ll_empty_shop_cart.setVisibility(View.VISIBLE);
                         }
-                    }else if(cartList.status.code == 200103 || cartList.status.code == 200104){
+                    } else if (cartList.status.code == 200103 || cartList.status.code == 200104) {
                         Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
-                        getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key","0").commit();
+                        getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key", "0").commit();
                         startActivity(new Intent(getActivity(), A0_LoginActivity.class));
-                    }else {
+                    } else {
                         Toast.makeText(getActivity(), cartList.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -387,11 +387,11 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                         //刷新列表
                         cart_list();
                         eliminate();
-                    }else if(status.status.code == 200103 || status.status.code == 200104){
+                    } else if (status.status.code == 200103 || status.status.code == 200104) {
                         Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
-                        getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key","0").commit();
+                        getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key", "0").commit();
                         startActivity(new Intent(getActivity(), A0_LoginActivity.class));
-                    }else {
+                    } else {
                         Toast.makeText(getActivity(), status.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -436,16 +436,16 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                         intent.putExtra("selectOrder", responseInfo.result);
                         //String tvTotal = tv_total.getText().toString();
                         intent.putExtra("cart_id", cart_id);
-                        intent.putExtra("tv_total", realPay+"");
+                        intent.putExtra("tv_total", realPay + "");
                         intent.putExtra("realPay", realPay);
                         intent.putExtra("for", "forShopp");
                         startActivity(intent);
 
-                    }else if(selectOrder.status.code == 200103 || selectOrder.status.code == 200104){
+                    } else if (selectOrder.status.code == 200103 || selectOrder.status.code == 200104) {
                         Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
-                        getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key","0").commit();
+                        getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key", "0").commit();
                         startActivity(new Intent(getActivity(), A0_LoginActivity.class));
-                    }else {
+                    } else {
                         Toast.makeText(getActivity(), selectOrder.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -461,28 +461,28 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
     @Override
     public void OnMessageResponse(String url, String response, JSONObject status) throws JSONException {
         if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Cart_edit_quantity)) {
-            if(response.equals("reduce") || response.equals("add")){
+            if (response.equals("reduce") || response.equals("add")) {
                 listAdapter.total = Request.total1;
                 listAdapter.total_num = Request.total_num1;
                 tv_total.setText("¥ " + listAdapter.total);
                 tv_total_num.setText("(" + listAdapter.total_num + ")");
-            }else if(response.equals("default")){
-            }else {
+            } else if (response.equals("default")) {
+            } else {
                 double y = Double.parseDouble(listAdapter.List.get(Integer.parseInt(response)).goods_price);//编辑前的一个商品价格
-                listAdapter.total = listAdapter.total + Request.total_num1*y;
+                listAdapter.total = listAdapter.total + Request.total_num1 * y;
                 listAdapter.total_num = listAdapter.total_num + Request.total_num1;
 
                 tv_total.setText("¥ " + listAdapter.total);
                 tv_total_num.setText("(" + listAdapter.total_num + ")");
             }
-                //ListView 是刷新状态还是加载更多状态
-                isSetAdapter = false;
-                //刷新列表
-                cart_list();
+            //ListView 是刷新状态还是加载更多状态
+            isSetAdapter = false;
+            //刷新列表
+            cart_list();
 
-        }else if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Favorites_add)) {
+        } else if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Favorites_add)) {
             //收藏成功
-        }else if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Cart_del)) {
+        } else if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Cart_del)) {
             isSetAdapter = false;
             delete = false;
             //刷新列表
