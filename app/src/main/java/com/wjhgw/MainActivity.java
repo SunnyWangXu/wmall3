@@ -329,6 +329,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onResume();
         if (!getKey().equals("0")) {
             loadMessageNumber();
+        }else {
+            tvCartNum.setVisibility(View.GONE);
+            tvCabNum.setVisibility(View.GONE);
         }
     }
 
@@ -347,18 +350,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     MainMessageNum mainMessageNum = gson.fromJson(responseInfo.result, MainMessageNum.class);
                     if (mainMessageNum.datas != null) {
                         if (mainMessageNum.status.code == 10000) {
-                            if (mainMessageNum.datas.cab_num < 9) {
-
+                            if (mainMessageNum.datas.cab_num <= 9 && mainMessageNum.datas.cab_num != 0 ) {
                                 tvCabNum.setVisibility(View.VISIBLE);
                                 tvCabNum.setText(mainMessageNum.datas.cab_num + "");
-                            } else {
+                            } else if(mainMessageNum.datas.cab_num > 9){
                                 tvCabNum.setVisibility(View.VISIBLE);
                                 tvCabNum.setText("9+");
                             }
-                            if (mainMessageNum.datas.cart_num < 9) {
+                            if (mainMessageNum.datas.cart_num <= 9 && mainMessageNum.datas.cart_num != 0) {
                                 tvCartNum.setVisibility(View.VISIBLE);
                                 tvCartNum.setText(mainMessageNum.datas.cart_num + "");
-                            } else {
+                            } else if(mainMessageNum.datas.cart_num > 9){
                                 tvCartNum.setVisibility(View.VISIBLE);
                                 tvCartNum.setText("9+");
                             }
