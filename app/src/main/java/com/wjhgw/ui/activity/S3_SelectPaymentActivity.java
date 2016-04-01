@@ -19,6 +19,7 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.pay.Alipay.payMethod;
+import com.wjhgw.ui.dialog.Under_developmentDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
