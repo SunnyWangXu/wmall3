@@ -253,7 +253,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeLayout = inflater.inflate(R.layout.home_layout, container, false);
-            key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
 
             /**
              * 加载视图
@@ -264,12 +263,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
              * 初始化控件
              */
             initView();
-            /**
-             * 首页消息的小红点
-             */
-            if (!key.equals("0")) {
-                loadHomeMessageDot();
-            }
 
             /**
              * 请求首页焦点图
@@ -328,6 +321,18 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         }
 
         return homeLayout;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
+        /**
+         * 首页消息的小红点
+         */
+        if (!key.equals("0")) {
+            loadHomeMessageDot();
+        }
     }
 
     /**
@@ -1203,8 +1208,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
      */
     private void loadHomeMessageDot() {
         RequestParams params = new RequestParams();
-        String keyNew = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
-        params.addBodyParameter("key", keyNew);
+        params.addBodyParameter("key", key);
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Main_message_num, params, new RequestCallBack<String>() {
             @Override

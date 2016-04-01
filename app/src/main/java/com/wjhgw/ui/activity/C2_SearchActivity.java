@@ -154,6 +154,7 @@ public class C2_SearchActivity extends BaseActivity implements OnClickListener {
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int position,
                                     long arg3) {
+                search_name.setText(auto_complete.datas.get(position).value);
                 search.performClick();
             }
         });

@@ -29,12 +29,16 @@ import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
 import com.wjhgw.ui.activity.C1_CaptureActivity;
 import com.wjhgw.ui.activity.C2_SearchActivity;
+import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.dialog.UnderDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.AttrAdapter;
 import com.wjhgw.ui.view.listview.adapter.goods_class_adapter;
 
+/**
+ * 分类
+ */
 public class CategoryFragment extends Fragment implements XListView.IXListViewListener, View.OnClickListener {
     public static int MAK = 0;
     private ImageView ivGoods;
@@ -51,6 +55,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
     private Intent intent;
     private ListView lvAttr;
     private RelativeLayout rlMessage;
+    private LoadDialog Dialog;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editorGoodsAttr;
     private SharedPreferences spGoodsAttr;
@@ -59,11 +64,11 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View = inflater.inflate(R.layout.classification_layout, container, false);
-        key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
 //        sharedPreferences = getActivity().getSharedPreferences("wjhgw_category", getActivity().MODE_PRIVATE);
 //        spGoodsAttr = getActivity().getSharedPreferences("wjhgw_category_attr", getActivity().MODE_PRIVATE);
 
         onFindViews();
+        Dialog = new LoadDialog(getActivity());
         /**
          * 请求一级商品分类
          */
@@ -123,7 +128,6 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
 
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -158,6 +162,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
     @Override
     public void onResume() {
         super.onResume();
+        key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
         if (RESULT_MESSAGE != null) {
             Toast.makeText(getActivity(), "扫描返回" + RESULT_MESSAGE, Toast.LENGTH_SHORT).show();
             RESULT_MESSAGE = null;
@@ -168,6 +173,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
      * 请求一级商品分类
      */
     private void load_goods_class1() {
+        Dialog.ProgressDialog();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
 
@@ -175,6 +181,7 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                Dialog.dismiss();
                 /**
                  * 缓存一级商品分类
                  */

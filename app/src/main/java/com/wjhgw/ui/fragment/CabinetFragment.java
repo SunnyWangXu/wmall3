@@ -72,12 +72,6 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
-        if (key.equals("0")) {
-            Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
-            getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key", "0").commit();
-            startActivity(new Intent(getActivity(), A0_LoginActivity.class));
-        }
     }
 
     @Override
@@ -212,7 +206,12 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
     @Override
     public void onResume() {
         super.onResume();
-        if (!key.equals("0")) {
+        key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
+        if (key.equals("0")) {
+            Toast.makeText(getActivity(), "登录超时或未登录", Toast.LENGTH_SHORT).show();
+            getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key", "0").commit();
+            startActivity(new Intent(getActivity(), A0_LoginActivity.class));
+        }else {
             cab_list();
         }
 

@@ -94,7 +94,6 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                              Bundle savedInstanceState) {
         Dialog = new LoadDialog(getActivity());
         rootView = inflater.inflate(R.layout.shopping_layout, container, false);
-        key = getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).getString("key", "0");
         initView();
         setClick();
         listAddHeader();
