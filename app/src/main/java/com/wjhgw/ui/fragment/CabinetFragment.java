@@ -204,7 +204,6 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
                 }
                 break;
 
-
             default:
                 break;
         }

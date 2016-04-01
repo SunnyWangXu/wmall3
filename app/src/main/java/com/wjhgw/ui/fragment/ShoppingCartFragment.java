@@ -31,6 +31,7 @@ import com.wjhgw.business.bean.Status;
 import com.wjhgw.business.response.BusinessResponse;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
+import com.wjhgw.ui.activity.M7_MyCollectActivity;
 import com.wjhgw.ui.activity.S0_ConfirmOrderActivity;
 import com.wjhgw.ui.dialog.GoodsArrDialog;
 import com.wjhgw.ui.dialog.LoadDialog;
@@ -261,7 +262,9 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                     intent = new Intent(getActivity(), A0_LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(getActivity(), "该功能正在开发中", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "该功能正在开发中", Toast.LENGTH_SHORT).show();
+                    intent = new Intent(getActivity(), M7_MyCollectActivity.class);
+                    startActivity(intent);
                 }
                 break;
             case R.id.ll_to_settle:

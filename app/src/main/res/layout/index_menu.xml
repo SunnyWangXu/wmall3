@@ -5,13 +5,13 @@
     android:background="#eeeeee">
 
     <LinearLayout
-        android:id="@+id/ll_menu_layout"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="#ffffff"
         android:orientation="horizontal">
 
     <LinearLayout
+        android:id="@+id/ll_button1"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -36,6 +36,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_button2"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -60,6 +61,7 @@
 
 
     <LinearLayout
+        android:id="@+id/ll_button3"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -83,6 +85,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_button4"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

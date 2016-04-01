@@ -39,6 +39,7 @@ import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.C1_CaptureActivity;
 import com.wjhgw.ui.activity.C2_SearchActivity;
 import com.wjhgw.ui.activity.C3_GoodsArraySearchActivity;
+import com.wjhgw.ui.activity.M7_MyCollectActivity;
 import com.wjhgw.ui.activity.PrductDetailActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.dialog.Under_developmentDialog;
@@ -101,6 +102,11 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private String cate_id4;
     private String cate_id5;
     private String cate_id6;
+
+    private LinearLayout ll_button1;
+    private LinearLayout ll_button2;
+    private LinearLayout ll_button3;
+    private LinearLayout ll_button4;
 
     private LinearLayout llTheme1;
     private LinearLayout llTheme2;
@@ -192,6 +198,8 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private LinearLayout llGuessLike03;
     private LinearLayout llGuessLike04;
 
+    private Under_developmentDialog underdevelopmentDialog1;
+
 
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -268,6 +276,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
              */
         if (getActivity() != null) {
             Dialog = new LoadDialog(getActivity());
+            underdevelopmentDialog1 = new Under_developmentDialog(getActivity(), "功能正在开发中,敬请期待");
             loadHomePager();
             /**
              * 请求拍卖和团购数据
@@ -335,20 +344,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         Guesslikelayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.guess_like_layout, null);
 
         group_purchase_layout = (LinearLayout) Eventlayout.findViewById(R.id.group_purchase_layout);
-
-        MenuLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Under_developmentDialog underdevelopmentDialog1 = new Under_developmentDialog(getActivity(), "功能正在开发中,敬请期待");
-                underdevelopmentDialog1.show();
-                underdevelopmentDialog1.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        underdevelopmentDialog1.dismiss();
-                    }
-                });
-            }
-        });
     }
 
     /**
@@ -381,6 +376,11 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         time13 = (TextView) Discountlayout.findViewById(R.id.time13);
         time14 = (TextView) Discountlayout.findViewById(R.id.time14);
         time15 = (TextView) Discountlayout.findViewById(R.id.time15);
+
+        ll_button1 = (LinearLayout) MenuLayout.findViewById(R.id.ll_button1);
+        ll_button2 = (LinearLayout) MenuLayout.findViewById(R.id.ll_button2);
+        ll_button3 = (LinearLayout) MenuLayout.findViewById(R.id.ll_button3);
+        ll_button4 = (LinearLayout) MenuLayout.findViewById(R.id.ll_button4);
 
         llTheme1 = (LinearLayout) Themelayout.findViewById(R.id.ll_theme1);
         llTheme2 = (LinearLayout) Themelayout.findViewById(R.id.ll_theme2);
@@ -518,6 +518,11 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         llGuessLike02.setOnClickListener(this);
         llGuessLike03.setOnClickListener(this);
         llGuessLike04.setOnClickListener(this);
+
+        ll_button1.setOnClickListener(this);
+        ll_button2.setOnClickListener(this);
+        ll_button3.setOnClickListener(this);
+        ll_button4.setOnClickListener(this);
     }
 
     /**
@@ -570,18 +575,45 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
+            case R.id.ll_button1:
+                intent = new Intent(getActivity(), M7_MyCollectActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_button2:
+                underdevelopmentDialog1.show();
+                underdevelopmentDialog1.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        underdevelopmentDialog1.dismiss();
+                    }
+                });
+                break;
+            case R.id.ll_button3:
+                underdevelopmentDialog1.show();
+                underdevelopmentDialog1.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        underdevelopmentDialog1.dismiss();
+                    }
+                });
+                break;
+            case R.id.ll_button4:
+                underdevelopmentDialog1.show();
+                underdevelopmentDialog1.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        underdevelopmentDialog1.dismiss();
+                    }
+                });
+                break;
             case R.id.iv_home_qrcode_scanner:
                 intent.setClass(getActivity(), C1_CaptureActivity.class);
                 startActivity(intent);
-
                 break;
-
             case R.id.ll_home_goods_search:
                 intent.setClass(getActivity(), C2_SearchActivity.class);
                 startActivity(intent);
-
                 break;
-
             case R.id.rl_home_message:
                 final Under_developmentDialog underdevelopmentDialog = new Under_developmentDialog(getActivity(), "功能正在开发中,敬请期待");
                 underdevelopmentDialog.show();
@@ -594,45 +626,37 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 /*intent.setClass(getActivity(), MessageCenterActivity.class);
                 startActivity(intent);*/
                 break;
-
             case R.id.ll_theme1:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
                 intent.putExtra("cate_id", cate_id1);
                 startActivity(intent);
                 break;
-
             case R.id.ll_theme2:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
                 intent.putExtra("cate_id", cate_id2);
                 startActivity(intent);
                 break;
-
             case R.id.ll_theme3:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
                 intent.putExtra("cate_id", cate_id3);
                 startActivity(intent);
                 break;
-
             case R.id.ll_theme4:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
                 intent.putExtra("cate_id", cate_id4);
                 startActivity(intent);
                 break;
-
             case R.id.ll_theme5:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
                 intent.putExtra("cate_id", cate_id5);
                 startActivity(intent);
                 break;
-
             case R.id.ll_theme6:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
                 intent.putExtra("cate_id", cate_id6);
                 startActivity(intent);
                 break;
-
             case R.id.ll_discount_01:
-
                 intent.setClass(getActivity(), PrductDetailActivity.class);
                 intent.putExtra("goods_id", groupBuy_data.get(0).goods_id);
                 startActivity(intent);
@@ -647,40 +671,28 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 intent.putExtra("goods_id", groupBuy_data.get(2).goods_id);
                 startActivity(intent);
                 break;
-
             case R.id.tv_guess_refresh:
-
                 loadGuessLike();
                 break;
-
             case R.id.ll_guess_like01:
-
                 intent.setClass(getActivity(), PrductDetailActivity.class);
                 intent.putExtra("goods_id", guess_like_datases.get(0).goods_id);
                 startActivity(intent);
-
                 break;
-
             case R.id.ll_guess_like02:
-
                 intent.setClass(getActivity(), PrductDetailActivity.class);
                 intent.putExtra("goods_id", guess_like_datases.get(1).goods_id);
                 startActivity(intent);
-
                 break;
             case R.id.ll_guess_like03:
-
                 intent.setClass(getActivity(), PrductDetailActivity.class);
                 intent.putExtra("goods_id", guess_like_datases.get(2).goods_id);
                 startActivity(intent);
-
                 break;
             case R.id.ll_guess_like04:
-
                 intent.setClass(getActivity(), PrductDetailActivity.class);
                 intent.putExtra("goods_id", guess_like_datases.get(3).goods_id);
                 startActivity(intent);
-
                 break;
             default:
                 break;
