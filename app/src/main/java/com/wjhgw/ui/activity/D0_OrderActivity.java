@@ -62,7 +62,6 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.d0_order_layout);
-        key = getKey();
         order_state = getIntent().getStringExtra("order_state");
         name = getIntent().getStringExtra("name");
         mListView = (MyListView) findViewById(R.id.d0_list_layout);
@@ -121,6 +120,7 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
     @Override
     protected void onResume() {
         super.onResume();
+        key = getKey();
         if (order_state.equals("")) {
             ll_layout1.setVisibility(View.VISIBLE);
             order_list();
