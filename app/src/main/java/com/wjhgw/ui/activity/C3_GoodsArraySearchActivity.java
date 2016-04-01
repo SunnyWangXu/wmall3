@@ -189,6 +189,8 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
                 clearTvstate();
                 tvSearchDef.setTextColor(Color.parseColor("#d63235"));
                 PriceCount = 0;
+                k = "";
+                order = "";
                 loadSearchGoodsArr();
                 break;
 
@@ -369,7 +371,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
      */
     private void loadSearchGoodsArr() {
         StartLoading();
-            APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.GET, BaseQuery.serviceUrl() + ApiInterface.Act_search + "&b_id=" + b_id + "&a_id=" + a_id +
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.GET, BaseQuery.serviceUrl() + ApiInterface.Act_search + "&b_id=" + b_id + "&a_id=" + a_id +
                 "&page=10" + "&curpage=" + curpage + "&k=" + k + "&order=" + order + "&keyword=" + keyword + "&cate_id=" + cate_id, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
