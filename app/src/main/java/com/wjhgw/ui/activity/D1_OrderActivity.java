@@ -65,7 +65,6 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
     private TextView tv_button2;
     private TextView tv_button3;
     private TextView tv_payment_name;
-    private String key;
     private D1_OrderAdapter listAdapter;
     private String order_id = "";
     private LinearLayout order1;
@@ -82,8 +81,6 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.d1_order_layout);
-
-        key = getKey();
         order_id = getIntent().getStringExtra("order_id");
 
         mListView.addHeaderView(order1);
@@ -191,7 +188,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                         mDialog.positive.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Request.order_remind(order_id, key);
+                                Request.order_remind(order_id, getKey());
                                 mDialog.dismiss();
                             }
                         });
@@ -211,7 +208,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                         mDialog.positive.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Request.order_receive(order_id, key);
+                                Request.order_receive(order_id, getKey());
                                 mDialog.dismiss();
                             }
                         });
@@ -250,7 +247,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                         mDialog.positive.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Request.order_delete(order_id, key);
+                                Request.order_delete(order_id, getKey());
                                 mDialog.dismiss();
                             }
                         });
@@ -268,7 +265,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                 if (order_detail.datas.order_state.equals("10")) {
                     if (order_detail.datas.payment) {
                         //showToastShort("前往付款");
-                        member_payment(order_detail.datas.pay_sn, key, order_detail.datas.order_amount,
+                        member_payment(order_detail.datas.pay_sn, getKey(), order_detail.datas.order_amount,
                                 order_detail.datas.rcb_amount, order_detail.datas.pd_amount);
                     }
                     //待付款
@@ -296,7 +293,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                         mDialog.positive.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Request.order_delete(order_id, key);
+                                Request.order_delete(order_id, getKey());
                                 mDialog.dismiss();
                             }
                         });
@@ -358,7 +355,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
     private void Order_detail() {
         StartLoading();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("order_id", order_id);
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Order_detail, params, new RequestCallBack<String>() {
@@ -402,7 +399,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 tv_invoice_rise.setText(order_detail.datas.extend_order_common.invoice_info.抬头);
                                 tv_invoice_content.setText(order_detail.datas.extend_order_common.invoice_info.内容);
                             }
-                            if (order_detail.datas.order_type.equals("0")) {
+                            if (order_detail.datas.order_type.equals("0") && order_detail.datas.order_type.equals("4")) {
                                 tv_reciver_name.setText(order_detail.datas.extend_order_common.reciver_name);
                                 tv_phone.setText(order_detail.datas.extend_order_common.reciver_info.phone);
                                 tv_address.setText("收货地址：" + order_detail.datas.extend_order_common.reciver_info.address);
@@ -523,7 +520,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
             @Override
             public void onClick(View v) {
                 msg = "购买其他商品";
-                Request.order_cancel(order_id, key, msg);
+                Request.order_cancel(order_id, getKey(), msg);
                 order_cancelDialog.dismiss();
             }
         });
@@ -531,7 +528,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
             @Override
             public void onClick(View v) {
                 msg = "改用其他配送方法";
-                Request.order_cancel(order_id, key, msg);
+                Request.order_cancel(order_id, getKey(), msg);
                 order_cancelDialog.dismiss();
             }
         });
@@ -539,7 +536,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
             @Override
             public void onClick(View v) {
                 msg = "从其它店铺购买";
-                Request.order_cancel(order_id, key, msg);
+                Request.order_cancel(order_id, getKey(), msg);
                 order_cancelDialog.dismiss();
             }
         });
@@ -547,7 +544,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
             @Override
             public void onClick(View v) {
                 msg = "其它原因";
-                Request.order_cancel(order_id, key, msg);
+                Request.order_cancel(order_id, getKey(), msg);
                 order_cancelDialog.dismiss();
             }
         });

@@ -29,7 +29,6 @@ public class D2_LogisticsActivity extends BaseActivity implements OnClickListene
 
     private MyListView mListView;
     private String order_id = "";
-    private String key;
     private D2_deliverAdapter listAdapter;
     private TextView tv_exp_text_name;
     private TextView tv_status;
@@ -40,7 +39,6 @@ public class D2_LogisticsActivity extends BaseActivity implements OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.d2_logistics_layout);
 
-        key = getKey();
         order_id = getIntent().getStringExtra("order_id");
 
         mListView.setPullLoadEnable(false);
@@ -109,7 +107,7 @@ public class D2_LogisticsActivity extends BaseActivity implements OnClickListene
      */
     private void order_deliver() {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("order_id", order_id);
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Order_deliver, params, new RequestCallBack<String>() {

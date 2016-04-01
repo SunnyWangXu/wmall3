@@ -49,7 +49,6 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
     private TextView tv_text3;
     private TextView tv_text4;
     private TextView tv_text5;
-    private String key;
     private D0_OrderAdapter listAdapter;
     private boolean isSetAdapter = true;
     private int curpage = 1;
@@ -62,7 +61,6 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.d0_order_layout);
-        key = getKey();
         order_state = getIntent().getStringExtra("order_state");
         name = getIntent().getStringExtra("name");
         mListView = (MyListView) findViewById(R.id.d0_list_layout);
@@ -190,7 +188,7 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
     private void order_list() {
         super.StartLoading();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("curpage", Integer.toString(curpage));
         params.addBodyParameter("page", "10");
         if (order_state != null) {
@@ -216,7 +214,7 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
                             }
                             OrderList_data.addAll(orderList.datas);
                             if (isSetAdapter) {
-                                listAdapter = new D0_OrderAdapter(D0_OrderActivity.this, OrderList_data, Request, key);
+                                listAdapter = new D0_OrderAdapter(D0_OrderActivity.this, OrderList_data, Request, getKey());
                                 mListView.setAdapter(listAdapter);
                             } else {
                                 listAdapter.List = OrderList_data;

@@ -244,7 +244,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:gravity="center"
+            android:gravity="right|center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -253,6 +253,7 @@
                 android:layout_height="30dp"
                 android:layout_marginBottom="14dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginRight="12dp"
                 android:background="@drawable/background_radius_gray"
                 android:gravity="center"
                 android:text="联系客服"
@@ -265,7 +266,7 @@
                 android:id="@+id/tv_button2"
                 android:layout_width="85dp"
                 android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginRight="12dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="14dp"
                 android:layout_gravity="center"
@@ -281,7 +282,7 @@
                 android:id="@+id/tv_button1"
                 android:layout_width="85dp"
                 android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginRight="12dp"
                 android:layout_marginBottom="14dp"
                 android:layout_gravity="right|center"
                 android:layout_marginTop="16dp"

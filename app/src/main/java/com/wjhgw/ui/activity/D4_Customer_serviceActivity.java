@@ -65,7 +65,6 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
     private String goods_name;
     private Double order_amount;
     private String order_id;
-    private String key;
     private D2_deliverAdapter listAdapter;
     private LinearLayout Customer_service1;
     private LinearLayout Customer_service2;
@@ -117,7 +116,6 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
         mListView.addHeaderView(Customer_service1);
         mListView.addHeaderView(Customer_service2);
 
-        key = getKey();
         Dialog = new GalleryDialog(this);
         order_id = getIntent().getStringExtra("order_id");
         lock_state = getIntent().getStringExtra("lock_state");
@@ -411,7 +409,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
                     FileInputStream input = new FileInputStream(imgPath);
                     StartLoading();
                     RequestParams params = new RequestParams();
-                    params.addBodyParameter("key", key);
+                    params.addBodyParameter("key", getKey());
                     params.addBodyParameter("usage_number", "1");
                     params.addBodyParameter("data", input, tempFile.length(), sur);
                     /**
@@ -471,7 +469,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
     private void del_img(String img_name) {
         StartLoading();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("usage_number", "1");
         params.addBodyParameter("img_name", img_name);
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Del_img, params, new RequestCallBack<String>() {
@@ -522,7 +520,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
      */
     private void add_refund_all_step1() {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("order_id", order_id);
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Add_refund_all_step1, params, new RequestCallBack<String>() {
@@ -572,7 +570,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
     private void add_refund_all_step2(String buyer_message, String pic_info) {
         StartLoading();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("order_id", order_id);
         params.addBodyParameter("buyer_message", buyer_message);
         params.addBodyParameter("pic_info", pic_info);
@@ -606,7 +604,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
      */
     private void add_refund_step1() {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("order_id", order_id);
         params.addBodyParameter("rec_id", rec_id);
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Add_refund_step1, params, new RequestCallBack<String>() {
@@ -643,7 +641,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
                                   String refund_amount, String goods_num, String reason_info) {
         StartLoading();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("order_id", order_id);
         params.addBodyParameter("refund_type", refund_type);  //退款类型
         params.addBodyParameter("rec_id", rec_id);    //记录编号

@@ -36,7 +36,6 @@ public class D5_CustomerActivity extends BaseActivity implements OnClickListener
     private D6_customerAdapter listAdapter;
     private boolean isSetAdapter = true;
     private int curpage = 1;
-    private String key;
     private ArrayList<return_refund_list_data> return_refund_list = new ArrayList<>();
 
 
@@ -52,8 +51,6 @@ public class D5_CustomerActivity extends BaseActivity implements OnClickListener
         mListView.setXListViewListener(this, 1);
         mListView.setRefreshTime();
         mListView.setAdapter(null);
-
-        key = getKey();
     }
 
     @Override
@@ -107,7 +104,7 @@ public class D5_CustomerActivity extends BaseActivity implements OnClickListener
     private void return_refund_list() {
         RequestParams params = new RequestParams();
         StartLoading();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("curpage", "" + curpage);
         params.addBodyParameter("page", "10");
 
