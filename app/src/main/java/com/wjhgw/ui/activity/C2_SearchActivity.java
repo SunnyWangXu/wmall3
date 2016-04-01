@@ -265,9 +265,10 @@ public class C2_SearchActivity extends BaseActivity implements OnClickListener {
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Gson gson = new Gson();
                 if (responseInfo != null) {
-                    auto_complete = gson.fromJson(responseInfo.result, Auto_complete_Pager.class);
+                    Auto_complete_Pager auto= gson.fromJson(responseInfo.result, Auto_complete_Pager.class);
 
-                    if (auto_complete.status.code == 10000) {
+                    if (auto.status.code == 10000) {
+                        auto_complete = auto;
                         lv_listview.setVisibility(View.VISIBLE);
                         mSearchAutoAdapter = new SearchAutoAdapter(C2_SearchActivity.this, 10, auto_complete.datas);
                         lv_listview.setAdapter(mSearchAutoAdapter);
