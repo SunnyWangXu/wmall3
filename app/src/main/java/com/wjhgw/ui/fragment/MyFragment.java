@@ -71,6 +71,8 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private String memberName;
     private LoadDialog Dialog;
     private FrameLayout flMyCollect;
+    private FrameLayout profileHeadShare;
+    private FrameLayout profileHeadAddClient;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -133,6 +135,8 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         member_nickname = (TextView) MyMessageLayout.findViewById(R.id.member_nickname);
 
         flMyCollect = (FrameLayout) MyMessageLayout.findViewById(R.id.fl_my_collect);
+        profileHeadShare = (FrameLayout) MyMessageLayout.findViewById(R.id.profile_head_share);
+        profileHeadAddClient = (FrameLayout) MyMessageLayout.findViewById(R.id.profile_head_AddClient);
 
         ll_all_orders = (LinearLayout) MyOrderLayout.findViewById(R.id.ll_all_orders);
         rl_layout1 = (RelativeLayout) MyOrderLayout.findViewById(R.id.rl_layout1);
@@ -162,6 +166,8 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         iv_message.setOnClickListener(this);
         ll_LockBox.setOnClickListener(this);
         flMyCollect.setOnClickListener(this);
+        profileHeadShare.setOnClickListener(this);
+        profileHeadAddClient.setOnClickListener(this);
         ivSet.setOnClickListener(this);
 //        ll_Set.setOnClickListener(this);
         ll_all_orders.setOnClickListener(this);
@@ -195,6 +201,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
+        final UnderDialog underdevelopmentDialog = new UnderDialog(getActivity(), "功能正在开发中,敬请期待");
         switch (v.getId()) {
             case R.id.ll_lockbox:
                 if (key.equals("0")) {
@@ -214,6 +221,28 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                     intent.setClass(getActivity(), M7_MyCollectActivity.class);
                     startActivity(intent);
                 }
+                break;
+
+            case R.id.profile_head_share:
+
+                underdevelopmentDialog.show();
+                underdevelopmentDialog.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        underdevelopmentDialog.dismiss();
+                    }
+                });
+                break;
+
+            case R.id.profile_head_AddClient:
+
+                underdevelopmentDialog.show();
+                underdevelopmentDialog.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        underdevelopmentDialog.dismiss();
+                    }
+                });
                 break;
 
             case R.id.iv_set:
@@ -296,7 +325,6 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 }
                 break;
             case R.id.iv_message:
-                final UnderDialog underdevelopmentDialog = new UnderDialog(getActivity(), "功能正在开发中,敬请期待");
                 underdevelopmentDialog.show();
                 underdevelopmentDialog.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
                     @Override
