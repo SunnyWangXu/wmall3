@@ -12,4 +12,5 @@ public class Store_cart_list {
     public String freight_message;
     public String store_name;
     public String store_id;
+    public CancelCalcSidList cancel_calc_sid_list;
 }
