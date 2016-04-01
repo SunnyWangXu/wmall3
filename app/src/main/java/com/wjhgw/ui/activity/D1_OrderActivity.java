@@ -402,7 +402,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 tv_invoice_rise.setText(order_detail.datas.extend_order_common.invoice_info.抬头);
                                 tv_invoice_content.setText(order_detail.datas.extend_order_common.invoice_info.内容);
                             }
-                            if (order_detail.datas.order_type.equals("0")) {
+                            if (order_detail.datas.order_type.equals("0") && order_detail.datas.order_type.equals("4")) {
                                 tv_reciver_name.setText(order_detail.datas.extend_order_common.reciver_name);
                                 tv_phone.setText(order_detail.datas.extend_order_common.reciver_info.phone);
                                 tv_address.setText("收货地址：" + order_detail.datas.extend_order_common.reciver_info.address);
