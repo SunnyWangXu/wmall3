@@ -32,7 +32,6 @@ public class D3_EvaluateActivity extends BaseActivity implements OnClickListener
 
     private MyListView mListView;
     private String extend_order_goods;
-    private String key;
     private String order_id;
     private D3_EvaluateAdapter listAdapter;
     private TextView tv_submit;
@@ -43,7 +42,6 @@ public class D3_EvaluateActivity extends BaseActivity implements OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.d3_evaluate_layout);
 
-        key = getKey();
         //extend_order_goods = getIntent().getStringExtra("extend_order_goods");
         extend_order_goods = getIntent().getStringExtra("extend_order_goods");
         order_id = getIntent().getStringExtra("order_id");
@@ -131,7 +129,7 @@ public class D3_EvaluateActivity extends BaseActivity implements OnClickListener
      */
     private void add_evaluate(String evaluate_content) {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("order_id", order_id);
         params.addBodyParameter("evaluate_content", evaluate_content);
 

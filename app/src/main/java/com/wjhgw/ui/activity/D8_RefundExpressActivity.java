@@ -72,10 +72,10 @@ public class D8_RefundExpressActivity extends BaseActivity implements AdapterVie
         String eId = expressDatas.get(position).id;
 
         Intent intent = new Intent();
-        intent.putExtra("eName",eName);
-        intent.putExtra("eId",eId);
+        intent.putExtra("eName", eName);
+        intent.putExtra("eId", eId);
 
-        setResult(44444,intent);
+        setResult(44444, intent);
 
         finish();
     }
