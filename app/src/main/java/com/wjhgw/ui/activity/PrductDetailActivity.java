@@ -44,7 +44,6 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
     private ImageView back;
     private String ua;
     private LoadDialog Dialog;
-    private String key;
     private String Shopping_Cart;
     private HashMap<String, String> keyMap;
     private String url;
@@ -69,7 +68,6 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
         Dialog = new LoadDialog(this);
         WebSettings webSettings = webView.getSettings();
         ua = webSettings.getUserAgentString() + " WMall/3.0.0";
-        key = getKey();
 
         // 判断是否为WIFI网络状态
         ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -103,7 +101,11 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
         url = BaseQuery.serviceUrl() + "/wap/index.php?act=goods&op=index&id=" + id;
 
         keyMap = new HashMap<>();
-        keyMap.put("authentication", key);
+        if(getKey().equals("0")){
+            keyMap.put("authentication", getKey());
+        }else {
+            showToastShort("登录超时,请重新登录!");
+        }
         webView.loadUrl(url, keyMap);
 
      /*   // 打开网页时不调用系统浏览器， 而是在本WebView中显示：
@@ -234,7 +236,7 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
     private void buy_step1(final String cart_id) {
         Dialog.ProgressDialog();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("cart_id", cart_id);
         params.addBodyParameter("ifcart", "3");
 

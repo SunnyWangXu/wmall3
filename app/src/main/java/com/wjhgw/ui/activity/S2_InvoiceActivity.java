@@ -33,7 +33,6 @@ public class S2_InvoiceActivity extends BaseActivity implements View.OnClickList
     private ImageView ivCompany;
     private EditText edInvoiceTitle;
     private Button btnInvoiceSave;
-    private String key;
     private boolean isPerson;
     private String edTitle;
 
@@ -47,7 +46,6 @@ public class S2_InvoiceActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onInit() {
-
         setUp();
         setTitle("发票信息");
     }
@@ -141,7 +139,7 @@ public class S2_InvoiceActivity extends BaseActivity implements View.OnClickList
      */
     private void addInvoice() {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         if (isPerson) {
             params.addBodyParameter("inv_title_select", "person");
         } else {
@@ -186,6 +184,5 @@ public class S2_InvoiceActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onResume() {
         super.onResume();
-        key = getKey();
     }
 }

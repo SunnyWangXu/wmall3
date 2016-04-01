@@ -41,7 +41,6 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
     //ListView 是刷新状态还是加载更多状态
     private Boolean isSetAdapter = true;
     private Boolean Mark = true;
-    private String key;
     private J1_RecordAdapter listAdapter = null;
     private LinearLayout ll_null;
     private Get_goods_List get_goods_List;
@@ -136,8 +135,7 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
     @Override
     public void onResume() {
         super.onResume();
-        key = getKey();
-        if (!key.equals("0")) {
+        if (!getKey().equals("0")) {
             container();
         }
 
@@ -170,7 +168,7 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
     private void send_goods_list() {
         super.StartLoading();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("page", "10");
         params.addBodyParameter("curpage", curpage + "");
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Send_goods_list, params, new RequestCallBack<String>() {
@@ -230,7 +228,7 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
     private void get_goods_list() {
         super.StartLoading();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("page", "10");
         params.addBodyParameter("curpage", curpage + "");
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Get_goods_list, params, new RequestCallBack<String>() {

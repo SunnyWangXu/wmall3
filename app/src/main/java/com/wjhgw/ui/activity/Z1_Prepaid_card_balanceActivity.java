@@ -34,7 +34,6 @@ public class Z1_Prepaid_card_balanceActivity extends BaseActivity implements OnC
 
     private MyListView mListView;
     private LinearLayout ll_null;
-    private String key;
     private Z1_Adapter listAdapter;
     private Z2_Adapter listAdapter2;
     private boolean isSetAdapter = true;
@@ -75,7 +74,6 @@ public class Z1_Prepaid_card_balanceActivity extends BaseActivity implements OnC
     @Override
     protected void onResume() {
         super.onResume();
-        key = getKey();
 
     }
 
@@ -145,7 +143,7 @@ public class Z1_Prepaid_card_balanceActivity extends BaseActivity implements OnC
      */
     private void rcb_log_list() {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("curpage", Integer.toString(curpage));
         params.addBodyParameter("page", "10");
 
@@ -202,7 +200,7 @@ public class Z1_Prepaid_card_balanceActivity extends BaseActivity implements OnC
      */
     private void Pd_log_list() {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("curpage", Integer.toString(curpage));
         params.addBodyParameter("page", "10");
 

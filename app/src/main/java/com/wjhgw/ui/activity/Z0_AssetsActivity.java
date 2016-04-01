@@ -37,7 +37,6 @@ public class Z0_AssetsActivity extends BaseActivity implements View.OnClickListe
     private MyLockBox userinformation;
     private Status status;
     private LoadDialog Dialog;
-    private String key;
     private Prepaid_cardDialog prepaid_cardDialog;
     private Intent intent;
 
@@ -121,11 +120,7 @@ public class Z0_AssetsActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onResume() {
         super.onResume();
-        key = getSharedPreferences("key", MODE_APPEND).getString("key", "0");
-
-        if (!key.equals("0")) {
-            load_User_information();
-        }
+        load_User_information();
     }
 
     /**
@@ -134,7 +129,7 @@ public class Z0_AssetsActivity extends BaseActivity implements View.OnClickListe
     private void load_User_information() {
         Dialog.ProgressDialog();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Get_member_base_info, params, new RequestCallBack<String>() {
             @Override
@@ -168,7 +163,7 @@ public class Z0_AssetsActivity extends BaseActivity implements View.OnClickListe
     private void Rechargecard_add(String rc_sn) {
         Dialog.ProgressDialog();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("rc_sn", rc_sn);
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Rechargecard_add, params, new RequestCallBack<String>() {

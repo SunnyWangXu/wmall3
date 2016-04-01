@@ -29,7 +29,6 @@ import java.util.List;
  * 订单收货地址
  */
 public class S1_OrderAddressActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
-    private String key;
     private List<address_data> order_address_list = new ArrayList<>();
     private ListView lvOrderAddress;
     private TextView tvAddAddress;
@@ -74,10 +73,8 @@ public class S1_OrderAddressActivity extends BaseActivity implements View.OnClic
     public void load_Order_Addresst() {
         super.StartLoading();
         RequestParams params = new RequestParams();
-        if (!key.equals("0") && key != null) {
-            params.addBodyParameter("key", key);
-            params.addBodyParameter("address_type", "0");
-        }
+        params.addBodyParameter("key", getKey());
+        params.addBodyParameter("address_type", "0");
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Address_list, params, new RequestCallBack<String>() {
 
             @Override
@@ -126,7 +123,6 @@ public class S1_OrderAddressActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onResume() {
         super.onResume();
-        key = getKey();
         /**
          * 请求地址列表
          */

@@ -75,7 +75,6 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private TextView tvUseName;
     private TextView tvUsePhone;
     private TextView tvUseAddress;
-    private String key;
     private String useName;
     private String usePhone;
     private String useAddressInfo;
@@ -137,13 +136,11 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onResume() {
         super.onResume();
-
-        key = getKey();
         String selectOrder = getIntent().getStringExtra("selectOrder");
 
         cart_id = getIntent().getStringExtra("cart_id");
 
-        if (!key.equals("0") && key != null) {
+        if (!getKey().equals("0")) {
             /**
              * 请求默认地址
              */
@@ -225,7 +222,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private void checkAddressSupport() {
         super.StartLoading();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("freight_hash", freight_hash);
         params.addBodyParameter("address_id", address_id);
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Check_Address_Support, params, new RequestCallBack<String>() {
@@ -585,7 +582,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private void CommitOrder() {
         super.StartLoading();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         if (isDonate) {
             params.addBodyParameter("cabinet_operation", "1");
             params.addBodyParameter("send_other", "1");
@@ -740,7 +737,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private void whetherHavePaypwd() {
         super.StartLoading();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Get_member_base_info, params, new RequestCallBack<String>() {
 
@@ -847,7 +844,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private boolean testPaypwd(String paypwd) {
         super.StartLoading();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("paypwd", paypwd);
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Test_Paypwd, params, new RequestCallBack<String>() {
@@ -994,7 +991,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
      */
     public void load_Default_Addresst() {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("address_type", "0");
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Address_list, params, new RequestCallBack<String>() {
 

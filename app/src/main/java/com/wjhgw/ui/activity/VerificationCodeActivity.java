@@ -39,7 +39,6 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
     private String Verification_code;
     private TimeCount time;
     Intent intent;
-    String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +80,6 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
     @Override
     protected void onResume() {
         super.onResume();
-        key = getKey();
     }
 
     @Override
@@ -155,8 +153,8 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
      */
     private void Verification_code() {
         RequestParams params = new RequestParams();
-        if (key.length() > 1) {
-            params.addBodyParameter("key", key);
+        if (!getKey().equals("0")) {
+            params.addBodyParameter("key", getKey());
         } else {
             params.addBodyParameter("member_mobile", Number);
         }
@@ -190,8 +188,8 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
         super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("sms_code", Verification_code);
-        if (key.length() > 1) {
-            params.addBodyParameter("key", key);
+        if (!getKey().equals("0")) {
+            params.addBodyParameter("key", getKey());
         }
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.VerificationNumber, params, new RequestCallBack<String>() {

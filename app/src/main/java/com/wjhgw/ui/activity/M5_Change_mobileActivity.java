@@ -41,7 +41,6 @@ public class M5_Change_mobileActivity extends BaseActivity implements OnClickLis
     private int Mark = 0;  //用于判断是否点击获取验证码按钮
     private TimeCount time;
     Intent intent;
-    String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +102,6 @@ public class M5_Change_mobileActivity extends BaseActivity implements OnClickLis
     @Override
     protected void onResume() {
         super.onResume();
-        key = getKey();
     }
 
     @Override
@@ -205,7 +203,7 @@ public class M5_Change_mobileActivity extends BaseActivity implements OnClickLis
     private void Verification_code() {
         RequestParams params = new RequestParams();
         params.addBodyParameter("member_mobile", Number);
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.VerificationCode, params, new RequestCallBack<String>() {
 
             @Override
@@ -236,7 +234,7 @@ public class M5_Change_mobileActivity extends BaseActivity implements OnClickLis
         super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("sms_code", Verification_code);
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.VerificationNumber, params, new RequestCallBack<String>() {
 
             @Override
@@ -266,7 +264,7 @@ public class M5_Change_mobileActivity extends BaseActivity implements OnClickLis
     private void change_mobile() {
         RequestParams params = new RequestParams();
         params.addBodyParameter("member_mobile", Number);
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Change_mobile, params, new RequestCallBack<String>() {
 
             @Override

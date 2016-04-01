@@ -49,7 +49,6 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
         View.OnClickListener {
 
     private MyListView mListView;
-    private String key;
     private ShoppingCartAdapter listAdapter = null;
     private CartList cartList;
     private ImageView iv_select;
@@ -88,7 +87,6 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
         setContentView(R.layout.shopping_layout);
         Dialog = new LoadDialog(this);
         //rootView = inflater.inflate(R.layout.shopping_layout, container, false);
-        key = getSharedPreferences("key", MODE_APPEND).getString("key", "0");
         initView();
         setClick();
         listAddHeader();
@@ -297,7 +295,7 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
                 transaction.replace(R.id.content, homeFragment).commit();*/
                 break;
             case R.id.tv_collection:
-                if (key.equals("0")) {
+                if (getKey().equals("0")) {
                     intent = new Intent(this, A0_LoginActivity.class);
                     startActivity(intent);
                 } else {
@@ -330,9 +328,7 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
     @Override
     public void onResume() {
         super.onResume();
-        key = getSharedPreferences("key", MODE_APPEND).getString("key", "0");
-
-        if (key.equals("0")) {
+        if (getKey().equals("0")) {
             ll_empty_shop_cart.setVisibility(View.VISIBLE);
             mListView.setVisibility(View.GONE);
         } else {
@@ -346,7 +342,7 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
     private void cart_list() {
         Dialog.ProgressDialog();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Cart_list, params, new RequestCallBack<String>() {
             @Override
@@ -407,7 +403,7 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
     private void cart_del(String cart_id) {
         Dialog.ProgressDialog();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("cart_id", cart_id);
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Cart_del, params, new RequestCallBack<String>() {
@@ -443,7 +439,7 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
     private void favorites_add(String goods_id) {
         Dialog.ProgressDialog();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("goods_id", goods_id);
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Favorites_add, params, new RequestCallBack<String>() {
@@ -474,7 +470,7 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
     private void buy_step1(final String cart_id) {
         Dialog.ProgressDialog();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("key", key);
+        params.addBodyParameter("key", getKey());
         params.addBodyParameter("cart_id", cart_id);
         params.addBodyParameter("ifcart", "1");
 
