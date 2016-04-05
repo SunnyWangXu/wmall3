@@ -236,7 +236,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
         tv_d4_goods_name = (TextView) Customer_service2.findViewById(R.id.tv_d4_goods_name);
         tv_d4_num = (TextView) Customer_service2.findViewById(R.id.tv_d4_num);
         tv_d4_rder_sn = (TextView) Customer_service2.findViewById(R.id.tv_d4_rder_sn);
-        tv_d4_next = (TextView) Customer_service2.findViewById(R.id.tv_d4_next);
+        tv_d4_next = (TextView)findViewById(R.id.tv_d4_next);
     }
 
     @Override
