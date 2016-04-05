@@ -167,7 +167,11 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             if (selectOrder.status.code == 10000) {
                 SelectOrderDatas selectOrderDatas = selectOrder.datas;
                 freight = selectOrderDatas.store_cart_list.freight;
-                String freightMessage = selectOrderDatas.store_cart_list.cancel_calc_sid_list.desc;
+                String freightMessage = "";
+                if(selectOrderDatas.store_cart_list.cancel_calc_sid_list != null){
+                    freightMessage = selectOrderDatas.store_cart_list.cancel_calc_sid_list.desc;
+                }
+
                 if (selectOrderDatas.address_info != null) {
                     address_id = selectOrderDatas.address_info.address_id;
                 }
