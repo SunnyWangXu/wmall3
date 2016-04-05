@@ -220,7 +220,6 @@ public class D6_AfterSaleDetailActivity extends BaseActivity implements View.OnC
         return (int) (dpValue * scale + 0.5f);
     }
 
-
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
@@ -233,9 +232,7 @@ public class D6_AfterSaleDetailActivity extends BaseActivity implements View.OnC
                     startActivity(intent);
                 }
 
-
                 break;
-
             default:
                 break;
         }
