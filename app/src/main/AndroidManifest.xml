@@ -171,6 +171,10 @@
         <activity
             android:name=".ui.activity.D5_CustomerActivity"
             android:screenOrientation="portrait" />
+        
+        <activity
+            android:name=".ui.activity.GeneralPrductDetailActivity"
+            android:screenOrientation="portrait" />
 
         <!--友盟更新-->
         <activity

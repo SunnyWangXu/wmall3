@@ -502,6 +502,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         llHomeGoodsSearch.setOnClickListener(this);
         rlHomeMessage.setOnClickListener(this);
 
+        homePager.setOnClickListener(this);
         //MenuLayout.setOnClickListener(this);
 
         group_purchase_layout.setOnClickListener(this);

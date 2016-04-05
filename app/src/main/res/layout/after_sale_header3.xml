@@ -69,22 +69,4 @@
             android:background="@color/layout_bg" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp">
-
-        <TextView
-            android:id="@+id/tv_refund13"
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="17dp"
-            android:background="@drawable/after_sale_gray"
-            android:gravity="center"
-            android:text="填写退货发货信息"
-            android:textColor="@color/white"
-            android:textSize="17sp" />
-    </LinearLayout>
-
 </LinearLayout>
