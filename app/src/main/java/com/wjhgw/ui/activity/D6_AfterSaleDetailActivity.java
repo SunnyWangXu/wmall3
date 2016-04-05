@@ -105,7 +105,7 @@ public class D6_AfterSaleDetailActivity extends BaseActivity implements View.OnC
         tvRefund10 = (TextView) afterSaleHeader2.findViewById(R.id.tv_refund10);
         tvRefund11 = (TextView) afterSaleHeader3.findViewById(R.id.tv_refund11);
         tvRefund12 = (TextView) afterSaleHeader3.findViewById(R.id.tv_refund12);
-        tvRefund13 = (TextView) afterSaleHeader3.findViewById(R.id.tv_refund13);
+        tvRefund13 = (TextView) findViewById(R.id.tv_refund13);
 
         llrefund33 = (LinearLayout) afterSaleHeader3.findViewById(R.id.ll_refund_express);
         ll_layout = (LinearLayout) afterSaleHeader1.findViewById(R.id.ll_layout);

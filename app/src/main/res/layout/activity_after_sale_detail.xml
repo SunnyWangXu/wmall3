@@ -12,13 +12,37 @@
         android:layout_height="1dp"
         android:background="@color/line_bg" />
 
-    <com.wjhgw.ui.view.listview.MyListView
-        android:id="@+id/lv_after_sale"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="#00000000"
-        android:dividerHeight="0dp"
-        android:fastScrollEnabled="false"
-        android:scrollbars="none" />
+        android:orientation="vertical">
 
+        <com.wjhgw.ui.view.listview.MyListView
+            android:id="@+id/lv_after_sale"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="#00000000"
+            android:dividerHeight="0dp"
+            android:fastScrollEnabled="false"
+            android:scrollbars="none" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <TextView
+                android:id="@+id/tv_refund13"
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="17dp"
+                android:background="@drawable/after_sale_gray"
+                android:gravity="center"
+                android:text="填写退货发货信息"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

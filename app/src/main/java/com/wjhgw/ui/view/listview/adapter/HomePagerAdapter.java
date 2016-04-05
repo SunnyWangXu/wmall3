@@ -64,6 +64,9 @@ public class HomePagerAdapter extends PagerAdapter {
                 Intent intent = new Intent();
                 intent.setClass(context, GeneralPrductDetailActivity.class);
                 intent.putExtra("url", url);
+                /**
+                 * 判断是否是商品详情
+                 */
                 if (!url.contains("goods")) {
                     intent.putExtra("isDetail", "no");
                 }
