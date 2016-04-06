@@ -57,6 +57,7 @@ public class D6_AfterSaleDetailActivity extends BaseActivity implements View.OnC
     private TextView tvRefund13;
     private boolean isCanWrite = false;
     private String refund_id = "";
+    private LinearLayout llUpload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,7 @@ public class D6_AfterSaleDetailActivity extends BaseActivity implements View.OnC
         afterSaleHeader3 = (LinearLayout) getLayoutInflater().inflate(R.layout.after_sale_header3, null);
         lvAfterSale.addHeaderView(afterSaleHeader3);
 
+        llUpload = (LinearLayout) afterSaleHeader1.findViewById(R.id.ll_uoload);
         ivRefund1 = (ImageView) afterSaleHeader1.findViewById(R.id.iv_refund1);
         ivRefund2 = (ImageView) afterSaleHeader1.findViewById(R.id.iv_refund2);
         ivRefund3 = (ImageView) afterSaleHeader1.findViewById(R.id.iv_refund3);
@@ -176,6 +178,10 @@ public class D6_AfterSaleDetailActivity extends BaseActivity implements View.OnC
                             APP.getApp().getImageLoader().displayImage(picInfo[1], ivRefund2);
                             APP.getApp().getImageLoader().displayImage(picInfo[2], ivRefund3);
                         }
+                    }
+
+                    if (picInfo.length == 0) {
+                        llUpload.setVisibility(View.GONE);
                     }
 
                     List<RefundDetailList> refundDetailList = datas.goods_list;
