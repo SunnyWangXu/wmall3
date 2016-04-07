@@ -112,7 +112,8 @@ public class CabinetAdapter extends BaseAdapter {
         tv_num.setText("" + List.get(position).num);
         if (1 == List.get(position).num) {
             iv_reduction.setImageResource(R.mipmap.ic_disable_reduction);
-        } else if (List.get(position).num == List.get(position).total_num) {
+        }
+        if(List.get(position).num == List.get(position).total_num) {
             iv_add.setImageResource(R.mipmap.ic_add_disable);
         }
 
@@ -156,7 +157,7 @@ public class CabinetAdapter extends BaseAdapter {
                         if (et_num < List.get(position).total_num) {
                             shoppingDialog.et_num.setText(++et_num + "");
                             shoppingDialog.et_num.setSelection(("" + et_num).length());
-                            if (et_num == 1) {
+                            if (et_num == List.get(position).total_num) {
                                 shoppingDialog.iv_add.setImageResource(R.mipmap.ic_add_disable);
                             }
                         }
@@ -166,14 +167,25 @@ public class CabinetAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
                         et_num = Integer.parseInt(shoppingDialog.et_num.getText().toString());
-                        List.get(position).num = et_num;
                         if (et_num <= List.get(position).total_num) {
+                            List.get(position).num = et_num;
                             if (!List.get(position).selected.equals("0")) {
                                 total_num = total_num - Integer.parseInt(tv_num.getText().toString())
                                         + List.get(position).num;
                                 tv_total_num.setText(total_num + "件");
                             }
                             tv_num.setText(""+List.get(position).num);
+
+                            if (et_num == List.get(position).total_num) {
+                                iv_add.setImageResource(R.mipmap.ic_add_disable);
+                            } else {
+                                iv_add.setImageResource(R.mipmap.ic_add);
+                            }
+                             if(et_num == 1){
+                                iv_reduction.setImageResource(R.mipmap.ic_disable_reduction);
+                            }else {
+                                 iv_reduction.setImageResource(R.mipmap.ic_reduction);
+                             }
                         }
                         shoppingDialog.dismiss();
                     }
@@ -191,7 +203,7 @@ public class CabinetAdapter extends BaseAdapter {
                             et_num = Integer.parseInt(shoppingDialog.et_num.getText().toString());
                             if (et_num == 1) {
                                 shoppingDialog.iv_reduction.setImageResource(R.mipmap.ic_disable_reduction);
-                            } else if (et_num == List.get(position).total_num) {
+                            } else if (et_num <= List.get(position).total_num) {
                                 shoppingDialog.iv_add.setImageResource(R.mipmap.ic_add_disable);
                             } else {
                                 shoppingDialog.iv_add.setImageResource(R.mipmap.ic_add);
@@ -241,6 +253,11 @@ public class CabinetAdapter extends BaseAdapter {
                     if (num == List.get(position).num) {
                         iv_add.setImageResource(R.mipmap.ic_add_disable);
                     } else {
+                        iv_add.setImageResource(R.mipmap.ic_add);
+                    }
+                    if(num == 1){
+                        iv_reduction.setImageResource(R.mipmap.ic_disable_reduction);
+                    }else {
                         iv_reduction.setImageResource(R.mipmap.ic_reduction);
                     }
                 }
@@ -254,16 +271,29 @@ public class CabinetAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 //int num = Integer.parseInt(List.get(position).buy_number);
+                int num = List.get(position).total_num;
                 if (List.get(position).num > 1) {
                     tv_num.setText("" + --List.get(position).num);
                     if(!List.get(position).selected.equals("0")){
                         tv_total_num.setText(--total_num + "件");
                     }
-                    if (1 == List.get(position).num) {
+                    /*if (1 == List.get(position).num) {
                         iv_reduction.setImageResource(R.mipmap.ic_disable_reduction);
                     } else {
                         iv_add.setImageResource(R.mipmap.ic_add);
+                    }*/
+
+                    if (num == List.get(position).num) {
+                        iv_add.setImageResource(R.mipmap.ic_add_disable);
+                    } else {
+                        iv_add.setImageResource(R.mipmap.ic_add);
                     }
+                    if(List.get(position).num == 1){
+                        iv_reduction.setImageResource(R.mipmap.ic_disable_reduction);
+                    }else {
+                        iv_reduction.setImageResource(R.mipmap.ic_reduction);
+                    }
+
                 }
             }
         });

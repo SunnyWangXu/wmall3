@@ -139,6 +139,7 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
     public void onLoadMore(int id) {
         curpage++;
         isSetAdapter = false;
+        eliminate();
         cab_list();
     }
 
@@ -212,6 +213,9 @@ public class CabinetFragment extends Fragment implements BusinessResponse, XList
             getActivity().getSharedPreferences("key", getActivity().MODE_APPEND).edit().putString("key", "0").commit();
             startActivity(new Intent(getActivity(), A0_LoginActivity.class));
         }else {
+            curpage = 1;
+            isSetAdapter = true;
+            eliminate();
             cab_list();
         }
 
