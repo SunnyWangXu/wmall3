@@ -40,6 +40,7 @@ import com.wjhgw.ui.dialog.SetPaypwdDialog;
 import com.wjhgw.ui.view.listview.adapter.CabGiveLvAdapter;
 
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -99,6 +100,7 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
     private boolean isUseRcBalance = false;
     private TextView tvFreight;
     private MyDialog mDialog;
+    private TextView tvFreightMessage;
 
 
     @Override
@@ -155,7 +157,7 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                 datas1.add(datas.get(i));
                 totalNum += datas.get(i).num;
 
-                totalPrice += (Double.valueOf(datas.get(i).goods_price) * datas.get(i).num);
+                totalPrice += (Double.parseDouble(datas.get(i).goods_price) * datas.get(i).num);
             }
         }
 
@@ -182,6 +184,7 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
         tvUseRcBalance = (TextView) llGiveMyselfFoot.findViewById(R.id.tv_use_rc_balance);
         tvUseRcBalancePrice = (TextView) llGiveMyselfFoot.findViewById(R.id.tv_rc_balance_price);
 
+        tvFreightMessage = (TextView) llGiveMyselfFoot.findViewById(R.id.tv_freight_message);
         tvFreight = (TextView) llGiveMyselfFoot.findViewById(R.id.tv_freight);
 
         tvToGiveMyself = (TextView) findViewById(R.id.tv_to_give_myself);
@@ -192,7 +195,10 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
     public void onInitViewData() {
 
         tvMyselfTotal.setText(totalNum + "件");
-        giveMyselfTotal.setText("¥" + totalPrice);
+
+        BigDecimal bd = new BigDecimal(totalPrice);
+        bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+        giveMyselfTotal.setText("¥" + bd);
 
         /**
          * 请求用户信息设置余额和充值卡余额
@@ -449,13 +455,17 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                         freight = selectOrderDatas.store_cart_list.freight;
                         freight_hash = selectOrderDatas.freight_hash;
 
+                        if (selectOrderDatas.store_cart_list.cancel_calc_sid_list != null) {
+                            tvFreightMessage.setText(selectOrderDatas.store_cart_list.cancel_calc_sid_list.desc);
+                        }
+
                         if (freight == 0) {
                             llUseBalance.setVisibility(View.GONE);
                             llUseRcBalance.setVisibility(View.GONE);
                             isUseBalance = true;
                             isUseRcBalance = false;
                         } else {
-                            tvFreight.setText(freight + "");
+                            tvFreight.setText(freight + ".00");
                         }
 
                     } else {
