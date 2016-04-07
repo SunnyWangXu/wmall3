@@ -41,6 +41,7 @@ import com.wjhgw.ui.dialog.RestartInputAndFindPaypwdDialog;
 import com.wjhgw.ui.dialog.SetPaypwdDialog;
 import com.wjhgw.ui.view.listview.adapter.LvOrderListAdapter;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -153,7 +154,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
              */
             parseSelectOrdert(selectOrder);
         }
-        
+
     }
 
     /**
@@ -168,7 +169,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 SelectOrderDatas selectOrderDatas = selectOrder.datas;
                 freight = selectOrderDatas.store_cart_list.freight;
                 String freightMessage = "";
-                if(selectOrderDatas.store_cart_list.cancel_calc_sid_list != null){
+                if (selectOrderDatas.store_cart_list.cancel_calc_sid_list != null) {
                     freightMessage = selectOrderDatas.store_cart_list.cancel_calc_sid_list.desc;
                 }
 
@@ -199,15 +200,17 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 checkAddressSupport();
 
                 if (isDonate) {
-                    tvFreight.setText("+ ¥ 0.0");
+                    tvFreight.setText("+ ¥ 0.00");
                 } else {
-                    tvFreight.setText("+ ¥ " + freight + ".0");
+                    tvFreight.setText("+ ¥ " + freight + ".00");
                 }
 
                 tvFreightMessage.setText(freightMessage);
 
                 realPay = getIntent().getDoubleExtra("realPay", 0);
-                tvRealPay.setText(realPay + Double.valueOf(freight) + "");
+                BigDecimal bd = new BigDecimal(realPay + Double.valueOf(freight));
+                bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+                tvRealPay.setText(bd + "");
 
                 ArrayList<Order_goods_list> order_goods_lists = selectOrderDatas.store_cart_list.goods_list;
 
@@ -313,7 +316,9 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     @Override
     public void onInitViewData() {
         tvTotal = getIntent().getStringExtra("tv_total");
-        tvTotalAmount.setText(tvTotal);
+        BigDecimal bd = new BigDecimal(tvTotal);
+        bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+        tvTotalAmount.setText(bd + "");
 
     }
 
