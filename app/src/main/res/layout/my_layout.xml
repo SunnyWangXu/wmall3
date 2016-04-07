@@ -38,7 +38,8 @@
             android:layout_height="48dp"
             android:padding="13dp"
             android:scaleType="centerInside"
-            android:src="@mipmap/ic_message" />
+            android:src="@mipmap/ic_message"
+            android:visibility="gone" />
 
     </LinearLayout>
 
