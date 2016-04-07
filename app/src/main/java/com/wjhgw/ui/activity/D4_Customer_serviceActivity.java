@@ -550,6 +550,9 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
                         tv_d4_text4.setText("最多" + order_amount + "元");
                         et_d4_name1.setText("" + refund.datas.order_amount);
 
+                        if(refund.datas.order_type.equals("4") && order_amount == 0){
+                            tv_d4_text3.setText("取消订单,商品退至您的酒柜");
+                        }
                     } else {
                         overtime(refund.status.code, refund.status.msg);
                     }
