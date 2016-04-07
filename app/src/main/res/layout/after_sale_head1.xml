@@ -232,6 +232,7 @@
         android:background="@color/layout_bg" />
 
     <LinearLayout
+        android:id="@+id/ll_uoload"
         android:layout_width="match_parent"
         android:layout_height="109dp">
 

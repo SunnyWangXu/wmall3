@@ -158,7 +158,7 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
             case R.id.btn_confirm_pay:
                 if (isWeixin) {
                     // buy();
-                    final UnderDialog underdevelopmentDialog = new UnderDialog(this, "功能正在开发中,敬请期待");
+                    final UnderDialog underdevelopmentDialog = new UnderDialog(this, "请选择支付方式");
                     underdevelopmentDialog.show();
                     underdevelopmentDialog.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
                         @Override
