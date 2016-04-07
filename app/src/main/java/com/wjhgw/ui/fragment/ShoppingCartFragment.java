@@ -187,7 +187,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                                 Double.parseDouble(cartList.datas.get(0).goods_list.get(i).goods_price);
                         listAdapter.total_num += Double.parseDouble(cartList.datas.get(0).goods_list.get(i).goods_num);
                     }
-                    tv_total.setText("¥ " + listAdapter.total);
+                    tv_total.setText("¥ " + listAdapter.df.format(listAdapter.total));
                     tv_total_num.setText("(" + listAdapter.total_num + ")");
                 }
                 listAdapter.notifyDataSetChanged();
@@ -464,7 +464,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
             if (response.equals("reduce") || response.equals("add")) {
                 listAdapter.total = Request.total1;
                 listAdapter.total_num = Request.total_num1;
-                tv_total.setText("¥ " + listAdapter.total);
+                tv_total.setText("¥ " + listAdapter.df.format(listAdapter.total));
                 tv_total_num.setText("(" + listAdapter.total_num + ")");
             } else if (response.equals("default")) {
             } else {
@@ -472,7 +472,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                 listAdapter.total = listAdapter.total + Request.total_num1 * y;
                 listAdapter.total_num = listAdapter.total_num + Request.total_num1;
 
-                tv_total.setText("¥ " + listAdapter.total);
+                tv_total.setText("¥ " + listAdapter.df.format(listAdapter.total));
                 tv_total_num.setText("(" + listAdapter.total_num + ")");
             }
             //ListView 是刷新状态还是加载更多状态
@@ -502,7 +502,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
             iv_select.setImageResource(R.mipmap.ic_order_blank);
             listAdapter.total = 0;
             listAdapter.total_num = 0;
-            tv_total.setText("¥ " + listAdapter.total);
+            tv_total.setText("¥ " + listAdapter.df.format(listAdapter.total));
             tv_total_num.setText("(" + listAdapter.total_num + ")");
             for (int i = 0; i < listAdapter.goods_id.length; i++) {
                 listAdapter.goods_id[i] = "0";
