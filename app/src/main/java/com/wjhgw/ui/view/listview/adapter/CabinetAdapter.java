@@ -166,11 +166,14 @@ public class CabinetAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
                         et_num = Integer.parseInt(shoppingDialog.et_num.getText().toString());
+                        List.get(position).num = et_num;
                         if (et_num <= List.get(position).total_num) {
-                            List.get(position).num = et_num;
                             if (!List.get(position).selected.equals("0")) {
-                                tv_total_num.setText(++total_num + "件");
+                                total_num = total_num - Integer.parseInt(tv_num.getText().toString())
+                                        + List.get(position).num;
+                                tv_total_num.setText(total_num + "件");
                             }
+                            tv_num.setText(""+List.get(position).num);
                         }
                         shoppingDialog.dismiss();
                     }

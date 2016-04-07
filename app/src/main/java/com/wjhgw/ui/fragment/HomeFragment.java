@@ -537,7 +537,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private void listAddHeader() {
         mListView = (MyListView) homeLayout.findViewById(R.id.home_listview);
         mListView.addHeaderView(homeViewPageLayout);
-        mListView.addHeaderView(MenuLayout);
+        //mListView.addHeaderView(MenuLayout);
         mListView.addHeaderView(Eventlayout);
         mListView.addHeaderView(Discountlayout);
         mListView.addHeaderView(Themelayout);
