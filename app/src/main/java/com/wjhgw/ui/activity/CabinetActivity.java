@@ -45,6 +45,7 @@ public class CabinetActivity extends BaseActivity implements BusinessResponse, X
     private String key;
     private CabinetAdapter listAdapter = null;
     private ImageView iv_select;
+    private ImageView iv_title_back;
     private TextView tv_total_num;
 
     private TextView tv_record;
@@ -62,26 +63,6 @@ public class CabinetActivity extends BaseActivity implements BusinessResponse, X
     private String cadList_data;
     private ArrayList<CadList_data> data = new ArrayList<>();
 
-
-    @Override
-    public void onInit() {
-
-    }
-
-    @Override
-    public void onFindViews() {
-
-    }
-
-    @Override
-    public void onInitViewData() {
-
-    }
-
-    @Override
-    public void onBindListener() {
-
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -114,6 +95,7 @@ public class CabinetActivity extends BaseActivity implements BusinessResponse, X
      */
     private void initView() {
         iv_select = (ImageView)findViewById(R.id.iv_select);
+        iv_title_back = (ImageView)findViewById(R.id.iv_title_back);
         ll_select = (LinearLayout)findViewById(R.id.ll_select);
         ll_null = (LinearLayout)findViewById(R.id.ll_null);
         ll_wine = (LinearLayout)findViewById(R.id.ll_wine);
@@ -133,6 +115,26 @@ public class CabinetActivity extends BaseActivity implements BusinessResponse, X
         tv_own.setOnClickListener(this);
         tv_others.setOnClickListener(this);
         tv_record.setOnClickListener(this);
+        iv_title_back.setOnClickListener(this);
+    }
+
+    @Override
+    public void onInit() {
+    }
+
+    @Override
+    public void onFindViews() {
+
+    }
+
+    @Override
+    public void onInitViewData() {
+
+    }
+
+    @Override
+    public void onBindListener() {
+
     }
 
     @Override
@@ -154,6 +156,9 @@ public class CabinetActivity extends BaseActivity implements BusinessResponse, X
     public void onClick(View v) {
 
         switch (v.getId()) {
+            case R.id.iv_title_back:
+                finish();
+                break;
             case R.id.ll_select:
                 if (listAdapter.num == listAdapter.List.size()) {
                     eliminate();
