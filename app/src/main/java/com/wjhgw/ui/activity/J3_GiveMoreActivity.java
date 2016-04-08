@@ -179,7 +179,7 @@ public class J3_GiveMoreActivity extends BaseActivity implements View.OnClickLis
                      * 微信多人分享礼包
                      */
                     wechatShare(1, giftUrl);
-                    finish();
+
                 }
 
             }
@@ -215,5 +215,6 @@ public class J3_GiveMoreActivity extends BaseActivity implements View.OnClickLis
         req.message = msg;
         req.scene = flag == 0 ? SendMessageToWX.Req.WXSceneSession : SendMessageToWX.Req.WXSceneTimeline;
         api.sendReq(req);
+        finish();
     }
 }

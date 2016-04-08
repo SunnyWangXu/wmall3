@@ -222,7 +222,7 @@ public class J2_GiveOneActivity extends BaseActivity implements View.OnClickList
                      * 微信单人分享礼包
                      */
                     wechatShare(s, giftUrl);
-                    finish();
+
                 }
 
             }
@@ -258,6 +258,7 @@ public class J2_GiveOneActivity extends BaseActivity implements View.OnClickList
         req.message = msg;
         req.scene = flag == 0 ? SendMessageToWX.Req.WXSceneSession : SendMessageToWX.Req.WXSceneTimeline;
         api.sendReq(req);
+        finish();
     }
 
    /* private Bitmap loadBitMap(String iamgeUrl) {
