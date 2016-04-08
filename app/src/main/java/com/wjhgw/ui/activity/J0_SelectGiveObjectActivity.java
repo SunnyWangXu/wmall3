@@ -104,14 +104,14 @@ public class J0_SelectGiveObjectActivity extends BaseActivity implements View.On
                 intent.setClass(this, J2_GiveOneActivity.class);
                 intent.putExtra("jsonStr", jsonStr);
                 startActivity(intent);
-
+                finish();
                 break;
 
             case R.id.ll_give_more:
                 intent.setClass(this, J3_GiveMoreActivity.class);
                 intent.putExtra("jsonStr", jsonStr);
                 startActivity(intent);
-
+                finish();
                 break;
 
             default:

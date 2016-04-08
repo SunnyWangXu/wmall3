@@ -77,8 +77,6 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
         setUp();
         setTitle("设置");
         memberName = getIntent().getStringExtra("memberName");
-        //获取缓存的路径
-        cachePath = APP.getApp().getAppCache();
 
     }
 
@@ -102,10 +100,6 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
             btnExit.setVisibility(View.VISIBLE);
         }
 
-        Long dirSize = FileUtils.getDirSize(new File(cachePath));
-        String cacheSize = FileUtils.getFileSize(dirSize);
-
-        tvCache.setText(cacheSize);
 
         String currentapiVersion = null;
         try {
@@ -122,6 +116,17 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
         btnExit.setOnClickListener(this);
         llClearCache.setOnClickListener(this);
         llCheckVersion.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //获取缓存的路径
+        cachePath = APP.getApp().getAppCache();
+        Long dirSize = FileUtils.getDirSize(new File(cachePath));
+        String cacheSize = FileUtils.getFileSize(dirSize);
+
+        tvCache.setText(cacheSize);
     }
 
     @Override
@@ -166,12 +171,12 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
                 break;
         }
     }
-    private String getVersionName() throws Exception
-    {
+
+    private String getVersionName() throws Exception {
         // 获取packagemanager的实例
         PackageManager packageManager = getPackageManager();
         // getPackageName()是你当前类的包名，0代表是获取版本信息
-        PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(),0);
+        PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(), 0);
         String version = packInfo.versionName;
         return version;
     }
@@ -194,10 +199,10 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
                 if (responseInfo != null) {
                     Status status = gson.fromJson(responseInfo.result, Status.class);
                     if (status.status.code == 10000) {
-                        getSharedPreferences("key",MODE_PRIVATE).edit().putString("key","0").commit();
+                        getSharedPreferences("key", MODE_PRIVATE).edit().putString("key", "0").commit();
                         showToastShort("已退出登录");
                         finish(false);
-                    }else {
+                    } else {
                         overtime(status.status.code, status.status.msg);
                     }
                 }
@@ -211,7 +216,7 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
         });
     }
 
-    private void wechatShare(int flag){
+    private void wechatShare(int flag) {
         WXWebpageObject webpage = new WXWebpageObject();
         webpage.webpageUrl = "http://wjhgw.com/";
         WXMediaMessage msg = new WXMediaMessage(webpage);
@@ -224,7 +229,7 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = String.valueOf(System.currentTimeMillis());
         req.message = msg;
-        req.scene = flag==0?SendMessageToWX.Req.WXSceneSession:SendMessageToWX.Req.WXSceneTimeline;
+        req.scene = flag == 0 ? SendMessageToWX.Req.WXSceneSession : SendMessageToWX.Req.WXSceneTimeline;
         api.sendReq(req);
     }
 
@@ -249,7 +254,7 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
                     req.timeStamp = json.getString("timestamp");
                     req.packageValue = json.getString("package");
                     req.sign = json.getString("sign");
-                   // req.extData = "app data"; // optional
+                    // req.extData = "app data"; // optional
 
                         /*List<NameValuePair> signParams = new LinkedList<>();
                         signParams.add(new BasicNameValuePair("appid", req.appId));

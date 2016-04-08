@@ -222,6 +222,7 @@ public class J2_GiveOneActivity extends BaseActivity implements View.OnClickList
                      * 微信单人分享礼包
                      */
                     wechatShare(s, giftUrl);
+                    finish();
                 }
 
             }
