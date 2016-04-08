@@ -134,7 +134,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
             fl_layotu.setVisibility(View.GONE);
             tv_d4_text5.setText("最多0件");
             tv_d4_text2.setTextColor(Color.parseColor("#999999"));
-            tv_d4_text3.setText("取消订单，全部退款");
+            tv_d4_text3.setText("商品退至您的酒柜");
         } else {
             click(1);
             add_refund_step1();
