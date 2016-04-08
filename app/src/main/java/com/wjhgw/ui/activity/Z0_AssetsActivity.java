@@ -82,7 +82,7 @@ public class Z0_AssetsActivity extends BaseActivity implements View.OnClickListe
             case R.id.fl_recharge:
                 showToastShort("功能正在开发中，敬请期待");
                 break;
-            case R.id.tv_prepaid_card:
+            /*case R.id.tv_prepaid_card:
                 prepaid_cardDialog = new Prepaid_cardDialog(this);
                 prepaid_cardDialog.show();
                 prepaid_cardDialog.tv_determine.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +101,7 @@ public class Z0_AssetsActivity extends BaseActivity implements View.OnClickListe
                         prepaid_cardDialog.dismiss();
                     }
                 });
-                break;
+                break;*/
             case R.id.fl_prepaid_card_balance:
                 intent = new Intent(this, Z1_Prepaid_card_balanceActivity.class);
                 intent.putExtra("state","1");
@@ -159,7 +159,7 @@ public class Z0_AssetsActivity extends BaseActivity implements View.OnClickListe
 
     /**
      * 充值卡充值
-     */
+     *//*
     private void Rechargecard_add(String rc_sn) {
         Dialog.ProgressDialog();
         RequestParams params = new RequestParams();
@@ -190,6 +190,6 @@ public class Z0_AssetsActivity extends BaseActivity implements View.OnClickListe
 
             }
         });
-    }
+    }*/
 
 }

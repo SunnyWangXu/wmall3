@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
@@ -17,9 +18,11 @@ import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.AssetsList;
 import com.wjhgw.business.bean.AssetsList_data;
+import com.wjhgw.business.bean.Status;
 import com.wjhgw.business.bean.pd_List;
 import com.wjhgw.business.bean.pd_List_data;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.dialog.Prepaid_cardDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.Z1_Adapter;
@@ -34,6 +37,7 @@ public class Z1_Prepaid_card_balanceActivity extends BaseActivity implements OnC
 
     private MyListView mListView;
     private LinearLayout ll_null;
+    private LinearLayout ll_prepaid_card;
     private Z1_Adapter listAdapter;
     private Z2_Adapter listAdapter2;
     private boolean isSetAdapter = true;
@@ -44,6 +48,7 @@ public class Z1_Prepaid_card_balanceActivity extends BaseActivity implements OnC
 
     private ArrayList<AssetsList_data> assetsList_data = new ArrayList<>();
     private ArrayList<pd_List_data> pdList_data = new ArrayList<>();
+    private Prepaid_cardDialog prepaid_cardDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,7 @@ public class Z1_Prepaid_card_balanceActivity extends BaseActivity implements OnC
 
         mListView = (MyListView) findViewById(R.id.lv_z1_list);
         ll_null = (LinearLayout) findViewById(R.id.ll_null);
+        ll_prepaid_card = (LinearLayout) findViewById(R.id.ll_prepaid_card);
         ll_null.setVisibility(View.GONE);
         mListView.setVisibility(View.VISIBLE);
         mListView.setPullLoadEnable(false);
@@ -60,10 +66,13 @@ public class Z1_Prepaid_card_balanceActivity extends BaseActivity implements OnC
         mListView.setRefreshTime();
         /*listAdapter = new Z1_Adapter(this,null);
         mListView.setAdapter(listAdapter);*/
+
+        ll_prepaid_card.setOnClickListener(this);
         state = getIntent().getStringExtra("state");
         if (state.equals("1")) {
             setTitle("充值卡余额明细");
             rcb_log_list();
+            ll_prepaid_card.setVisibility(View.VISIBLE);
         } else if (state.equals("2")) {
             setTitle("账户余额明细");
             Pd_log_list();
@@ -106,14 +115,66 @@ public class Z1_Prepaid_card_balanceActivity extends BaseActivity implements OnC
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-    /*	case R.id.e0_return:
-            finish();
-			break;*/
+            case R.id.ll_prepaid_card:
+                prepaid_cardDialog = new Prepaid_cardDialog(this);
+                prepaid_cardDialog.show();
+                prepaid_cardDialog.tv_determine.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (prepaid_cardDialog.et_num.getText().toString().length() > 1) {
+                            Rechargecard_add(prepaid_cardDialog.et_num.getText().toString());
+                        }
+                        prepaid_cardDialog.dismiss();
+                    }
+                });
+
+                prepaid_cardDialog.tv_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        prepaid_cardDialog.dismiss();
+                    }
+                });
 
             default:
                 break;
         }
 
+    }
+
+    /**
+     * 充值卡充值
+     */
+    private void Rechargecard_add(String rc_sn) {
+        StartLoading();
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", getKey());
+        params.addBodyParameter("rc_sn", rc_sn);
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Rechargecard_add, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Dismiss();
+                Gson gson = new Gson();
+                if (responseInfo.result != null) {
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+
+                    if (status.status.code == 10000) {
+                        showToastShort(status.status.msg);
+                        curpage = 1;
+                        rcb_log_list();
+                    } else {
+                        overtime(status.status.code, status.status.msg);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Toast.makeText(Z1_Prepaid_card_balanceActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     @Override

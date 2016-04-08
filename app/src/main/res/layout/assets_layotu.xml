@@ -60,6 +60,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="12dp"
+        android:visibility="gone"
         android:background="#ffffff">
 
         <TextView
@@ -72,6 +73,11 @@
             android:textColor="#333333"
             android:textSize="17dp" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#cccccc"/>
 
     <FrameLayout
         android:id="@+id/fl_account_balance"
@@ -123,6 +129,7 @@
         android:id="@+id/fl_recharge"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:visibility="gone"
         android:background="#ffffff">
 
         <ImageView
@@ -169,6 +176,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="13dp"
+        android:visibility="gone"
         android:background="#ffffff">
 
         <ImageView
@@ -213,6 +221,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:visibility="gone"
         android:background="#ffffff">
 
         <ImageView

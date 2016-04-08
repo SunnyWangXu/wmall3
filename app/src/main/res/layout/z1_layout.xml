@@ -15,7 +15,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
         <LinearLayout
             android:id="@+id/ll_null"
@@ -54,4 +55,25 @@
             android:scrollbars="none" />
 
     </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_prepaid_card"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:background="#ffffff"
+        android:visibility="gone"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_prepaid_card"
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="11dp"
+            android:background="#f25252"
+            android:gravity="center"
+            android:text="充值卡充值"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </LinearLayout>
 </LinearLayout>
