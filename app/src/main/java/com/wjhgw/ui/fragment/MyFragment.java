@@ -26,6 +26,7 @@ import com.wjhgw.business.bean.MyLockBox;
 import com.wjhgw.business.bean.OrderAmount;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
+import com.wjhgw.ui.activity.CabinetActivity;
 import com.wjhgw.ui.activity.D0_OrderActivity;
 import com.wjhgw.ui.activity.D5_CustomerActivity;
 import com.wjhgw.ui.activity.M0_MyLockBoxActivity;
@@ -67,10 +68,10 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private ImageView ivSet;
     private FrameLayout ll_LockBox;
     private LinearLayout ll_assets;
-    private LinearLayout ll_Set;
+    private LinearLayout ll_cabinet;
     private String memberName;
     private LoadDialog Dialog;
-    private FrameLayout flMyCollect;
+    private LinearLayout ll_my_collect;
     private FrameLayout profileHeadShare;
     private FrameLayout profileHeadAddClient;
 
@@ -134,7 +135,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         myAvatar = (ImageView) MyMessageLayout.findViewById(R.id.my_avatar);
         member_nickname = (TextView) MyMessageLayout.findViewById(R.id.member_nickname);
 
-        flMyCollect = (FrameLayout) MyMessageLayout.findViewById(R.id.fl_my_collect);
+        ll_my_collect = (LinearLayout) MyHelpLayout.findViewById(R.id.ll_my_collect);
         profileHeadShare = (FrameLayout) MyMessageLayout.findViewById(R.id.profile_head_share);
         profileHeadAddClient = (FrameLayout) MyMessageLayout.findViewById(R.id.profile_head_AddClient);
 
@@ -156,7 +157,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         ll_assets = (LinearLayout) MyAssetsLayout.findViewById(R.id.ll_assets);
         ll_LockBox = (FrameLayout) MyMessageLayout.findViewById(R.id.ll_lockbox);
 
-//        ll_Set = (LinearLayout) MyHelpLayout.findViewById(R.id.ll_set);
+        ll_cabinet = (LinearLayout) MyHelpLayout.findViewById(R.id.ll_cabinet);
     }
 
     /**
@@ -165,11 +166,11 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private void setClick() {
         iv_message.setOnClickListener(this);
         ll_LockBox.setOnClickListener(this);
-        flMyCollect.setOnClickListener(this);
+        ll_my_collect.setOnClickListener(this);
         profileHeadShare.setOnClickListener(this);
         profileHeadAddClient.setOnClickListener(this);
         ivSet.setOnClickListener(this);
-//        ll_Set.setOnClickListener(this);
+        ll_cabinet.setOnClickListener(this);
         ll_all_orders.setOnClickListener(this);
         ll_assets.setOnClickListener(this);
         rl_layout1.setOnClickListener(this);
@@ -213,7 +214,16 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 }
                 break;
 
-            case R.id.fl_my_collect:
+            case R.id.ll_cabinet:
+                if (key.equals("0")) {
+                    intent.setClass(getActivity(), A0_LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getActivity(), CabinetActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.ll_my_collect:
                 if (key.equals("0")) {
                     intent.setClass(getActivity(), A0_LoginActivity.class);
                     startActivity(intent);

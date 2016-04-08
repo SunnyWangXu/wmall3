@@ -11,7 +11,7 @@
         android:background="@color/layout_bg" />
 
     <LinearLayout
-        android:id="@+id/ll_set"
+        android:id="@+id/ll_cabinet"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center_vertical"
@@ -51,6 +51,7 @@
         android:background="@color/line_bg" />
 
     <LinearLayout
+        android:id="@+id/ll_my_collect"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center_vertical"

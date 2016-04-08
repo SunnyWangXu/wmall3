@@ -175,6 +175,9 @@
         <activity
             android:name=".ui.activity.GeneralPrductDetailActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.CabinetActivity"
+            android:screenOrientation="portrait" />
 
         <!--友盟更新-->
         <activity
