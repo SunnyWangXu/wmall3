@@ -173,19 +173,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                 break;
             case 2:
-                if (getKey().equals("0")) {
-                    tvCabNum.setVisibility(View.GONE);
-                    tvCartNum.setVisibility(View.GONE);
-                    intent.setClass(this, A0_LoginActivity.class);
-                    startActivity(intent);
-                } else {
-                    clearSelection();
-                    ivCabinet.setImageResource(R.mipmap.ic_cabinet_select);
-                    contactsText.setTextColor(Color.parseColor("#d63235"));
-                    cabinetFragment = new CabinetFragment();
-                    transaction.replace(R.id.content, cabinetFragment);
-                }
-
+                clearSelection();
+                ivCabinet.setImageResource(R.mipmap.ic_find_select);
+                contactsText.setTextColor(Color.parseColor("#d63235"));
+                cabinetFragment = new CabinetFragment();
+                transaction.replace(R.id.content, cabinetFragment);
                 break;
 
             case 3:
@@ -238,7 +230,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         indexText.setTextColor(Color.parseColor("#ffffff"));
         classification_image.setImageResource(R.mipmap.ic_search2);
         classification_text.setTextColor(Color.parseColor("#ffffff"));
-        ivCabinet.setImageResource(R.mipmap.ic_cabinet);
+        ivCabinet.setImageResource(R.mipmap.ic_find);
         contactsText.setTextColor(Color.parseColor("#ffffff"));
         shopping_car_image.setImageResource(R.mipmap.ic_shopping_cart);
         shopping_car_text.setTextColor(Color.parseColor("#ffffff"));
@@ -349,14 +341,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if (responseInfo.result != null) {
                     MainMessageNum mainMessageNum = gson.fromJson(responseInfo.result, MainMessageNum.class);
                     if (mainMessageNum.datas != null) {
-                        if (mainMessageNum.status.code == 10000) {
+                        if (mainMessageNum.status.code == 10000) {/*
                             if (mainMessageNum.datas.cab_num <= 9 && mainMessageNum.datas.cab_num != 0 ) {
                                 tvCabNum.setVisibility(View.VISIBLE);
                                 tvCabNum.setText(mainMessageNum.datas.cab_num + "");
                             } else if(mainMessageNum.datas.cab_num > 9){
                                 tvCabNum.setVisibility(View.VISIBLE);
                                 tvCabNum.setText("9+");
-                            }
+                            }*/
                             if (mainMessageNum.datas.cart_num <= 9 && mainMessageNum.datas.cart_num != 0) {
                                 tvCartNum.setVisibility(View.VISIBLE);
                                 tvCartNum.setText(mainMessageNum.datas.cart_num + "");

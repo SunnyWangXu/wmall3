@@ -81,14 +81,14 @@
                     android:layout_height="22dp"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/ic_cabinet" />
+                    android:src="@mipmap/ic_find" />
 
                 <TextView
                     android:id="@+id/contacts_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/string_cabinet"
+                    android:text="发现"
                     android:textColor="#ffffff" />
 
             </LinearLayout>
