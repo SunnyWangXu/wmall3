@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
                 android:layout_marginLeft="72dp"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <TextView
@@ -68,9 +68,9 @@
             android:layout_height="60dp"
             android:layout_gravity="bottom"
             android:background="#ffffff"
-            android:visibility="gone"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <FrameLayout
                 android:id="@+id/fl_my_collect"

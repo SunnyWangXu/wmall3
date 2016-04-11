@@ -27,6 +27,7 @@ import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.CadList_data;
 import com.wjhgw.business.bean.CreateBag;
+import com.wjhgw.business.bean.MyLockBox;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.view.listview.adapter.CabGiveLvAdapter;
 
@@ -51,6 +52,7 @@ public class J3_GiveMoreActivity extends BaseActivity implements View.OnClickLis
     private EditText edGiftMoreNote;
     private String edNote;
     private EditText edGiftPaw;
+    public String useName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,7 @@ public class J3_GiveMoreActivity extends BaseActivity implements View.OnClickLis
         lvGiveMore.setAdapter(new CabGiveLvAdapter(this, datas1));
 
     }
+
 
     @Override
     public void onInit() {
@@ -79,6 +82,49 @@ public class J3_GiveMoreActivity extends BaseActivity implements View.OnClickLis
          * 解析筛选选中赠送的数据
          */
         parseGiveData(jsonStr);
+
+        /**
+         * 获取用户昵称或者用户名
+         */
+        loadUseName();
+    }
+
+    /**
+     * 获取用户昵称或者用户名
+     */
+    private void loadUseName() {
+
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", getKey());
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.MyLockBox, params, new RequestCallBack<String>() {
+
+
+                    @Override
+                    public void onSuccess(ResponseInfo<String> responseInfo) {
+
+
+                        Gson gson = new Gson();
+                        if (null != responseInfo) {
+                            MyLockBox myLockBox = gson.fromJson(responseInfo.result, MyLockBox.class);
+                            if (myLockBox.status.code == 10000) {
+                                if (myLockBox.datas.member_nickname.equals("")) {
+                                    useName = myLockBox.datas.member_name;
+                                } else {
+
+                                    useName = myLockBox.datas.member_nickname;
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(HttpException e, String s) {
+
+                    }
+                }
+
+        );
 
     }
 
@@ -153,6 +199,7 @@ public class J3_GiveMoreActivity extends BaseActivity implements View.OnClickLis
      * 创建礼包
      */
     private void createGiftBag(String goods_str) {
+        StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", getKey());
         if (!goods_str.equals("")) {
@@ -173,12 +220,12 @@ public class J3_GiveMoreActivity extends BaseActivity implements View.OnClickLis
                 Gson gson = new Gson();
                 CreateBag createBag = gson.fromJson(responseInfo.result, CreateBag.class);
                 if (createBag.status.code == 10000 && createBag.datas.state) {
-
+                    Dismiss();
                     String giftUrl = createBag.datas.data.gift_link;
                     /**
                      * 微信多人分享礼包
                      */
-                    wechatShare(1, giftUrl);
+                    wechatShare(0, giftUrl);
 
                 }
 
@@ -199,7 +246,7 @@ public class J3_GiveMoreActivity extends BaseActivity implements View.OnClickLis
         WXWebpageObject webpage = new WXWebpageObject();
         webpage.webpageUrl = giftUrl;
         WXMediaMessage msg = new WXMediaMessage(webpage);
-        msg.title = "老王的大礼包";
+        msg.title = useName + "的大礼包";
         if (edNote.equals("")) {
             msg.description = "上等的好酒送给你";
         } else {
