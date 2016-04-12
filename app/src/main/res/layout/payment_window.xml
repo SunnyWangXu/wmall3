@@ -66,11 +66,12 @@
             android:gravity="center_vertical">
 
             <TextView
+                android:id="@+id/tv_downline_pay"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_weight="1"
-                android:text="货到付款"
+                android:text="货到付款(仅支持深圳地区)"
                 android:textColor="@color/title_color"
                 android:textSize="16sp" />
 

@@ -5,6 +5,7 @@ package com.wjhgw.business.bean;
  */
 public class CheckAddressSupportDatas {
     public String state;
+    public String allow_offpay;
     public String offpay_hash;
     public String offpay_hash_batch;
 

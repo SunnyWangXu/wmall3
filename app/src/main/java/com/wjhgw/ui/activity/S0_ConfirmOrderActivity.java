@@ -126,18 +126,22 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private String invoice_content;
     private TextView tvInvoice;
     private Intent intent;
+    private boolean Offpay = false;
+    private TextView tvDownlinePay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_order);
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         String selectOrder = getIntent().getStringExtra("selectOrder");
+
+        if (selectOrder != null) {
+            /**
+             * 解析选中订单
+             */
+            parseSelectOrdert(selectOrder);
+        }
 
         cart_id = getIntent().getStringExtra("cart_id");
 
@@ -148,12 +152,12 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             load_Default_Addresst();
         }
 
-        if (selectOrder != null) {
-            /**
-             * 解析选中订单
-             */
-            parseSelectOrdert(selectOrder);
-        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
 
     }
 
@@ -227,7 +231,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
      * 检查地址是否支持货到付款
      */
     private void checkAddressSupport() {
-        super.StartLoading();
+        StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", getKey());
         params.addBodyParameter("freight_hash", freight_hash);
@@ -235,12 +239,22 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Check_Address_Support, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-                S0_ConfirmOrderActivity.super.Dismiss();
+                Dismiss();
                 Gson gson = new Gson();
                 CheckAddressSupport checkAddressSupport = gson.fromJson(responseInfo.result, CheckAddressSupport.class);
 
                 if (checkAddressSupport.status.code == 10000) {
                     if (checkAddressSupport.datas != null) {
+                        String allowOffpay = checkAddressSupport.datas.allow_offpay;
+                        if (!allowOffpay.equals("1")) {
+                            //不支持货到付款
+                            Offpay = true;
+                            tvPayMethod.setText("在线支付");
+                            isDownlinePay = false;
+                        }else{
+                            Offpay = false;
+                        }
+
                         offpay_hash = checkAddressSupport.datas.offpay_hash;
                         offpay_hash_batch = checkAddressSupport.datas.offpay_hash_batch;
                     }
@@ -341,6 +355,8 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        // 订单收货地址返回
         if (resultCode == 55555) {
             if (data == null) {
                 llUseMessage01.setVisibility(View.GONE);
@@ -360,9 +376,15 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                     tvUsePhone.setText(usePhone);
                     tvUseAddress.setText(useAddressInfo);
                 }
+
+                /**
+                 * 检查地址是否支持货到付款
+                 */
+                checkAddressSupport();
             }
         }
 
+        //选择发票详情的Activity返回
         if (resultCode == 22222 && data != null) {
 
             int invoice_id_int = data.getIntExtra("invoice_id", 0);
@@ -946,6 +968,14 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
         llDownlinePay = (LinearLayout) paymentWindowLayout.findViewById(R.id.ll_downline_pay);
         ivDownlinePay = (ImageView) paymentWindowLayout.findViewById(R.id.iv_downline_pay);
+        tvDownlinePay = (TextView) paymentWindowLayout.findViewById(R.id.tv_downline_pay);
+        //不支持货到付款
+        if (Offpay) {
+
+            tvDownlinePay.setTextColor(Color.parseColor("#666666"));
+            llDownlinePay.setClickable(false);
+        }
+
         /**
          * 如果选中货到付款点击弹出弹窗默认选中货到付款
          */
@@ -975,23 +1005,32 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             }
         });
 
+        if (!Offpay) {
 
-        llDownlinePay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ivOnlinePay.setImageResource(R.mipmap.ic_order_blank);
-                ivDownlinePay.setImageResource(R.mipmap.ic_order_select);
+            tvDownlinePay.setTextColor(Color.parseColor("#333333"));
+            llDownlinePay.setClickable(true);
 
-                paymentWindow.dismiss();
-                tvPayMethod.setText("货到付款");
+            llDownlinePay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ivOnlinePay.setImageResource(R.mipmap.ic_order_blank);
+                    ivDownlinePay.setImageResource(R.mipmap.ic_order_select);
 
-                isDonate = false;
-                ivDonate.setImageResource(R.mipmap.ic_push_off);
-                llUseMessage.setVisibility(View.GONE);
-                tvDonate.setTextColor(Color.parseColor("#cccccc"));
+                    paymentWindow.dismiss();
+                    tvPayMethod.setText("货到付款");
 
-            }
-        });
+                    isDonate = false;
+                    isUseBalance = false;
+                    isUseRcBalance = false;
+                    ivDonate.setImageResource(R.mipmap.ic_push_off);
+                    ivBalance.setImageResource(R.mipmap.ic_push_off);
+                    ivAvailableRcBalance.setImageResource(R.mipmap.ic_push_off);
+                    llUseMessage.setVisibility(View.VISIBLE);
+                    tvDonate.setTextColor(Color.parseColor("#cccccc"));
+
+                }
+            });
+        }
     }
 
 
