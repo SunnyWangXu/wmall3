@@ -115,6 +115,9 @@ public class J3_GiveMoreActivity extends BaseActivity implements View.OnClickLis
                                     useName = myLockBox.datas.member_nickname;
                                 }
                             }
+                            else {
+                                overtime(myLockBox.status.code, myLockBox.status.msg);
+                            }
                         }
                     }
 
@@ -218,15 +221,16 @@ public class J3_GiveMoreActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Gson gson = new Gson();
+                Dismiss();
                 CreateBag createBag = gson.fromJson(responseInfo.result, CreateBag.class);
                 if (createBag.status.code == 10000 && createBag.datas.state) {
-                    Dismiss();
                     String giftUrl = createBag.datas.data.gift_link;
                     /**
                      * 微信多人分享礼包
                      */
                     wechatShare(0, giftUrl);
-
+                }else {
+                    overtime(createBag.status.code, createBag.status.msg);
                 }
 
             }

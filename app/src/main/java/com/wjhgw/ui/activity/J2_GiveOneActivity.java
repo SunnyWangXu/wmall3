@@ -135,6 +135,8 @@ public class J2_GiveOneActivity extends BaseActivity implements View.OnClickList
 
                                     useName = myLockBox.datas.member_nickname;
                                 }
+                            }else {
+                                overtime(myLockBox.status.code, myLockBox.status.msg);
                             }
                         }
                     }
@@ -258,9 +260,9 @@ public class J2_GiveOneActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Gson gson = new Gson();
+                Dismiss();
                 CreateBag createBag = gson.fromJson(responseInfo.result, CreateBag.class);
                 if (createBag.status.code == 10000 && createBag.datas.state) {
-                    Dismiss();
                     String iamgeUrl = createBag.datas.data.gift_ico;
                     String giftUrl = createBag.datas.data.gift_link;
                     /**
@@ -268,6 +270,8 @@ public class J2_GiveOneActivity extends BaseActivity implements View.OnClickList
                      */
                     wechatShare(s, giftUrl);
 
+                }else {
+                    overtime(createBag.status.code, createBag.status.msg);
                 }
 
             }
