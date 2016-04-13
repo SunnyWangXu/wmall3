@@ -52,7 +52,7 @@ public class J1_ItemAdapter extends BaseAdapter {
 
         APP.getApp().getImageLoader().displayImage(list.get(position).goods_image, iv_goods_image);
         tv_goods_name.setText(list.get(position).goods_name);
-        tv_goods_price.setText(list.get(position).goods_price);
+        tv_goods_price.setText("¥"+list.get(position).goods_price);
         tv_goods_num.setText("x"+list.get(position).goods_num);
 
         return convertView;

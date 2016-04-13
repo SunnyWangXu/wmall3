@@ -10,42 +10,39 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#cccccc" />
-
-    <FrameLayout
+    
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="58dp"
+        android:background="#f25252"
+        android:gravity="center">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="57dp"
-            android:background="@color/layout_bg">
+            android:layout_width="272dp"
+            android:layout_height="37dp"
+            android:gravity="center"
+            android:background="@drawable/bg_circular">
 
-            <TextView
-                android:id="@+id/tv_button1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="我收到的"
-                android:textSize="14sp" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#cccccc" />
-
-            <TextView
-                android:id="@+id/tv_button2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="我送出的"
-                android:textSize="14sp" />
-
+        <TextView
+            android:id="@+id/tv_button1"
+            android:layout_width="135dp"
+            android:layout_height="35dp"
+            android:textColor="#f25252"
+            android:background="#ffffff"
+            android:gravity="center"
+            android:text="我收到的"/>
+        <TextView
+            android:id="@+id/tv_button2"
+            android:layout_width="135dp"
+            android:layout_height="35dp"
+            android:textColor="#ffffff"
+            android:background="#f25252"
+            android:gravity="center"
+            android:text="我送出的"/>
         </LinearLayout>
+    </LinearLayout>
 
-        <View
+      <!--  <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_gravity="bottom"
@@ -72,7 +69,7 @@
                 android:layout_weight="1"
                 android:background="#f25252" />
         </LinearLayout>
-    </FrameLayout>
+    </FrameLayout>-->
 
     <FrameLayout
         android:layout_width="match_parent"

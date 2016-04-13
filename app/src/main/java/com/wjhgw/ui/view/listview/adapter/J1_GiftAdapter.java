@@ -61,16 +61,23 @@ public class J1_GiftAdapter extends BaseAdapter {
         }else if(gift_state.equals("1")){
             tv_gift_state.setText("进行中");
         }else if(gift_state.equals("2")){
-            tv_gift_state.setTextColor(Color.parseColor("#f25252"));
+            tv_gift_state.setTextColor(Color.parseColor("#359A2B"));
             tv_gift_state.setText("已完成");
         }else if(gift_state.equals("3")){
             tv_gift_state.setText("已取消");
         }else if(gift_state.equals("4")){
             tv_gift_state.setText("已过期");
         }
-        tv_add_time.setText(list.get(position).add_time);
-        tv_gift_note.setText(list.get(position).gift_note);
+        tv_add_time.setText("送出时间:"+list.get(position).add_time);
+        tv_gift_note.setText("礼包赠言:"+list.get(position).gift_note);
         tv_receive_info.setText(list.get(position).receive_info);
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return convertView;
     }
 }

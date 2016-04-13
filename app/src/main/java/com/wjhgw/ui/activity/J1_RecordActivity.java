@@ -36,8 +36,8 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
 
     private TextView tv_button1;
     private TextView tv_button2;
-    private View v_line1;
-    private View v_line2;
+    //private View v_line1;
+    //private View v_line2;
     private MyListView mListView;
     //当前页码数
     private int curpage = 1;
@@ -79,8 +79,8 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
         tv_button1 = (TextView) findViewById(R.id.tv_button1);
         tv_button2 = (TextView) findViewById(R.id.tv_button2);
         ll_null = (LinearLayout) findViewById(R.id.ll_null);
-        v_line1 = (View) findViewById(R.id.v_line1);
-        v_line2 = (View) findViewById(R.id.v_line2);
+        //v_line1 = (View) findViewById(R.id.v_line1);
+        //v_line2 = (View) findViewById(R.id.v_line2);
     }
 
     @Override
@@ -157,15 +157,15 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
         if (Mark) {
             get_goods_list();
             tv_button1.setBackgroundColor(Color.parseColor("#ffffff"));
-            tv_button2.setBackgroundColor(Color.parseColor("#f1f1f1"));
-            v_line2.setBackgroundColor(Color.parseColor("#00000000"));
-            v_line1.setBackgroundColor(Color.parseColor("#f25252"));
+            tv_button1.setTextColor(Color.parseColor("#f25252"));
+            tv_button2.setBackgroundColor(Color.parseColor("#f25252"));
+            tv_button2.setTextColor(Color.parseColor("#ffffff"));
         } else {
             send_goods_list();
             tv_button2.setBackgroundColor(Color.parseColor("#ffffff"));
-            tv_button1.setBackgroundColor(Color.parseColor("#f1f1f1"));
-            v_line1.setBackgroundColor(Color.parseColor("#00000000"));
-            v_line2.setBackgroundColor(Color.parseColor("#f25252"));
+            tv_button2.setTextColor(Color.parseColor("#f25252"));
+            tv_button1.setBackgroundColor(Color.parseColor("#f25252"));
+            tv_button1.setTextColor(Color.parseColor("#ffffff"));
         }
     }
 
