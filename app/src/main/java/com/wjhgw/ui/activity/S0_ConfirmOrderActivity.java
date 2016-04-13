@@ -251,7 +251,8 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                             Offpay = true;
                             tvPayMethod.setText("在线支付");
                             isDownlinePay = false;
-                        }else{
+                        } else {
+                            //支持货到付款
                             Offpay = false;
                         }
 
