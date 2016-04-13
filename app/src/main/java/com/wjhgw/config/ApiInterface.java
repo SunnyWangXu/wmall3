@@ -251,11 +251,11 @@ public class ApiInterface {
     /**
      * 用户收到的商品
      */
-    public static final String Get_goods_list = "/mobile/index.php?act=member_cabinet&op=get_goods_list";
+    public static final String Get_goods_list = "/mobile/index.php?act=member_cabinet&op=receive_goods_list";
     /**
      * 用户发出的商品
      */
-    public static final String Send_goods_list = "/mobile/index.php?act=member_cabinet&op=send_goods_list";
+    public static final String Send_goods_list = "/mobile/index.php?act=member_cabinet&op=send_gift_list";
     /**
      * 赠送创建礼包
      */

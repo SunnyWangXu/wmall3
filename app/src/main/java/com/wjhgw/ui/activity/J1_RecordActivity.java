@@ -18,9 +18,12 @@ import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.Get_goods_List;
 import com.wjhgw.business.bean.Get_goods_list_data;
+import com.wjhgw.business.bean.Gift_list_data;
+import com.wjhgw.business.bean.Send_gift_list;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
+import com.wjhgw.ui.view.listview.adapter.J1_GiftAdapter;
 import com.wjhgw.ui.view.listview.adapter.J1_RecordAdapter;
 
 import java.util.ArrayList;
@@ -42,9 +45,11 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
     private Boolean isSetAdapter = true;
     private Boolean Mark = true;
     private J1_RecordAdapter listAdapter = null;
+    private J1_GiftAdapter listAdapter1 = null;
     private LinearLayout ll_null;
+    private Send_gift_list send_gift_list;
     private Get_goods_List get_goods_List;
-    private ArrayList<Get_goods_list_data> get_goods_list_datat = new ArrayList<>();
+    private ArrayList<Gift_list_data> gift_list_data = new ArrayList<>();
     private ArrayList<Get_goods_list_data> get_goods_list_datat1 = new ArrayList<>();
 
     @Override
@@ -96,11 +101,15 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
                 finish(false);
                 break;
             case R.id.tv_button1:
+                isSetAdapter = true;
                 Mark = true;
+                curpage = 1;
                 container();
                 break;
             case R.id.tv_button2:
+                isSetAdapter = true;
                 Mark = false;
+                curpage = 1;
                 container();
                 break;
             default:
@@ -145,16 +154,14 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
      * 提赠记录和商品一览
      */
     private void container() {
-        isSetAdapter = true;
-        curpage = 1;
         if (Mark) {
-            send_goods_list();
+            get_goods_list();
             tv_button1.setBackgroundColor(Color.parseColor("#ffffff"));
             tv_button2.setBackgroundColor(Color.parseColor("#f1f1f1"));
             v_line2.setBackgroundColor(Color.parseColor("#00000000"));
             v_line1.setBackgroundColor(Color.parseColor("#f25252"));
         } else {
-            get_goods_list();
+            send_goods_list();
             tv_button2.setBackgroundColor(Color.parseColor("#ffffff"));
             tv_button1.setBackgroundColor(Color.parseColor("#f1f1f1"));
             v_line1.setBackgroundColor(Color.parseColor("#00000000"));
@@ -166,7 +173,7 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
      * 用户发出的商品
      */
     private void send_goods_list() {
-        super.StartLoading();
+        StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", getKey());
         params.addBodyParameter("page", "10");
@@ -174,43 +181,43 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Send_goods_list, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-                J1_RecordActivity.super.Dismiss();
+                Dismiss();
                 Gson gson = new Gson();
                 if (responseInfo != null) {
-                    get_goods_List = gson.fromJson(responseInfo.result, Get_goods_List.class);
-                    if (get_goods_List.status.code == 10000) {
+                    send_gift_list = gson.fromJson(responseInfo.result, Send_gift_list.class);
+                    if (send_gift_list.status.code == 10000) {
                         mListView.stopRefresh();
                         mListView.stopLoadMore();
                         mListView.setRefreshTime();
 
-                        if (get_goods_List.datas != null) {
+                        if (send_gift_list.datas != null) {
                             ll_null.setVisibility(View.GONE);
                             mListView.setVisibility(View.VISIBLE);
-                            if (get_goods_list_datat.size() > 0 && isSetAdapter) {
-                                get_goods_list_datat.clear();
+                            if (gift_list_data.size() > 0 && isSetAdapter) {
+                                gift_list_data.clear();
                             }
-                            get_goods_list_datat.addAll(get_goods_List.datas);
+                            gift_list_data.addAll(send_gift_list.datas);
 
                             if (isSetAdapter) {
-                                listAdapter = new J1_RecordAdapter(J1_RecordActivity.this, get_goods_list_datat);
-                                mListView.setAdapter(listAdapter);
+                                listAdapter1 = new J1_GiftAdapter(J1_RecordActivity.this, gift_list_data);
+                                mListView.setAdapter(listAdapter1);
                             } else {
-                                listAdapter.list = get_goods_list_datat;
-                                listAdapter.notifyDataSetChanged();
+                                listAdapter1.list = gift_list_data;
+                                listAdapter1.notifyDataSetChanged();
                             }
 
-                            if (get_goods_List.pagination.hasmore) {
+                            if (send_gift_list.pagination.hasmore) {
                                 mListView.setPullLoadEnable(true);
                             } else {
                                 mListView.setPullLoadEnable(false);
                             }
-                        }else {
+                        } else {
                             ll_null.setVisibility(View.VISIBLE);
                             mListView.setVisibility(View.GONE);
 
                         }
                     } else {
-                        overtime(get_goods_List.status.code, get_goods_List.status.msg);
+                        overtime(send_gift_list.status.code, send_gift_list.status.msg);
                     }
                 }
             }
@@ -226,7 +233,7 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
      * 用户收到的商品
      */
     private void get_goods_list() {
-        super.StartLoading();
+        StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", getKey());
         params.addBodyParameter("page", "10");
@@ -234,7 +241,7 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Get_goods_list, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-                J1_RecordActivity.super.Dismiss();
+                Dismiss();
                 Gson gson = new Gson();
                 if (responseInfo != null) {
                     get_goods_List = gson.fromJson(responseInfo.result, Get_goods_List.class);
@@ -264,7 +271,7 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
                             } else {
                                 mListView.setPullLoadEnable(false);
                             }
-                        }else {
+                        } else {
                             ll_null.setVisibility(View.VISIBLE);
                             mListView.setVisibility(View.GONE);
                         }
