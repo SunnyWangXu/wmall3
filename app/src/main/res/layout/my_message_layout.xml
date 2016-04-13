@@ -6,7 +6,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@mipmap/ic_background">
+        android:background="#d63235">
 
         <FrameLayout
             android:id="@+id/ll_lockbox"
@@ -43,7 +43,7 @@
                     android:layout_marginBottom="5dp"
                     android:text="点击登陆"
                     android:textColor="#ffffff"
-                    android:textSize="18sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/name"
@@ -51,15 +51,15 @@
                     android:layout_height="wrap_content"
                     android:text="用户等级"
                     android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
             <ImageView
-                android:layout_width="15dp"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center_vertical|right"
-                android:layout_marginRight="35dp"
+                android:layout_marginRight="13dp"
                 android:src="@mipmap/ic_arrow_right" />
         </FrameLayout>
 
