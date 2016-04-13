@@ -1,6 +1,7 @@
 package com.wjhgw.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -94,17 +95,17 @@ public class CabinetActivity extends BaseActivity implements BusinessResponse, X
      * 初始化视图
      */
     private void initView() {
-        iv_select = (ImageView)findViewById(R.id.iv_select);
-        iv_title_back = (ImageView)findViewById(R.id.iv_title_back);
-        ll_select = (LinearLayout)findViewById(R.id.ll_select);
-        ll_null = (LinearLayout)findViewById(R.id.ll_null);
-        ll_wine = (LinearLayout)findViewById(R.id.ll_wine);
-        tv_total_num = (TextView)findViewById(R.id.tv_total_num);
-        tv_others = (TextView)findViewById(R.id.tv_others);
-        tv_own = (TextView)findViewById(R.id.tv_own);
-        tv_record = (TextView)findViewById(R.id.tv_record);
+        iv_select = (ImageView) findViewById(R.id.iv_select);
+        iv_title_back = (ImageView) findViewById(R.id.iv_title_back);
+        ll_select = (LinearLayout) findViewById(R.id.ll_select);
+        ll_null = (LinearLayout) findViewById(R.id.ll_null);
+        ll_wine = (LinearLayout) findViewById(R.id.ll_wine);
+        tv_total_num = (TextView) findViewById(R.id.tv_total_num);
+        tv_others = (TextView) findViewById(R.id.tv_others);
+        tv_own = (TextView) findViewById(R.id.tv_own);
+        tv_record = (TextView) findViewById(R.id.tv_record);
 
-        mListView = (MyListView)findViewById(R.id.lv_list_layout);
+        mListView = (MyListView) findViewById(R.id.lv_list_layout);
     }
 
     /**
@@ -148,7 +149,7 @@ public class CabinetActivity extends BaseActivity implements BusinessResponse, X
     public void onLoadMore(int id) {
         curpage++;
         isSetAdapter = false;
-        eliminate();
+        //eliminate();
         cab_list();
     }
 
@@ -179,16 +180,16 @@ public class CabinetActivity extends BaseActivity implements BusinessResponse, X
                 startActivity(intent);
                 break;
             case R.id.tv_others:
-                if (listAdapter.num > 0) {
+                if (listAdapter.num > 0 && listAdapter.receive) {
                     intent = new Intent(this, J0_SelectGiveObjectActivity.class);
                     Type type = new TypeToken<ArrayList<CadList_data>>() {
                     }.getType();
                     String json = new Gson().toJson(listAdapter.List, type);
                     intent.putExtra("list", json);
                     startActivity(intent);
-                } else {
+                }/* else {
                     Toast.makeText(this, "你还没有选择商品哦", Toast.LENGTH_SHORT).show();
-                }
+                }*/
                 break;
             case R.id.tv_own:
                 if (listAdapter.num > 0) {
@@ -224,7 +225,7 @@ public class CabinetActivity extends BaseActivity implements BusinessResponse, X
             Toast.makeText(this, "登录超时或未登录", Toast.LENGTH_SHORT).show();
             getSharedPreferences("key", MODE_APPEND).edit().putString("key", "0").commit();
             startActivity(new Intent(this, A0_LoginActivity.class));
-        }else {
+        } else {
             curpage = 1;
             isSetAdapter = true;
             eliminate();
@@ -264,10 +265,9 @@ public class CabinetActivity extends BaseActivity implements BusinessResponse, X
                                 data.clear();
                             }
                             data.addAll(cadList.datas);
-
                             if (isSetAdapter) {
                                 listAdapter = new CabinetAdapter(CabinetActivity.this, data,
-                                        iv_select, tv_total_num, Request);
+                                        iv_select, tv_total_num, tv_others, tv_own, Request);
                                 mListView.setAdapter(listAdapter);
                                 iv_select.setImageResource(R.mipmap.ic_order_blank);
                             } else {
@@ -321,6 +321,9 @@ public class CabinetActivity extends BaseActivity implements BusinessResponse, X
      */
     private void eliminate() {
         if (listAdapter != null) {
+            tv_others.setBackgroundColor(Color.parseColor("#cccccc"));
+            tv_own.setBackgroundColor(Color.parseColor("#aaaaaa"));
+            listAdapter.receive = false;
             listAdapter.num = 0;
             iv_select.setImageResource(R.mipmap.ic_order_blank);
             listAdapter.total_num = 0;
@@ -330,5 +333,4 @@ public class CabinetActivity extends BaseActivity implements BusinessResponse, X
             }
         }
     }
-
 }
