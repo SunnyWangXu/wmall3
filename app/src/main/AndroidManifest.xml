@@ -91,6 +91,9 @@
             android:name=".ui.activity.J4_GiveMyselfActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.activity.J5_GiftDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.activity.VerificationCodeActivity"
             android:screenOrientation="portrait" />
         <activity
