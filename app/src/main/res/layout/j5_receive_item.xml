@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="68dp">
+
+        <com.wjhgw.ui.image.RoundImageView
+            android:id="@+id/j5_sender_avatar"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="12dp"
+            android:src="@mipmap/ic_default_avatar" />
+
+        <TextView
+            android:id="@+id/tv_j5_member_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:layout_marginLeft="72dp"
+            android:textSize="12dp"
+            android:text="56456"
+            android:textColor="#333333"/>
+        <TextView
+            android:id="@+id/tv_j5_received_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="39dp"
+            android:layout_marginLeft="72dp"
+            android:textSize="11dp"
+            android:text="56456"
+            android:textColor="#999999"/>
+
+        <ImageView
+            android:id="@+id/iv_j5_goods_image"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="15dp" />
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="12dp"
+        android:background="#cccccc" />
+</LinearLayout>

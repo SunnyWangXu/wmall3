@@ -9,7 +9,10 @@
     <com.wjhgw.ui.view.listview.MyListView
         android:id="@+id/lv_gift_detail"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scrollbars="none"
+        android:fastScrollEnabled="false"
+        android:divider="#00000000"/>
 
 </LinearLayout>

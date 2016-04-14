@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#f1f1f1"/>
+
+    <com.wjhgw.ui.view.listview.MyListView
+        android:id="@+id/lv_item_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:fastScrollEnabled="false"
+        android:divider="#00000000"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#666666"
+                android:textSize="13dp"
+                android:text="礼包总价值:"/>
+            <TextView
+                android:id="@+id/tv_j5_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#f25252"
+                android:textSize="13dp"
+                android:text="¥1809.90"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_j5_add_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="33dp"
+            android:layout_marginRight="12dp"
+            android:textSize="12dp"
+            android:textColor="#999999"
+            android:text="送出时间:2016-04-07 17:21"/>
+    </FrameLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#f1f1f1"/>
+
+</LinearLayout>

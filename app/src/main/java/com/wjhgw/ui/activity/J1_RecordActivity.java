@@ -178,7 +178,7 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
         params.addBodyParameter("key", getKey());
         params.addBodyParameter("page", "10");
         params.addBodyParameter("curpage", curpage + "");
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Send_goods_list, params, new RequestCallBack<String>() {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Send_gift_list, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Dismiss();
