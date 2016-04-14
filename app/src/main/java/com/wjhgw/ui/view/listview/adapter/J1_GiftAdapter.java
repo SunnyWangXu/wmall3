@@ -1,6 +1,7 @@
 package com.wjhgw.ui.view.listview.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.wjhgw.R;
 import com.wjhgw.business.bean.Gift_list_data;
+import com.wjhgw.ui.activity.J5_GiftDetailActivity;
 
 import java.util.List;
 
@@ -41,7 +43,7 @@ public class J1_GiftAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         convertView = LayoutInflater.from(mContext).inflate(R.layout.j1_item1, null);
         TextView tv_limit_type = (TextView) convertView.findViewById(R.id.tv_limit_type);
@@ -75,7 +77,9 @@ public class J1_GiftAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(mContext,J5_GiftDetailActivity.class);
+                intent.putExtra("cab_gift_id",list.get(position).cab_gift_id);
+                mContext.startActivity(intent);
             }
         });
         return convertView;

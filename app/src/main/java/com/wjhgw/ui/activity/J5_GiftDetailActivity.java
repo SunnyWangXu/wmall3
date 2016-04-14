@@ -15,6 +15,7 @@ import com.wjhgw.ui.view.listview.XListView;
 public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXListViewListener {
     private MyListView lvGiftDetail;
     private RelativeLayout rlGiftUse;
+    private String cab_gift_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,12 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
         lvGiftDetail.setPullRefreshEnable(false);
         lvGiftDetail.setXListViewListener(this, 1);
         lvGiftDetail.setRefreshTime();
+        cab_gift_id = getIntent().getStringExtra("cab_gift_id");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -37,8 +44,10 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
     @Override
     public void onFindViews() {
         lvGiftDetail = (MyListView) findViewById(R.id.lv_gift_detail);
-        rlGiftUse = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.rl_gift_use, null);
+        rlGiftUse = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.j5_item0, null);
+        rlGiftUse = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.j5_item0, null);
         lvGiftDetail.addHeaderView(rlGiftUse);
+        lvGiftDetail.setAdapter(null);
     }
 
     @Override
