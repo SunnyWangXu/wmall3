@@ -134,6 +134,13 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_order);
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         String selectOrder = getIntent().getStringExtra("selectOrder");
 
         if (selectOrder != null) {
@@ -151,13 +158,6 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
              */
             load_Default_Addresst();
         }
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
 
     }
 

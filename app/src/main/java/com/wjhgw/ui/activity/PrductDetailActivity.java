@@ -24,16 +24,13 @@ import com.wjhgw.MainActivity;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
-import com.wjhgw.business.bean.Order_goods_list;
 import com.wjhgw.business.bean.SelectOrder;
-import com.wjhgw.business.bean.SelectOrderDatas;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.dialog.LoadDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -101,9 +98,9 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
         url = BaseQuery.serviceUrl() + "/wap/index.php?act=goods&op=index&id=" + id;
 
         keyMap = new HashMap<>();
-        if(!getKey().equals("0")){
+        if (!getKey().equals("0")) {
             keyMap.put("authentication", getKey());
-        }else {
+        } else {
             showToastShort("登录超时,请重新登录!");
         }
         webView.loadUrl(url, keyMap);
@@ -238,7 +235,6 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", getKey());
         params.addBodyParameter("cart_id", cart_id);
-        params.addBodyParameter("ifcart", "3");
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Buy_step1, params, new RequestCallBack<String>() {
             @Override
@@ -249,7 +245,14 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
 
                     SelectOrder selectOrder = gson.fromJson(responseInfo.result, SelectOrder.class);
                     if (selectOrder.status.code == 10000) {
-                        SelectOrderDatas selectOrderDatas = selectOrder.datas;
+
+                        Intent intent = new Intent(PrductDetailActivity.this, PayGiveOrderActivity.class);
+                        intent.putExtra("by_step1_result", responseInfo.result);
+                        intent.putExtra("cart_id",cart_id);
+                        startActivity(intent);
+
+
+                       /* SelectOrderDatas selectOrderDatas = selectOrder.datas;
                         ArrayList<Order_goods_list> order_goods_lists = selectOrderDatas.store_cart_list.goods_list;
                         double realPay = 0.00;
                         for (int i = 0; i < order_goods_lists.size(); i++) {
@@ -263,7 +266,7 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
                         intent.putExtra("tv_total", realPay + "");
                         intent.putExtra("realPay", realPay);
                         intent.putExtra("for", "forDetail");
-                        startActivity(intent);
+                        startActivity(intent);*/
                     } else {
                         overtime(selectOrder.status.code, selectOrder.status.msg);
                     }
