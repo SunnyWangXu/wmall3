@@ -193,7 +193,15 @@ public class PayGiveOrderActivity extends BaseActivity implements View.OnClickLi
                      * 判断是否有登录密码,没有就设置，有就去输入下单
                      */
                     whetherHavePaypwd();
+                } else {
+                    Intent intent = new Intent();
+                    intent.setClass(PayGiveOrderActivity.this, S3_SelectPaymentActivity.class);
+                    intent.putExtra("tvAvailablePredeposit", "khj");
+                    intent.putExtra("tvAvailableRcBalance", "0.00");
+                    startActivity(intent);
+                    finish();
                 }
+
 
                 break;
             default:
@@ -426,14 +434,6 @@ public class PayGiveOrderActivity extends BaseActivity implements View.OnClickLi
 
                 if (payOrder.status.code == 10000) {
 
-//                    if (!isBalance || !isRcBalance) {
-//                        Intent intent = new Intent(PayGiveOrderActivity.this, D0_OrderActivity.class);
-//                        intent.putExtra("order_state", "");
-//                        intent.putExtra("name", "所有订单");
-//                        startActivity(intent);
-//                        finish();
-//                    } else {
-//
 //                        /**
 //                         * （余额+上充值卡余额）- 需要使用的金额
 //                         */
@@ -502,7 +502,6 @@ public class PayGiveOrderActivity extends BaseActivity implements View.OnClickLi
 //                                }
 //                            }
 //                        }
-//                    }
 //                } else {
 //                    overtime(payOrder.status.code, payOrder.status.msg);
                 }

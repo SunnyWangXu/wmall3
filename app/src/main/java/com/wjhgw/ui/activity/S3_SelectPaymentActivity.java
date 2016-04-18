@@ -102,7 +102,7 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
 
         giveType = getIntent().getStringExtra("giveType");      //从自提过来的
         realPay = getIntent().getStringExtra("tvRealPay");      //订单金额或者是自提的邮费
-        balance = getIntent().getStringExtra("tvAvailablePredeposit");  //使用账号余额
+        balance = getIntent().getStringExtra("tvAvailablePredeposit");//使用账号余额
         rcBalance = getIntent().getStringExtra("tvAvailableRcBalance"); //充值卡余额
 
         if (giveType != null) {
