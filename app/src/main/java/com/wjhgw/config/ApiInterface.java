@@ -305,5 +305,8 @@ public class ApiInterface {
      * 退款/退货申请列表
      */
     public static final String Return_refund_list = "/mobile/index.php?act=return_refund&op=return_refund_list";
-
+    /**
+     * 通过paySn查询赠送他人的商品列表
+     */
+    public static final String Gift_goods_list = "/mobile/index.php?act=member_order&op=gift_goods_list";
 }

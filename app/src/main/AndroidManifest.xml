@@ -94,6 +94,12 @@
             android:name=".ui.activity.J5_GiftDetailActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.activity.J6_DetailGiveOneActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.J7_DetailGiveMoreActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.activity.PayGiveOrderActivity"
             android:screenOrientation="portrait" />
         <activity
