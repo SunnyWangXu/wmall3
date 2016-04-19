@@ -35,7 +35,6 @@ public class J0_SelectGiveObjectActivity extends BaseActivity implements View.On
         paySn = getIntent().getStringExtra("paySn");
         entrance = getIntent().getStringExtra("entrance");
 
-
     }
 
     @Override

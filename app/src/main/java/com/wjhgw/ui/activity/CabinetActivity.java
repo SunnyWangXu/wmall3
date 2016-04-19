@@ -186,6 +186,7 @@ public class CabinetActivity extends BaseActivity implements BusinessResponse, X
                     }.getType();
                     String json = new Gson().toJson(listAdapter.List, type);
                     intent.putExtra("list", json);
+                    intent.putExtra("entrance", "");
                     startActivity(intent);
                 }/* else {
                     Toast.makeText(this, "你还没有选择商品哦", Toast.LENGTH_SHORT).show();
@@ -205,6 +206,7 @@ public class CabinetActivity extends BaseActivity implements BusinessResponse, X
                     }.getType();
                     String json = new Gson().toJson(listAdapter.List, type);
                     intent.putExtra("list", json);
+                    intent.putExtra("entrance", "");
                     startActivity(intent);
 
                 } else {
