@@ -18,6 +18,28 @@
         android:fastScrollEnabled="false"
         android:divider="#00000000"/>
 
+    <LinearLayout
+        android:id="@+id/ll_loadmore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:gravity="center">
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="18dp"
+        android:text="加载更多 "
+        android:textSize="13dp"/>
+
+    <ImageView
+        android:id="@+id/iv_loadmore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_loadmore2"/>
+
+    </LinearLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="56dp">

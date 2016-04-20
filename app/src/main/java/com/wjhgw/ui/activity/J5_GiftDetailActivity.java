@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -49,6 +50,9 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
     private TextView tv_j5_price;
     private TextView tv_j5_add_time;
     private TextView tv_j5_receive_info;
+    private LinearLayout ll_loadmore;
+    private Boolean loadmore = true;
+    private ImageView iv_loadmore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +70,7 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
     protected void onResume() {
         super.onResume();
         cab_gift_id = getIntent().getStringExtra("cab_gift_id");
-        if(!cab_gift_id.equals("")){
+        if (!cab_gift_id.equals("")) {
             send_goods_list();
         }
 
@@ -90,8 +94,8 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
         lvGiftDetail.addHeaderView(j5_item2);
         lvGiftDetail.setAdapter(null);
 
-        lv_item_layout1 = (MyListView)j5_item1.findViewById(R.id.lv_item_layout1);
-        lv_item_layout2 = (MyListView)j5_item2.findViewById(R.id.lv_item_layout2);
+        lv_item_layout1 = (MyListView) j5_item1.findViewById(R.id.lv_item_layout1);
+        lv_item_layout2 = (MyListView) j5_item2.findViewById(R.id.lv_item_layout2);
         lv_item_layout1.setPullLoadEnable(false);
         lv_item_layout1.setPullRefreshEnable(false);
         lv_item_layout1.setXListViewListener(this, 1);
@@ -102,16 +106,18 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
         lv_item_layout2.setXListViewListener(this, 1);
         lv_item_layout2.setRefreshTime();
 
-        tv_limit_type = (TextView)j5_item0.findViewById(R.id.tv_limit_type);
-        tv_gift_state = (TextView)j5_item0.findViewById(R.id.tv_gift_state);
-        iv_j5_use_img = (RoundImageView)j5_item0.findViewById(R.id.iv_j5_use_img);
-        tv_member_nickname = (TextView)j5_item0.findViewById(R.id.tv_member_nickname);
-        tv_gift_note = (TextView)j5_item0.findViewById(R.id.tv_gift_note);
+        tv_limit_type = (TextView) j5_item0.findViewById(R.id.tv_limit_type);
+        tv_gift_state = (TextView) j5_item0.findViewById(R.id.tv_gift_state);
+        iv_j5_use_img = (RoundImageView) j5_item0.findViewById(R.id.iv_j5_use_img);
+        tv_member_nickname = (TextView) j5_item0.findViewById(R.id.tv_member_nickname);
+        tv_gift_note = (TextView) j5_item0.findViewById(R.id.tv_gift_note);
 
-        tv_j5_price = (TextView)j5_item1.findViewById(R.id.tv_j5_price);
-        tv_j5_add_time = (TextView)j5_item1.findViewById(R.id.tv_j5_add_time);
+        tv_j5_price = (TextView) j5_item1.findViewById(R.id.tv_j5_price);
+        tv_j5_add_time = (TextView) j5_item1.findViewById(R.id.tv_j5_add_time);
+        ll_loadmore = (LinearLayout) j5_item1.findViewById(R.id.ll_loadmore);
+        iv_loadmore = (ImageView) j5_item1.findViewById(R.id.iv_loadmore);
 
-        tv_j5_receive_info = (TextView)j5_item2.findViewById(R.id.tv_j5_receive_info);
+        tv_j5_receive_info = (TextView) j5_item2.findViewById(R.id.tv_j5_receive_info);
     }
 
     @Override
@@ -121,7 +127,23 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
 
     @Override
     public void onBindListener() {
-
+        ll_loadmore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) lv_item_layout1.getLayoutParams();
+                if (loadmore) {
+                    loadmore = false;
+                    iv_loadmore.setImageResource(R.mipmap.ic_loadmore2);
+                    linearParams.height = dip2px(J5_GiftDetailActivity.this, 115) * 3;// 当控件的高
+                } else {
+                    loadmore = true;
+                    iv_loadmore.setImageResource(R.mipmap.ic_loadmore1);
+                    linearParams.height = dip2px(J5_GiftDetailActivity.this, 115) * ssend_goods_list.datas.gift_goods_list.size();// 当控件的高
+                }
+                lv_item_layout1.setLayoutParams(linearParams);
+                listAdapter1.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -133,6 +155,7 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
     public void onLoadMore(int id) {
 
     }
+
     /**
      * 发出礼包领取情况品
      */
@@ -140,7 +163,7 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
         StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", getKey());
-        params.addBodyParameter("gift_id",cab_gift_id);
+        params.addBodyParameter("gift_id", cab_gift_id);
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Send_goods_list, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -150,7 +173,14 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
                     ssend_goods_list = gson.fromJson(responseInfo.result, Ssend_goods_list.class);
                     if (ssend_goods_list.status.code == 10000) {
                         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) lv_item_layout1.getLayoutParams();
-                        linearParams.height = dip2px(J5_GiftDetailActivity.this, 115) * ssend_goods_list.datas.gift_goods_list.size();// 当控件的高
+                        if (ssend_goods_list.datas.gift_goods_list.size() > 3) {
+                            linearParams.height = dip2px(J5_GiftDetailActivity.this, 115) * 3;// 当控件的高
+                            loadmore = false;
+                            ll_loadmore.setVisibility(View.VISIBLE);
+                        } else {
+                            linearParams.height = dip2px(J5_GiftDetailActivity.this, 115) * ssend_goods_list.datas.gift_goods_list.size();// 当控件的高
+                        }
+
                         lv_item_layout1.setLayoutParams(linearParams);
                         lv_item_layout1.setOnTouchListener(new View.OnTouchListener() {
 
@@ -176,21 +206,21 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
                         listAdapter2 = new J5_receiveAdapter(J5_GiftDetailActivity.this, ssend_goods_list.datas.receive_list);
                         lv_item_layout2.setAdapter(listAdapter2);
 
-                        if(ssend_goods_list.datas.gift_info.limit_type.equals("1")){
+                        if (ssend_goods_list.datas.gift_info.limit_type.equals("1")) {
                             tv_limit_type.setText("多人礼包");
-                        }else if(ssend_goods_list.datas.gift_info.limit_type.equals("0")){
+                        } else if (ssend_goods_list.datas.gift_info.limit_type.equals("0")) {
                             tv_limit_type.setText("单人礼包");
                         }
                         String gift_state = ssend_goods_list.datas.gift_info.gift_state;
-                        if(gift_state.equals("0")){
+                        if (gift_state.equals("0")) {
                             tv_gift_state.setText("无效");
-                        }else if(gift_state.equals("1")){
+                        } else if (gift_state.equals("1")) {
                             tv_gift_state.setText("进行中");
-                        }else if(gift_state.equals("2")){
+                        } else if (gift_state.equals("2")) {
                             tv_gift_state.setText("已完成");
-                        }else if(gift_state.equals("3")){
+                        } else if (gift_state.equals("3")) {
                             tv_gift_state.setText("已取消");
-                        }else if(gift_state.equals("4")){
+                        } else if (gift_state.equals("4")) {
                             tv_gift_state.setText("已过期");
                         }
 
@@ -199,11 +229,12 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
                         tv_member_nickname.setText(ssend_goods_list.datas.gift_info.member_nickname + "的礼包");
                         tv_gift_note.setText(ssend_goods_list.datas.gift_info.gift_note);
 
-                        tv_j5_add_time.setText("送出的时间:"+ssend_goods_list.datas.gift_info.add_time);
-                        tv_j5_receive_info.setText("已领取:"+ssend_goods_list.datas.gift_info.receive_info);
+                        tv_j5_add_time.setText("送出的时间:" + ssend_goods_list.datas.gift_info.add_time);
+                        tv_j5_receive_info.setText("已领取:" + ssend_goods_list.datas.gift_info.receive_info);
                         Double s = 0.00;
-                        for(int i = 0;i < ssend_goods_list.datas.gift_goods_list.size();i++){
-                            s += Double.parseDouble(ssend_goods_list.datas.gift_goods_list.get(i).goods_price);
+                        for (int i = 0; i < ssend_goods_list.datas.gift_goods_list.size(); i++) {
+                            s += Double.parseDouble(ssend_goods_list.datas.gift_goods_list.get(i).goods_price)
+                                    * Integer.parseInt(ssend_goods_list.datas.gift_goods_list.get(i).goods_num);
                         }
                         tv_j5_price.setText(new java.text.DecimalFormat("#.00").format(s));
                     } else {
@@ -218,6 +249,7 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
             }
         });
     }
+
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */

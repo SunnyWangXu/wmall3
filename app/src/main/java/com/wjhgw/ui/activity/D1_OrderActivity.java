@@ -87,7 +87,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
         mListView.addHeaderView(order2);
         mListView.addHeaderView(order3);
         mListView.setPullLoadEnable(false);
-        mListView.setPullRefreshEnable(true);
+        mListView.setPullRefreshEnable(false);
         mListView.setXListViewListener(this, 1);
         mListView.setRefreshTime();
         mListView.setAdapter(null);
@@ -102,9 +102,14 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                 return true;
             }
         });
-        Order_detail();
         Request = new Order_Request(this);
         Request.addResponseListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Order_detail();
     }
 
     @Override
