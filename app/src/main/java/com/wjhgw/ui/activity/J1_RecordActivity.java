@@ -224,6 +224,7 @@ public class J1_RecordActivity extends BaseActivity implements XListView.IXListV
 
             @Override
             public void onFailure(HttpException e, String s) {
+
                 showToastShort("网络错误");
             }
         });

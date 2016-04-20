@@ -401,7 +401,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(getApplicationContext(), "网络错误", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -434,7 +434,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(getApplicationContext(), "网络错误", Toast.LENGTH_SHORT).show();
+                
             }
         });
 

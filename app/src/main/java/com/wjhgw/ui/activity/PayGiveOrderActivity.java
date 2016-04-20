@@ -507,7 +507,7 @@ public class PayGiveOrderActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(PayGiveOrderActivity.this, testPaypwd.status.msg, Toast.LENGTH_SHORT).show();
+
             }
         });
         return false;

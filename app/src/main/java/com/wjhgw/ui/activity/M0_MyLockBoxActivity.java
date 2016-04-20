@@ -233,7 +233,7 @@ public class M0_MyLockBoxActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onFailure(HttpException e, String s) {
-                showToastLong("网络错误！");
+                showToastLong("网络错误");
             }
         });
     }

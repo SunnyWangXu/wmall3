@@ -91,8 +91,8 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
             }
         });
 
-        username =  getSharedPreferences("username", this.MODE_APPEND).getString("username", "0");
-        if(!username.equals("0")){
+        username = getSharedPreferences("username", this.MODE_APPEND).getString("username", "0");
+        if (!username.equals("0")) {
             et_name.setText(username);
             et_name.setSelection(et_name.length());
         }
@@ -194,8 +194,8 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                 if (responseInfo != null) {
                     Login_Pager login = gson.fromJson(responseInfo.result, Login_Pager.class);
                     if (login.status.code == 10000) {
-                        getSharedPreferences("key",MODE_PRIVATE).edit().putString("key",login.datas.key).commit();
-                        getSharedPreferences("username",MODE_PRIVATE).edit().putString("username",Number).commit();
+                        getSharedPreferences("key", MODE_PRIVATE).edit().putString("key", login.datas.key).commit();
+                        getSharedPreferences("username", MODE_PRIVATE).edit().putString("username", Number).commit();
                         showToastShort("登录成功");
 
                         Intent intent = new Intent();
@@ -204,15 +204,15 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
 
                         finish(false);
 
-                    }else {
-                        overtime(login.status.code,login.status.msg);
+                    } else {
+                        overtime(login.status.code, login.status.msg);
                     }
                 }
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-                showToastShort("请求失败");
+
             }
         });
     }

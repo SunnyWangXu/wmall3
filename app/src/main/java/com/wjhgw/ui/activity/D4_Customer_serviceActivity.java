@@ -458,7 +458,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
 
             @Override
             public void onFailure(HttpException e, String s) {
-                showToastLong("网络错误！");
+                showToastLong("网络错误");
             }
         });
     }
@@ -502,7 +502,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
 
             @Override
             public void onFailure(HttpException e, String s) {
-                showToastLong("网络错误！");
+                showToastLong("网络错误");
             }
         });
     }

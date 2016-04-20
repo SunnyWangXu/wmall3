@@ -359,7 +359,6 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -399,7 +398,6 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -453,7 +451,6 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
             }
         });
     }

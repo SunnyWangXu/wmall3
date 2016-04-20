@@ -247,7 +247,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                 } else if (order_detail.datas.order_state.equals("0")) {
                     if (order_detail.datas.delete) {
                         //showToastShort("删除订单");
-                        mDialog = new MyDialog(this,"确定要删除该订单？");
+                        mDialog = new MyDialog(this, "确定要删除该订单？");
                         mDialog.show();
                         mDialog.positive.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -293,7 +293,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                 } else if (order_detail.datas.order_state.equals("40")) {
                     if (order_detail.datas.delete) {
                         //showToastShort("删除订单");
-                        mDialog = new MyDialog(this,"确定要删除该订单？");
+                        mDialog = new MyDialog(this, "确定要删除该订单？");
                         mDialog.show();
                         mDialog.positive.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -320,14 +320,14 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                 break;
             case R.id.tv_button3:
                 //showToastShort("联系客服");
-                final SetPaypwdDialog Dialog = new SetPaypwdDialog(this, "联系客服","客服电话:400-6569333");
+                final SetPaypwdDialog Dialog = new SetPaypwdDialog(this, "联系客服", "客服电话:400-6569333");
                 Dialog.show();
                 Dialog.tvGotoSetpaypwd.setText("拨打");
                 Dialog.tvCancel.setTextColor(Color.parseColor("#333333"));
                 Dialog.tvGotoSetpaypwd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent1 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" +"4006569333"));
+                        Intent intent1 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "4006569333"));
                         startActivity(intent1);
                         Dialog.dismiss();
                     }
@@ -380,7 +380,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                             mListView1.setLayoutParams(linearParams);
 
                             listAdapter = new D1_OrderAdapter(D1_OrderActivity.this, order_detail.datas.extend_order_goods,
-                                    order_detail.datas.lock_state,order_detail.datas.order_state,order_detail.datas.order_id);
+                                    order_detail.datas.lock_state, order_detail.datas.order_state, order_detail.datas.order_id);
                             mListView1.setAdapter(listAdapter);
 
                             tv_store_name.setText(order_detail.datas.store_name);
@@ -388,13 +388,13 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                             tv_order_sn.setText(order_detail.datas.order_sn);
                             tv_payment_name.setText(order_detail.datas.payment_name);
                             int num = 0;
-                            for(int i = 0; i < order_detail.datas.extend_order_goods.size(); i++){
+                            for (int i = 0; i < order_detail.datas.extend_order_goods.size(); i++) {
                                 num += Integer.parseInt(order_detail.datas.extend_order_goods.get(i).goods_num);
                             }
-                            if(!order_detail.datas.shipping_fee.equals("null")){
-                                tv_order_amount.setText("共"+ num +"件商品,合计：¥" + order_detail.datas.order_amount + "(含运费" + order_detail.datas.shipping_fee + ")");
-                            }else {
-                                tv_order_amount.setText("共"+ num +"件商品,合计：¥" + order_detail.datas.order_amount + "(含运费0.00)");
+                            if (!order_detail.datas.shipping_fee.equals("null")) {
+                                tv_order_amount.setText("共" + num + "件商品,合计：¥" + order_detail.datas.order_amount + "(含运费" + order_detail.datas.shipping_fee + ")");
+                            } else {
+                                tv_order_amount.setText("共" + num + "件商品,合计：¥" + order_detail.datas.order_amount + "(含运费0.00)");
                             }
 
                             if (order_detail.datas.extend_order_common.invoice_info == null) {
@@ -452,7 +452,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 }
                                 tv_button3.setVisibility(View.VISIBLE);
                                 tv_button3.setText("联系客服");
-                                tv_state.setText("商家已发货，系统将于" + order_detail.datas.warning_time+ "自动完成[确认收货],完成交易");
+                                tv_state.setText("商家已发货，系统将于" + order_detail.datas.warning_time + "自动完成[确认收货],完成交易");
                                 //待收货
                             } else if (order_detail.datas.order_state.equals("40")) {
                                 if (order_detail.datas.evaluation) {
@@ -491,8 +491,8 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 //已取消
                             }
                         }
-                    }else {
-                        overtime(order_detail.status.code,order_detail.status.msg);
+                    } else {
+                        overtime(order_detail.status.code, order_detail.status.msg);
                     }
                 }
             }
@@ -573,7 +573,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                     PayOrder payOrder = gson.fromJson(responseInfo.result, PayOrder.class);
                     D1_OrderActivity.this.Dismiss();
                     if (payOrder.status.code == 10000) {
-                        if(Double.valueOf(payOrder.datas.data.total_fee) > 0) {
+                        if (Double.valueOf(payOrder.datas.data.total_fee) > 0) {
                             Intent intent = new Intent(D1_OrderActivity.this, S3_SelectPaymentActivity.class);
                             intent.putExtra("tvRealPay", order_amount);
                             intent.putExtra("tvAvailablePredeposit", rcb_amount);
@@ -584,10 +584,10 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                             intent.putExtra("goodsDetail", payOrder.datas.data.goods_detail);
                             intent.putExtra("entrance", "2");
                             startActivity(intent);
-                        }else {
+                        } else {
                             Toast.makeText(D1_OrderActivity.this, "需支付金额为" + Double.valueOf(payOrder.datas.data.total_fee), Toast.LENGTH_SHORT).show();
                         }
-                    }else {
+                    } else {
                         overtime(payOrder.status.code, payOrder.status.msg);
                     }
                 }
@@ -595,7 +595,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
 
             @Override
             public void onFailure(HttpException e, String s) {
-                showToastShort("失败");
+
             }
         });
     }

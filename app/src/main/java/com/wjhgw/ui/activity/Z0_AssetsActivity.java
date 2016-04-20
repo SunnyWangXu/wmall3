@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
@@ -151,7 +150,6 @@ public class Z0_AssetsActivity extends BaseActivity implements View.OnClickListe
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(Z0_AssetsActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
 
             }
         });

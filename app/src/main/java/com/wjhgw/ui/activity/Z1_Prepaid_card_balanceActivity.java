@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
@@ -171,7 +170,6 @@ public class Z1_Prepaid_card_balanceActivity extends BaseActivity implements OnC
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(Z1_Prepaid_card_balanceActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
 
             }
         });

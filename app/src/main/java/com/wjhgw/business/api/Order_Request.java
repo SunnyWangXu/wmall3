@@ -61,11 +61,11 @@ public class Order_Request extends BaseRequest {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    }else if(status.status.code == 200103 || status.status.code == 200104){
+                    } else if (status.status.code == 200103 || status.status.code == 200104) {
                         Toast.makeText(mContext, "登录超时或未登录", Toast.LENGTH_SHORT).show();
-                        mContext.getSharedPreferences("key", mContext.MODE_APPEND).edit().putString("key","0").commit();
+                        mContext.getSharedPreferences("key", mContext.MODE_APPEND).edit().putString("key", "0").commit();
                         mContext.startActivity(new Intent(mContext, A0_LoginActivity.class));
-                    }else {
+                    } else {
                         Toast.makeText(mContext, status.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -73,8 +73,9 @@ public class Order_Request extends BaseRequest {
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(mContext, "失败", Toast.LENGTH_SHORT).show();
+
             }
+
         });
     }
 
@@ -102,11 +103,11 @@ public class Order_Request extends BaseRequest {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    }else if(status.status.code == 200103 || status.status.code == 200104){
+                    } else if (status.status.code == 200103 || status.status.code == 200104) {
                         Toast.makeText(mContext, "登录超时或未登录", Toast.LENGTH_SHORT).show();
-                        mContext.getSharedPreferences("key", mContext.MODE_APPEND).edit().putString("key","0").commit();
+                        mContext.getSharedPreferences("key", mContext.MODE_APPEND).edit().putString("key", "0").commit();
                         mContext.startActivity(new Intent(mContext, A0_LoginActivity.class));
-                    }else {
+                    } else {
                         Toast.makeText(mContext, status.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -114,7 +115,7 @@ public class Order_Request extends BaseRequest {
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(mContext, "失败", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -143,11 +144,11 @@ public class Order_Request extends BaseRequest {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    }else if(status.status.code == 200103 || status.status.code == 200104){
+                    } else if (status.status.code == 200103 || status.status.code == 200104) {
                         Toast.makeText(mContext, "登录超时或未登录", Toast.LENGTH_SHORT).show();
-                        mContext.getSharedPreferences("key", mContext.MODE_APPEND).edit().putString("key","0").commit();
+                        mContext.getSharedPreferences("key", mContext.MODE_APPEND).edit().putString("key", "0").commit();
                         mContext.startActivity(new Intent(mContext, A0_LoginActivity.class));
-                    }else {
+                    } else {
                         Toast.makeText(mContext, status.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -155,7 +156,7 @@ public class Order_Request extends BaseRequest {
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(mContext, "失败", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -185,11 +186,11 @@ public class Order_Request extends BaseRequest {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    }else if(status.status.code == 200103 || status.status.code == 200104){
+                    } else if (status.status.code == 200103 || status.status.code == 200104) {
                         Toast.makeText(mContext, "登录超时或未登录", Toast.LENGTH_SHORT).show();
-                        mContext.getSharedPreferences("key", mContext.MODE_APPEND).edit().putString("key","0").commit();
+                        mContext.getSharedPreferences("key", mContext.MODE_APPEND).edit().putString("key", "0").commit();
                         mContext.startActivity(new Intent(mContext, A0_LoginActivity.class));
-                    }else {
+                    } else {
                         Toast.makeText(mContext, status.status.msg, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -197,7 +198,7 @@ public class Order_Request extends BaseRequest {
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(mContext, "失败", Toast.LENGTH_SHORT).show();
+                
             }
         });
     }

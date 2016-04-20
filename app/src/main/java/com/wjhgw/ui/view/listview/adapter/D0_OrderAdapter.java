@@ -443,7 +443,6 @@ public class D0_OrderAdapter extends BaseAdapter {
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(c, "失败", Toast.LENGTH_SHORT).show();
             }
         });
     }

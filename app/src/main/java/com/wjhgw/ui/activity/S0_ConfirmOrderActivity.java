@@ -933,7 +933,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(S0_ConfirmOrderActivity.this, testPaypwd.status.msg, Toast.LENGTH_SHORT).show();
+
             }
         });
         return truePaypwd;
@@ -1065,7 +1065,6 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
             @Override
             public void onFailure(HttpException e, String s) {
-                showToastShort("请求失败");
                 String useName = getIntent().getStringExtra("tureName");
                 String usePhone = getIntent().getStringExtra("phone");
                 String useAddressInfo = getIntent().getStringExtra("addressInfo");

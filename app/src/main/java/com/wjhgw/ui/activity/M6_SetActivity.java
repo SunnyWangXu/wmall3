@@ -212,6 +212,7 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
             public void onFailure(HttpException e, String s) {
 
                 showToastShort("网络错误");
+
             }
         });
     }

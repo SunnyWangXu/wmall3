@@ -51,6 +51,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 设置标题文字
+     *
      * @param title
      */
     public void setTitle(String title) {
@@ -62,6 +63,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 拿到登陆Key
+     *
      * @return
      */
     public String getKey() {
@@ -212,30 +214,41 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 短提示
+     *
      * @param message
      */
     public void showToastShort(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        if (message.equals("网络错误") || message.equals("请求失败")) {
+
+        } else {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
      * 超时判断
      */
-    public void overtime(int code,String msg) {
-        if(code == 200103 || code == 200104){
+    public void overtime(int code, String msg) {
+        if (code == 200103 || code == 200104) {
             Toast.makeText(this, "登录超时或未登录", Toast.LENGTH_SHORT).show();
-            getSharedPreferences("key", MODE_APPEND).edit().putString("key","0").commit();
+            getSharedPreferences("key", MODE_APPEND).edit().putString("key", "0").commit();
             startActivity(new Intent(this, A0_LoginActivity.class));
-        }else {
+        } else {
             showToastShort(msg);
         }
     }
 
     /**
      * 长提示
+     *
      * @param message
      */
     public void showToastLong(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        if (message.equals("网络错误") || message.equals("请求失败")) {
+
+        } else {
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        }
+
     }
 }

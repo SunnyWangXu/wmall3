@@ -862,7 +862,7 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(J4_GiveMyselfActivity.this, testPaypwd.status.msg, Toast.LENGTH_SHORT).show();
+                
             }
         });
     }
