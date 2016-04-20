@@ -22,14 +22,13 @@
         android:id="@+id/ll_loadmore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:gravity="center">
         <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
         android:layout_marginBottom="18dp"
-        android:text="加载更多 "
+        android:text="查看更多 "
         android:textSize="13dp"/>
 
     <ImageView
