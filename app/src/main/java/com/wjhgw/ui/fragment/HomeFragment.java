@@ -254,19 +254,19 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeLayout = inflater.inflate(R.layout.home_layout, container, false);
 
-            /**
-             * 加载视图
-             */
-            setInflaterView();
+        /**
+         * 加载视图
+         */
+        setInflaterView();
 
-            /**
-             * 初始化控件
-             */
-            initView();
+        /**
+         * 初始化控件
+         */
+        initView();
 
-            /**
-             * 请求首页焦点图
-             */
+        /**
+         * 请求首页焦点图
+         */
         if (getActivity() != null) {
             Dialog = new LoadDialog(getActivity());
             underdevelopmentDialog1 = new UnderDialog(getActivity(), "功能正在开发中,敬请期待");
@@ -664,17 +664,24 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 break;
             case R.id.ll_discount_01:
                 intent.setClass(getActivity(), PrductDetailActivity.class);
-                intent.putExtra("goods_id", groupBuy_data.get(0).goods_id);
+
+                if (groupBuy_data.size() != 0) {
+                    intent.putExtra("goods_id", groupBuy_data.get(0).goods_id);
+                }
                 startActivity(intent);
                 break;
             case R.id.ll_discount_02:
                 intent.setClass(getActivity(), PrductDetailActivity.class);
-                intent.putExtra("goods_id", groupBuy_data.get(1).goods_id);
+                if (groupBuy_data.size() != 0) {
+                    intent.putExtra("goods_id", groupBuy_data.get(1).goods_id);
+                }
                 startActivity(intent);
                 break;
             case R.id.ll_discount_03:
                 intent.setClass(getActivity(), PrductDetailActivity.class);
-                intent.putExtra("goods_id", groupBuy_data.get(2).goods_id);
+                if (groupBuy_data.size() != 0) {
+                    intent.putExtra("goods_id", groupBuy_data.get(2).goods_id);
+                }
                 startActivity(intent);
                 break;
             case R.id.tv_guess_refresh:
@@ -682,22 +689,30 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 break;
             case R.id.ll_guess_like01:
                 intent.setClass(getActivity(), PrductDetailActivity.class);
-                intent.putExtra("goods_id", guess_like_datases.get(0).goods_id);
+                if (guess_like_datases.size() != 0) {
+                    intent.putExtra("goods_id", guess_like_datases.get(0).goods_id);
+                }
                 startActivity(intent);
                 break;
             case R.id.ll_guess_like02:
                 intent.setClass(getActivity(), PrductDetailActivity.class);
-                intent.putExtra("goods_id", guess_like_datases.get(1).goods_id);
+                if (guess_like_datases.size() != 0) {
+                    intent.putExtra("goods_id", guess_like_datases.get(1).goods_id);
+                }
                 startActivity(intent);
                 break;
             case R.id.ll_guess_like03:
                 intent.setClass(getActivity(), PrductDetailActivity.class);
-                intent.putExtra("goods_id", guess_like_datases.get(2).goods_id);
+                if (guess_like_datases.size() != 0) {
+                    intent.putExtra("goods_id", guess_like_datases.get(2).goods_id);
+                }
                 startActivity(intent);
                 break;
             case R.id.ll_guess_like04:
                 intent.setClass(getActivity(), PrductDetailActivity.class);
-                intent.putExtra("goods_id", guess_like_datases.get(3).goods_id);
+                if (guess_like_datases.size() != 0) {
+                    intent.putExtra("goods_id", guess_like_datases.get(3).goods_id);
+                }
                 startActivity(intent);
                 break;
             default:
@@ -749,7 +764,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                  * 解析首頁焦点图数据，并适配ViewPager
                  */
                 parseHomePagerData(responseInfo.result);
-                if(getActivity() != null){
+                if (getActivity() != null) {
                     Dialog.dismiss();
                 }
 

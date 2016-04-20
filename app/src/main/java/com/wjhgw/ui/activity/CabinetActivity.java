@@ -302,7 +302,7 @@ public class CabinetActivity extends BaseActivity implements BusinessResponse, X
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(CabinetActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
