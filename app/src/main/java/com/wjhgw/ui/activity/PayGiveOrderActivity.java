@@ -54,8 +54,8 @@ public class PayGiveOrderActivity extends BaseActivity implements View.OnClickLi
     private TextView tvGiveTotal;
     private LinearLayout llUseBl;
     private LinearLayout llUseRcBl;
-    private int MAKEBL = 0;
-    private int MAKERCBL = 0;
+    private int MAKEBL = 1;
+    private int MAKERCBL = 1;
     private ImageView ivBl;
     private ImageView ivRcBl;
     private boolean isBalance = false;
@@ -68,6 +68,7 @@ public class PayGiveOrderActivity extends BaseActivity implements View.OnClickLi
     private String paypwd;
     private TestPaypwd testPaypwd;
     private RestartInputAndFindPaypwdDialog restartInputAndFindPaypwdDialog;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,8 +145,12 @@ public class PayGiveOrderActivity extends BaseActivity implements View.OnClickLi
 
         tvGoodsTotal.setText("¥" + store_goods_total);
         tvGiveTotal.setText("订单金额：¥" + store_goods_total);
-        tvBl.setText(available_predeposit);
-        tvRcBl.setText(available_rc_balance);
+        if (available_predeposit != null) {
+            tvBl.setText(available_predeposit);
+        }
+        if (available_rc_balance != null) {
+            tvRcBl.setText(available_rc_balance);
+        }
 
         ArrayList<Order_goods_list> goods_list = selectOrder.datas.store_cart_list.goods_list;
         ivImg = (ImageView) findViewById(R.id.iv_give_goods);
@@ -194,19 +199,142 @@ public class PayGiveOrderActivity extends BaseActivity implements View.OnClickLi
                      */
                     whetherHavePaypwd();
                 } else {
-                    Intent intent = new Intent();
-                    intent.setClass(PayGiveOrderActivity.this, S3_SelectPaymentActivity.class);
-                    intent.putExtra("tvAvailablePredeposit", "khj");
-                    intent.putExtra("tvAvailableRcBalance", "0.00");
-                    startActivity(intent);
-                    finish();
+                    /**
+                     *不使用余额和充值卡不需要输入密码，直接提交订单走购买第二步
+                     */
+                    nextCommitOrder();
+
                 }
-
-
                 break;
             default:
                 break;
         }
+    }
+
+    /**
+     * 验证支付密码之后下一步提交订单走购买第二步
+     */
+    private void nextCommitOrder() {
+
+        StartLoading();
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", getKey());
+        params.addBodyParameter("cabinet_operation", "1");
+        params.addBodyParameter("send_other", "1");
+        if (cart_id != null) {
+            params.addBodyParameter("cart_id", cart_id);
+        }
+        if (vat_hash != null) {
+            params.addBodyParameter("vat_hash", vat_hash);
+        }
+
+        params.addBodyParameter("pay_name", "online");
+
+        if (isBalance) {
+            params.addBodyParameter("pd_pay", "1");
+            params.addBodyParameter("password", paypwd);
+
+        } else {
+            params.addBodyParameter("pd_pay", "0");
+        }
+        if (isRcBalance) {
+            params.addBodyParameter("rcb_pay", "1");
+            params.addBodyParameter("password", paypwd);
+
+        } else {
+            params.addBodyParameter("rcb_pay", "0");
+        }
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Buy_step2, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Dismiss();
+                Gson gson = new Gson();
+                PayOrder payOrder = gson.fromJson(responseInfo.result, PayOrder.class);
+
+                if (payOrder.status.code == 10000) {
+
+                    /**
+                     * （余额+上充值卡余额）- 需要使用的金额
+                     */
+                    double balance;
+                    double rcBalance;
+
+                    if (isBalance) {
+                        balance = Double.valueOf(available_predeposit);
+
+                    } else {
+                        balance = 0.00;
+                    }
+                    if (isRcBalance) {
+                        rcBalance = Double.valueOf(available_rc_balance);
+                    } else {
+                        rcBalance = 0.00;
+                    }
+                    double yu = (rcBalance + balance) - Double.valueOf(store_goods_total);
+
+                    if (isBalance || isRcBalance && yu > 0) {
+                        /**
+                         * 选择了余额支付或者使用充值卡余额支付并且余额大于选中商品金额直接购买成功跳转赠送
+                         */
+                        showToastShort("余额支付成功");
+                        Intent intent = new Intent(PayGiveOrderActivity.this, J0_SelectGiveObjectActivity.class);
+                        String paySn = payOrder.datas.data.pay_sn;
+
+                        intent.putExtra("paySn", paySn);
+                        intent.putExtra("entrance", "4");
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        if (payOrder.datas.state = true && payOrder.datas.data.type.equals("order")) {
+                            showToastShort(payOrder.datas.msg);
+                            /**
+                             * 选择了余额支付或者使用充值卡余额支付但是余额小于选中商品金额还是要跳转到选择支付界面付款余下的金额
+                             */
+                            intent = new Intent(PayGiveOrderActivity.this, S3_SelectPaymentActivity.class);
+                            intent.putExtra("tvRealPay", store_goods_total);
+                            if (isBalance) {
+                                intent.putExtra("tvAvailablePredeposit", tvBl.getText());
+                            } else {
+                                intent.putExtra("tvAvailablePredeposit", "0.00");
+                            }
+                            if (isRcBalance) {
+                                intent.putExtra("tvAvailableRcBalance", tvRcBl.getText());
+                            } else {
+                                intent.putExtra("tvAvailableRcBalance", "0.00");
+                            }
+
+                            String paySn = payOrder.datas.data.pay_sn;
+                            String totalFee = payOrder.datas.data.total_fee;
+                            String goodsName = payOrder.datas.data.goods_name;
+                            String goodsDetail = payOrder.datas.data.goods_detail;
+
+                            intent.putExtra("paySn", paySn);
+                            intent.putExtra("totalFee", totalFee);
+                            intent.putExtra("goodsName", goodsName);
+                            intent.putExtra("goodsDetail", goodsDetail);
+                            intent.putExtra("entrance", "4");
+
+                            if (Double.parseDouble(totalFee) > 0 && paySn != null) {
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                showToastShort("下单异常，请重新操作");
+                                finish();
+                            }
+                        }
+                    }
+                } else {
+                    overtime(payOrder.status.code, payOrder.status.msg);
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                showToastShort("网络错误");
+            }
+        });
+
     }
 
     /**
@@ -383,136 +511,6 @@ public class PayGiveOrderActivity extends BaseActivity implements View.OnClickLi
             }
         });
         return false;
-    }
-
-    /**
-     * 验证支付密码之后下一步提交订单
-     */
-    private void nextCommitOrder() {
-
-        StartLoading();
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("key", getKey());
-        params.addBodyParameter("cabinet_operation", "1");
-        params.addBodyParameter("send_other", "1");
-        if (cart_id != null) {
-            params.addBodyParameter("cart_id", cart_id);
-        }
-        if (vat_hash != null) {
-            params.addBodyParameter("vat_hash", vat_hash);
-        }
-
-        if (isBalance || isRcBalance) {
-            params.addBodyParameter("pay_name", "online");
-        } else {
-            params.addBodyParameter("pay_name", "offline");
-        }
-
-        if (isBalance) {
-            params.addBodyParameter("pd_pay", "1");
-            params.addBodyParameter("password", paypwd);
-
-        } else {
-            params.addBodyParameter("pd_pay", "0");
-        }
-        if (isRcBalance) {
-            params.addBodyParameter("rcb_pay", "1");
-            params.addBodyParameter("password", paypwd);
-
-        } else {
-            params.addBodyParameter("rcb_pay", "0");
-        }
-
-//        params.addBodyParameter("pay_message", etPayMessage.getText().toString());
-
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Buy_step2, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                Dismiss();
-                Gson gson = new Gson();
-                PayOrder payOrder = gson.fromJson(responseInfo.result, PayOrder.class);
-
-                if (payOrder.status.code == 10000) {
-
-//                        /**
-//                         * （余额+上充值卡余额）- 需要使用的金额
-//                         */
-//                        double balance;
-//                        double rcBalance;
-//
-//                        if (isUseBalance) {
-//                            balance = Double.valueOf(tvAvailablePredeposit.getText().toString());
-//
-//                        } else {
-//                            balance = 0.00;
-//                        }
-//                        if (isUseRcBalance) {
-//                            rcBalance = Double.valueOf(tvAvailableRcBalance.getText().toString());
-//                        } else {
-//                            rcBalance = 0.00;
-//                        }
-//                        double yu = (rcBalance + balance) - Double.valueOf(tvRealPay.getText().toString());
-//
-//                        if (isUseBalance || isUseRcBalance && yu > 0) {
-//                            /**
-//                             * 选择了余额支付或者使用充值卡余额支付并且余额大于选中商品金额直接购买成功
-//                             */
-//                            showToastShort("余额支付成功");
-//                            Intent intent = new Intent(S0_ConfirmOrderActivity.this, D0_OrderActivity.class);
-//                            intent.putExtra("order_state", "");
-//                            intent.putExtra("name", "所有订单");
-//                            startActivity(intent);
-//                            finish();
-//                        } else {
-//                            if (payOrder.datas.state = true && payOrder.datas.data.type.equals("order")) {
-//                                showToastShort(payOrder.datas.msg);
-//                                /**
-//                                 * 选择了余额支付或者使用充值卡余额支付但是余额小于选中商品金额还是要跳转到选择支付界面付款余下的金额
-//                                 */
-//                                intent = new Intent(S0_ConfirmOrderActivity.this, S3_SelectPaymentActivity.class);
-//                                intent.putExtra("tvRealPay", tvRealPay.getText());
-//                                if (isUseBalance) {
-//                                    intent.putExtra("tvAvailablePredeposit", tvAvailablePredeposit.getText());
-//                                } else {
-//                                    intent.putExtra("tvAvailablePredeposit", "0.00");
-//                                }
-//                                if (isUseRcBalance) {
-//                                    intent.putExtra("tvAvailableRcBalance", tvAvailableRcBalance.getText());
-//                                } else {
-//                                    intent.putExtra("tvAvailableRcBalance", "0.00");
-//                                }
-//
-//                                String paySn = payOrder.datas.data.pay_sn;
-//                                String totalFee = payOrder.datas.data.total_fee;
-//                                String goodsName = payOrder.datas.data.goods_name;
-//                                String goodsDetail = payOrder.datas.data.goods_detail;
-//
-//                                intent.putExtra("paySn", paySn);
-//                                intent.putExtra("totalFee", totalFee);
-//                                intent.putExtra("goodsName", goodsName);
-//                                intent.putExtra("goodsDetail", goodsDetail);
-//                                intent.putExtra("entrance", "1");
-//
-//                                if (Double.parseDouble(totalFee) > 0 && paySn != null) {
-//                                    startActivity(intent);
-//                                    finish();
-//                                } else {
-//                                    showToastShort("下单异常，请重新操作");
-//                                    finish();
-//                                }
-//                            }
-//                        }
-//                } else {
-//                    overtime(payOrder.status.code, payOrder.status.msg);
-                }
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-                showToastShort("网络错误");
-            }
-        });
-
     }
 
 }

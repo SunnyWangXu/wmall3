@@ -22,6 +22,8 @@ public class J0_SelectGiveObjectActivity extends BaseActivity implements View.On
     private String jsonStr;
     private LinearLayout llGiveOne;
     private LinearLayout llGiveMore;
+    private String paySn;
+    private String entrance;
 
 
     @Override
@@ -30,6 +32,8 @@ public class J0_SelectGiveObjectActivity extends BaseActivity implements View.On
         setContentView(R.layout.activity_select_give);
 
         jsonStr = getIntent().getStringExtra("list");
+        paySn = getIntent().getStringExtra("paySn");
+        entrance = getIntent().getStringExtra("entrance");
 
     }
 
@@ -101,17 +105,36 @@ public class J0_SelectGiveObjectActivity extends BaseActivity implements View.On
                 break;*/
 
             case R.id.ll_give_one:
-                intent.setClass(this, J2_GiveOneActivity.class);
-                intent.putExtra("jsonStr", jsonStr);
-                startActivity(intent);
-                finish();
+
+                if (entrance.equals("4")) {
+                    //从详情页过来赠送的
+                    intent.setClass(this, J6_DetailGiveOneActivity.class);
+                    intent.putExtra("paySn", paySn);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    //从酒柜过来赠送的
+                    intent.setClass(this, J2_GiveOneActivity.class);
+                    intent.putExtra("jsonStr", jsonStr);
+                    startActivity(intent);
+                    finish();
+                }
                 break;
 
             case R.id.ll_give_more:
-                intent.setClass(this, J3_GiveMoreActivity.class);
-                intent.putExtra("jsonStr", jsonStr);
-                startActivity(intent);
-                finish();
+                if (entrance.equals("4")) {
+                    //从详情页过来赠送的
+                    intent.setClass(this, J7_DetailGiveMoreActivity.class);
+                    intent.putExtra("paySn", paySn);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    //从酒柜过来赠送的
+                    intent.setClass(this, J3_GiveMoreActivity.class);
+                    intent.putExtra("jsonStr", jsonStr);
+                    startActivity(intent);
+                    finish();
+                }
                 break;
 
             default:
