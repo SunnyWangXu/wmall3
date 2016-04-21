@@ -157,6 +157,10 @@ public class D6_AfterSaleDetailActivity extends BaseActivity implements View.OnC
                         tvRefund5.setText("退货");
                         tvRefund8.setText(datas.goods_num);
                     }
+                    if (datas.refund_type.equals("3")) {
+                        tvRefund5.setText("换货");
+                        tvRefund8.setText(datas.goods_num);
+                    }
                     tvRefund6.setText(datas.reason_info);
                     tvRefund7.setText(datas.refund_amount + "元");
                     tvRefund9.setText(datas.buyer_message);
