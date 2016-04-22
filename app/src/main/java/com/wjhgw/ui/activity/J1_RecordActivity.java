@@ -29,7 +29,7 @@ import com.wjhgw.ui.view.listview.adapter.J1_RecordAdapter;
 import java.util.ArrayList;
 
 /**
- * 酒柜商品排列查询
+ * 酒柜记录
  */
 public class J1_RecordActivity extends BaseActivity implements XListView.IXListViewListener,
         View.OnClickListener {

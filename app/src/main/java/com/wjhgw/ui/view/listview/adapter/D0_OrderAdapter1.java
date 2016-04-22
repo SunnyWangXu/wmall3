@@ -79,7 +79,6 @@ public class D0_OrderAdapter1 extends BaseAdapter {
         TextView tv_goods_price = (TextView) cellView.findViewById(R.id.tv_goods_price);
         TextView tv_goods_num = (TextView) cellView.findViewById(R.id.tv_goods_num);
         TextView tv_refund = (TextView) cellView.findViewById(R.id.tv_refund);
-        TextView tv_button1 = (TextView) cellView.findViewById(R.id.tv_button1);
 
         APP.getApp().getImageLoader().displayImage(List.get(position).goods_image_url, iv_goods_image_url, APP.getApp().getImageOptions());
         tv_goods_name.setText(List.get(position).goods_name);
