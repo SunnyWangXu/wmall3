@@ -8,14 +8,82 @@
 
     <include layout="@layout/title_layout" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
     <com.wjhgw.ui.view.listview.MyListView
         android:id="@+id/d1_list_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:layout_marginTop="1dp"
         android:divider="#00000000"
         android:dividerHeight="0dp"
         android:fastScrollEnabled="false"
         android:scrollbars="none" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_button3"
+                android:layout_width="85dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="14dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/background_radius_gray"
+                android:gravity="center"
+                android:text="联系客服"
+                android:textColor="#666666"
+                android:textSize="15dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_button2"
+                android:layout_width="85dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="14dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/background_radius_gray"
+                android:gravity="center"
+                android:text="删除订单"
+                android:textColor="#666666"
+                android:textSize="15dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_button1"
+                android:layout_width="85dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right|center"
+                android:layout_marginBottom="14dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/background_radius_red"
+                android:gravity="center"
+                android:text="商品评价"
+                android:textColor="#666666"
+                android:textSize="15dp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+    </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

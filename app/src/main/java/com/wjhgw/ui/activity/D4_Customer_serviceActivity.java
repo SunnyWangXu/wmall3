@@ -102,6 +102,11 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
     private String refund_type = "1";
     private refund_allList refund;
     private ArrayList<OrderList_goods_list_data> extend_order_goods;
+    private FrameLayout fl_lauout0;
+    private TextView tv_d4_text0;
+    private ImageView iv_d4_image0;
+    private String order_type;
+    private LinearLayout ll_order_type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +125,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
         order_id = getIntent().getStringExtra("order_id");
         lock_state = getIntent().getStringExtra("lock_state");
         rec_id = getIntent().getStringExtra("rec_id");
+        order_type = getIntent().getStringExtra("order_type");
 
         if (lock_state.equals("20")) {
             click(1);
@@ -133,15 +139,19 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
 
             fl_layotu.setVisibility(View.GONE);
             tv_d4_text5.setText("最多0件");
-            tv_d4_text2.setTextColor(Color.parseColor("#999999"));
             tv_d4_text3.setText("取消订单,全部退款");
         } else {
-            click(1);
-            add_refund_step1();
-            tv_d4_text5.setText("最多0件");
-            et_d4_name2.setText("0");
-            et_d4_name2.setTextColor(Color.parseColor("#cccccc"));
-            et_d4_name2.setEnabled(false);
+            if (order_type.equals("4")) {
+                click(3);
+            } else {
+                click(1);
+                add_refund_step1();
+                tv_d4_text5.setText("最多0件");
+                et_d4_name2.setText("0");
+                et_d4_name2.setTextColor(Color.parseColor("#cccccc"));
+                et_d4_name2.setEnabled(false);
+            }
+
         }
         et_d4_name1.addTextChangedListener(new TextWatcher() {
             @Override
@@ -212,9 +222,12 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
         Customer_service2 = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.d4_customer_service_item2, null);
         mListView1 = (MyListView) Customer_service2.findViewById(R.id.d4_list_item);
 
+        ll_order_type = (LinearLayout) Customer_service1.findViewById(R.id.ll_order_type);
+        fl_lauout0 = (FrameLayout) Customer_service1.findViewById(R.id.fl_lauout0);
         fl_lauout1 = (FrameLayout) Customer_service1.findViewById(R.id.fl_lauout1);
         fl_lauout2 = (FrameLayout) Customer_service1.findViewById(R.id.fl_lauout2);
         fl_layout3 = (FrameLayout) Customer_service1.findViewById(R.id.fl_layout3);
+        tv_d4_text0 = (TextView) Customer_service1.findViewById(R.id.tv_d4_text0);
         tv_d4_text1 = (TextView) Customer_service1.findViewById(R.id.tv_d4_text1);
         tv_d4_text2 = (TextView) Customer_service1.findViewById(R.id.tv_d4_text2);
         tv_d4_text3 = (TextView) Customer_service1.findViewById(R.id.tv_d4_text3);
@@ -223,6 +236,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
         et_d4_name1 = (EditText) Customer_service1.findViewById(R.id.et_d4_name1);
         et_d4_name2 = (EditText) Customer_service1.findViewById(R.id.et_d4_name2);
         et_d4_name = (EditText) Customer_service1.findViewById(R.id.et_d4_name);
+        iv_d4_image0 = (ImageView) Customer_service1.findViewById(R.id.iv_d4_image0);
         iv_d4_image1 = (ImageView) Customer_service1.findViewById(R.id.iv_d4_image1);
         iv_d4_image2 = (ImageView) Customer_service1.findViewById(R.id.iv_d4_image2);
 
@@ -236,7 +250,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
         tv_d4_goods_name = (TextView) Customer_service2.findViewById(R.id.tv_d4_goods_name);
         tv_d4_num = (TextView) Customer_service2.findViewById(R.id.tv_d4_num);
         tv_d4_rder_sn = (TextView) Customer_service2.findViewById(R.id.tv_d4_rder_sn);
-        tv_d4_next = (TextView)findViewById(R.id.tv_d4_next);
+        tv_d4_next = (TextView) findViewById(R.id.tv_d4_next);
     }
 
     @Override
@@ -246,6 +260,7 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
 
     @Override
     public void onBindListener() {
+        fl_lauout0.setOnClickListener(this);
         fl_lauout1.setOnClickListener(this);
         fl_lauout2.setOnClickListener(this);
         fl_layout3.setOnClickListener(this);
@@ -267,17 +282,30 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.fl_lauout0:
+                if (lock_state.equals("20")) {
+                    showToastShort("待发货订单仅支持退款");
+                } else {
+                    if (!order_type.equals("4")) {
+                        showToastShort("正常订单不支持换货");
+                    }
+                }
+                break;
             case R.id.fl_lauout1:
-                if (!lock_state.equals("20")) {
+                if (!lock_state.equals("20") && !order_type.equals("4")) {
                     click(1);
                     tv_d4_text5.setText("最多0件");
                     et_d4_name2.setText("0");
                     et_d4_name2.setTextColor(Color.parseColor("#cccccc"));
                     et_d4_name2.setEnabled(false);
                 }
+
+                if (!lock_state.equals("20") && order_type.equals("4")) {
+                    showToastShort("取酒订单仅支持换货");
+                }
                 break;
             case R.id.fl_lauout2:
-                if (!lock_state.equals("20")) {
+                if (!lock_state.equals("20") && !order_type.equals("4")) {
                     click(2);
                     tv_d4_text5.setText("最多" + goods_num + "件");
 
@@ -285,6 +313,14 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
                     et_d4_name2.setTextColor(Color.parseColor("#333333"));
                     et_d4_name2.setEnabled(true);
                 }
+                if (lock_state.equals("20")) {
+                    showToastShort("待发货订单仅支持退款");
+                } else {
+                    if (order_type.equals("4")) {
+                        showToastShort("取酒订单仅支持换货");
+                    }
+                }
+
                 break;
             case R.id.fl_layout3:
                 if (!lock_state.equals("20")) {
@@ -342,18 +378,22 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
                     add_refund_all_step2(buyer_message, s);
                 } else {
                     String reason_info = tv_d4_text3.getText().toString();
-                    String refund_amount = et_d4_name1.getText().toString();
-                    String goods_num = et_d4_name2.getText().toString();
-
                     if (reason_info.equals("请选择售后原因")) {
                         reason_info = "其他";
                     }
+                    if (!order_type.equals("4")) {
+                        String refund_amount = et_d4_name1.getText().toString();
+                        String goods_num = et_d4_name2.getText().toString();
 
-                    if (refund_amount.length() > 0 && goods_num.length() > 0) {
-                        add_refund_step2(buyer_message, s, refund_amount, goods_num, reason_info);
+                        if (refund_amount.length() > 0 && goods_num.length() > 0) {
+                            add_refund_step2(buyer_message, s, refund_amount, goods_num, reason_info);
+                        } else {
+                            showToastShort("退款金额或退款数量不能为空");
+                        }
                     } else {
-                        showToastShort("退款金额或退款数量不能为空");
+                        add_refund_step2(buyer_message, s, "0", "0", reason_info);
                     }
+
                 }
 
                 break;
@@ -550,10 +590,10 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
                         tv_d4_text4.setText("最多" + order_amount + "元");
                         et_d4_name1.setText("" + refund.datas.order_amount);
 
-                        if(refund.datas.order_type.equals("4") && order_amount == 0){
-                            if(order_amount == 0){
+                        if (refund.datas.order_type.equals("4") && order_amount == 0) {
+                            if (order_amount == 0) {
                                 tv_d4_text3.setText("取消订单,商品退至您的酒柜");
-                            }else {
+                            } else {
                                 tv_d4_text3.setText("商品退至您的酒柜");
                             }
                         }
@@ -691,8 +731,10 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
     }
 
     private void click(int i) {
-        tv_d4_text1.setTextColor(Color.parseColor("#666666"));
-        tv_d4_text2.setTextColor(Color.parseColor("#666666"));
+        tv_d4_text0.setTextColor(Color.parseColor("#999999"));
+        tv_d4_text1.setTextColor(Color.parseColor("#999999"));
+        tv_d4_text2.setTextColor(Color.parseColor("#999999"));
+        iv_d4_image0.setVisibility(View.GONE);
         iv_d4_image1.setVisibility(View.GONE);
         iv_d4_image2.setVisibility(View.GONE);
         if (i == 1) {
@@ -703,6 +745,11 @@ public class D4_Customer_serviceActivity extends BaseActivity implements OnClick
             refund_type = "2";
             tv_d4_text2.setTextColor(Color.parseColor("#f25252"));
             iv_d4_image2.setVisibility(View.VISIBLE);
+        } else if (i == 3) {
+            refund_type = "3";
+            tv_d4_text0.setTextColor(Color.parseColor("#f25252"));
+            iv_d4_image0.setVisibility(View.VISIBLE);
+            ll_order_type.setVisibility(View.GONE);
         }
 
     }

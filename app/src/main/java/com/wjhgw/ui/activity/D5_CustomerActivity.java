@@ -56,7 +56,7 @@ public class D5_CustomerActivity extends BaseActivity implements OnClickListener
     @Override
     public void onInit() {
         setUp();
-        setTitle("申请售后");
+        setTitle("售后列表");
     }
 
     @Override

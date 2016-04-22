@@ -76,6 +76,10 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
     private Order_cancelDialog order_cancelDialog;
     private String msg = "购买其他商品";
     private LinearLayout ll_logistics;
+    private TextView tv_order_type;
+    private TextView tv_payment;
+    private TextView tv_mail;
+    private FrameLayout fl_message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,28 +131,32 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
         mListView1 = (MyListView) order2.findViewById(R.id.d1_item_list);
 
         fl_logistics = (FrameLayout) order1.findViewById(R.id.fl_logistics);
-        tv_store_name = (TextView) order1.findViewById(R.id.tv_store_name);
-        tv_state_desc = (TextView) order1.findViewById(R.id.tv_state_desc);
+        tv_store_name = (TextView) order2.findViewById(R.id.tv_store_name);
+        tv_state_desc = (TextView) order2.findViewById(R.id.tv_state_desc);
         tv_reciver_name = (TextView) order1.findViewById(R.id.tv_reciver_name);
         tv_state = (TextView) order1.findViewById(R.id.tv_state);
         tv_phone = (TextView) order1.findViewById(R.id.tv_phone);
         tv_address = (TextView) order1.findViewById(R.id.tv_address);
 
-        ll_invoice = (LinearLayout) order3.findViewById(R.id.ll_invoice);
+        ll_invoice = (LinearLayout) order1.findViewById(R.id.ll_invoice);
+        fl_message = (FrameLayout) order1.findViewById(R.id.fl_message);
         ll_logistics = (LinearLayout) order1.findViewById(R.id.ll_logistics);
-        tv_invoice_type = (TextView) order3.findViewById(R.id.tv_invoice_type);
-        tv_invoice_rise = (TextView) order3.findViewById(R.id.tv_invoice_rise);
-        tv_invoice_content = (TextView) order3.findViewById(R.id.tv_invoice_content);
-        tv_order_amount = (TextView) order3.findViewById(R.id.tv_order_amount);
+        tv_invoice_type = (TextView) order1.findViewById(R.id.tv_invoice_type);
+        tv_invoice_rise = (TextView) order1.findViewById(R.id.tv_invoice_rise);
+        tv_invoice_content = (TextView) order1.findViewById(R.id.tv_invoice_content);
+        tv_order_amount = (TextView) order2.findViewById(R.id.tv_order_amount);
+        tv_order_type = (TextView) order2.findViewById(R.id.tv_order_type);
         tv_order_sn = (TextView) order3.findViewById(R.id.tv_order_sn);
         tv_add_time = (TextView) order3.findViewById(R.id.tv_add_time);
-        tv_remarks = (TextView) order3.findViewById(R.id.tv_remarks);
+        tv_remarks = (TextView) order1.findViewById(R.id.tv_remarks);
         tv_payment_name = (TextView) order3.findViewById(R.id.tv_payment_name);
+        tv_payment = (TextView) order3.findViewById(R.id.tv_payment);
+        tv_mail = (TextView) order3.findViewById(R.id.tv_mail);
 
 
-        tv_button1 = (TextView) order3.findViewById(R.id.tv_button1);
-        tv_button2 = (TextView) order3.findViewById(R.id.tv_button2);
-        tv_button3 = (TextView) order3.findViewById(R.id.tv_button3);
+        tv_button1 = (TextView) findViewById(R.id.tv_button1);
+        tv_button2 = (TextView) findViewById(R.id.tv_button2);
+        tv_button3 = (TextView) findViewById(R.id.tv_button3);
     }
 
     @Override
@@ -278,7 +286,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                     if (order_detail.datas.if_refund_cancel) {
                         intent = new Intent(this, D4_Customer_serviceActivity.class);
                         intent.putExtra("lock_state", order_detail.datas.order_state);
-                        intent.putExtra("order_sn", order_detail.datas.order_id);
+                        intent.putExtra("order_id", order_detail.datas.order_id);
                         startActivity(intent);
                     }
 
@@ -376,17 +384,18 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                         mListView.setRefreshTime();
                         if (order_detail.datas != null) {
                             LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) mListView1.getLayoutParams();
-                            linearParams.height = dip2px(D1_OrderActivity.this, 114) * order_detail.datas.extend_order_goods.size();// 当控件的高
+                            linearParams.height = dip2px(D1_OrderActivity.this, 115) * order_detail.datas.extend_order_goods.size();// 当控件的高
                             mListView1.setLayoutParams(linearParams);
 
                             listAdapter = new D1_OrderAdapter(D1_OrderActivity.this, order_detail.datas.extend_order_goods,
-                                    order_detail.datas.lock_state, order_detail.datas.order_state, order_detail.datas.order_id);
+                                    order_detail.datas.lock_state, order_detail.datas.order_state,
+                                    order_detail.datas.order_id, order_detail.datas.order_type);
                             mListView1.setAdapter(listAdapter);
 
                             tv_store_name.setText(order_detail.datas.store_name);
                             tv_state_desc.setText(order_detail.datas.state_desc);
-                            tv_order_sn.setText(order_detail.datas.order_sn);
-                            tv_payment_name.setText(order_detail.datas.payment_name);
+                            tv_order_sn.setText("订单号："+order_detail.datas.order_sn);
+                            tv_payment_name.setText("支付方式："+order_detail.datas.payment_name);
                             int num = 0;
                             for (int i = 0; i < order_detail.datas.extend_order_goods.size(); i++) {
                                 num += Integer.parseInt(order_detail.datas.extend_order_goods.get(i).goods_num);
@@ -397,14 +406,22 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 tv_order_amount.setText("共" + num + "件商品,合计：¥" + order_detail.datas.order_amount + "(含运费0.00)");
                             }
 
+                            if(order_detail.datas.order_type.equals("3")){
+                                tv_order_type.setVisibility(View.VISIBLE);
+                                tv_order_type.setText("存酒");
+                            }else if(order_detail.datas.order_type.equals("4")){
+                                tv_order_type.setVisibility(View.VISIBLE);
+                                tv_order_type.setText("取酒");
+                            }
+
                             if (order_detail.datas.extend_order_common.invoice_info == null) {
                                 ll_invoice.setVisibility(View.GONE);
                             } else {
-                                tv_invoice_type.setText(order_detail.datas.extend_order_common.invoice_info.类型);
-                                tv_invoice_rise.setText(order_detail.datas.extend_order_common.invoice_info.抬头);
-                                tv_invoice_content.setText(order_detail.datas.extend_order_common.invoice_info.内容);
+                                tv_invoice_type.setText("类型："+order_detail.datas.extend_order_common.invoice_info.类型);
+                                tv_invoice_rise.setText("抬头："+order_detail.datas.extend_order_common.invoice_info.抬头);
+                                tv_invoice_content.setText("内容："+order_detail.datas.extend_order_common.invoice_info.内容);
                             }
-                            if (order_detail.datas.order_type.equals("0") && order_detail.datas.order_type.equals("4")) {
+                            if (order_detail.datas.order_type.equals("0") || order_detail.datas.order_type.equals("4")) {
                                 tv_reciver_name.setText(order_detail.datas.extend_order_common.reciver_name);
                                 tv_phone.setText(order_detail.datas.extend_order_common.reciver_info.phone);
                                 tv_address.setText("收货地址：" + order_detail.datas.extend_order_common.reciver_info.address);
@@ -412,8 +429,14 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 ll_logistics.setVisibility(View.GONE);
                             }
 
-                            tv_add_time.setText(order_detail.datas.add_time);
-                            tv_remarks.setText(order_detail.datas.order_message);
+                            tv_add_time.setText("下单时间："+order_detail.datas.add_time);
+                            tv_payment.setText("支付时间："+order_detail.datas.payment_time);
+                            tv_mail.setText("寄出时间："+order_detail.datas.extend_order_common.shipping_time);
+                            if(order_detail.datas.extend_order_common.order_message.equals("")){
+                                fl_message.setVisibility(View.GONE);
+                            }else {
+                                tv_remarks.setText(order_detail.datas.extend_order_common.order_message);
+                            }
 
                             if (order_detail.datas.order_state.equals("10")) {
                                 if (order_detail.datas.if_cancel) {

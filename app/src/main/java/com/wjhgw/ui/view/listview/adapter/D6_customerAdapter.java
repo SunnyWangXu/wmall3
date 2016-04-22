@@ -80,6 +80,9 @@ public class D6_customerAdapter extends BaseAdapter {
         }else if(List.get(position).refund_type.equals("2")){
             tv_text4.setText("退货退款");
             tv_text3.setText("X "+List.get(position).goods_num);
+        }else if(List.get(position).refund_type.equals("3")){
+            tv_text4.setText("换货");
+            tv_text3.setText("X "+List.get(position).goods_num);
         }
         tv_text5.setText(List.get(position).refund_amount);
 

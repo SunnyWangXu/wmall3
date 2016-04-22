@@ -101,6 +101,7 @@ public class D0_OrderAdapter extends BaseAdapter {
         final TextView tv_button1 = (TextView) cellView.findViewById(R.id.tv_button1);
         final TextView tv_button2 = (TextView) cellView.findViewById(R.id.tv_button2);
         final TextView tv_button3 = (TextView) cellView.findViewById(R.id.tv_button3);
+        final TextView tv_order_type = (TextView) cellView.findViewById(R.id.tv_order_type);
         TextView tv_store_name = (TextView) cellView.findViewById(R.id.tv_store_name);
         TextView tv_state_desc = (TextView) cellView.findViewById(R.id.tv_state_desc);
         TextView tv_order_amount = (TextView) cellView.findViewById(R.id.tv_order_amount);
@@ -133,6 +134,13 @@ public class D0_OrderAdapter extends BaseAdapter {
 //        });
         tv_store_name.setText(List.get(position).store_name);
         tv_state_desc.setText(List.get(position).state_desc);
+        if(List.get(position).order_type.equals("3")){
+            tv_order_type.setVisibility(View.VISIBLE);
+            tv_order_type.setText("存酒");
+        }else if(List.get(position).order_type.equals("4")){
+            tv_order_type.setVisibility(View.VISIBLE);
+            tv_order_type.setText("取酒");
+        }
         int num = 0;
         for(int i = 0; i < List.get(position).extend_order_goods.size(); i++){
             num += Integer.parseInt(List.get(position).extend_order_goods.get(i).goods_num);
@@ -304,6 +312,7 @@ public class D0_OrderAdapter extends BaseAdapter {
                         Intent intent = new Intent(c, D4_Customer_serviceActivity.class);
                         intent.putExtra("lock_state", List.get(position).order_state);
                         intent.putExtra("order_id", List.get(position).order_id);
+                        intent.putExtra("order_type", List.get(position).order_type);
                         c.startActivity(intent);
                     }
                     //申请售后

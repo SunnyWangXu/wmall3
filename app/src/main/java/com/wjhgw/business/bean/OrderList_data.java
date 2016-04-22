@@ -10,6 +10,7 @@ public class OrderList_data {
     public String state_desc;
     public String order_sn;
     public String order_amount;
+    public String order_type;
     public String payment_name;
     public String add_time;
     public String shipping_fee;
