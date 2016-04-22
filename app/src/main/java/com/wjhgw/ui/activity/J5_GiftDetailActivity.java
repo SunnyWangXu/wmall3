@@ -236,7 +236,7 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
                             s += Double.parseDouble(ssend_goods_list.datas.gift_goods_list.get(i).goods_price)
                                     * Integer.parseInt(ssend_goods_list.datas.gift_goods_list.get(i).goods_num);
                         }
-                        tv_j5_price.setText(new java.text.DecimalFormat("#.00").format(s));
+                        tv_j5_price.setText(new java.text.DecimalFormat("######0.00").format(s));
                     } else {
                         overtime(ssend_goods_list.status.code, ssend_goods_list.status.msg);
                     }
