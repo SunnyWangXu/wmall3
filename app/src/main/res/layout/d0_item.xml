@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:layout_marginLeft="36dp"
+                android:layout_marginLeft="30dp"
                 android:textColor="#333333"
                 android:text="万嘉欢购"
                 android:textSize="14dp" />
