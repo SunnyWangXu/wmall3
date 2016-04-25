@@ -12,32 +12,37 @@
         android:background="#ffffff"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center_vertical">
+            android:layout_marginTop="5dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/ic_app"/>
 
             <TextView
                 android:id="@+id/tv_store_name"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
+                android:layout_marginLeft="36dp"
+                android:textColor="#333333"
                 android:text="万嘉欢购"
-                android:textSize="15dp" />
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/tv_state_desc"
-                android:layout_width="70dp"
-                android:layout_height="25dp"
-                android:layout_alignParentRight="true"
-                android:gravity="center"
-                android:text="代付款"
-                android:textColor="#f14f4f"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:textColor="#f25252"
                 android:textSize="13dp" />
-        </RelativeLayout>
+        </FrameLayout>
 
         <View
             android:layout_width="match_parent"

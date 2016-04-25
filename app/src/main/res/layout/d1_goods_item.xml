@@ -17,13 +17,20 @@
         android:layout_marginRight="12dp"
         android:layout_marginTop="10dp">
 
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/ic_app"/>
+
         <TextView
             android:id="@+id/tv_store_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="30dp"
             android:text="万嘉欢购"
-            android:textColor="#aeaeae"
+            android:textColor="#333333"
             android:textSize="14dp" />
 
         <TextView

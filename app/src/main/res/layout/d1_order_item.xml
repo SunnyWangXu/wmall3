@@ -28,13 +28,12 @@
             android:textColor="#666666"
             android:textSize="14dp" />
 
-
         <TextView
-            android:id="@+id/tv_add_time"
+            android:id="@+id/tv_payment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="下单时间："
+            android:text="支付时间:"
             android:textColor="#666666"
             android:textSize="14dp" />
 
@@ -48,11 +47,12 @@
             android:textSize="14dp" />
 
         <TextView
-            android:id="@+id/tv_payment"
+            android:id="@+id/tv_add_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="支付时间:"
+            android:layout_marginBottom="10dp"
+            android:text="下单时间："
             android:textColor="#666666"
             android:textSize="14dp" />
 
@@ -61,7 +61,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
             android:text="寄出时间:"
             android:textColor="#666666"
             android:textSize="14dp" />

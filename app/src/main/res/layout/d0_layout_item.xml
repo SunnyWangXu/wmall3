@@ -33,7 +33,7 @@
                 android:lines="2"
                 android:text="卡罗兰 20L"
                 android:textColor="#333333"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_goods_price"

@@ -422,7 +422,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 tv_invoice_content.setText("内容："+order_detail.datas.extend_order_common.invoice_info.内容);
                             }
                             if (order_detail.datas.order_type.equals("0") || order_detail.datas.order_type.equals("4")) {
-                                tv_reciver_name.setText(order_detail.datas.extend_order_common.reciver_name);
+                                tv_reciver_name.setText("S收货人：" + order_detail.datas.extend_order_common.reciver_name);
                                 tv_phone.setText(order_detail.datas.extend_order_common.reciver_info.phone);
                                 tv_address.setText("收货地址：" + order_detail.datas.extend_order_common.reciver_info.address);
                             } else {
@@ -431,7 +431,12 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
 
                             tv_add_time.setText("下单时间："+order_detail.datas.add_time);
                             tv_payment.setText("支付时间："+order_detail.datas.payment_time);
-                            tv_mail.setText("寄出时间："+order_detail.datas.extend_order_common.shipping_time);
+                            if(order_detail.datas.extend_order_common.shipping_time.length() > 1){
+                                tv_mail.setText("寄出时间："+order_detail.datas.extend_order_common.shipping_time);
+                            }else {
+                                tv_mail.setVisibility(View.GONE);
+                            }
+
                             if(order_detail.datas.extend_order_common.order_message.equals("")){
                                 fl_message.setVisibility(View.GONE);
                             }else {
