@@ -5,7 +5,7 @@
     android:clickable="true"
     android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:background="#ffffff"
@@ -21,12 +21,10 @@
             android:src="@mipmap/ic_set" />
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
             android:ellipsize="end"
-            android:gravity="center"
             android:singleLine="true"
             android:text="我的"
             android:textColor="@color/title_color"
@@ -41,7 +39,7 @@
             android:src="@mipmap/ic_message"
             android:visibility="gone" />
 
-    </LinearLayout>
+    </FrameLayout>
 
     <com.wjhgw.ui.view.listview.MyListView
         android:id="@+id/my_listview"
