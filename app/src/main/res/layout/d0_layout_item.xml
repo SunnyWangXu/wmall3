@@ -64,7 +64,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
                 android:text="售后中"
-                android:textColor="#f25252"
+                android:textColor="#E8903A"
                 android:textSize="15dp" />
 
             <TextView

@@ -10,6 +10,7 @@ public class OrderList_goods_list_data {
     public String goods_price;
     public String goods_num;
     public String refund = "10";
+    public Extend_refund_data extend_refund ;
     public String rec_id;
 
 }

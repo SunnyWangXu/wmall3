@@ -41,9 +41,8 @@ public class D0_OrderAdapter1 extends BaseAdapter {
     private String rder_sn;
     private String lock_state; //是否处于售后中
     private String order_state; //是否是待发货状态
-    private boolean state = false;
 
-    public D0_OrderAdapter1(Context c, ArrayList<OrderList_goods_list_data> dataList, String lock_state, String order_state, String rder_sn,String order_id) {
+    public D0_OrderAdapter1(Context c, ArrayList<OrderList_goods_list_data> dataList, String lock_state, String order_state, String rder_sn, String order_id) {
         mInflater = LayoutInflater.from(c);
         this.c = c;
         this.List = dataList;
@@ -51,10 +50,7 @@ public class D0_OrderAdapter1 extends BaseAdapter {
         this.order_state = order_state;
         this.order_id = order_id;
         this.rder_sn = rder_sn;
-        if(lock_state.equals("1") && order_state.equals("20")){
-            state =true;
-            //售后中和待发货状态
-        }
+
     }
 
     @Override
@@ -85,12 +81,38 @@ public class D0_OrderAdapter1 extends BaseAdapter {
         tv_goods_price.setText("¥ " + List.get(position).goods_price);
         tv_goods_num.setText("X " + List.get(position).goods_num);
 
-        if(lock_state.equals("1") && List.get(position).refund.equals("0") || state){
+        if (lock_state.equals("1") && order_state.equals("20")) {
             tv_refund.setVisibility(View.VISIBLE);
-            //待收货状态
-        }/*else if(order_state.equals("30") ||order_state.equals("40") ||order_state.equals("60")){
-            tv_button1.setVisibility(View.VISIBLE);
-        }*/
+            tv_refund.setText("全部退款");
+        } else if (lock_state.equals("1") && List.get(position).refund.equals("0")
+                && List.get(position).extend_refund != null) {
+            tv_refund.setVisibility(View.VISIBLE);
+            if (List.get(position).extend_refund.refund_type.equals("1")) {
+                if (List.get(position).extend_refund.refund_return_state.equals("1")) {
+                    tv_refund.setText("退款失败");
+                } else if (List.get(position).extend_refund.refund_return_state.equals("2")) {
+                    tv_refund.setText("退款中");
+                } else if (List.get(position).extend_refund.refund_return_state.equals("3")) {
+                    tv_refund.setText("退款成功");
+                }
+            } else if (List.get(position).extend_refund.refund_type.equals("2")) {
+                if (List.get(position).extend_refund.refund_return_state.equals("1")) {
+                    tv_refund.setText("退货失败");
+                } else if (List.get(position).extend_refund.refund_return_state.equals("2")) {
+                    tv_refund.setText("退货中");
+                } else if (List.get(position).extend_refund.refund_return_state.equals("3")) {
+                    tv_refund.setText("退货成功");
+                }
+            } else if (List.get(position).extend_refund.refund_type.equals("3")) {
+                if (List.get(position).extend_refund.refund_return_state.equals("1")) {
+                    tv_refund.setText("换货失败");
+                } else if (List.get(position).extend_refund.refund_return_state.equals("2")) {
+                    tv_refund.setText("换货中");
+                } else if (List.get(position).extend_refund.refund_return_state.equals("3")) {
+                    tv_refund.setText("换货成功");
+                }
+            }
+        }
 
         cellView.setOnClickListener(new View.OnClickListener() {
             @Override
