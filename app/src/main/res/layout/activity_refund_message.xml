@@ -5,6 +5,8 @@
     android:background="@color/layout_bg"
     android:orientation="vertical">
 
+    <include layout="@layout/title_layout" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
