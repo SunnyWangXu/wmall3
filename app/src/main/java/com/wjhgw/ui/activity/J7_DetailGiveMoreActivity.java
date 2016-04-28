@@ -52,6 +52,8 @@ public class J7_DetailGiveMoreActivity extends BaseActivity implements View.OnCl
     private EditText edGiftPaw;
     private EditText edGiftMoreNote;
     private TextView tvConfirmGiveMore;
+    private ImageView iv_switch;
+    private boolean Switch  = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +167,7 @@ public class J7_DetailGiveMoreActivity extends BaseActivity implements View.OnCl
     public void onFindViews() {
 
         ivDetailImg = (ImageView) findViewById(R.id.iv_detail_givem_image);
+        iv_switch = (ImageView) findViewById(R.id.iv_switch);
         edGiftPaw = (EditText) findViewById(R.id.ed_detail_gift_paw);
         tvGoodsName = (TextView) findViewById(R.id.tv_detail_givem_goodsname);
         tvGoodsPrice = (TextView) findViewById(R.id.tv_detail_givem_goodsprice);
@@ -184,6 +187,7 @@ public class J7_DetailGiveMoreActivity extends BaseActivity implements View.OnCl
     @Override
     public void onBindListener() {
         tvConfirmGiveMore.setOnClickListener(this);
+        iv_switch.setOnClickListener(this);
     }
 
     @Override
@@ -197,6 +201,20 @@ public class J7_DetailGiveMoreActivity extends BaseActivity implements View.OnCl
                  * 创建单人礼包
                  */
                 createGiftBag(goods_str);
+
+                break;
+            case R.id.iv_switch:
+                if(Switch){
+                    iv_switch.setImageResource(R.mipmap.ic_push_off);
+                    Switch=false;
+                    edGiftPaw.setText("");
+                    edGiftPaw.setEnabled(false);
+                }else {
+                    iv_switch.setImageResource(R.mipmap.ic_push_on);
+                    Switch=true;
+                    edGiftPaw.setText("");
+                    edGiftPaw.setEnabled(true);
+                }
 
                 break;
 

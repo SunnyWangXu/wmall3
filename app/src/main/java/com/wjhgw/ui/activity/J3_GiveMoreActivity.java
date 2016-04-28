@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -53,6 +54,8 @@ public class J3_GiveMoreActivity extends BaseActivity implements View.OnClickLis
     private String edNote;
     private EditText edGiftPaw;
     public String useName;
+    private ImageView iv_switch;
+    private boolean Switch  = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,7 +160,7 @@ public class J3_GiveMoreActivity extends BaseActivity implements View.OnClickLis
         edGiftMoreNote = (EditText) llGiveMoreHeader.findViewById(R.id.ed_giftmore_note);
         tvGiveMoreTotal = (TextView) findViewById(R.id.tv_give_more_total);
         tvConfirmGivemore = (TextView) findViewById(R.id.tv_confirm_givemore);
-
+        iv_switch = (ImageView)llGiveMoreHeader.findViewById(R.id.iv_switch);
 
     }
 
@@ -169,7 +172,7 @@ public class J3_GiveMoreActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onBindListener() {
-
+        iv_switch.setOnClickListener(this);
         tvConfirmGivemore.setOnClickListener(this);
     }
 
@@ -189,6 +192,20 @@ public class J3_GiveMoreActivity extends BaseActivity implements View.OnClickLis
                  * 创建礼包
                  */
                 createGiftBag(goods_str);
+
+                break;
+            case R.id.iv_switch:
+                if(Switch){
+                    iv_switch.setImageResource(R.mipmap.ic_push_off);
+                    Switch=false;
+                    edGiftPaw.setText("");
+                    edGiftPaw.setEnabled(false);
+                }else {
+                    iv_switch.setImageResource(R.mipmap.ic_push_on);
+                    Switch=true;
+                    edGiftPaw.setText("");
+                    edGiftPaw.setEnabled(true);
+                }
 
                 break;
 
