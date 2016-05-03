@@ -27,7 +27,7 @@ import com.wjhgw.ui.view.listview.adapter.D6_customerAdapter;
 import java.util.ArrayList;
 
 /**
- * 退款/退货申请列表
+ * 售后列表
  */
 public class D5_CustomerActivity extends BaseActivity implements OnClickListener, XListView.IXListViewListener {
 

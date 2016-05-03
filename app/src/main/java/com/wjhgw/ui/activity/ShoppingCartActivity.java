@@ -494,9 +494,9 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
 
                         Intent intent = new Intent(ShoppingCartActivity.this, S0_ConfirmOrderActivity.class);
                         intent.putExtra("selectOrder", responseInfo.result);
-                        String tvTotal = tv_total.getText().toString();
+                        //String tvTotal = tv_total.getText().toString();
                         intent.putExtra("cart_id", cart_id);
-                        intent.putExtra("tv_total", tvTotal);
+                        intent.putExtra("tv_total", realPay + "");
                         intent.putExtra("realPay", realPay);
                         startActivity(intent);
 
