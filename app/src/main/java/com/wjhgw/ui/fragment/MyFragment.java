@@ -33,6 +33,7 @@ import com.wjhgw.ui.activity.M0_MyLockBoxActivity;
 import com.wjhgw.ui.activity.M6_SetActivity;
 import com.wjhgw.ui.activity.M7_MyCollectActivity;
 import com.wjhgw.ui.activity.Z0_AssetsActivity;
+import com.wjhgw.ui.activity.Z1_Prepaid_card_balanceActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.dialog.UnderDialog;
 import com.wjhgw.ui.view.listview.MyListView;
@@ -74,6 +75,8 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private LinearLayout ll_my_collect;
     private FrameLayout profileHeadShare;
     private FrameLayout profileHeadAddClient;
+    private LinearLayout ll_rechargeable_card;
+    private LinearLayout ll_available_predeposit;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -155,6 +158,8 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         tv_hgb = (TextView) MyAssetsLayout.findViewById(R.id.tv_hgb);
         tv_vouchers = (TextView) MyAssetsLayout.findViewById(R.id.tv_vouchers);
         ll_assets = (LinearLayout) MyAssetsLayout.findViewById(R.id.ll_assets);
+        ll_rechargeable_card = (LinearLayout) MyAssetsLayout.findViewById(R.id.ll_rechargeable_card);
+        ll_available_predeposit = (LinearLayout) MyAssetsLayout.findViewById(R.id.ll_available_predeposit);
         ll_LockBox = (FrameLayout) MyMessageLayout.findViewById(R.id.ll_lockbox);
 
         ll_cabinet = (LinearLayout) MyHelpLayout.findViewById(R.id.ll_cabinet);
@@ -178,6 +183,8 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         rl_layout2.setOnClickListener(this);
         rl_layout3.setOnClickListener(this);
         rl_layout4.setOnClickListener(this);
+        ll_available_predeposit.setOnClickListener(this);
+        ll_rechargeable_card.setOnClickListener(this);
     }
 
     @Override
@@ -333,6 +340,16 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                     intent.setClass(getActivity(), Z0_AssetsActivity.class);
                     startActivity(intent);
                 }
+                break;
+            case R.id.ll_available_predeposit:
+                intent = new Intent(getActivity(), Z1_Prepaid_card_balanceActivity.class);
+                intent.putExtra("state","2");
+                startActivity(intent);
+                break;
+            case R.id.ll_rechargeable_card:
+                intent = new Intent(getActivity(), Z1_Prepaid_card_balanceActivity.class);
+                intent.putExtra("state","1");
+                startActivity(intent);
                 break;
             case R.id.iv_message:
                 underdevelopmentDialog.show();
