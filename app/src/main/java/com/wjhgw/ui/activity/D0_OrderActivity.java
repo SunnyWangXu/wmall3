@@ -38,7 +38,6 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
 
     private MyListView mListView;
     private LinearLayout ll_no_order;
-    private LinearLayout ll_layout1;
     private View v_view1;
     private View v_view2;
     private View v_view3;
@@ -65,7 +64,6 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
         name = getIntent().getStringExtra("name");
         mListView = (MyListView) findViewById(R.id.d0_list_layout);
 
-
         setTitle(name);
         mListView.setPullLoadEnable(false);
         mListView.setPullRefreshEnable(true);
@@ -84,7 +82,6 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
     @Override
     public void onFindViews() {
         ll_no_order = (LinearLayout) findViewById(R.id.ll_no_order);
-        ll_layout1 = (LinearLayout) findViewById(R.id.ll_layout1);
         v_view1 = (View) findViewById(R.id.v_view1);
         v_view2 = (View) findViewById(R.id.v_view2);
         v_view3 = (View) findViewById(R.id.v_view3);
@@ -120,11 +117,22 @@ public class D0_OrderActivity extends BaseActivity implements BusinessResponse, 
     protected void onResume() {
         super.onResume();
         if (order_state.equals("")) {
-            ll_layout1.setVisibility(View.VISIBLE);
             order_list();
             click(1);
-        } else {
+        }else if(order_state.equals("10")){
+            click(2);
             order_list();
+        }else if(order_state.equals("20")){
+            click(3);
+            order_list();
+        }else if(order_state.equals("30")){
+            click(4);
+            order_list();
+        }else if(order_state.equals("60")){
+            click(5);
+            order_list();
+        }else {
+
         }
     }
 
