@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 订单列表iten
+ * 订单列表item
  */
 public class D0_OrderAdapter1 extends BaseAdapter {
     Context c;

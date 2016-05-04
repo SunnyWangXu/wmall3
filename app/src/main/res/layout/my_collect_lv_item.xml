@@ -5,14 +5,22 @@
     android:orientation="horizontal">
 
     <RelativeLayout
-        android:layout_width="91dp"
-        android:layout_height="91dp"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
         android:layout_margin="12dp">
 
-        <ImageView
-            android:id="@+id/iv_mycollect_goods"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <LinearLayout
+            android:layout_width="92dp"
+            android:layout_height="92dp"
+            android:background="@drawable/img_stroke"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_mycollect_goods"
+                android:layout_width="90dp"
+                android:layout_height="90dp" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_mycollect_status"
@@ -22,9 +30,9 @@
             android:background="@color/gray"
             android:gravity="center"
             android:text="无货"
-            android:visibility="gone"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:visibility="gone" />
 
     </RelativeLayout>
 
