@@ -216,13 +216,19 @@ public class CabinetAdapter extends BaseAdapter {
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         if (start > 0) {
                             et_num = Integer.parseInt(shoppingDialog.et_num.getText().toString());
-                            if (et_num == 1) {
-                                shoppingDialog.iv_reduction.setImageResource(R.mipmap.ic_disable_reduction);
-                            } else if (et_num <= List.get(position).total_num) {
-                                shoppingDialog.iv_add.setImageResource(R.mipmap.ic_add_disable);
-                            } else {
-                                shoppingDialog.iv_add.setImageResource(R.mipmap.ic_add);
-                                shoppingDialog.iv_reduction.setImageResource(R.mipmap.ic_reduction);
+                            if(et_num > List.get(position).total_num){
+                                shoppingDialog.et_num.setText(shoppingDialog.et_num.getText().toString()
+                                        .substring(0,shoppingDialog.et_num.getText().length()-1));
+                                shoppingDialog.et_num.setSelection(("" + et_num).length());
+                            }else {
+                                if (et_num == 1) {
+                                    shoppingDialog.iv_reduction.setImageResource(R.mipmap.ic_disable_reduction);
+                                } else if (et_num <= List.get(position).total_num) {
+                                    shoppingDialog.iv_add.setImageResource(R.mipmap.ic_add_disable);
+                                } else {
+                                    shoppingDialog.iv_add.setImageResource(R.mipmap.ic_add);
+                                    shoppingDialog.iv_reduction.setImageResource(R.mipmap.ic_reduction);
+                                }
                             }
                         } else {
                             if (start == 0 && count > 0) {
