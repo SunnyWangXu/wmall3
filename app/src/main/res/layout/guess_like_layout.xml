@@ -249,4 +249,394 @@
 
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_guess_like05"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_guess_like05_image"
+                android:layout_width="match_parent"
+                android:layout_height="136dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp"
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/default_image" />
+
+            <TextView
+                android:id="@+id/tv_guess_like05_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="12dp"
+                android:ellipsize="end"
+                android:lines="2"
+                android:text="卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰"
+                android:textColor="@color/title_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_guess_like05_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:text="¥75.00"
+                android:textColor="#dd3333"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_guess_like06"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_guess_like06_image"
+                android:layout_width="match_parent"
+                android:layout_height="136dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp"
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/default_image" />
+
+            <TextView
+                android:id="@+id/tv_guess_like06_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="12dp"
+                android:ellipsize="end"
+                android:lines="2"
+                android:text="卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰"
+                android:textColor="@color/title_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_guess_like06_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:text="¥75.00"
+                android:textColor="#dd3333"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_guess_like07"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_guess_like07_image"
+                android:layout_width="match_parent"
+                android:layout_height="136dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp"
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/default_image" />
+
+            <TextView
+                android:id="@+id/tv_guess_like07_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="12dp"
+                android:ellipsize="end"
+                android:lines="2"
+                android:text="卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰"
+                android:textColor="@color/title_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_guess_like07_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:text="¥75.00"
+                android:textColor="#dd3333"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_guess_like08"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_guess_like08_image"
+                android:layout_width="match_parent"
+                android:layout_height="136dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp"
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/default_image" />
+
+            <TextView
+                android:id="@+id/tv_guess_like08_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="12dp"
+                android:ellipsize="end"
+                android:lines="2"
+                android:text="卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰"
+                android:textColor="@color/title_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_guess_like08_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:text="¥75.00"
+                android:textColor="#dd3333"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_guess_like09"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_guess_like09_image"
+                android:layout_width="match_parent"
+                android:layout_height="136dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp"
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/default_image" />
+
+            <TextView
+                android:id="@+id/tv_guess_like09_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="12dp"
+                android:ellipsize="end"
+                android:lines="2"
+                android:text="卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰"
+                android:textColor="@color/title_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_guess_like09_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:text="¥75.00"
+                android:textColor="#dd3333"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_guess_like10"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_guess_like10_image"
+                android:layout_width="match_parent"
+                android:layout_height="136dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp"
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/default_image" />
+
+            <TextView
+                android:id="@+id/tv_guess_like10_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="12dp"
+                android:ellipsize="end"
+                android:lines="2"
+                android:text="卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰"
+                android:textColor="@color/title_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_guess_like10_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:text="¥75.00"
+                android:textColor="#dd3333"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_guess_like11"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_guess_like11_image"
+                android:layout_width="match_parent"
+                android:layout_height="136dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp"
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/default_image" />
+
+            <TextView
+                android:id="@+id/tv_guess_like11_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="12dp"
+                android:ellipsize="end"
+                android:lines="2"
+                android:text="卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰"
+                android:textColor="@color/title_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_guess_like11_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:text="¥75.00"
+                android:textColor="#dd3333"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_guess_like12"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_guess_like12_image"
+                android:layout_width="match_parent"
+                android:layout_height="136dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp"
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/default_image" />
+
+            <TextView
+                android:id="@+id/tv_guess_like12_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="12dp"
+                android:ellipsize="end"
+                android:lines="2"
+                android:text="卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰卡罗兰"
+                android:textColor="@color/title_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_guess_like12_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:text="¥75.00"
+                android:textColor="#dd3333"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
 </LinearLayout>

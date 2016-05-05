@@ -175,6 +175,30 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private ImageView iv_guessLike04_image;
     private TextView tv_guessLike04_name;
     private TextView tv_guessLike04_price;
+    private ImageView iv_guessLike05_image;
+    private TextView tv_guessLike05_name;
+    private TextView tv_guessLike05_price;
+    private ImageView iv_guessLike06_image;
+    private TextView tv_guessLike06_name;
+    private TextView tv_guessLike06_price;
+    private ImageView iv_guessLike07_image;
+    private TextView tv_guessLike07_name;
+    private TextView tv_guessLike07_price;
+    private ImageView iv_guessLike08_image;
+    private TextView tv_guessLike08_name;
+    private TextView tv_guessLike08_price;
+    private ImageView iv_guessLike09_image;
+    private TextView tv_guessLike09_name;
+    private TextView tv_guessLike09_price;
+    private ImageView iv_guessLike10_image;
+    private TextView tv_guessLike10_name;
+    private TextView tv_guessLike10_price;
+    private ImageView iv_guessLike11_image;
+    private TextView tv_guessLike11_name;
+    private TextView tv_guessLike11_price;
+    private ImageView iv_guessLike12_image;
+    private TextView tv_guessLike12_name;
+    private TextView tv_guessLike12_price;
 
     private Auction_super_value auction_super_value;
     private TextView tvRefresh;
@@ -197,6 +221,14 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private LinearLayout llGuessLike02;
     private LinearLayout llGuessLike03;
     private LinearLayout llGuessLike04;
+    private LinearLayout llGuessLike05;
+    private LinearLayout llGuessLike06;
+    private LinearLayout llGuessLike07;
+    private LinearLayout llGuessLike08;
+    private LinearLayout llGuessLike09;
+    private LinearLayout llGuessLike10;
+    private LinearLayout llGuessLike11;
+    private LinearLayout llGuessLike12;
 
     private UnderDialog underdevelopmentDialog1;
 
@@ -239,6 +271,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             }
         }
     };
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -454,10 +487,50 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         tv_guessLike04_name = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like04_name);
         tv_guessLike04_price = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like04_price);
 
+        iv_guessLike05_image = (ImageView) Guesslikelayout.findViewById(R.id.iv_guess_like05_image);
+        tv_guessLike05_name = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like05_name);
+        tv_guessLike05_price = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like05_price);
+
+        iv_guessLike06_image = (ImageView) Guesslikelayout.findViewById(R.id.iv_guess_like06_image);
+        tv_guessLike06_name = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like06_name);
+        tv_guessLike06_price = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like06_price);
+
+        iv_guessLike07_image = (ImageView) Guesslikelayout.findViewById(R.id.iv_guess_like07_image);
+        tv_guessLike07_name = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like07_name);
+        tv_guessLike07_price = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like07_price);
+
+        iv_guessLike08_image = (ImageView) Guesslikelayout.findViewById(R.id.iv_guess_like08_image);
+        tv_guessLike08_name = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like08_name);
+        tv_guessLike08_price = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like08_price);
+
+        iv_guessLike09_image = (ImageView) Guesslikelayout.findViewById(R.id.iv_guess_like09_image);
+        tv_guessLike09_name = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like09_name);
+        tv_guessLike09_price = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like09_price);
+
+        iv_guessLike10_image = (ImageView) Guesslikelayout.findViewById(R.id.iv_guess_like10_image);
+        tv_guessLike10_name = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like10_name);
+        tv_guessLike10_price = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like10_price);
+
+        iv_guessLike11_image = (ImageView) Guesslikelayout.findViewById(R.id.iv_guess_like11_image);
+        tv_guessLike11_name = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like11_name);
+        tv_guessLike11_price = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like11_price);
+
+        iv_guessLike12_image = (ImageView) Guesslikelayout.findViewById(R.id.iv_guess_like12_image);
+        tv_guessLike12_name = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like12_name);
+        tv_guessLike12_price = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_like12_price);
+
         llGuessLike01 = (LinearLayout) Guesslikelayout.findViewById(R.id.ll_guess_like01);
         llGuessLike02 = (LinearLayout) Guesslikelayout.findViewById(R.id.ll_guess_like02);
         llGuessLike03 = (LinearLayout) Guesslikelayout.findViewById(R.id.ll_guess_like03);
         llGuessLike04 = (LinearLayout) Guesslikelayout.findViewById(R.id.ll_guess_like04);
+        llGuessLike05 = (LinearLayout) Guesslikelayout.findViewById(R.id.ll_guess_like05);
+        llGuessLike06 = (LinearLayout) Guesslikelayout.findViewById(R.id.ll_guess_like06);
+        llGuessLike07 = (LinearLayout) Guesslikelayout.findViewById(R.id.ll_guess_like07);
+        llGuessLike08 = (LinearLayout) Guesslikelayout.findViewById(R.id.ll_guess_like08);
+        llGuessLike09 = (LinearLayout) Guesslikelayout.findViewById(R.id.ll_guess_like09);
+        llGuessLike10 = (LinearLayout) Guesslikelayout.findViewById(R.id.ll_guess_like10);
+        llGuessLike11 = (LinearLayout) Guesslikelayout.findViewById(R.id.ll_guess_like11);
+        llGuessLike12 = (LinearLayout) Guesslikelayout.findViewById(R.id.ll_guess_like12);
 
 
         tvRefresh = (TextView) Guesslikelayout.findViewById(R.id.tv_guess_refresh);
@@ -524,6 +597,14 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         llGuessLike02.setOnClickListener(this);
         llGuessLike03.setOnClickListener(this);
         llGuessLike04.setOnClickListener(this);
+        llGuessLike05.setOnClickListener(this);
+        llGuessLike06.setOnClickListener(this);
+        llGuessLike07.setOnClickListener(this);
+        llGuessLike08.setOnClickListener(this);
+        llGuessLike09.setOnClickListener(this);
+        llGuessLike10.setOnClickListener(this);
+        llGuessLike11.setOnClickListener(this);
+        llGuessLike12.setOnClickListener(this);
 
         ll_button1.setOnClickListener(this);
         ll_button2.setOnClickListener(this);
@@ -538,7 +619,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         mListView = (MyListView) homeLayout.findViewById(R.id.home_listview);
         mListView.addHeaderView(homeViewPageLayout);
         //mListView.addHeaderView(MenuLayout);
-        mListView.addHeaderView(Eventlayout);
+//        mListView.addHeaderView(Eventlayout);
         mListView.addHeaderView(Discountlayout);
         mListView.addHeaderView(Themelayout);
 //        mListView.addHeaderView(Brandlayout);
@@ -555,7 +636,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         /**
          * 请求拍卖和团购数据
          */
-        load_auction_super_value();
+//        load_auction_super_value();
         /**
          * 请求折扣街数据
          */
@@ -687,6 +768,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             case R.id.tv_guess_refresh:
                 loadGuessLike();
                 break;
+
             case R.id.ll_guess_like01:
                 intent.setClass(getActivity(), PrductDetailActivity.class);
                 if (guess_like_datases.size() != 0) {
@@ -712,6 +794,63 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 intent.setClass(getActivity(), PrductDetailActivity.class);
                 if (guess_like_datases.size() != 0) {
                     intent.putExtra("goods_id", guess_like_datases.get(3).goods_id);
+                }
+                startActivity(intent);
+                break;
+            case R.id.ll_guess_like05:
+                intent.setClass(getActivity(), PrductDetailActivity.class);
+                if (guess_like_datases.size() != 0) {
+                    intent.putExtra("goods_id", guess_like_datases.get(4).goods_id);
+                }
+                startActivity(intent);
+                break;
+            case R.id.ll_guess_like06:
+                intent.setClass(getActivity(), PrductDetailActivity.class);
+                if (guess_like_datases.size() != 0) {
+                    intent.putExtra("goods_id", guess_like_datases.get(5).goods_id);
+                }
+                startActivity(intent);
+                break;
+
+            case R.id.ll_guess_like07:
+                intent.setClass(getActivity(), PrductDetailActivity.class);
+                if (guess_like_datases.size() != 0) {
+                    intent.putExtra("goods_id", guess_like_datases.get(6).goods_id);
+                }
+                startActivity(intent);
+                break;
+            case R.id.ll_guess_like08:
+                intent.setClass(getActivity(), PrductDetailActivity.class);
+                if (guess_like_datases.size() != 0) {
+                    intent.putExtra("goods_id", guess_like_datases.get(7).goods_id);
+                }
+                startActivity(intent);
+                break;
+            case R.id.ll_guess_like09:
+                intent.setClass(getActivity(), PrductDetailActivity.class);
+                if (guess_like_datases.size() != 0) {
+                    intent.putExtra("goods_id", guess_like_datases.get(8).goods_id);
+                }
+                startActivity(intent);
+                break;
+            case R.id.ll_guess_like10:
+                intent.setClass(getActivity(), PrductDetailActivity.class);
+                if (guess_like_datases.size() != 0) {
+                    intent.putExtra("goods_id", guess_like_datases.get(9).goods_id);
+                }
+                startActivity(intent);
+                break;
+            case R.id.ll_guess_like11:
+                intent.setClass(getActivity(), PrductDetailActivity.class);
+                if (guess_like_datases.size() != 0) {
+                    intent.putExtra("goods_id", guess_like_datases.get(10).goods_id);
+                }
+                startActivity(intent);
+                break;
+            case R.id.ll_guess_like12:
+                intent.setClass(getActivity(), PrductDetailActivity.class);
+                if (guess_like_datases.size() != 0) {
+                    intent.putExtra("goods_id", guess_like_datases.get(11).goods_id);
                 }
                 startActivity(intent);
                 break;
@@ -1086,7 +1225,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
      */
     private void loadGuessLike() {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("num", "4");
+        params.addBodyParameter("num", "12");
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Guess_Like, params, new RequestCallBack<String>() {
             @Override
@@ -1116,6 +1255,38 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                             APP.getApp().getImageLoader().displayImage(guess_like_datases.get(3).goods_image, iv_guessLike04_image);
                             tv_guessLike04_name.setText(guess_like_datases.get(3).goods_name);
                             tv_guessLike04_price.setText(guess_like_datases.get(3).goods_price);
+
+                            APP.getApp().getImageLoader().displayImage(guess_like_datases.get(4).goods_image, iv_guessLike05_image);
+                            tv_guessLike05_name.setText(guess_like_datases.get(4).goods_name);
+                            tv_guessLike05_price.setText(guess_like_datases.get(4).goods_price);
+
+                            APP.getApp().getImageLoader().displayImage(guess_like_datases.get(5).goods_image, iv_guessLike06_image);
+                            tv_guessLike06_name.setText(guess_like_datases.get(5).goods_name);
+                            tv_guessLike06_price.setText(guess_like_datases.get(5).goods_price);
+
+                            APP.getApp().getImageLoader().displayImage(guess_like_datases.get(6).goods_image, iv_guessLike07_image);
+                            tv_guessLike07_name.setText(guess_like_datases.get(6).goods_name);
+                            tv_guessLike07_price.setText(guess_like_datases.get(6).goods_price);
+
+                            APP.getApp().getImageLoader().displayImage(guess_like_datases.get(7).goods_image, iv_guessLike08_image);
+                            tv_guessLike08_name.setText(guess_like_datases.get(7).goods_name);
+                            tv_guessLike08_price.setText(guess_like_datases.get(7).goods_price);
+
+                            APP.getApp().getImageLoader().displayImage(guess_like_datases.get(8).goods_image, iv_guessLike09_image);
+                            tv_guessLike09_name.setText(guess_like_datases.get(8).goods_name);
+                            tv_guessLike09_price.setText(guess_like_datases.get(8).goods_price);
+
+                            APP.getApp().getImageLoader().displayImage(guess_like_datases.get(9).goods_image, iv_guessLike10_image);
+                            tv_guessLike10_name.setText(guess_like_datases.get(9).goods_name);
+                            tv_guessLike10_price.setText(guess_like_datases.get(9).goods_price);
+
+                            APP.getApp().getImageLoader().displayImage(guess_like_datases.get(10).goods_image, iv_guessLike11_image);
+                            tv_guessLike11_name.setText(guess_like_datases.get(10).goods_name);
+                            tv_guessLike11_price.setText(guess_like_datases.get(10).goods_price);
+
+                            APP.getApp().getImageLoader().displayImage(guess_like_datases.get(11).goods_image, iv_guessLike12_image);
+                            tv_guessLike12_name.setText(guess_like_datases.get(11).goods_name);
+                            tv_guessLike12_price.setText(guess_like_datases.get(1).goods_price);
                         }
                     }
                 }
