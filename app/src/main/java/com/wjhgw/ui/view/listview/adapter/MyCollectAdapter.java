@@ -72,6 +72,8 @@ public class MyCollectAdapter extends BaseAdapter {
                 holder.tvGoodStatus.setText("无货");
             }
 
+        } else {
+            holder.tvGoodStatus.setVisibility(View.GONE);
         }
 
         holder.tvGoodName.setText(goodsList.get(position).goods_name);

@@ -52,6 +52,7 @@ public class M7_MyCollectActivity extends BaseActivity implements XListView.IXLi
     private String fav_id;
     private MyDialog myDialog;
     private LinearLayout llNull;
+    private MyCollect myCollect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,10 +155,11 @@ public class M7_MyCollectActivity extends BaseActivity implements XListView.IXLi
         params.addBodyParameter("page", "10");
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Collect_goods_list, params, new RequestCallBack<String>() {
+
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Gson gson = new Gson();
-                MyCollect myCollect = gson.fromJson(responseInfo.result, MyCollect.class);
+                myCollect = gson.fromJson(responseInfo.result, MyCollect.class);
 
                 if (myCollect.status.code == 10000) {
                     M7_MyCollectActivity.this.Dismiss();
@@ -173,6 +175,12 @@ public class M7_MyCollectActivity extends BaseActivity implements XListView.IXLi
                         llNull.setVisibility(View.VISIBLE);
                     } else {
 
+                        if (myCollect.pagination.hasmore) {
+                            lvMyCollect.setPullLoadEnable(true);
+                        } else {
+                            lvMyCollect.setPullLoadEnable(false);
+                        }
+
                         if (isRefressh) {
                             myCollectAdapter = new MyCollectAdapter(M7_MyCollectActivity.this, goodsList);
                             lvMyCollect.setAdapter(myCollectAdapter);
@@ -181,11 +189,7 @@ public class M7_MyCollectActivity extends BaseActivity implements XListView.IXLi
                             myCollectAdapter.notifyDataSetChanged();
                         }
 
-                        if (myCollect.pagination.hasmore) {
-                            lvMyCollect.setPullLoadEnable(true);
-                        } else {
-                            lvMyCollect.setPullLoadEnable(false);
-                        }
+
                     }
 
                 } else {
@@ -207,7 +211,7 @@ public class M7_MyCollectActivity extends BaseActivity implements XListView.IXLi
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         Intent intent = new Intent();
-        intent.putExtra("goods_id", goodsList.get(position - 1).goods_id);
+        intent.putExtra("goods_id", goodsList.get(position % 10 - 1).goods_id);
         intent.setClass(this, PrductDetailActivity.class);
         startActivity(intent);
     }

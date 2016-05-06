@@ -104,8 +104,10 @@ public class ShoppingCartAdapter extends BaseAdapter {
     public View getView(final int position, View cellView, ViewGroup parent) {
 
         cellView = mInflater.inflate(R.layout.shopping_item, null);
+        TextView tvShopStatus = (TextView) cellView.findViewById(R.id.tv_shop_status);
         TextView tv_goods_name = (TextView) cellView.findViewById(R.id.tv_goods_name);
         TextView tv_goods_price = (TextView) cellView.findViewById(R.id.tv_goods_price);
+
         final TextView tv_num = (TextView) cellView.findViewById(R.id.tv_num);
         ImageView iv_goods_image_url = (ImageView) cellView.findViewById(R.id.iv_goods_image_url);
         final ImageView iv_reduction = (ImageView) cellView.findViewById(R.id.iv_reduction);
@@ -113,6 +115,16 @@ public class ShoppingCartAdapter extends BaseAdapter {
         final ImageView Choice = (ImageView) cellView.findViewById(R.id.iv_choice1);
         final LinearLayout ll_default = (LinearLayout) cellView.findViewById(R.id.ll_default);
 
+        if (!List.get(position).state) {
+            tvShopStatus.setVisibility(View.VISIBLE);
+            tvShopStatus.setText("下架");
+        }
+        if (List.get(position).state) {
+            if (List.get(position).goods_storage.equals("0")) {
+                tvShopStatus.setVisibility(View.VISIBLE);
+                tvShopStatus.setText("无货");
+            }
+        }
         tv_goods_name.setText(List.get(position).goods_name);
         tv_goods_price.setText("¥ " + List.get(position).goods_price);
         tv_num.setText(List.get(position).goods_num);
