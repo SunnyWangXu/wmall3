@@ -24,6 +24,7 @@ public class ArrSearchAdapter extends BaseAdapter {
     private TextView tvSearchName;
     private TextView tvSearchPice;
     private TextView tvSearchSale;
+    private TextView tvSearchStatus;
 
     public ArrSearchAdapter(Context context, List<ActSearch_datas> actSearch_datas) {
         this.mContext = context;
@@ -53,6 +54,7 @@ public class ArrSearchAdapter extends BaseAdapter {
         tvSearchName = (TextView) convertView.findViewById(R.id.tv_search_name);
         tvSearchPice = (TextView) convertView.findViewById(R.id.tv_search_pice);
         tvSearchSale = (TextView) convertView.findViewById(R.id.tv_search_sale);
+        tvSearchStatus = (TextView) convertView.findViewById(R.id.tv_search_status);
 
         String imageUrl = actSearch_datas.get(position).goods_image_url;
         APP.getApp().getImageLoader().displayImage(imageUrl, ivSearchGoods, APP.getApp().getImageOptions());
@@ -60,6 +62,11 @@ public class ArrSearchAdapter extends BaseAdapter {
         tvSearchPice.setText("¥ " + actSearch_datas.get(position).goods_price);
         tvSearchSale.setText("销量 " + actSearch_datas.get(position).goods_salenum);
 
+        if (actSearch_datas.get(position).goods_storage.equals("0")) {
+            tvSearchStatus.setVisibility(View.VISIBLE);
+        } else {
+            tvSearchStatus.setVisibility(View.GONE);
+        }
         return convertView;
     }
 }
