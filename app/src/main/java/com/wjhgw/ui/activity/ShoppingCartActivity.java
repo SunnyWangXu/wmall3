@@ -383,6 +383,7 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
                                         iv_select, iv_select1, tv_total, tv_total_num, Request);
                                 mListView.setAdapter(listAdapter);
                                 iv_select.setImageResource(R.mipmap.ic_order_select);
+                                iv_select1.setImageResource(R.mipmap.ic_order_select);
                                 APP.getApp().getImageLoader().displayImage(cartList.datas.get(0).store_logo, iv_store_logo);
                             } else {
                                 listAdapter.List = cartList.datas.get(0).goods_list;
@@ -431,7 +432,7 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
                     Status status = gson.fromJson(responseInfo.result, Status.class);
 
                     if (status.status.code == 10000) {
-                        isSetAdapter = false;
+                        isSetAdapter = true;
                         delete = false;
                         //刷新列表
                         cart_list();
@@ -554,7 +555,7 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
             cart_list();
             //eliminate();
         } else if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Cart_del)) {     //删除回调
-            isSetAdapter = false;
+            isSetAdapter = true;
             delete = false;
             //刷新列表
             cart_list();
