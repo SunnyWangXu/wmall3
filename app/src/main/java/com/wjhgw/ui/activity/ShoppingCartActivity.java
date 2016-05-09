@@ -80,8 +80,6 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
     private Intent intent;
     private TextView toConfirmOrder;
     private ImageView iv_title_back;
-    //勾选的商品是否有下架无货的状态
-    private boolean selectStatus = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -314,23 +312,13 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
                         }
                     }
                     //判断选中商品是否有无货或者下架状态
-                    if (listAdapter.num > 0) {
-                        StringBuffer selectStr = new StringBuffer();
-                        for (int j = 0; j < listAdapter.selectStr.length; j++) {
-                            selectStr.append(listAdapter.selectStr[j]);
+                    StringBuffer selectStr = new StringBuffer();
+                    for (int j = 0; j < listAdapter.selectStr.length; j++) {
+                        selectStr.append(listAdapter.selectStr[j]);
 
-                        }
-                        String selectStr1 = selectStr.toString();
-                        if (selectStr1.contains("无")) {
-                            //有下架或无货商品
-                            selectStatus = true;
-                        } else {
-                            //没有下架或无货商品
-                            selectStatus = false;
-                        }
                     }
-
-                    if (selectStatus) {
+                    String selectStr1 = selectStr.toString();
+                    if (selectStr1.contains("无")) {
                         showToastShort("您选中的商品中有下架或者无货商品");
                     } else {
                         /**
@@ -585,7 +573,6 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
             iv_select.setImageResource(R.mipmap.ic_order_blank);
             listAdapter.total = 0;
             listAdapter.total_num = 0;
-            selectStatus = false;
             tv_total.setText("¥ " + listAdapter.total);
             tv_total_num.setText("(" + listAdapter.total_num + ")");
             for (int i = 0; i < listAdapter.goods_id.length; i++) {

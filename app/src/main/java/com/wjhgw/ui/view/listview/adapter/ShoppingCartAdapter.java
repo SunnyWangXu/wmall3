@@ -82,6 +82,9 @@ public class ShoppingCartAdapter extends BaseAdapter {
             total += Double.parseDouble(List.get(i).goods_num) *
                     Double.parseDouble(List.get(i).goods_price);
             total_num += Double.parseDouble(List.get(i).goods_num);
+            if (!List.get(i).state || List.get(i).goods_storage.equals("0")) {
+                selectStr[i] = "无";
+            }
         }
         tv_total.setText("¥ " + df.format(total));
         tv_total_num.setText("(" + total_num + ")");
@@ -121,19 +124,10 @@ public class ShoppingCartAdapter extends BaseAdapter {
         if (!List.get(position).state) {
             tvShopStatus.setVisibility(View.VISIBLE);
             tvShopStatus.setText("下架");
-            if (!goods_id[position].equals("0")) {
-
-                selectStr[position] = "无";
-            }
-        }
-        if (List.get(position).state) {
+        } else {
             if (List.get(position).goods_storage.equals("0")) {
                 tvShopStatus.setVisibility(View.VISIBLE);
                 tvShopStatus.setText("无货");
-
-                if (!goods_id[position].equals("0")) {
-                    selectStr[position] = "无";
-                }
             }
         }
         tv_goods_name.setText(List.get(position).goods_name);

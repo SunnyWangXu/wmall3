@@ -83,8 +83,6 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
     private GoodsArrDialog goodsArrDialog;
     private Intent intent;
     private TextView toConfirmOrder;
-    //勾选的商品是否有下架无货的状态
-    private boolean selectStatus = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -188,6 +186,9 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                         listAdapter.total += Double.parseDouble(cartList.datas.get(0).goods_list.get(i).goods_num) *
                                 Double.parseDouble(cartList.datas.get(0).goods_list.get(i).goods_price);
                         listAdapter.total_num += Double.parseDouble(cartList.datas.get(0).goods_list.get(i).goods_num);
+                        if (!listAdapter.List.get(i).state || listAdapter.List.get(i).goods_storage.equals("0")) {
+                            listAdapter.selectStr[i] = "无";
+                        }
                     }
                     tv_total.setText("¥ " + listAdapter.df.format(listAdapter.total));
                     tv_total_num.setText("(" + listAdapter.total_num + ")");
@@ -279,25 +280,14 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                     }
 
                     //判断选中商品是否有无货或者下架状态
-                    if (listAdapter.num > 0) {
-                        StringBuffer selectStr = new StringBuffer();
-                        for (int j = 0; j < listAdapter.selectStr.length; j++) {
-                            selectStr.append(listAdapter.selectStr[j]);
+                    StringBuffer selectStr = new StringBuffer();
+                    for (int j = 0; j < listAdapter.selectStr.length; j++) {
+                        selectStr.append(listAdapter.selectStr[j]);
 
-                        }
-                        String selectStr1 = selectStr.toString();
-                        if (selectStr1.contains("无")) {
-                            //有下架或无货商品
-                            selectStatus = true;
-                        } else {
-                            //没有下架或无货商品
-                            selectStatus = false;
-                        }
                     }
-
-                    if (selectStatus) {
+                    String selectStr1 = selectStr.toString();
+                    if (selectStr1.contains("无")) {
                         Toast.makeText(getActivity(), "您选中的商品中有下架或者无货商品", Toast.LENGTH_SHORT).show();
-
                     } else {
                         /**
                          * 购买第一步接口
@@ -364,6 +354,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                                         iv_select, iv_select1, tv_total, tv_total_num, Request);
                                 mListView.setAdapter(listAdapter);
                                 iv_select.setImageResource(R.mipmap.ic_order_select);
+                                iv_select1.setImageResource(R.mipmap.ic_order_select);
                                 APP.getApp().getImageLoader().displayImage(cartList.datas.get(0).store_logo, iv_store_logo);
                             } else {
                                 listAdapter.List = cartList.datas.get(0).goods_list;
@@ -415,7 +406,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                     Status status = gson.fromJson(responseInfo.result, Status.class);
 
                     if (status.status.code == 10000) {
-                        isSetAdapter = false;
+                        isSetAdapter = true;
                         delete = false;
                         //刷新列表
                         cart_list();
@@ -514,7 +505,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
         } else if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Favorites_add)) {
             //收藏成功
         } else if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Cart_del)) {
-            isSetAdapter = false;
+            isSetAdapter = true;
             delete = false;
             //刷新列表
             cart_list();
@@ -533,7 +524,6 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
             iv_select.setImageResource(R.mipmap.ic_order_blank);
             listAdapter.total = 0;
             listAdapter.total_num = 0;
-            selectStatus = false;
             tv_total.setText("¥ " + listAdapter.df.format(listAdapter.total));
             tv_total_num.setText("(" + listAdapter.total_num + ")");
             for (int i = 0; i < listAdapter.goods_id.length; i++) {
