@@ -83,6 +83,8 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
     private GoodsArrDialog goodsArrDialog;
     private Intent intent;
     private TextView toConfirmOrder;
+    //勾选的商品是否有下架无货的状态
+    private boolean selectStatus = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -267,6 +269,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                 }
                 break;
             case R.id.ll_to_settle:
+
                 if (listAdapter.num > 0) {
                     StringBuffer cart_id = new StringBuffer();
                     for (int i = 0; i < listAdapter.goods_id.length; i++) {
@@ -274,12 +277,39 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                             cart_id.append(listAdapter.goods_id[i] + "|" + listAdapter.List.get(i).goods_num + ",");
                         }
                     }
-                    buy_step1(cart_id.toString().substring(0, cart_id.toString().length() - 1));
+
+                    //判断选中商品是否有无货或者下架状态
+                    if (listAdapter.num > 0) {
+                        StringBuffer selectStr = new StringBuffer();
+                        for (int j = 0; j < listAdapter.selectStr.length; j++) {
+                            selectStr.append(listAdapter.selectStr[j]);
+
+                        }
+                        String selectStr1 = selectStr.toString();
+                        if (selectStr1.contains("无")) {
+                            //有下架或无货商品
+                            selectStatus = true;
+                        } else {
+                            //没有下架或无货商品
+                            selectStatus = false;
+                        }
+                    }
+
+                    if (selectStatus) {
+                        Toast.makeText(getActivity(), "您选中的商品中有下架或者无货商品", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        /**
+                         * 购买第一步接口
+                         */
+                        buy_step1(cart_id.toString().substring(0, cart_id.toString().length() - 1));
+                    }
+
                 } else {
                     Toast.makeText(getActivity(), "你还没有选择商品哦", Toast.LENGTH_SHORT).show();
                 }
-                break;
 
+                break;
 
             default:
                 break;
@@ -295,6 +325,9 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
             ll_empty_shop_cart.setVisibility(View.VISIBLE);
             mListView.setVisibility(View.GONE);
         } else {
+            /**
+             * 购物车列表接口
+             */
             cart_list();
         }
     }
@@ -316,6 +349,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                     cartList = gson.fromJson(responseInfo.result, CartList.class);
 
                     if (cartList.status.code == 10000) {
+
                         mListView.stopRefresh();
                         mListView.setRefreshTime();
                         tv_edit.setVisibility(View.VISIBLE);
@@ -499,10 +533,12 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
             iv_select.setImageResource(R.mipmap.ic_order_blank);
             listAdapter.total = 0;
             listAdapter.total_num = 0;
+            selectStatus = false;
             tv_total.setText("¥ " + listAdapter.df.format(listAdapter.total));
             tv_total_num.setText("(" + listAdapter.total_num + ")");
             for (int i = 0; i < listAdapter.goods_id.length; i++) {
                 listAdapter.goods_id[i] = "0";
+                listAdapter.selectStr[i] = "null";
             }
         }
     }

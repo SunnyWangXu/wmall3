@@ -80,6 +80,8 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
     private Intent intent;
     private TextView toConfirmOrder;
     private ImageView iv_title_back;
+    //勾选的商品是否有下架无货的状态
+    private boolean selectStatus = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -114,6 +116,7 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
     public void onBindListener() {
 
     }
+
     /**
      * 设置ListView
      */
@@ -159,23 +162,23 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
      */
     private void initView() {
         shopping_head = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.shopping_head, null);
-        iv_title_back = (ImageView)findViewById(R.id.iv_title_back);
-        iv_select = (ImageView)findViewById(R.id.iv_select);
-        iv_select1 = (ImageView)findViewById(R.id.iv_select1);
+        iv_title_back = (ImageView) findViewById(R.id.iv_title_back);
+        iv_select = (ImageView) findViewById(R.id.iv_select);
+        iv_select1 = (ImageView) findViewById(R.id.iv_select1);
         iv_store_logo = (ImageView) shopping_head.findViewById(R.id.iv_store_logo);
-        tv_edit = (TextView)findViewById(R.id.tv_edit);
-        ll_settlement = (LinearLayout)findViewById(R.id.ll_settlement);
-        ll_to_settle = (LinearLayout)findViewById(R.id.ll_to_settle);
-        ll_select = (LinearLayout)findViewById(R.id.ll_select);
-        ll_select1 = (LinearLayout)findViewById(R.id.ll_select1);
-        ll_empty_shop_cart = (LinearLayout)findViewById(R.id.ll_empty_shop_cart);
-        tv_delete = (TextView)findViewById(R.id.tv_delete);
-        tv_total = (TextView)findViewById(R.id.tv_total);
-        tv_home = (TextView)findViewById(R.id.tv_home);
-        tv_collection = (TextView)findViewById(R.id.tv_collection);
-        fl_edit = (FrameLayout)findViewById(R.id.fl_edit);
-        tv_total_num = (TextView)findViewById(R.id.tv_total_num);
-        mListView = (MyListView)findViewById(R.id.lv_list_layout);
+        tv_edit = (TextView) findViewById(R.id.tv_edit);
+        ll_settlement = (LinearLayout) findViewById(R.id.ll_settlement);
+        ll_to_settle = (LinearLayout) findViewById(R.id.ll_to_settle);
+        ll_select = (LinearLayout) findViewById(R.id.ll_select);
+        ll_select1 = (LinearLayout) findViewById(R.id.ll_select1);
+        ll_empty_shop_cart = (LinearLayout) findViewById(R.id.ll_empty_shop_cart);
+        tv_delete = (TextView) findViewById(R.id.tv_delete);
+        tv_total = (TextView) findViewById(R.id.tv_total);
+        tv_home = (TextView) findViewById(R.id.tv_home);
+        tv_collection = (TextView) findViewById(R.id.tv_collection);
+        fl_edit = (FrameLayout) findViewById(R.id.fl_edit);
+        tv_total_num = (TextView) findViewById(R.id.tv_total_num);
+        mListView = (MyListView) findViewById(R.id.lv_list_layout);
     }
 
     /**
@@ -310,14 +313,39 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
                             cart_id.append(listAdapter.goods_id[i] + "|" + listAdapter.List.get(i).goods_num + ",");
                         }
                     }
-                    buy_step1(cart_id.toString().substring(0, cart_id.toString().length() - 1));
+                    //判断选中商品是否有无货或者下架状态
+                    if (listAdapter.num > 0) {
+                        StringBuffer selectStr = new StringBuffer();
+                        for (int j = 0; j < listAdapter.selectStr.length; j++) {
+                            selectStr.append(listAdapter.selectStr[j]);
+
+                        }
+                        String selectStr1 = selectStr.toString();
+                        if (selectStr1.contains("无")) {
+                            //有下架或无货商品
+                            selectStatus = true;
+                        } else {
+                            //没有下架或无货商品
+                            selectStatus = false;
+                        }
+                    }
+
+                    if (selectStatus) {
+                        showToastShort("您选中的商品中有下架或者无货商品");
+                    } else {
+                        /**
+                         * 购买第一步接口
+                         */
+                        buy_step1(cart_id.toString().substring(0, cart_id.toString().length() - 1));
+                    }
+
                 } else {
                     //Toast.makeText(this, "你还没有选择商品哦", Toast.LENGTH_SHORT).show();
                     showToastShort("你还没有选择商品哦");
                 }
                 break;
             case R.id.iv_title_back:
-               this.finish(false);
+                this.finish(false);
                 break;
 
             default:
@@ -384,8 +412,8 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
                             mListView.setVisibility(View.GONE);
                             ll_empty_shop_cart.setVisibility(View.VISIBLE);
                         }
-                    }else {
-                        overtime(cartList.status.code,cartList.status.msg);
+                    } else {
+                        overtime(cartList.status.code, cartList.status.msg);
                     }
                 }
             }
@@ -517,15 +545,15 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
     @Override
     public void OnMessageResponse(String url, String response, JSONObject status) throws JSONException {
         if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Cart_edit_quantity)) { //购物车修改数量回调
-            if(response.equals("reduce") || response.equals("add")){
+            if (response.equals("reduce") || response.equals("add")) {
                 listAdapter.total = Request.total1;
                 listAdapter.total_num = Request.total_num1;
                 tv_total.setText("¥ " + listAdapter.total);
                 tv_total_num.setText("(" + listAdapter.total_num + ")");
-            }else if(response.equals("default")){
-            }else {
+            } else if (response.equals("default")) {
+            } else {
                 double y = Double.parseDouble(listAdapter.List.get(Integer.parseInt(response)).goods_price);//编辑前的一个商品价格
-                listAdapter.total = listAdapter.total + Request.total_num1*y;
+                listAdapter.total = listAdapter.total + Request.total_num1 * y;
                 listAdapter.total_num = listAdapter.total_num + Request.total_num1;
 
                 tv_total.setText("¥ " + listAdapter.total);
@@ -537,7 +565,7 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
             //刷新列表
             cart_list();
             //eliminate();
-        }else if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Cart_del)) {     //删除回调
+        } else if (url.equals(BaseQuery.serviceUrl() + ApiInterface.Cart_del)) {     //删除回调
             isSetAdapter = false;
             delete = false;
             //刷新列表
@@ -557,10 +585,12 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
             iv_select.setImageResource(R.mipmap.ic_order_blank);
             listAdapter.total = 0;
             listAdapter.total_num = 0;
+            selectStatus = false;
             tv_total.setText("¥ " + listAdapter.total);
             tv_total_num.setText("(" + listAdapter.total_num + ")");
             for (int i = 0; i < listAdapter.goods_id.length; i++) {
                 listAdapter.goods_id[i] = "0";
+                listAdapter.selectStr[i] = "null";
             }
         }
     }

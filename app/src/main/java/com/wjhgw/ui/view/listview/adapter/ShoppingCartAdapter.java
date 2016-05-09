@@ -62,12 +62,15 @@ public class ShoppingCartAdapter extends BaseAdapter {
     private GoodsArrDialog goodsArrDialog;
     private String key;
     public DecimalFormat df = new DecimalFormat("######0.00");
+    //用数组判断选中商品中是否有下架或无货商品
+    public String[] selectStr = null;
 
     public ShoppingCartAdapter(Context c, ArrayList<CartList_goods_list_data> dataList,
                                ImageView iv_select, ImageView iv_select1, TextView tv_total, TextView tv_total_num, Address_del_Request Request) {
         mInflater = LayoutInflater.from(c);
         this.c = c;
         this.List = dataList;
+        selectStr = new String[List.size()];
         goods_id = new String[List.size()];
         this.iv_select = iv_select;
         this.iv_select1 = iv_select1;
@@ -118,11 +121,19 @@ public class ShoppingCartAdapter extends BaseAdapter {
         if (!List.get(position).state) {
             tvShopStatus.setVisibility(View.VISIBLE);
             tvShopStatus.setText("下架");
+            if (!goods_id[position].equals("0")) {
+
+                selectStr[position] = "无";
+            }
         }
         if (List.get(position).state) {
             if (List.get(position).goods_storage.equals("0")) {
                 tvShopStatus.setVisibility(View.VISIBLE);
                 tvShopStatus.setText("无货");
+
+                if (!goods_id[position].equals("0")) {
+                    selectStr[position] = "无";
+                }
             }
         }
         tv_goods_name.setText(List.get(position).goods_name);
@@ -307,6 +318,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
         ll_default.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //未勾选点击勾选
                 if (goods_id[position].equals("0")) {
                     Choice.setImageResource(R.mipmap.ic_order_select);
                     goods_id[position] = List.get(position).cart_id;
@@ -323,7 +335,16 @@ public class ShoppingCartAdapter extends BaseAdapter {
                     total_num += Double.parseDouble(List.get(position).goods_num);
                     tv_total.setText("¥ " + df.format(total));
                     tv_total_num.setText("(" + total_num + ")");
+
+                    /**
+                     * 选中商品中是否有下架或无货商品
+                     */
+                    if (!List.get(position).state || List.get(position).goods_storage.equals("0")) {
+                        selectStr[position] = "无";
+                    }
+
                 } else {
+                    //勾选状态点击变未勾选
                     Choice.setImageResource(R.mipmap.ic_order_blank);
                     goods_id[position] = "0";
                     num--;
@@ -337,6 +358,10 @@ public class ShoppingCartAdapter extends BaseAdapter {
                     total_num -= Double.parseDouble(List.get(position).goods_num);
                     tv_total.setText("¥ " + df.format(total));
                     tv_total_num.setText("(" + total_num + ")");
+                    /**
+                     * 选中商品中是否有下架或无货商品
+                     */
+                    selectStr[position] = "null";
                 }
             }
         });
