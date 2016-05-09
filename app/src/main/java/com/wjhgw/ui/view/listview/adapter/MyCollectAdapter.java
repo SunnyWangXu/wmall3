@@ -61,7 +61,7 @@ public class MyCollectAdapter extends BaseAdapter {
         }
         holder = (Holder) convertView.getTag();
 
-        APP.getApp().getImageLoader().displayImage(goodsList.get(position).goods_image_url, holder.ivGoodImage);
+        APP.getApp().getImageLoader().displayImage(goodsList.get(position).goods_image_url, holder.ivGoodImage, APP.getApp().getImageOptions());
         if (!goodsList.get(position).goods_state.equals("1") || goodsList.get(position).goods_storage.equals("0")) {
 
             holder.tvGoodStatus.setVisibility(View.VISIBLE);
