@@ -124,7 +124,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:background="@color/gray" />
 
 
@@ -165,7 +165,11 @@
         <com.wjhgw.ui.view.listview.MyListView
             android:id="@+id/lv_array_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:divider="#00000000"
+            android:dividerHeight="0dp"
+            android:fastScrollEnabled="false"
+            android:scrollbars="none"/>
 
         <TextView
             android:id="@+id/tv_page_total"
