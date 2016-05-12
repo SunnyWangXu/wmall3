@@ -36,7 +36,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                finish(false);
+                finish(true);
             }
         });
     }

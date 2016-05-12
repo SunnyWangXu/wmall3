@@ -189,6 +189,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.CabinetActivity"
+            android:screenOrientation="portrait" /><activity
+            android:name=".ui.activity.CurrencyWebViewActivity"
             android:screenOrientation="portrait" />
 
         <!--友盟更新-->

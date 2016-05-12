@@ -23,7 +23,7 @@ import com.wjhgw.business.bean.MainMessageNum;
 import com.wjhgw.business.bean.Status;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.A0_LoginActivity;
-import com.wjhgw.ui.fragment.CabinetFragment;
+import com.wjhgw.ui.fragment.FindFragment;
 import com.wjhgw.ui.fragment.CategoryFragment;
 import com.wjhgw.ui.fragment.HomeFragment;
 import com.wjhgw.ui.fragment.MyFragment;
@@ -33,7 +33,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ShoppingCartFragment shoppingCartFragment;  //购物车
     private CategoryFragment categoryFragment; //分类
     private HomeFragment homeFragment;    //首页
-    private CabinetFragment cabinetFragment;    //发现
+    private FindFragment findFragment;    //发现
     private MyFragment mineFragment;     //我的
     private View index_Layout;
     private View contacts_Layout;
@@ -176,8 +176,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 clearSelection();
                 ivCabinet.setImageResource(R.mipmap.ic_find_select);
                 contactsText.setTextColor(Color.parseColor("#d63235"));
-                cabinetFragment = new CabinetFragment();
-                transaction.replace(R.id.content, cabinetFragment);
+                findFragment = new FindFragment();
+                transaction.replace(R.id.content, findFragment);
                 break;
 
             case 3:
