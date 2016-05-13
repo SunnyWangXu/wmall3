@@ -957,6 +957,8 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                  */
                 parseHomePagerData(responseInfo.result);
                 if (getActivity() != null) {
+                    mListView.stopRefresh();
+                    mListView.setRefreshTime();
                     Dialog.dismiss();
                 }
 
