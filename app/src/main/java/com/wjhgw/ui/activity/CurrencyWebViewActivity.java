@@ -90,7 +90,6 @@ public class CurrencyWebViewActivity extends BaseActivity implements View.OnClic
             keyMap.put("authentication", getKey());
             webView.loadUrl(url, keyMap);
         } else {
-            showToastShort("登录超时,请重新登录!");
             this.getSharedPreferences("key", MODE_APPEND).edit().putString("key", "0").commit();
             startActivity(new Intent(this, A0_LoginActivity.class));
             finish(false);

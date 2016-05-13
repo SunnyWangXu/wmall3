@@ -18,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="58dp"
         android:background="#ffffff"
+        android:visibility="gone"
         android:layout_marginTop="10dp">
 
         <ImageView
@@ -42,15 +43,16 @@
             android:src="@mipmap/ic_arrow_right" />
     </FrameLayout>
 
-    <View
+    <!--<View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#cccccc" />
+        android:background="#cccccc" />-->
 
     <FrameLayout
         android:id="@+id/fl_redeem_code"
         android:layout_width="match_parent"
         android:layout_height="58dp"
+        android:layout_marginTop="10dp"
         android:background="#ffffff">
 
         <ImageView
