@@ -36,7 +36,7 @@
         android:layout_height="12dp"
         android:background="@color/transparent" />
 
-    <View
+    <!--<View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/gray" />
@@ -97,7 +97,7 @@
             android:layout_marginRight="11dp"
             android:src="@mipmap/ic_push_off"/>
 
-    </LinearLayout>
+    </LinearLayout>-->
 
     <View
         android:layout_width="match_parent"
@@ -152,7 +152,7 @@
             android:layout_marginLeft="12dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="检测更新"
+            android:text="版本号"
             android:textColor="@color/light_gray"
             android:textSize="16sp" />
 

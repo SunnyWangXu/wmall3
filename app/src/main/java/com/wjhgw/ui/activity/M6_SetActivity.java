@@ -29,7 +29,6 @@ import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
-import com.umeng.update.UmengUpdateAgent;
 import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
@@ -49,7 +48,7 @@ import java.io.File;
 public class M6_SetActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView ivShare;
-    private ImageView ivPush;
+    //private ImageView ivPush;
     private int PushCount = 1;
     private Button btnExit;
     private String memberName;
@@ -83,7 +82,7 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onFindViews() {
         ivShare = (ImageView) findViewById(R.id.iv_title_right);
-        ivPush = (ImageView) findViewById(R.id.iv_push);
+        //ivPush = (ImageView) findViewById(R.id.iv_push);
         btnExit = (Button) findViewById(R.id.btn_exit);
         tvCache = (TextView) findViewById(R.id.tv_cache);
         tv_edition = (TextView) findViewById(R.id.tv_edition);
@@ -93,8 +92,8 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onInitViewData() {
-        ivShare.setImageResource(R.mipmap.ic_share);
-        ivShare.setVisibility(View.VISIBLE);
+        /*ivShare.setImageResource(R.mipmap.ic_share);
+        ivShare.setVisibility(View.VISIBLE);*/
 
         if (!getKey().equals("0")) {
             btnExit.setVisibility(View.VISIBLE);
@@ -112,7 +111,7 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onBindListener() {
-        ivPush.setOnClickListener(this);
+        //ivPush.setOnClickListener(this);
         btnExit.setOnClickListener(this);
         llClearCache.setOnClickListener(this);
         llCheckVersion.setOnClickListener(this);
@@ -132,14 +131,14 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_push:
+            /*case R.id.iv_push:
                 PushCount++;
                 if (PushCount % 2 == 1) {
                     ivPush.setImageResource(R.mipmap.ic_push_off);
                 } else if (PushCount % 2 == 0) {
                     ivPush.setImageResource(R.mipmap.ic_push_on);
                 }
-                break;
+                break;*/
 
             case R.id.ll_clear_cache:
                 /**
@@ -163,8 +162,7 @@ public class M6_SetActivity extends BaseActivity implements View.OnClickListener
                 //buy();
                 //showToastShort("当前已经是最新版本");
                 wechatShare(s++);*/
-                UmengUpdateAgent.update(this);
-                //int currentapiVersion=android.os.Build.VERSION.SDK_INT;
+                //UmengUpdateAgent.update(this);
                 break;
 
             default:
