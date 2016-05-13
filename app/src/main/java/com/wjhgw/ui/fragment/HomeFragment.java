@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -33,12 +34,14 @@ import com.wjhgw.business.bean.Guess_Like;
 import com.wjhgw.business.bean.Guess_Like_Datas;
 import com.wjhgw.business.bean.Home_Pager;
 import com.wjhgw.business.bean.Home_Pager_Data;
+import com.wjhgw.business.bean.Limit;
 import com.wjhgw.business.bean.MainMessageNum;
 import com.wjhgw.business.bean.Theme_street;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.C1_CaptureActivity;
 import com.wjhgw.ui.activity.C2_SearchActivity;
 import com.wjhgw.ui.activity.C3_GoodsArraySearchActivity;
+import com.wjhgw.ui.activity.LimitDetailActivity;
 import com.wjhgw.ui.activity.M7_MyCollectActivity;
 import com.wjhgw.ui.activity.PrductDetailActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
@@ -61,6 +64,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private TextView tvHomeMessageDot;
     private String key;
     private LinearLayout MenuLayout;
+    private LinearLayout LimitLayout;
     private LinearLayout Eventlayout;
     private LinearLayout Discountlayout;
     private LinearLayout Themelayout;
@@ -74,6 +78,10 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private static final int HANDLERID = 1;
     private Handler handler;
 
+    private TextView tvLimitTheme;
+    private TextView tvLimit1;
+    private TextView tvLimit2;
+    private TextView tvLimit3;
     private LinearLayout ll_discount01;
     private LinearLayout ll_discount02;
     private LinearLayout ll_discount03;
@@ -102,18 +110,20 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private String cate_id4;
     private String cate_id5;
     private String cate_id6;
+    private String cate_id7;
 
     private LinearLayout ll_button1;
     private LinearLayout ll_button2;
     private LinearLayout ll_button3;
     private LinearLayout ll_button4;
 
-    private LinearLayout llTheme1;
-    private LinearLayout llTheme2;
-    private LinearLayout llTheme3;
-    private LinearLayout llTheme4;
-    private LinearLayout llTheme5;
-    private LinearLayout llTheme6;
+    private FrameLayout flTheme1;
+    private FrameLayout flTheme2;
+    private FrameLayout flTheme3;
+    private FrameLayout flTheme4;
+    private FrameLayout flTheme5;
+    private FrameLayout flTheme6;
+    private FrameLayout flTheme7;
 
     private TextView theme_name1;
     private TextView theme_name2;
@@ -121,6 +131,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private TextView theme_name4;
     private TextView theme_name5;
     private TextView theme_name6;
+    private TextView theme_name7;
 
     private TextView theme_desc1;
     private TextView theme_desc2;
@@ -128,6 +139,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private TextView theme_desc4;
     private TextView theme_desc5;
     private TextView theme_desc6;
+    private TextView theme_desc7;
 
     private ImageView theme_image1;
     private ImageView theme_image2;
@@ -135,6 +147,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private ImageView theme_image4;
     private ImageView theme_image5;
     private ImageView theme_image6;
+    private ImageView theme_image7;
 
     private TextView tv_home_click;
     private TextView tv_home_name;
@@ -210,6 +223,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private static Long countdown3;
     private static Long countdown4;
     private static Long countdown5;
+    private static Long limitTime;
 
     private ImageView ivHomeQrcodeScanner;
     private LinearLayout llHomeGoodsSearch;
@@ -266,6 +280,12 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                         secToTime(countdown5, 5);
                     }
                     break;
+                case 6:
+                    if (limitTime > 0 && limitTime != null) {
+                        limitTime--;
+                        secToTime(limitTime, 6);
+                    }
+                    break;
                 default:
                     // 所做的操作
             }
@@ -293,25 +313,36 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         setInflaterView();
 
         /**
+         * 给ListView添加视图
+         */
+        listAddHeader();
+
+        /**
          * 初始化控件
          */
         initView();
 
-        /**
-         * 请求首页焦点图
-         */
+
         if (getActivity() != null) {
             Dialog = new LoadDialog(getActivity());
             underdevelopmentDialog1 = new UnderDialog(getActivity(), "功能正在开发中,敬请期待");
+            /**
+             * 请求首页焦点图
+             */
             loadHomePager();
+            /**
+             * 请求限时抢购
+             */
+            loadLimit();
+
             /**
              * 请求拍卖和团购数据
              */
-            load_auction_super_value();
+//            load_auction_super_value();
             /**
              * 请求折扣街数据
              */
-            loadGroupBuy();
+//            loadGroupBuy();
             /**
              * 主题街数据请求
              */
@@ -336,11 +367,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             };
 
 
-            /**
-             * 给ListView添加视图
-             */
-            listAddHeader();
-
             mListView.setPullLoadEnable(false);
             mListView.setPullRefreshEnable(true);
             mListView.setXListViewListener(this, 1);
@@ -355,6 +381,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
         return homeLayout;
     }
+
 
     @Override
     public void onResume() {
@@ -374,6 +401,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
     private void setInflaterView() {
         homeViewPageLayout = (RelativeLayout) LayoutInflater.from(getActivity()).inflate(R.layout.home_page_layout, null);
+        LimitLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.limit_layout, null);
         MenuLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_menu, null);
         Eventlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.event_layout, null);
         Discountlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.home_discount_layout, null);
@@ -396,6 +424,11 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
         homePager = (ViewPager) homeViewPageLayout.findViewById(R.id.pager);
         ll_Point = (LinearLayout) homeViewPageLayout.findViewById(R.id.ll_home_point);
+
+        tvLimitTheme = (TextView) LimitLayout.findViewById(R.id.tv_limit_theme);
+        tvLimit1 = (TextView) LimitLayout.findViewById(R.id.tv_limit_t1);
+        tvLimit2 = (TextView) LimitLayout.findViewById(R.id.tv_limit_t2);
+        tvLimit3 = (TextView) LimitLayout.findViewById(R.id.tv_limit_t3);
 
         //llMenuLayout = (LinearLayout) MenuLayout.findViewById(R.id.ll_menu_layout);
         ll_discount01 = (LinearLayout) Discountlayout.findViewById(R.id.ll_discount_01);
@@ -420,12 +453,13 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         ll_button3 = (LinearLayout) MenuLayout.findViewById(R.id.ll_button3);
         ll_button4 = (LinearLayout) MenuLayout.findViewById(R.id.ll_button4);
 
-        llTheme1 = (LinearLayout) Themelayout.findViewById(R.id.ll_theme1);
-        llTheme2 = (LinearLayout) Themelayout.findViewById(R.id.ll_theme2);
-        llTheme3 = (LinearLayout) Themelayout.findViewById(R.id.ll_theme3);
-        llTheme4 = (LinearLayout) Themelayout.findViewById(R.id.ll_theme4);
-        llTheme5 = (LinearLayout) Themelayout.findViewById(R.id.ll_theme5);
-        llTheme6 = (LinearLayout) Themelayout.findViewById(R.id.ll_theme6);
+        flTheme1 = (FrameLayout) Themelayout.findViewById(R.id.fl_theme1);
+        flTheme2 = (FrameLayout) Themelayout.findViewById(R.id.fl_theme2);
+        flTheme3 = (FrameLayout) Themelayout.findViewById(R.id.fl_theme3);
+        flTheme4 = (FrameLayout) Themelayout.findViewById(R.id.fl_theme4);
+        flTheme5 = (FrameLayout) Themelayout.findViewById(R.id.fl_theme5);
+        flTheme6 = (FrameLayout) Themelayout.findViewById(R.id.fl_theme6);
+        flTheme7 = (FrameLayout) Themelayout.findViewById(R.id.fl_theme7);
 
         theme_name1 = (TextView) Themelayout.findViewById(R.id.tv_theme_name1);
         theme_name2 = (TextView) Themelayout.findViewById(R.id.tv_theme_name2);
@@ -433,6 +467,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         theme_name4 = (TextView) Themelayout.findViewById(R.id.tv_theme_name4);
         theme_name5 = (TextView) Themelayout.findViewById(R.id.tv_theme_name5);
         theme_name6 = (TextView) Themelayout.findViewById(R.id.tv_theme_name6);
+        theme_name7 = (TextView) Themelayout.findViewById(R.id.tv_theme_name7);
 
         theme_desc1 = (TextView) Themelayout.findViewById(R.id.tv_theme_desc1);
         theme_desc2 = (TextView) Themelayout.findViewById(R.id.tv_theme_desc2);
@@ -440,6 +475,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         theme_desc4 = (TextView) Themelayout.findViewById(R.id.tv_theme_desc4);
         theme_desc5 = (TextView) Themelayout.findViewById(R.id.tv_theme_desc5);
         theme_desc6 = (TextView) Themelayout.findViewById(R.id.tv_theme_desc6);
+        theme_desc7 = (TextView) Themelayout.findViewById(R.id.tv_theme_desc7);
 
         theme_image1 = (ImageView) Themelayout.findViewById(R.id.iv_theme_image1);
         theme_image2 = (ImageView) Themelayout.findViewById(R.id.iv_theme_image2);
@@ -447,6 +483,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         theme_image4 = (ImageView) Themelayout.findViewById(R.id.iv_theme_image4);
         theme_image5 = (ImageView) Themelayout.findViewById(R.id.iv_theme_image5);
         theme_image6 = (ImageView) Themelayout.findViewById(R.id.iv_theme_image6);
+        theme_image7 = (ImageView) Themelayout.findViewById(R.id.iv_theme_image7);
 
         iv_discount02_iamge = (ImageView) Discountlayout.findViewById(R.id.iv_discount02_image);
         tv_discount02_name = (TextView) Discountlayout.findViewById(R.id.tv_discount02_name);
@@ -576,6 +613,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         rlHomeMessage.setOnClickListener(this);
 
         homePager.setOnClickListener(this);
+        LimitLayout.setOnClickListener(this);
         //MenuLayout.setOnClickListener(this);
 
         group_purchase_layout.setOnClickListener(this);
@@ -584,12 +622,13 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         ll_discount02.setOnClickListener(this);
         ll_discount03.setOnClickListener(this);
 
-        llTheme1.setOnClickListener(this);
-        llTheme2.setOnClickListener(this);
-        llTheme3.setOnClickListener(this);
-        llTheme4.setOnClickListener(this);
-        llTheme5.setOnClickListener(this);
-        llTheme6.setOnClickListener(this);
+        flTheme1.setOnClickListener(this);
+        flTheme2.setOnClickListener(this);
+        flTheme3.setOnClickListener(this);
+        flTheme4.setOnClickListener(this);
+        flTheme5.setOnClickListener(this);
+        flTheme6.setOnClickListener(this);
+        flTheme7.setOnClickListener(this);
 
         tvRefresh.setOnClickListener(this);
 
@@ -618,9 +657,10 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private void listAddHeader() {
         mListView = (MyListView) homeLayout.findViewById(R.id.home_listview);
         mListView.addHeaderView(homeViewPageLayout);
+        mListView.addHeaderView(LimitLayout);
         //mListView.addHeaderView(MenuLayout);
 //        mListView.addHeaderView(Eventlayout);
-        mListView.addHeaderView(Discountlayout);
+//        mListView.addHeaderView(Discountlayout);
         mListView.addHeaderView(Themelayout);
 //        mListView.addHeaderView(Brandlayout);
         mListView.addHeaderView(Guesslikelayout);
@@ -634,13 +674,17 @@ public class HomeFragment extends Fragment implements IXListViewListener,
          */
         loadHomePager();
         /**
+         * 请求限时抢购
+         */
+        loadLimit();
+        /**
          * 请求拍卖和团购数据
          */
 //        load_auction_super_value();
         /**
          * 请求折扣街数据
          */
-        loadGroupBuy();
+//        loadGroupBuy();
 
         /**
          * 主题街数据请求
@@ -662,6 +706,10 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
+            case R.id.ll_limit_content:
+                intent = new Intent(getActivity(), LimitDetailActivity.class);
+                startActivity(intent);
+                break;
             case R.id.ll_button1:
                 intent = new Intent(getActivity(), M7_MyCollectActivity.class);
                 startActivity(intent);
@@ -713,34 +761,39 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 /*intent.setClass(getActivity(), MessageCenterActivity.class);
                 startActivity(intent);*/
                 break;
-            case R.id.ll_theme1:
+            case R.id.fl_theme1:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
                 intent.putExtra("cate_id", cate_id1);
                 startActivity(intent);
                 break;
-            case R.id.ll_theme2:
+            case R.id.fl_theme2:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
                 intent.putExtra("cate_id", cate_id2);
                 startActivity(intent);
                 break;
-            case R.id.ll_theme3:
+            case R.id.fl_theme3:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
                 intent.putExtra("cate_id", cate_id3);
                 startActivity(intent);
                 break;
-            case R.id.ll_theme4:
+            case R.id.fl_theme4:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
                 intent.putExtra("cate_id", cate_id4);
                 startActivity(intent);
                 break;
-            case R.id.ll_theme5:
+            case R.id.fl_theme5:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
                 intent.putExtra("cate_id", cate_id5);
                 startActivity(intent);
                 break;
-            case R.id.ll_theme6:
+            case R.id.fl_theme6:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
                 intent.putExtra("cate_id", cate_id6);
+                startActivity(intent);
+                break;
+            case R.id.fl_theme7:
+                intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
+                intent.putExtra("cate_id", cate_id7);
                 startActivity(intent);
                 break;
             case R.id.ll_discount_01:
@@ -957,6 +1010,40 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
             handler.sendEmptyMessageDelayed(HANDLERID, 3000);
         }
+    }
+
+    /**
+     * 请求限时抢购
+     */
+    private void loadLimit() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("num", "1");
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Limit, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                Limit limit = gson.fromJson(responseInfo.result, Limit.class);
+                if (limit.status.code == 10000) {
+
+                    tvLimitTheme.setText(limit.datas.xianshi_title);
+                    limitTime = limit.datas.count_down_time;
+                    /**
+                     * 倒计时
+                     */
+                    if (START == 1) {
+                        Countdown(6);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+            }
+        });
+
     }
 
     /**
@@ -1186,7 +1273,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         if (responseInfoResult != null) {
             theme_street = gson.fromJson(responseInfoResult, Theme_street.class);
 
-            if (theme_street.status.code == 10000 && theme_street.datas.size() == 6) {
+            if (theme_street.status.code == 10000 && theme_street.datas.size() == 7) {
                 theme_name1.setText(theme_street.datas.get(0).theme_name);
                 theme_desc1.setText(theme_street.datas.get(0).theme_desc);
                 APP.getApp().getImageLoader().displayImage(theme_street.datas.get(0).theme_image, theme_image1, APP.getApp().getImageOptions());
@@ -1216,6 +1303,11 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 theme_desc6.setText(theme_street.datas.get(5).theme_desc);
                 APP.getApp().getImageLoader().displayImage(theme_street.datas.get(5).theme_image, theme_image6, APP.getApp().getImageOptions());
                 cate_id6 = theme_street.datas.get(5).gc_id;
+
+                theme_name7.setText(theme_street.datas.get(6).theme_name);
+                theme_desc7.setText(theme_street.datas.get(6).theme_desc);
+                APP.getApp().getImageLoader().displayImage(theme_street.datas.get(6).theme_image, theme_image7, APP.getApp().getImageOptions());
+                cate_id7 = theme_street.datas.get(6).gc_id;
             }
         }
     }
@@ -1357,6 +1449,11 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 df = new DecimalFormat("00");
                 time14.setText(df.format(minutes));
                 time15.setText(df.format(seconds));
+            } else if (s == 6) {
+                tvLimit1.setText(df.format(hours));
+                df = new DecimalFormat("00");
+                tvLimit2.setText(df.format(minutes));
+                tvLimit3.setText(df.format(seconds));
             }
         } else {
             if (s == 1) {
@@ -1379,6 +1476,10 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 time13.setText("000");
                 time14.setText("00");
                 time15.setText("00");
+            } else if (s == 6) {
+                tvLimit1.setText("000");
+                tvLimit2.setText("00");
+                tvLimit3.setText("00");
             }
         }
     }

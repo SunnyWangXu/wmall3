@@ -16,9 +16,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="9dp"
-            android:text="主题街"
-            android:textColor="#b63235"
-            android:textSize="15sp" />
+            android:text="快速导航"
+            android:textColor="@color/title_color"
+            android:textSize="14sp" />
 
     </LinearLayout>
 
@@ -29,257 +29,320 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:background="#ffffff">
+        android:layout_height="115dp"
+        android:background="@color/white">
 
-        <LinearLayout
-            android:id="@+id/ll_theme1"
+        <FrameLayout
+            android:id="@+id/fl_theme1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
 
+
+            <ImageView
+                android:id="@+id/iv_theme_image1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/default_image" />
 
             <TextView
                 android:id="@+id/tv_theme_name1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="13dp"
-                android:layout_marginTop="11dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="9dp"
                 android:text="滋补品馆"
                 android:textColor="#333333"
-                android:textSize="11dp" />
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/tv_theme_desc1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="13dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="27dp"
                 android:text="滋阴补阳"
                 android:textColor="#cccccc"
-                android:textSize="11dp" />
+                android:textSize="12sp" />
 
-            <ImageView
-                android:id="@+id/iv_theme_image1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="9dp"
-                android:src="@mipmap/default_image" />
-
-
-        </LinearLayout>
+        </FrameLayout>
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="#f1f1f1" />
+            android:background="@color/line_bg" />
 
-        <LinearLayout
-            android:id="@+id/ll_theme2"
+        <FrameLayout
+            android:id="@+id/fl_theme2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_theme_image2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/default_image" />
 
             <TextView
                 android:id="@+id/tv_theme_name2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="13dp"
-                android:layout_marginTop="11dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="9dp"
                 android:text="葡萄酒馆"
-                android:textColor="#333333"
-                android:textSize="11dp" />
+                android:textColor="@color/title_color"
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/tv_theme_desc2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="13dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="27dp"
                 android:text="好喝的葡萄酒"
-                android:textColor="#cccccc"
-                android:textSize="11dp" />
+                android:textColor="@color/spec_text_color"
+                android:textSize="12sp" />
 
-            <ImageView
-                android:id="@+id/iv_theme_image2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="9dp"
-                android:src="@mipmap/default_image" />
 
-        </LinearLayout>
+        </FrameLayout>
+
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#f1f1f1" />
+        android:background="@color/line_bg" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="105dp"
+        android:layout_height="115dp"
         android:background="#ffffff">
 
-        <LinearLayout
-            android:id="@+id/ll_theme3"
+        <FrameLayout
+            android:id="@+id/fl_theme3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/iv_theme_image3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/default_image" />
 
             <TextView
                 android:id="@+id/tv_theme_name3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="9dp"
                 android:text="白酒馆"
-                android:textColor="#000000"
-                android:textSize="11sp" />
+                android:textColor="@color/title_color"
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/tv_theme_desc3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="27dp"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="香醇的白酒"
-                android:textColor="#cccccc"
-                android:textSize="11sp" />
+                android:textColor="@color/spec_text_color"
+                android:textSize="12sp" />
 
-            <ImageView
-                android:id="@+id/iv_theme_image3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/default_image" />
 
-        </LinearLayout>
+        </FrameLayout>
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="#f1f1f1" />
+            android:background="@color/line_bg" />
 
-        <LinearLayout
-            android:id="@+id/ll_theme4"
+        <FrameLayout
+            android:id="@+id/fl_theme4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_theme_image4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/default_image" />
 
             <TextView
                 android:id="@+id/tv_theme_name4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="9dp"
                 android:text="洋酒馆"
-                android:textColor="#000000"
-                android:textSize="11sp" />
+                android:textColor="@color/title_color"
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/tv_theme_desc4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="27dp"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="洋酒馆"
-                android:textColor="#cccccc"
-                android:textSize="11sp" />
+                android:textColor="@color/spec_text_color"
+                android:textSize="12sp" />
 
-            <ImageView
-                android:id="@+id/iv_theme_image4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/default_image" />
 
-        </LinearLayout>
+        </FrameLayout>
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#f1f1f1" />
+    </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/ll_theme5"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="115dp"
+        android:background="@color/white">
+
+        <FrameLayout
+            android:id="@+id/fl_theme5"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_theme_image5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/default_image" />
 
             <TextView
                 android:id="@+id/tv_theme_name5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="9dp"
                 android:text="啤酒馆"
-                android:textColor="#000000"
-                android:textSize="11sp" />
+                android:textColor="@color/title_color"
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/tv_theme_desc5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="27dp"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="敞开肚皮来吧"
-                android:textColor="#cccccc"
-                android:textSize="11sp" />
+                android:textColor="@color/spec_text_color"
+                android:textSize="12sp" />
 
-            <ImageView
-                android:id="@+id/iv_theme_image5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/default_image" />
 
-        </LinearLayout>
+        </FrameLayout>
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="#f1f1f1" />
+            android:background="@color/line_bg" />
 
-        <LinearLayout
-            android:id="@+id/ll_theme6"
+        <FrameLayout
+            android:id="@+id/fl_theme6"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/iv_theme_image6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/default_image" />
+
             <TextView
                 android:id="@+id/tv_theme_name6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="9dp"
                 android:text="黄酒/养生酒"
-                android:textColor="#000000"
-                android:textSize="11sp" />
+                android:textColor="@color/title_color"
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/tv_theme_desc6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="27dp"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:layout_marginLeft="7dp"
                 android:text="国粹在此"
-                android:textColor="#cccccc"
-                android:textSize="11sp" />
+                android:textColor="@color/spec_text_color"
+                android:textSize="12sp" />
 
-            <ImageView
-                android:id="@+id/iv_theme_image6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/default_image" />
-
-        </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="115dp"
+        android:background="@color/white">
+
+        <FrameLayout
+            android:id="@+id/fl_theme7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_theme_image7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@mipmap/default_image" />
+
+            <TextView
+                android:id="@+id/tv_theme_name7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="9dp"
+                android:text="酒具周边"
+                android:textColor="@color/title_color"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_theme_desc7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="27dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="好大的柜子，什么鬼"
+                android:textColor="@color/spec_text_color"
+                android:textSize="12sp" />
+
+        </FrameLayout>
+
+    </LinearLayout>
 </LinearLayout>

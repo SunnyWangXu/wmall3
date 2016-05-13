@@ -7,6 +7,10 @@ public class ApiInterface {
      */
     public static final String Home_pager = "/mobile/index.php?act=index&op=index_ad";
     /**
+     * 限时抢购
+     */
+    public static final  String Limit = "/mobile/index.php?act=index&op=time_limit_goods";
+    /**
      * 拍卖和团购
      */
     public static final String Auction_super_value = "/mobile/index.php?act=index&op=auction_super_value";

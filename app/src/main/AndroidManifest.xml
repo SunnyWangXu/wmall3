@@ -52,6 +52,9 @@
             android:name=".ui.activity.PrductDetailActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.activity.LimitDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.activity.A1_RegisterActivity1"
             android:screenOrientation="portrait" />
         <activity
