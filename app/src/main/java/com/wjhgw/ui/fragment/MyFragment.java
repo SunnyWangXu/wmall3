@@ -329,8 +329,13 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 }
                 break;
             case R.id.rl_layout4:
-                intent.setClass(getActivity(), D5_CustomerActivity.class);
-                startActivity(intent);
+                if (key.equals("0") || key == null) {
+                    intent.setClass(getActivity(), A0_LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getActivity(), D5_CustomerActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.ll_assets:
                 if (key.equals("0") || key == null) {
@@ -342,14 +347,24 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 }
                 break;
             case R.id.ll_available_predeposit:
-                intent = new Intent(getActivity(), Z1_Prepaid_card_balanceActivity.class);
-                intent.putExtra("state","2");
-                startActivity(intent);
+                if (key.equals("0") || key == null) {
+                    intent.setClass(getActivity(), A0_LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent = new Intent(getActivity(), Z1_Prepaid_card_balanceActivity.class);
+                    intent.putExtra("state","2");
+                    startActivity(intent);
+                }
                 break;
             case R.id.ll_rechargeable_card:
-                intent = new Intent(getActivity(), Z1_Prepaid_card_balanceActivity.class);
-                intent.putExtra("state","1");
-                startActivity(intent);
+                if (key.equals("0") || key == null) {
+                    intent.setClass(getActivity(), A0_LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent = new Intent(getActivity(), Z1_Prepaid_card_balanceActivity.class);
+                    intent.putExtra("state","1");
+                    startActivity(intent);
+                }
                 break;
             case R.id.iv_message:
                 underdevelopmentDialog.show();
@@ -532,6 +547,10 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
             tv_statistics5.setVisibility(View.GONE);
             tv_statistics3.setVisibility(View.GONE);
             tv_statistics4.setVisibility(View.GONE);
+            available_predeposit.setText("0");   //余额
+            tv_rechargeable_card.setText("0");   //可用充值卡余额
+            tv_hgb.setText("0");              //欢购币
+            tv_vouchers.setText("0");         //代金券
         } else {
             load_User_information();
             order_amount();
