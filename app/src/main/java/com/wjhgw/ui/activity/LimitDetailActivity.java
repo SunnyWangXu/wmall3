@@ -114,6 +114,7 @@ public class LimitDetailActivity extends BaseActivity implements AdapterView.OnI
      */
 
     private void loadLimit() {
+        StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("num", "20");
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Limit, params, new RequestCallBack<String>() {
@@ -121,6 +122,7 @@ public class LimitDetailActivity extends BaseActivity implements AdapterView.OnI
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                Dismiss();
                 Gson gson = new Gson();
                 Limit limit = gson.fromJson(responseInfo.result, Limit.class);
                 setTitle(limit.datas.xianshi_title);
