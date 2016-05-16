@@ -141,7 +141,7 @@ public class LimitDetailActivity extends BaseActivity implements AdapterView.OnI
                     }
 
                     String imgStr = limit.datas.mobile_thumb;
-                    APP.getApp().getImageLoader().displayImage(imgStr, ivLimit);
+                    APP.getApp().getImageLoader().displayImage(imgStr, ivLimit, APP.getApp().getImageOptions());
                     goodsInfo = limit.datas.goods_info;
 
                     mAdapter = new LimitGoodsAdapter(LimitDetailActivity.this, goodsInfo);

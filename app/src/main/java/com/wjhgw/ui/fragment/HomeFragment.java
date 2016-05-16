@@ -1035,7 +1035,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                     limitTime = limit.datas.count_down_time;
                     xianshi_id = limit.datas.xianshi_id;
                     String pc_thumb = limit.datas.pc_thumb;
-                    APP.getApp().getImageLoader().displayImage(pc_thumb, ivLimitTheme);
+                    APP.getApp().getImageLoader().displayImage(pc_thumb, ivLimitTheme, APP.getApp().getImageOptions());
                     /**
                      * 倒计时
                      */
