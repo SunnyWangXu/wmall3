@@ -196,21 +196,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                 } else if (order_detail.datas.order_state.equals("20")) {
                     if (order_detail.datas.if_remind) {
                         //showToastShort("提醒发货");
-                        mDialog = new MyDialog(this, "确定要删除该订单？");
-                        mDialog.show();
-                        mDialog.positive.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Request.order_remind(order_id, getKey());
-                                mDialog.dismiss();
-                            }
-                        });
-                        mDialog.negative.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mDialog.dismiss();
-                            }
-                        });
+                        Request.order_remind(order_id, getKey());
                     }
                     //待发货
                 } else if (order_detail.datas.order_state.equals("30")) {
