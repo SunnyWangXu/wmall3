@@ -144,7 +144,6 @@ public class LimitDetailActivity extends BaseActivity implements AdapterView.OnI
                     APP.getApp().getImageLoader().displayImage(imgStr, ivLimit);
                     goodsInfo = limit.datas.goods_info;
 
-
                     mAdapter = new LimitGoodsAdapter(LimitDetailActivity.this, goodsInfo);
                     lvLimit.setAdapter(mAdapter);
                 }
@@ -158,7 +157,6 @@ public class LimitDetailActivity extends BaseActivity implements AdapterView.OnI
         });
 
     }
-
 
     /**
      * 倒计时

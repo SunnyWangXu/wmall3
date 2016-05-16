@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_limit_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/ll_limit_content"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -95,8 +95,8 @@
         android:background="@color/line_bg" />
 
     <ImageView
+        android:id="@+id/iv_limit_theme"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:src="@mipmap/ic_limit" />
+        android:layout_height="100dp" />
 
 </LinearLayout>

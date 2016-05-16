@@ -79,6 +79,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private Handler handler;
 
     private TextView tvLimitTheme;
+    private ImageView ivLimitTheme;
     private TextView tvLimit1;
     private TextView tvLimit2;
     private TextView tvLimit3;
@@ -293,7 +294,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     };
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -427,6 +427,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         ll_Point = (LinearLayout) homeViewPageLayout.findViewById(R.id.ll_home_point);
 
         tvLimitTheme = (TextView) LimitLayout.findViewById(R.id.tv_limit_theme);
+        ivLimitTheme = (ImageView) LimitLayout.findViewById(R.id.iv_limit_theme);
         tvLimit1 = (TextView) LimitLayout.findViewById(R.id.tv_limit_t1);
         tvLimit2 = (TextView) LimitLayout.findViewById(R.id.tv_limit_t2);
         tvLimit3 = (TextView) LimitLayout.findViewById(R.id.tv_limit_t3);
@@ -1032,7 +1033,9 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
                     tvLimitTheme.setText(limit.datas.xianshi_title);
                     limitTime = limit.datas.count_down_time;
-                    xianshi_id =limit.datas.xianshi_id;
+                    xianshi_id = limit.datas.xianshi_id;
+                    String pc_thumb = limit.datas.pc_thumb;
+                    APP.getApp().getImageLoader().displayImage(pc_thumb, ivLimitTheme);
                     /**
                      * 倒计时
                      */

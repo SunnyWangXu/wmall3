@@ -12,6 +12,7 @@ public class LimitDatas {
     public String xianshi_title;
     public String xianshi_explain;
     public String mobile_thumb;
+    public String pc_thumb;
     public String quota_id;
     public String start_time;
     public String end_time;
