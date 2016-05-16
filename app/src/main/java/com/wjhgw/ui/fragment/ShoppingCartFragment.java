@@ -101,6 +101,7 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
         Request = new Address_del_Request(getActivity());
         Request.addResponseListener(this);
 
+
         return rootView;
     }
 

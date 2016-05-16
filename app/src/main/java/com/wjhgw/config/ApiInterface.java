@@ -7,9 +7,13 @@ public class ApiInterface {
      */
     public static final String Home_pager = "/mobile/index.php?act=index&op=index_ad";
     /**
-     * 限时抢购
+     * 首页限时抢购
      */
     public static final  String Limit = "/mobile/index.php?act=index&op=time_limit_goods";
+    /**
+     * 限时抢购列表
+     */
+    public static final  String Limit_detail = "/mobile/index.php?act=promotion&op=get_xianshi_list";
     /**
      * 拍卖和团购
      */

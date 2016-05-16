@@ -60,13 +60,14 @@ public class LimitDetailActivity extends BaseActivity implements AdapterView.OnI
     private TextView t1;
     private TextView t2;
     private TextView t3;
+    private String xianshi_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.limit_detail_layout);
 
-
+        xianshi_id = getIntent().getStringExtra("xianshi_id");
     }
 
     @Override
@@ -116,8 +117,9 @@ public class LimitDetailActivity extends BaseActivity implements AdapterView.OnI
     private void loadLimit() {
         StartLoading();
         RequestParams params = new RequestParams();
+        params.addBodyParameter("xianshi_id", xianshi_id);
         params.addBodyParameter("num", "20");
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Limit, params, new RequestCallBack<String>() {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Limit_detail, params, new RequestCallBack<String>() {
 
 
             @Override
@@ -130,6 +132,7 @@ public class LimitDetailActivity extends BaseActivity implements AdapterView.OnI
                 if (limit.status.code == 10000) {
 
                     limitTime = limit.datas.count_down_time;
+
                     /**
                      * 倒计时
                      */

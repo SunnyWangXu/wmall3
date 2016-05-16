@@ -8,6 +8,7 @@
         android:id="@+id/iv_limit"
         android:layout_width="match_parent"
         android:layout_height="136dp"
+        android:scaleType="fitXY"
         android:src="@mipmap/default_image" />
 
     <LinearLayout

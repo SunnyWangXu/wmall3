@@ -245,7 +245,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private LinearLayout llGuessLike12;
 
     private UnderDialog underdevelopmentDialog1;
-
+    private String xianshi_id;
 
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -291,6 +291,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             }
         }
     };
+
 
 
     @Override
@@ -708,6 +709,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         switch (v.getId()) {
             case R.id.ll_limit_content:
                 intent = new Intent(getActivity(), LimitDetailActivity.class);
+                intent.putExtra("xianshi_id", xianshi_id);
                 startActivity(intent);
                 break;
             case R.id.ll_button1:
@@ -1030,6 +1032,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
                     tvLimitTheme.setText(limit.datas.xianshi_title);
                     limitTime = limit.datas.count_down_time;
+                    xianshi_id =limit.datas.xianshi_id;
                     /**
                      * 倒计时
                      */
