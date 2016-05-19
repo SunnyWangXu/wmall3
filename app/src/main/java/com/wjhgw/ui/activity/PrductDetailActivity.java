@@ -188,6 +188,9 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
             if (handlerName.equals("goCartHandler")) {
                 if (Shopping_Cart != null) {
                     finish();
+                } else if (getKey().equals("0")) {
+                    Intent intent = new Intent(PrductDetailActivity.this, A0_LoginActivity.class);
+                    startActivity(intent);
                 } else {
                     Intent intent = new Intent(PrductDetailActivity.this, ShoppingCartActivity.class);
                     startActivity(intent);
@@ -248,7 +251,7 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
 
                         Intent intent = new Intent(PrductDetailActivity.this, PayGiveOrderActivity.class);
                         intent.putExtra("by_step1_result", responseInfo.result);
-                        intent.putExtra("cart_id",cart_id);
+                        intent.putExtra("cart_id", cart_id);
                         startActivity(intent);
 
 
