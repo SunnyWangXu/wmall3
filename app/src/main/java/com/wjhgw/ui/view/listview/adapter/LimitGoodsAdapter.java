@@ -1,6 +1,7 @@
 package com.wjhgw.ui.view.listview.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ public class LimitGoodsAdapter extends BaseAdapter {
     private TextView tvName;
     private TextView tvGoodsPrice;
     private TextView tvXianshiPrice;
+    private TextView tvLimitStatus;
 
     public LimitGoodsAdapter(Context mContext, ArrayList<LimitGoodsInfo> goodsInfo) {
         this.mContext = mContext;
@@ -57,9 +59,16 @@ public class LimitGoodsAdapter extends BaseAdapter {
         tvName = (TextView) convertView.findViewById(R.id.tv_limit_name);
         tvGoodsPrice = (TextView) convertView.findViewById(R.id.tv_goods_price);
         tvXianshiPrice = (TextView) convertView.findViewById(R.id.tv_xianshi_price);
+        tvLimitStatus = (TextView) convertView.findViewById(R.id.tv_limit_status);
+
 
         APP.getApp().getImageLoader().displayImage(goodsInfo.get(position).image_url, goodsImg, APP.getApp().getImageOptions());
 
+        if (goodsInfo.get(position).goods_storage.equals("0")) {
+            tvLimitStatus.setText("已抢光");
+            tvLimitStatus.setTextColor(Color.parseColor("#999999"));
+            tvLimitStatus.setBackgroundResource(R.drawable.background_radius_gray);
+        }
         String discount = goodsInfo.get(position).xianshi_discount;
         String discount1 = discount.replace("折", "");
         tvDiscount.setText(discount1);

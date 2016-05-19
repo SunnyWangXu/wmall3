@@ -125,7 +125,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
             title.setText("新增地址");
             edName.setHint("不少于1位");
             edPhone.setHint("请输入11位手机号码");
-            tvAddressInfo.setText("北京 北京市 东城区");
+            tvAddressInfo.setText("北京 朝阳区 三环以内");
             edAddressDetail.setHint("街道名称及楼房门牌号等信息");
 
 //            mTVEdit.setVisibility(View.INVISIBLE);

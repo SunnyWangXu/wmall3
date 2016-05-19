@@ -352,7 +352,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                     startActivity(intent);
                 } else {
                     intent = new Intent(getActivity(), Z1_Prepaid_card_balanceActivity.class);
-                    intent.putExtra("state","2");
+                    intent.putExtra("state", "2");
                     startActivity(intent);
                 }
                 break;
@@ -362,7 +362,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                     startActivity(intent);
                 } else {
                     intent = new Intent(getActivity(), Z1_Prepaid_card_balanceActivity.class);
-                    intent.putExtra("state","1");
+                    intent.putExtra("state", "1");
                     startActivity(intent);
                 }
                 break;
@@ -515,7 +515,13 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
 
             if (userinformation.status.code == 10000) {
                 APP.getApp().getImageLoader().displayImage(userinformation.datas.member_avatar, myAvatar);
-                member_nickname.setText(userinformation.datas.member_nickname);
+
+                if (userinformation.datas.member_nickname.equals("")) {
+                    member_nickname.setText(userinformation.datas.member_mobile);
+                } else {
+                    member_nickname.setText(userinformation.datas.member_nickname);
+                }
+
                 available_predeposit.setText(userinformation.datas.available_predeposit);   //余额
                 tv_rechargeable_card.setText(userinformation.datas.available_rc_balance);   //可用充值卡余额
                 tv_hgb.setText(userinformation.datas.hg_points);              //欢购币

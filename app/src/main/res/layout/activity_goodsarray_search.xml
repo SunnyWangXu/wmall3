@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_gravity="center_vertical"
@@ -22,9 +22,11 @@
 
         <LinearLayout
             android:id="@+id/ll_goods_search"
-            android:layout_width="258dp"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
             android:background="@drawable/search_relativelayout_shape"
             android:gravity="center_vertical">
 
@@ -50,9 +52,10 @@
             android:layout_gravity="right|center_vertical"
             android:layout_marginLeft="11dp"
             android:layout_marginRight="13dp"
-            android:src="@mipmap/ic_information" />
+            android:src="@mipmap/ic_information"
+            android:visibility="gone" />
 
-    </FrameLayout>
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
@@ -169,7 +172,7 @@
             android:divider="#00000000"
             android:dividerHeight="0dp"
             android:fastScrollEnabled="false"
-            android:scrollbars="none"/>
+            android:scrollbars="none" />
 
         <TextView
             android:id="@+id/tv_page_total"

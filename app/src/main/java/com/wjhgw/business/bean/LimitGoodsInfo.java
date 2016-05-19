@@ -25,6 +25,7 @@ public class LimitGoodsInfo {
     public String goods_url;
     public String image_url;
     public String xianshi_discount;
-    public String goods_salenum;
+    public String goods_storage;
+    public String goods_state;
 
 }
