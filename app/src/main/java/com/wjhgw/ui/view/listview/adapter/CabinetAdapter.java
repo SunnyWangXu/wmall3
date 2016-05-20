@@ -111,7 +111,7 @@ public class CabinetAdapter extends BaseAdapter {
 
         if (List.size() != 0 && !List.get(position).selected.equals("0")) {
             Choice.setImageResource(R.mipmap.ic_order_select);
-            receive(position);
+            //receive(position);
             own();
         } else if (List.get(position).selected.equals("0")) {
             Choice.setImageResource(R.mipmap.ic_order_blank);
@@ -358,7 +358,7 @@ public class CabinetAdapter extends BaseAdapter {
      *
      * @param position
      */
-    private void receive(int position) {
+    public void receive(int position) {
         if (!List.get(position).selected.equals("0")) {
             if (List.get(position).num <= Integer.parseInt(List.get(position).buy_number)) {
                 List.get(position).receive = true;

@@ -170,6 +170,7 @@ public class CabinetActivity extends BaseActivity implements BusinessResponse, X
                     for (int i = 0; i < listAdapter.List.size(); i++) {
                         listAdapter.List.get(i).selected = data.get(i).goods_id;
                         listAdapter.total_num += listAdapter.List.get(i).num;
+                        listAdapter.receive(i);
                     }
                     tv_total_num.setText(listAdapter.total_num + "件");
                 }
@@ -272,6 +273,8 @@ public class CabinetActivity extends BaseActivity implements BusinessResponse, X
                                         iv_select, tv_total_num, tv_others, tv_own, Request);
                                 mListView.setAdapter(listAdapter);
                                 iv_select.setImageResource(R.mipmap.ic_order_blank);
+                                tv_others.setBackgroundColor(Color.parseColor("#cccccc"));
+                                tv_own.setBackgroundColor(Color.parseColor("#aaaaaa"));
                             } else {
                                 listAdapter.List = data;
                                 listAdapter.notifyDataSetChanged();
