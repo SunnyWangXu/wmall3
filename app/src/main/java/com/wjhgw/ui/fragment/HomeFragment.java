@@ -362,7 +362,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
                         homePager.setCurrentItem((homePager.getCurrentItem() + 1));
 
-                        sendEmptyMessageDelayed(HANDLERID, 3000);
+                        sendEmptyMessageDelayed(HANDLERID, 5000);
                     }
                 }
             };
@@ -1013,7 +1013,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         if (START == 1 && pager_data != null && getActivity() != null) {
             addPoints();
 
-            handler.sendEmptyMessageDelayed(HANDLERID, 3000);
+            handler.sendEmptyMessageDelayed(HANDLERID, 5000);
         }
     }
 

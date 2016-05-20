@@ -288,9 +288,7 @@ public class CabinetActivity extends BaseActivity implements BusinessResponse, X
                         } else {
                             isSetAdapter = true;
                             ll_wine.setVisibility(View.GONE);
-                            tv_record.setVisibility(View.GONE);
                             ll_null.setVisibility(View.VISIBLE);
-                            tv_record.setVisibility(View.GONE);
                             mListView.setVisibility(View.GONE);
                         }
                     } else if (cadList.status.code == 200103 || cadList.status.code == 200104) {
