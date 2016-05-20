@@ -367,7 +367,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 }
             };
 
-
             mListView.setPullLoadEnable(false);
             mListView.setPullRefreshEnable(true);
             mListView.setXListViewListener(this, 1);

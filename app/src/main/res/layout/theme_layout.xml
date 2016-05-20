@@ -200,7 +200,6 @@
                 android:textColor="@color/spec_text_color"
                 android:textSize="12sp" />
 
-
         </FrameLayout>
 
     </LinearLayout>

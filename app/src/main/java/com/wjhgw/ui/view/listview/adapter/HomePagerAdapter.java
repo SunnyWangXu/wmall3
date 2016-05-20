@@ -20,12 +20,13 @@ public class HomePagerAdapter extends PagerAdapter {
     private List<Home_Pager_Data> data;
     private Context context;
     private int imageSize;
-    private String advUrl;
+    private String[] advUrl;
 
     public HomePagerAdapter(Context context, List<Home_Pager_Data> data) {
         this.context = context;
         this.data = data;
         imageSize = data.size();
+        advUrl = new String[data.size()];
     }
 
     @Override
@@ -47,19 +48,19 @@ public class HomePagerAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(final ViewGroup container, int position) {
+    public Object instantiateItem(final ViewGroup container, final int position) {
 
         ImageView image = new ImageView(context);
         String imageUrl = data.get(position % imageSize).adv_pic;
-        advUrl = data.get(position % imageSize).adv_url;
+        advUrl[position % imageSize] = data.get(position % imageSize).adv_url;
 
         APP.getApp().getImageLoader().displayImage(imageUrl, image, APP.getApp().getImageOptions());
-        container.addView(image);
+
 
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = advUrl.replace("&amp;", "&");
+                String url = advUrl[position % imageSize].replace("&amp;", "&");
 
                 Intent intent = new Intent();
                 intent.setClass(context, GeneralPrductDetailActivity.class);
@@ -74,6 +75,7 @@ public class HomePagerAdapter extends PagerAdapter {
 
             }
         });
+        container.addView(image);
         return image;
     }
 }
