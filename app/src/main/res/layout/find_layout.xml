@@ -15,10 +15,10 @@
             android:textSize="@dimen/title_size" />
 
     <FrameLayout
+        android:id="@+id/fl_shop_nearby"
         android:layout_width="match_parent"
         android:layout_height="58dp"
         android:background="#ffffff"
-        android:visibility="gone"
         android:layout_marginTop="10dp">
 
         <ImageView

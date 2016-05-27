@@ -47,9 +47,7 @@ public class StoreGoodsAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-
+    public View getView(final int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.store_goods_item, null);
         goodsImage = (ImageView) convertView.findViewById(R.id.iv_store_goods_image);
         goodsName = (TextView) convertView.findViewById(R.id.tv_store_goods_name);

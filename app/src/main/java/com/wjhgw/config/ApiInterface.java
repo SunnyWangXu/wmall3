@@ -318,7 +318,15 @@ public class ApiInterface {
      */
     public static final String Gift_goods_list = "/mobile/index.php?act=member_order&op=gift_goods_list";
     /**
-     * 获取附近店铺内商品
+     * 获取附近店铺列表
+     */
+    public static final String Nearby_stores_list = "/mobile/index.php?act=nearby_stores&op=nearby_stores_list";
+    /**
+     * 定位附近店铺
+     */
+    public static final String Nearby_stores = "/mobile/index.php?act=nearby_stores&op=nearby_stores";
+    /**
+     * 获取附件店铺内商品
      */
     public static final String Store_goods = "/mobile/index.php?act=nearby_stores&op=store_goods";
 }

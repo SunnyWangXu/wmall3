@@ -1,8 +1,14 @@
 package com.wjhgw.ui.activity;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
@@ -17,6 +23,7 @@ import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.StoreGoods;
 import com.wjhgw.business.bean.StoreGoodsDatas;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.dialog.SetPaypwdDialog;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.StoreGoodsAdapter;
@@ -34,6 +41,12 @@ public class F2_StoreGoodsActivity extends BaseActivity implements XListView.IXL
     private ArrayList<StoreGoodsDatas> Data = new ArrayList<>();
     private StoreGoodsAdapter mAdapter;
     private boolean isSetAdapter = true;
+    private String name;
+    private String mobile;
+    private String address;
+    private ImageView iv_mobile;
+    private TextView tv_address;
+    private TextView tv_distance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,15 +59,44 @@ public class F2_StoreGoodsActivity extends BaseActivity implements XListView.IXL
         lvStoreGoods.setPullRefreshEnable(false);
         lvStoreGoods.setXListViewListener(this, 1);
         lvStoreGoods.setAdapter(null);
-
+        name = getIntent().getStringExtra("name");
+        mobile = getIntent().getStringExtra("mobile");
+        address = getIntent().getStringExtra("address");
+        setTitle(name);
+        tv_address.setText(address);
     }
 
     @Override
     public void onInit() {
         setUp();
-        setTitle("万嘉商行");
         storeHead = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.store_goods_head, null);
+        iv_mobile = (ImageView)storeHead.findViewById(R.id.iv_mobile);
+        tv_address = (TextView)storeHead.findViewById(R.id.tv_address);
+        tv_distance = (TextView)storeHead.findViewById(R.id.tv_distance);
 
+        iv_mobile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final SetPaypwdDialog Dialog = new SetPaypwdDialog(F2_StoreGoodsActivity.this, "联系商家","客服电话:"+mobile);
+                Dialog.show();
+                Dialog.tvGotoSetpaypwd.setText("拨打");
+                Dialog.tvCancel.setTextColor(Color.parseColor("#333333"));
+                Dialog.tvGotoSetpaypwd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent1 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" +mobile));
+                        startActivity(intent1);
+                        Dialog.dismiss();
+                    }
+                });
+                Dialog.tvCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Dialog.dismiss();
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -100,7 +142,6 @@ public class F2_StoreGoodsActivity extends BaseActivity implements XListView.IXL
                 Gson gson = new Gson();
                 StoreGoods storeGoods = gson.fromJson(responseInfo.result, StoreGoods.class);
                 if (storeGoods.status.code == 10000) {
-
                     lvStoreGoods.stopRefresh();
                     lvStoreGoods.stopLoadMore();
 
@@ -119,9 +160,9 @@ public class F2_StoreGoodsActivity extends BaseActivity implements XListView.IXL
                     } else {
                         lvStoreGoods.setPullLoadEnable(false);
                     }
+                }else {
+                    overtime(storeGoods.status.code, storeGoods.status.msg);
                 }
-                overtime(storeGoods.status.code, storeGoods.status.msg);
-
             }
 
             @Override
@@ -134,7 +175,6 @@ public class F2_StoreGoodsActivity extends BaseActivity implements XListView.IXL
 
     @Override
     public void onRefresh(int id) {
-        isSetAdapter = true;
     }
 
     @Override
@@ -145,6 +185,5 @@ public class F2_StoreGoodsActivity extends BaseActivity implements XListView.IXL
          * 请求附近商铺商品详情
          */
         loadStoreGoods();
-
     }
 }

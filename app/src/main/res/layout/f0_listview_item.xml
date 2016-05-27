@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+	android:background="#ffffff">
+
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="75dp">
+
+	<ImageView
+		android:layout_width="56dp"
+		android:layout_height="56dp"
+		android:layout_marginLeft="12dp"
+		android:layout_gravity="center_vertical"
+		android:src="@mipmap/ic_default_store"/>
+
+	<TextView
+		android:id="@+id/tv_f0_store_name"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="82dp"
+		android:layout_marginTop="15dp"
+		android:ellipsize="end"
+		android:singleLine="true"
+		android:textColor="#333333"
+		android:textSize="16dp"
+		android:text=""/>
+	<TextView
+		android:id="@+id/tv_f0_address"
+		android:layout_width="200dp"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="82dp"
+		android:layout_marginTop="50dp"
+		android:ellipsize="end"
+		android:singleLine="true"
+		android:textColor="#999999"
+		android:textSize="13dp"
+		android:text="sdf"/>
+
+	<TextView
+		android:id="@+id/tv_f0_distance"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="right"
+		android:layout_marginRight="15dp"
+		android:layout_marginTop="50dp"
+		android:textColor="#999999"
+		android:textSize="13dp"
+		android:text="0.9KM"/>
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="0.5dp"
+		android:layout_marginLeft="12dp"
+		android:layout_gravity="bottom"
+		android:background="#cccccc"/>
+	</FrameLayout>
+</LinearLayout>

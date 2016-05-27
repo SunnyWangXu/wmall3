@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.ui.activity.CurrencyWebViewActivity;
+import com.wjhgw.ui.activity.F0_Shop_nearbyActivity;
 
 /**
  * 发现Fragment
@@ -18,6 +19,7 @@ import com.wjhgw.ui.activity.CurrencyWebViewActivity;
 public class FindFragment extends Fragment {
     private View rootView;
     private FrameLayout fl_redeem_code;
+    private FrameLayout fl_shop_nearby;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,14 @@ public class FindFragment extends Fragment {
                 Intent intent = new Intent(getActivity(),CurrencyWebViewActivity.class);
                 intent.putExtra("name" , "礼品兑换码");
                 intent.putExtra("url" , BaseQuery.serviceUrl()+"/wap/index.php?act=exchange&op=code");
+                startActivity(intent);
+            }
+        });
+        fl_shop_nearby = (FrameLayout)rootView.findViewById(R.id.fl_shop_nearby);
+        fl_shop_nearby.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),F0_Shop_nearbyActivity.class);
                 startActivity(intent);
             }
         });

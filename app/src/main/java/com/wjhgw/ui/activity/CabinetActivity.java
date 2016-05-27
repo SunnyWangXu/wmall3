@@ -141,8 +141,9 @@ public class CabinetActivity extends BaseActivity implements BusinessResponse, X
     @Override
     public void onRefresh(int id) {
         curpage = 1;
-        cab_list();
         isSetAdapter = true;
+        cab_list();
+
     }
 
     @Override
