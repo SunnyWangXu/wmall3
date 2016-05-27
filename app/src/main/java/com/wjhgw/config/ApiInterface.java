@@ -317,4 +317,8 @@ public class ApiInterface {
      * 通过paySn查询赠送他人的商品列表
      */
     public static final String Gift_goods_list = "/mobile/index.php?act=member_order&op=gift_goods_list";
+    /**
+     * 获取附近店铺内商品
+     */
+    public static final String Store_goods = "/mobile/index.php?act=nearby_stores&op=store_goods";
 }

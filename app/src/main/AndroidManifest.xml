@@ -79,6 +79,9 @@
             android:name=".ui.activity.C4_UseServiceActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.activity.F2_StoreGoodsActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.activity.J0_SelectGiveObjectActivity"
             android:screenOrientation="portrait" />
         <activity
