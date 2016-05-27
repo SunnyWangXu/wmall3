@@ -47,6 +47,7 @@ public class F2_StoreGoodsActivity extends BaseActivity implements XListView.IXL
     private ImageView iv_mobile;
     private TextView tv_address;
     private TextView tv_distance;
+    private String distance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +63,10 @@ public class F2_StoreGoodsActivity extends BaseActivity implements XListView.IXL
         name = getIntent().getStringExtra("name");
         mobile = getIntent().getStringExtra("mobile");
         address = getIntent().getStringExtra("address");
+        distance = getIntent().getStringExtra("distance");
         setTitle(name);
         tv_address.setText(address);
+        tv_distance.setText(distance+"km");
     }
 
     @Override

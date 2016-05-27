@@ -245,6 +245,7 @@ public class F1_FoundActivity extends BaseActivity implements LocationSource,
         intent.putExtra("name",nearby_stores.datas.get(i).store_name);
         intent.putExtra("mobile",mobile);
         intent.putExtra("address",nearby_stores.datas.get(i).address);
+        intent.putExtra("distance",nearby_stores.datas.get(i).distance);
         startActivity(intent);
         return true;
     }

@@ -80,6 +80,7 @@ public class F0_Shop_nearbvAdapter extends BaseAdapter {
                 intent.putExtra("name",List.get(position).store_name);
                 intent.putExtra("mobile",mobile);
                 intent.putExtra("address",List.get(position).address);
+                intent.putExtra("distance",List.get(position).distance);
                 c.startActivity(intent);
             }
         });
