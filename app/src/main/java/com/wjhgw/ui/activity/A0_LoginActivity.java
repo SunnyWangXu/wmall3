@@ -195,6 +195,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                     Login_Pager login = gson.fromJson(responseInfo.result, Login_Pager.class);
                     if (login.status.code == 10000) {
                         getSharedPreferences("key", MODE_PRIVATE).edit().putString("key", login.datas.key).commit();
+                        getSharedPreferences("member_id", MODE_PRIVATE).edit().putString("member_id", login.datas.member_id).commit();
                         getSharedPreferences("username", MODE_PRIVATE).edit().putString("username", Number).commit();
                         showToastShort("登录成功");
 

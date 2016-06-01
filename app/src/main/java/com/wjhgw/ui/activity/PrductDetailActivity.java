@@ -2,6 +2,8 @@ package com.wjhgw.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -12,6 +14,8 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
@@ -19,11 +23,17 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.wjhgw.APP;
 import com.wjhgw.MainActivity;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
+import com.wjhgw.business.bean.Get_share_info;
 import com.wjhgw.business.bean.SelectOrder;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.dialog.LoadDialog;
@@ -31,6 +41,10 @@ import com.wjhgw.ui.dialog.LoadDialog;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 
 /**
@@ -44,18 +58,23 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
     private String Shopping_Cart;
     private HashMap<String, String> keyMap;
     private String url;
+    private String id;
+    private IWXAPI api;
+    private ImageView iv_title_right;
+    private ImageView iv_title_back;
+    private TextView tv_title_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prduct_detail);
 
-        webView = (WebView) findViewById(R.id.wb_prduct_detail);
-
         /**
          * 加载WebView
          */
         toLoadWebView();
+        api = WXAPIFactory.createWXAPI(this, "wx99a6bd9b7bdbf645");
+        api.registerApp("wx99a6bd9b7bdbf645");
     }
 
     /**
@@ -91,7 +110,7 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
         /**
          * 加载WebView的url和传key给H5端
          */
-        String id = getIntent().getStringExtra("goods_id");
+        id = getIntent().getStringExtra("goods_id");
 
         Shopping_Cart = getIntent().getStringExtra("Shopping_Cart");
         //BaseQuery.environment()
@@ -121,31 +140,44 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onInit() {
-        setUp();
-        setTitle("商品详情");
-
     }
 
     @Override
     public void onFindViews() {
-
+        webView = (WebView) findViewById(R.id.wb_prduct_detail);
+        iv_title_right = (ImageView) findViewById(R.id.iv_title_right);
+        iv_title_back = (ImageView) findViewById(R.id.iv_title_back);
+        tv_title_name = (TextView) findViewById(R.id.tv_title_name);
     }
 
     @Override
     public void onInitViewData() {
-
+        iv_title_right.setImageResource(R.mipmap.ic_share);
+        tv_title_name.setText("商品详情");
     }
 
     @Override
     public void onBindListener() {
-
+        iv_title_right.setOnClickListener(this);
+        iv_title_back.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
+            case R.id.iv_title_right:
+                if (!getKey().equals("0")) {
+                    get_share_info(id);
+                } else {
+                    Toast.makeText(PrductDetailActivity.this, "登录超时或未登录", Toast.LENGTH_SHORT).show();
+                    getSharedPreferences("key", MODE_APPEND).edit().putString("key", "0").commit();
+                    startActivity(new Intent(PrductDetailActivity.this, A0_LoginActivity.class));
+                }
+                break;
+            case R.id.iv_title_back:
+                finish();
+                break;
 
             default:
                 break;
@@ -283,4 +315,80 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
         });
     }
 
+    /**
+     * 获取分享内容
+     */
+    private void get_share_info(String goods_id) {
+        Dialog.ProgressDialog();
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("goods_id", goods_id);
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Get_share_info, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo.result != null) {
+                    final Get_share_info get_share_info = gson.fromJson(responseInfo.result, Get_share_info.class);
+                    if (get_share_info.status.code == 10000) {
+                        String member_id = PrductDetailActivity.this.getSharedPreferences("member_id", MODE_APPEND).getString("member_id", "0");
+                        final String Url = "http://www.wjhgw.com/wap/index.php?act=goods&id=" + id + "&intr_id=" + member_id;
+                        new Thread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                wechatShare(0, Url, get_share_info.datas.goods_image, get_share_info.datas.goods_name);
+                            }
+                        }).start();
+                    } else {
+                        overtime(get_share_info.status.code, get_share_info.status.msg);
+                    }
+                }
+                Dialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+            }
+        });
+    }
+
+    /**
+     * 微信分享礼包
+     */
+    private void wechatShare(int flag, String giftUrl, String goods_image, String Name) {
+        WXWebpageObject webpage = new WXWebpageObject();
+        webpage.webpageUrl = giftUrl;
+        WXMediaMessage msg = new WXMediaMessage(webpage);
+        msg.title = Name;
+        msg.description = "我在万嘉欢购发现一件不错的商品，赶快来看看吧!";
+
+        Bitmap thumb = null;
+        try {
+            thumb = getBitmap(goods_image);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        msg.setThumbImage(thumb);
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = String.valueOf(System.currentTimeMillis());
+        req.message = msg;
+        req.scene = flag == 0 ? SendMessageToWX.Req.WXSceneSession : SendMessageToWX.Req.WXSceneTimeline;
+        api.sendReq(req);
+        //finish();
+    }
+
+    public static Bitmap getBitmap(String path) throws IOException {
+
+        URL url = new URL(path);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setConnectTimeout(5000);
+        conn.setRequestMethod("GET");
+        if (conn.getResponseCode() == 200) {
+            InputStream inputStream = conn.getInputStream();
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            return bitmap;
+        }
+        return null;
+    }
 }

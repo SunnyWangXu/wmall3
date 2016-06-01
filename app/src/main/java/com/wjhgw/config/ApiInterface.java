@@ -329,4 +329,8 @@ public class ApiInterface {
      * 获取附件店铺内商品
      */
     public static final String Store_goods = "/mobile/index.php?act=nearby_stores&op=store_goods";
+    /**
+     * 获取分享商品信息
+     */
+    public static final String Get_share_info = "/mobile/index.php?act=search&op=get_share_info";
 }
