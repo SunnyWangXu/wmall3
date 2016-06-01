@@ -24,18 +24,13 @@
             android:src="@mipmap/ic_my1_cabinet" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="13dp"
+            android:layout_weight="1"
             android:text="我的酒柜"
             android:textColor="@color/title_color"
             android:textSize="16sp" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
 
         <ImageView
             android:layout_width="15dp"
@@ -64,17 +59,49 @@
             android:src="@mipmap/ic_my1_collection" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="13dp"
+            android:layout_weight="1"
             android:text="我的收藏"
             android:textColor="@color/title_color"
             android:textSize="16sp" />
 
-        <View
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="13dp"
+            android:src="@mipmap/ic_arrow_right" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg" />
+
+    <LinearLayout
+        android:id="@+id/ll_my_help"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="13dp"
+            android:src="@mipmap/ic_help" />
+
+        <TextView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_weight="1"
+            android:text="帮助与反馈"
+            android:textColor="@color/title_color"
+            android:textSize="16sp" />
 
 
         <ImageView
@@ -89,4 +116,5 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:background="@color/layout_bg" />
+
 </LinearLayout>

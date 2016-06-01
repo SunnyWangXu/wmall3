@@ -54,7 +54,7 @@ public class StoreGoodsAdapter extends BaseAdapter {
         goodsDec = (TextView) convertView.findViewById(R.id.tv_store_goods_dec);
         goodsPrice = (TextView) convertView.findViewById(R.id.tv_store_shop_price);
 
-        APP.getApp().getImageLoader().displayImage(storeDatas.get(position).goods_image, goodsImage);
+        APP.getApp().getImageLoader().displayImage(storeDatas.get(position).goods_image, goodsImage, APP.getApp().getImageOptions());
         goodsName.setText(storeDatas.get(position).goods_name);
         goodsDec.setText(storeDatas.get(position).goods_dec);
         goodsPrice.setText(storeDatas.get(position).shop_price);

@@ -15,13 +15,13 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <!--用于进行网络定位-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!--用于访问GPS定位-->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!--用于访问wifi网络信息，wifi信息会用于进行网络定位-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!--这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <uses-sdk android:minSdkVersion="4" />
 
@@ -147,6 +147,9 @@
             android:name=".ui.activity.M7_MyCollectActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.activity.M8_MyHelpActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.activity.D0_OrderActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -218,12 +221,12 @@
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <!--友盟更新-->
         <service
             android:name="com.umeng.update.net.DownloadingService"
-            android:process=":DownloadingService"></service>
+            android:process=":DownloadingService" />
 
         <!--微信支付返回-->
         <activity
@@ -246,7 +249,7 @@
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <!-- alipay sdk end -->
 
@@ -260,7 +263,9 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="449c5a599224591bac1f69546bfe6d2a" />
-        <service android:name="com.amap.api.location.APSService"></service>
+
+        <service android:name="com.amap.api.location.APSService" />
+
     </application>
 
 </manifest>

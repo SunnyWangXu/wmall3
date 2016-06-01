@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:ellipsize="end"
-                android:maxLength="10"
+                android:maxLines="1"
                 android:text="口感一如既往的好喝"
                 android:textColor="@color/spec_text_color"
                 android:textSize="12sp" />

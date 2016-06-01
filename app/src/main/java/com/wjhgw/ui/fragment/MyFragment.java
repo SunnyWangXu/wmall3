@@ -32,6 +32,7 @@ import com.wjhgw.ui.activity.D5_CustomerActivity;
 import com.wjhgw.ui.activity.M0_MyLockBoxActivity;
 import com.wjhgw.ui.activity.M6_SetActivity;
 import com.wjhgw.ui.activity.M7_MyCollectActivity;
+import com.wjhgw.ui.activity.M8_MyHelpActivity;
 import com.wjhgw.ui.activity.Z0_AssetsActivity;
 import com.wjhgw.ui.activity.Z1_Prepaid_card_balanceActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
@@ -77,6 +78,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private FrameLayout profileHeadAddClient;
     private LinearLayout ll_rechargeable_card;
     private LinearLayout ll_available_predeposit;
+    private LinearLayout llMyHelp;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -139,6 +141,8 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         member_nickname = (TextView) MyMessageLayout.findViewById(R.id.member_nickname);
 
         ll_my_collect = (LinearLayout) MyHelpLayout.findViewById(R.id.ll_my_collect);
+        llMyHelp = (LinearLayout) MyHelpLayout.findViewById(R.id.ll_my_help);
+
         profileHeadShare = (FrameLayout) MyMessageLayout.findViewById(R.id.profile_head_share);
         profileHeadAddClient = (FrameLayout) MyMessageLayout.findViewById(R.id.profile_head_AddClient);
 
@@ -172,6 +176,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         iv_message.setOnClickListener(this);
         ll_LockBox.setOnClickListener(this);
         ll_my_collect.setOnClickListener(this);
+        llMyHelp.setOnClickListener(this);
         profileHeadShare.setOnClickListener(this);
         profileHeadAddClient.setOnClickListener(this);
         ivSet.setOnClickListener(this);
@@ -236,6 +241,16 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                     startActivity(intent);
                 } else {
                     intent.setClass(getActivity(), M7_MyCollectActivity.class);
+                    startActivity(intent);
+                }
+                break;
+
+            case R.id.ll_my_help:
+                if (key.equals("0")) {
+                    intent.setClass(getActivity(), A0_LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getActivity(),M8_MyHelpActivity.class);
                     startActivity(intent);
                 }
                 break;
