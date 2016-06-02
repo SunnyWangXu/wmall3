@@ -15,7 +15,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
@@ -167,13 +166,7 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_title_right:
-                if (!getKey().equals("0")) {
-                    get_share_info(id);
-                } else {
-                    Toast.makeText(PrductDetailActivity.this, "登录超时或未登录", Toast.LENGTH_SHORT).show();
-                    getSharedPreferences("key", MODE_APPEND).edit().putString("key", "0").commit();
-                    startActivity(new Intent(PrductDetailActivity.this, A0_LoginActivity.class));
-                }
+                get_share_info(id);
                 break;
             case R.id.iv_title_back:
                 finish();
@@ -330,8 +323,14 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
                 if (responseInfo.result != null) {
                     final Get_share_info get_share_info = gson.fromJson(responseInfo.result, Get_share_info.class);
                     if (get_share_info.status.code == 10000) {
-                        String member_id = PrductDetailActivity.this.getSharedPreferences("member_id", MODE_APPEND).getString("member_id", "0");
-                        final String Url = "http://www.wjhgw.com/wap/index.php?act=goods&id=" + id + "&intr_id=" + member_id;
+                        final String Url;
+                        if(getKey().equals("0")){
+                            Url = "http://www.wjhgw.com/wap/index.php?act=goods&id=" + id;
+                        }else {
+                            String member_id = PrductDetailActivity.this.getSharedPreferences("member_id", MODE_APPEND).getString("member_id", "0");
+                            Url = "http://www.wjhgw.com/wap/index.php?act=goods&id=" + id + "&intr_id=" + member_id;
+                        }
+
                         new Thread(new Runnable() {
 
                             @Override
