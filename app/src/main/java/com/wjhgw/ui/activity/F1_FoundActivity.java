@@ -267,7 +267,9 @@ public class F1_FoundActivity extends BaseActivity implements LocationSource,
                 Dismiss();
                 nearby_stores = gson.fromJson(responseInfo.result, Nearby_stores.class);
                 if (nearby_stores.status.code == 10000) {
-                    addMarkersToMap();
+                    if (nearby_stores.datas != null) {
+                        addMarkersToMap();
+                    }
                 } else {
                     overtime(nearby_stores.status.code, nearby_stores.status.msg);
                 }
