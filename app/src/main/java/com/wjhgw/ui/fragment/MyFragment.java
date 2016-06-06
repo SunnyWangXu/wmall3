@@ -110,6 +110,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         mListView.setRefreshTime();
         mListView.setAdapter(null);
         return MyLayout;
+
     }
 
     private void setInflaterView() {

@@ -333,4 +333,8 @@ public class ApiInterface {
      * 获取分享商品信息
      */
     public static final String Get_share_info = "/mobile/index.php?act=search&op=get_share_info";
+    /**
+     * 意见反馈接口
+     */
+    public static final String Feedback_add = "/mobile/index.php?act=member_feedback&op=feedback_add";
 }
