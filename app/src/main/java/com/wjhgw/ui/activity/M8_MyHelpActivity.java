@@ -51,6 +51,7 @@ public class M8_MyHelpActivity extends BaseActivity implements View.OnClickListe
     private EditText edFeedbackPhone;
     private String feedback_image = "";
     private int feedback_type = 0;
+    private ImageView ivDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class M8_MyHelpActivity extends BaseActivity implements View.OnClickListe
         edFeedbackContent = (EditText) findViewById(R.id.ed_feedback_content);
         edFeedbackPhone = (EditText) findViewById(R.id.ed_feedback_phone);
         ivFeedback = (ImageView) findViewById(R.id.iv_feedback);
+        ivDelete = (ImageView) findViewById(R.id.iv_feedback_delete);
         llFeedbackCommit = (LinearLayout) findViewById(R.id.ll_feedback_commit);
     }
 
@@ -85,6 +87,7 @@ public class M8_MyHelpActivity extends BaseActivity implements View.OnClickListe
     public void onBindListener() {
         llFeedBackType.setOnClickListener(this);
         ivFeedback.setOnClickListener(this);
+        ivDelete.setOnClickListener(this);
         llFeedbackCommit.setOnClickListener(this);
     }
 
@@ -103,10 +106,18 @@ public class M8_MyHelpActivity extends BaseActivity implements View.OnClickListe
 
                 break;
 
+            case R.id.iv_feedback_delete:
+                /**
+                 * 删除意见反馈图片
+                 */
+                deleteImage();
+
+                break;
+
             case R.id.ll_feedback_commit:
                 if (edFeedbackContent.getText().length() == 0) {
 
-                    showToastLong("请输入您的宝贵意见");
+                    showToastShort("请输入您的宝贵意见");
                 } else {
                     /**
                      * 请求反馈意见
@@ -120,6 +131,41 @@ public class M8_MyHelpActivity extends BaseActivity implements View.OnClickListe
 
     }
 
+    /**
+     * 删除意见反馈图片
+     */
+    private void deleteImage() {
+        StartLoading();
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", getKey());
+        params.addBodyParameter("usage_number", "2");
+        if (feedback_image != "") {
+            params.addBodyParameter("img_name", feedback_image);
+        }
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Del_img, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                Dismiss();
+                if (responseInfo.result != null) {
+                    Nickname nickname = gson.fromJson(responseInfo.result, Nickname.class);
+                    if (nickname.status.code == 10000) {
+                        ivFeedback.setImageResource(R.mipmap.ic_upload);
+                        ivDelete.setVisibility(View.GONE);
+
+                    } else {
+                        overtime(nickname.status.code, nickname.status.msg);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+            }
+        });
+    }
+
 
     /**
      * 请求反馈意见
@@ -131,7 +177,7 @@ public class M8_MyHelpActivity extends BaseActivity implements View.OnClickListe
             params.addBodyParameter("content", edFeedbackContent.getText().toString());
         }
         if (feedback_type == 0) {
-            params.addBodyParameter("feedback_type", "0");
+            params.addBodyParameter("feedback_type", "1");
         } else {
             params.addBodyParameter("feedback_type", feedBackTypeDialog.MarkType);
         }
@@ -144,7 +190,7 @@ public class M8_MyHelpActivity extends BaseActivity implements View.OnClickListe
                 Gson gson = new Gson();
                 FeedBack feedBack = gson.fromJson(responseInfo.result, FeedBack.class);
                 if (feedBack.status.code == 10000) {
-                    showToastLong("提交成功，感谢您的宝贵意见");
+                    showToastShort("提交成功，感谢您的宝贵意见");
                     finish();
                 } else {
                     overtime(feedBack.status.code, feedBack.status.msg);
@@ -234,6 +280,7 @@ public class M8_MyHelpActivity extends BaseActivity implements View.OnClickListe
                     Nickname nickname = gson.fromJson(responseInfo.result, Nickname.class);
                     if (nickname.status.code == 10000) {
                         ivFeedback.setImageBitmap(bitmap);
+                        ivDelete.setVisibility(View.VISIBLE);
 
                         feedback_image = nickname.datas;
                     } else {

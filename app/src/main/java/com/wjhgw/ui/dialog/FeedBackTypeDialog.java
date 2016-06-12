@@ -19,7 +19,7 @@ public class FeedBackTypeDialog {
     public TextView tv_text3;
     public TextView tv_text4;
     public TextView tv_text5;
-    public String MarkType = "0";
+    public String MarkType = "1";
 
     public FeedBackTypeDialog(Context context, final TextView tvFeedBackType) {
 
