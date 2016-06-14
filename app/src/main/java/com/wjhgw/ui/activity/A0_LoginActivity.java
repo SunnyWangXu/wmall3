@@ -33,13 +33,14 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
     private ImageView iv_delete;
     private ImageView iv_delete1;
     private TextView tv_next;
-    private TextView tv_registered;
+    private ImageView iv_registered;
     private TextView tv_back;
     private TextView tv_a0_tback;
     private String Number;
     private String password;
     private String username;
     private Intent intent;
+    private ImageView ivWxlogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +112,8 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
         iv_delete = (ImageView) findViewById(R.id.iv_a0_delete);
         iv_delete1 = (ImageView) findViewById(R.id.iv_a0_delete1);
         tv_next = (TextView) findViewById(R.id.tv_a0_next);
-        tv_registered = (TextView) findViewById(R.id.tv_a0_registered);
+        iv_registered = (ImageView) findViewById(R.id.iv_a0_registered);
+        ivWxlogin = (ImageView) findViewById(R.id.iv_wx_login);
         tv_a0_tback = (TextView) findViewById(R.id.tv_a0_tback);
         tv_back = (TextView) findViewById(R.id.tv_a0_tback);
 
@@ -127,7 +129,8 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
         iv_delete.setOnClickListener(this);
         iv_delete1.setOnClickListener(this);
         tv_next.setOnClickListener(this);
-        tv_registered.setOnClickListener(this);
+        iv_registered.setOnClickListener(this);
+        ivWxlogin.setOnClickListener(this);
         tv_back.setOnClickListener(this);
         tv_a0_tback.setOnClickListener(this);
 
@@ -145,10 +148,12 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                 et_name.setText("");
                 iv_delete.setVisibility(View.GONE);
                 break;
+
             case R.id.iv_a0_delete1:
                 et_password.setText("");
                 iv_delete1.setVisibility(View.GONE);
                 break;
+
             case R.id.tv_a0_next:
                 Number = et_name.getText().toString();
                 password = et_password.getText().toString();
@@ -158,14 +163,22 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                     showToastShort("你输入的号码有误！请重新输入");
                 }
                 break;
-            case R.id.tv_a0_registered:
+
+            case R.id.iv_a0_registered:
                 intent = new Intent(this, A1_RegisterActivity1.class);
                 startActivity(intent);
                 break;
+
+            case R.id.iv_wx_login:
+                intent = new Intent(this, A3_WXLoginActivity.class);
+                startActivity(intent);
+                break;
+
             case R.id.tv_a0_tback:
                 intent = new Intent(this, A2_ResetPassActivity1.class);
                 startActivity(intent);
                 break;
+
             case R.id.iv_title_back:
                 finish();
                 break;
