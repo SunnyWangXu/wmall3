@@ -338,7 +338,15 @@ public class ApiInterface {
      */
     public static final String Feedback_add = "/mobile/index.php?act=member_feedback&op=feedback_add";
     /**
-     * 查看open_id是否绑定第三方用户
+     * 查看open_id是否绑定第三方用户接口
      */
     public static final String Check_bind = "/mobile/index.php?act=common&op=check_bind";
+    /**
+     * 验证手机号是否注册接口
+     */
+    public static final String Validate_phone = "/mobile/index.php?act=common&op=validate_phone";
+    /**
+     * 微信绑定接口
+     */
+    public static final String Bind_wx = "/mobile/index.php?act=bind&op=wechat";
 }

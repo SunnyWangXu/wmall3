@@ -277,7 +277,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                 Gson gson = new Gson();
                 if (responseInfo != null) {
                     Status status = gson.fromJson(responseInfo.result, Status.class);
-                    if (status.status.code == 100401 ) {
+                    if (status.status.code == 100401) {
                         login(openid);
                     } else {
                         String access_token = getSharedPreferences("access_token", MODE_APPEND).getString("access_token", "0");
@@ -317,6 +317,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                         intent.putExtra("nickname", myJsonObject.getString("nickname"));
                         intent.putExtra("headimgurl", myJsonObject.getString("headimgurl"));
                         startActivity(intent);
+                        finish(false);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
