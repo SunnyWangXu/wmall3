@@ -16,12 +16,19 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
+import com.tencent.mm.sdk.modelmsg.SendAuth;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.Login_Pager;
+import com.wjhgw.business.bean.Status;
 import com.wjhgw.config.ApiInterface;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * 登录
@@ -41,11 +48,16 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
     private String username;
     private Intent intent;
     private ImageView ivWxlogin;
+    private IWXAPI api;
+    private String openid = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a0_login_layout);
+
+        api = WXAPIFactory.createWXAPI(this, "wx99a6bd9b7bdbf645");
+        api.registerApp("wx99a6bd9b7bdbf645");
 
         et_name.addTextChangedListener(new TextWatcher() {
             @Override
@@ -96,6 +108,16 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
         if (!username.equals("0")) {
             et_name.setText(username);
             et_name.setSelection(et_name.length());
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        openid = getSharedPreferences("openid", this.MODE_APPEND).getString("openid", "0");
+        if (!openid.equals("0")) {
+            getSharedPreferences("openid", MODE_APPEND).edit().putString("openid", "0").commit();
+            check_bind(openid);
         }
     }
 
@@ -158,7 +180,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                 Number = et_name.getText().toString();
                 password = et_password.getText().toString();
                 if (Number.length() == 11 && Number.substring(0, 1).equals("1")) {
-                    login();
+                    login("0");
                 } else {
                     showToastShort("你输入的号码有误！请重新输入");
                 }
@@ -170,8 +192,10 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                 break;
 
             case R.id.iv_wx_login:
-                intent = new Intent(this, A3_WXLoginActivity.class);
-                startActivity(intent);
+                SendAuth.Req req = new SendAuth.Req();
+                req.scope = "snsapi_userinfo";
+                req.state = "wechat_sdk_demo_test";
+                api.sendReq(req);
                 break;
 
             case R.id.tv_a0_tback:
@@ -192,11 +216,17 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
     /**
      * 登录网络请求
      */
-    private void login() {
+    private void login(String openid) {
         super.StartLoading();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("member_mobile", Number);
-        params.addBodyParameter("password", password);
+        if (openid.equals("0")) {
+            params.addBodyParameter("member_mobile", Number);
+            params.addBodyParameter("password", password);
+        } else {
+            params.addBodyParameter("member_wxopenid", openid);
+
+        }
+
         params.addBodyParameter("client", "android");
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Login, params, new RequestCallBack<String>() {
 
@@ -220,6 +250,75 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
 
                     } else {
                         overtime(login.status.code, login.status.msg);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+            }
+        });
+    }
+
+    /**
+     * 手机open_id绑定验证
+     */
+    private void check_bind(final String openid) {
+        super.StartLoading();
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("open_id", openid);
+        params.addBodyParameter("open_type", "1");
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Check_bind, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                A0_LoginActivity.super.Dismiss();
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+                    if (status.status.code == 100401 ) {
+                        login(openid);
+                    } else {
+                        String access_token = getSharedPreferences("access_token", MODE_APPEND).getString("access_token", "0");
+                        if (!openid.equals("0") && !access_token.equals("0")) {
+                            String url1 = "https://api.weixin.qq.com/sns/userinfo?access_token=" + access_token + "&openid=" + openid;
+                            UnionID(url1);
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+            }
+        });
+    }
+
+    /**
+     * 获取用户个人信息
+     */
+    private void UnionID(String url) {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.GET, url, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                if (responseInfo != null) {
+                    try {
+                        JSONObject myJsonObject = new JSONObject(responseInfo.result);
+                        myJsonObject.getString("nickname");
+                        myJsonObject.getString("headimgurl");
+                        myJsonObject.getString("unionid");
+                        myJsonObject.getString("openid");
+                        intent = new Intent(A0_LoginActivity.this, A3_WXLoginActivity.class);
+                        intent.putExtra("openid", myJsonObject.getString("openid"));
+                        intent.putExtra("nickname", myJsonObject.getString("nickname"));
+                        intent.putExtra("headimgurl", myJsonObject.getString("headimgurl"));
+                        startActivity(intent);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 }
             }

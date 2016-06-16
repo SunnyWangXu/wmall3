@@ -337,4 +337,8 @@ public class ApiInterface {
      * 意见反馈接口
      */
     public static final String Feedback_add = "/mobile/index.php?act=member_feedback&op=feedback_add";
+    /**
+     * 查看open_id是否绑定第三方用户
+     */
+    public static final String Check_bind = "/mobile/index.php?act=common&op=check_bind";
 }
