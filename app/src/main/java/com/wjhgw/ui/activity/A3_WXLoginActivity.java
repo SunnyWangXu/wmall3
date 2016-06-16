@@ -151,23 +151,9 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
 
             case R.id.btn_complete:
                 /**
-                 * 已经注册的就直接登录成功否则就去输入密码注册并登录
+                 * 验证手机验证码是否正确，已经注册的就直接登录成功否则就去输入密码注册并登录
                  */
-                if (isValidate) {
-
-                    /**
-                     *  微信绑定
-                     */
-                    loadBindWX();
-
-                } else {
-
-                    llPhoneValidate.setVisibility(View.GONE);
-                    btnComplete.setVisibility(View.GONE);
-                    llPassword4.setVisibility(View.VISIBLE);
-                    btnCompletePass.setVisibility(View.VISIBLE);
-                }
-
+                checkValidate();
 
                 break;
 
@@ -177,12 +163,63 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
                  *  微信绑定
                  */
                 loadBindWX();
-                
+
                 break;
 
             default:
                 break;
         }
+
+    }
+
+    /**
+     * 验证手机验证码是否正确
+     */
+    private void checkValidate() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("sms_code", edValidate.getText().toString());
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.VerificationNumber, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+
+
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+
+                    if (status.status.code == 10000) {
+
+                        /**
+                         * 已经注册的就直接登录成功否则就去输入密码注册并登录
+                         */
+                        if (isValidate) {
+
+                            /**
+                             *  微信绑定
+                             */
+                            loadBindWX();
+
+                        } else {
+
+                            llPhoneValidate.setVisibility(View.GONE);
+                            btnComplete.setVisibility(View.GONE);
+                            llPassword4.setVisibility(View.VISIBLE);
+                            btnCompletePass.setVisibility(View.VISIBLE);
+                        }
+
+                    }else{
+                        overtime(status.status.code, status.status.msg);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+            }
+        });
+
 
     }
 
@@ -199,6 +236,7 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
             params.addBodyParameter("password", edValidatePass.getText().toString());
         }
         params.addBodyParameter("client", "android");
+        params.addBodyParameter("client_type", "1");
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Bind_wx, params, new RequestCallBack<String>() {
 
             @Override
@@ -242,17 +280,15 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
                 Gson gson = new Gson();
                 Status status = gson.fromJson(responseInfo.result, Status.class);
 
-                if (status.status.code == 100100) {
+                if (status.status.code == 10000) {
 
                     /**
                      * 验证手机号是否注册
                      */
                     validatePhone();
-                }else{
+                } else {
                     overtime(status.status.code, status.status.msg);
                 }
-
-
             }
 
 
@@ -271,14 +307,13 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
 
         RequestParams params = new RequestParams();
         params.addBodyParameter("member_mobile", number);
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Validate_phone, new RequestCallBack<String>() {
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Validate_phone, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
 
                 Gson gson = new Gson();
 
                 Status status = gson.fromJson(responseInfo.result, Status.class);
-
                 if (status.status.code == 100101) {
                     isValidate = true;
 
@@ -286,11 +321,8 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
                     isValidate = false;
                 } else if (status.status.code == 100100) {
                     isValidate = false;
-                } else {
-                    overtime(status.status.code, status.status.msg);
                 }
 
-                edValidate.setFocusable(true);
                 /**
                  * 请求发送验证码
                  */
@@ -324,6 +356,10 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
                     Status status = gson.fromJson(responseInfo.result, Status.class);
 
                     if (status.status.code == 10000) {
+                        edValidate.setFocusable(true);//设置输入框可聚集
+                        edValidate.setFocusableInTouchMode(true);//设置触摸聚焦
+                        edValidate.requestFocus();//请求焦点
+                        edValidate.findFocus();//获取焦点
                         showToastShort("验证码以短信形式发送到你的手机，60秒有效");
                         time = new TimeCount(60000, 1000);//构造CountDownTimer对象
                         time.start();
@@ -351,7 +387,7 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-        if (count == 4) {
+        if (edValidate.getText().toString().length() == 4) {
             btnComplete.setBackgroundColor(Color.parseColor("#f25252"));
             btnComplete.setClickable(true);
             btnComplete.setOnClickListener(this);
