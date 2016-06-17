@@ -265,13 +265,11 @@ public class ShoppingCartFragment extends Fragment implements BusinessResponse, 
                     intent = new Intent(getActivity(), A0_LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    //Toast.makeText(getActivity(), "该功能正在开发中", Toast.LENGTH_SHORT).show();
                     intent = new Intent(getActivity(), M7_MyCollectActivity.class);
                     startActivity(intent);
                 }
                 break;
             case R.id.ll_to_settle:
-
                 if (listAdapter.num > 0) {
                     StringBuffer cart_id = new StringBuffer();
                     for (int i = 0; i < listAdapter.goods_id.length; i++) {
