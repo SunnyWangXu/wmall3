@@ -66,7 +66,7 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
         /**
          * 监听输入密码
          */
-        btnCompletePass.addTextChangedListener(new TextWatcher() {
+        edValidatePass.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -75,7 +75,7 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if (btnCompletePass.getText().toString().length() > 6) {
+                if (edValidatePass.getText().toString().length() >= 6) {
 
                     btnCompletePass.setBackgroundColor(Color.parseColor("#f25252"));
                     btnCompletePass.setClickable(true);
@@ -208,7 +208,7 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
                             btnCompletePass.setVisibility(View.VISIBLE);
                         }
 
-                    }else{
+                    } else {
                         overtime(status.status.code, status.status.msg);
                     }
                 }
@@ -280,54 +280,20 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
                 Gson gson = new Gson();
                 Status status = gson.fromJson(responseInfo.result, Status.class);
 
-                if (status.status.code == 10000) {
-
-                    /**
-                     * 验证手机号是否注册
-                     */
-                    validatePhone();
-                } else {
-                    overtime(status.status.code, status.status.msg);
-                }
-            }
-
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-
-            }
-        });
-
-    }
-
-    /**
-     * 验证手机号是否注册
-     */
-    private void validatePhone() {
-
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("member_mobile", number);
-        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Validate_phone, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-
-                Gson gson = new Gson();
-
-                Status status = gson.fromJson(responseInfo.result, Status.class);
-                if (status.status.code == 100101) {
-                    isValidate = true;
-
-                } else if (status.status.code == 100102) {
-                    isValidate = false;
-                } else if (status.status.code == 100100) {
-                    isValidate = false;
-                }
-
                 /**
                  * 请求发送验证码
                  */
                 Verification_code();
 
+                if (status.status.code == 10000) {
+                    isValidate = true;
+
+                } else if (status.status.code == 100100) {
+                    isValidate = false;
+
+                } else {
+                    overtime(status.status.code, status.status.msg);
+                }
             }
 
             @Override
@@ -336,8 +302,8 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
             }
         });
 
-
     }
+
 
     /**
      * 请求发送验证码
