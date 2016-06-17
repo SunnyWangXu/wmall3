@@ -11,7 +11,6 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.LinearLayout;
 
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
@@ -29,7 +28,6 @@ public class CurrencyWebViewActivity extends BaseActivity implements View.OnClic
     private String Shopping_Cart;
     private HashMap<String, String> keyMap;
     private String url;
-    private LinearLayout title_container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +114,7 @@ public class CurrencyWebViewActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onFindViews() {
-        title_container = (LinearLayout) findViewById(R.id.title_container);
+
     }
 
     @Override
