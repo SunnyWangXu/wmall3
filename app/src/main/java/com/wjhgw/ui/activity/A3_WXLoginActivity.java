@@ -294,6 +294,7 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
 
                 } else {
                     overtime(status.status.code, status.status.msg);
+                    isValidate = true;
                 }
             }
 

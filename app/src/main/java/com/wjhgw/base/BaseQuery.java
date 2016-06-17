@@ -14,10 +14,10 @@ public class BaseQuery {
     }
 
     public static final int ENVIRONMENT_PRODUCTION = 1; //公网
-    public static final int ENVIROMENT_DEVELOPMENT = 2;    //服务器
+    public static final int ENVIROMENT_DEVELOPMENT = 2;  //dev服务器
 
     public static int environment() {
-        return ENVIROMENT_DEVELOPMENT;
+        return ENVIRONMENT_PRODUCTION;
     }
 
     public static String serviceUrl() {
