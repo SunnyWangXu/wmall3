@@ -17,6 +17,7 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.wjhgw.APP;
+import com.wjhgw.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,10 +47,10 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
         if (resp.getType() == ConstantsAPI.COMMAND_SENDMESSAGE_TO_WX) {    //微信分享回调
             if (resp.errCode == BaseResp.ErrCode.ERR_OK) {
-                finish();
+                Finish();
                 Toast.makeText(this, "成功", Toast.LENGTH_SHORT).show();
             } else {
-                finish();
+                Finish();
                 Toast.makeText(this, "用户取消", Toast.LENGTH_SHORT).show();
             }
         } else if (resp instanceof SendAuth.Resp) {    //微信登录回调
@@ -60,7 +61,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                         "&secret=d4f07504b1b9057022153b59ace81208&code=" + code + "&grant_type=authorization_code";
                 code(url);
             } else if (resp.errCode == BaseResp.ErrCode.ERR_USER_CANCEL) {
-                finish();
+                Finish();
                 Toast.makeText(this, "用户取消", Toast.LENGTH_SHORT).show();
             }
         }
@@ -86,11 +87,11 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                                 myJsonObject.getString("access_token")).commit();
                         getSharedPreferences("openid", MODE_PRIVATE).edit().putString("openid",
                                 myJsonObject.getString("openid")).commit();
-                        finish();
+                        Finish();
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Toast.makeText(WXEntryActivity.this, "参数错误", Toast.LENGTH_SHORT).show();
-                        finish();
+                        Finish();
                     }
                 }
             }
@@ -100,5 +101,10 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
             }
         });
+    }
+
+    public void Finish(){
+        finish();
+        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 }
