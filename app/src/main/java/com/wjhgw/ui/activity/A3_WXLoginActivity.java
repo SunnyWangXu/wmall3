@@ -48,6 +48,7 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
     private BindWX bindWX;
     private Button btnCompletePass;
     private EditText edValidatePass;
+    private TextView tvBindStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +107,7 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
 
         ivHeaderImg = (RoundImageView) findViewById(R.id.iv_header);
         tvWXNickname = (TextView) findViewById(R.id.tv_wx_nickname);
+        tvBindStatus = (TextView) findViewById(R.id.tv_bind_status);
         edValidatePass = (EditText) findViewById(R.id.ed_validate_pass);
         tvWXPhone = (EditText) findViewById(R.id.ed_wx_phone);
         edValidate = (EditText) findViewById(R.id.ed_validate);
@@ -201,7 +203,7 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
                             loadBindWX();
 
                         } else {
-
+                            tvBindStatus.setText("为了您更好的体验，请输入登录密码");
                             llPhoneValidate.setVisibility(View.GONE);
                             btnComplete.setVisibility(View.GONE);
                             llPassword4.setVisibility(View.VISIBLE);
@@ -219,7 +221,6 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
 
             }
         });
-
 
     }
 
