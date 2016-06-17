@@ -46,7 +46,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
         if (resp.getType() == ConstantsAPI.COMMAND_SENDMESSAGE_TO_WX) {    //微信分享回调
             if (resp.errCode == BaseResp.ErrCode.ERR_OK) {
-                //分享成功
                 finish();
                 Toast.makeText(this, "成功", Toast.LENGTH_SHORT).show();
             } else {

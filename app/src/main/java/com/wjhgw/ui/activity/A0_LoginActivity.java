@@ -180,7 +180,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                 Number = et_name.getText().toString();
                 password = et_password.getText().toString();
                 if (Number.length() == 11 && Number.substring(0, 1).equals("1")) {
-                    login("0");
+                    VerificationRegistered(Number);
                 } else {
                     showToastShort("你输入的号码有误！请重新输入");
                 }
@@ -213,6 +213,33 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
 
     }
 
+    /**
+     * 验证手机号是否已经注册
+     */
+    private void VerificationRegistered(String number) {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("member_mobile", number);
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.VerificationRegistered, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    Status status = gson.fromJson(responseInfo.result, Status.class);
+                    if (status.status.code == 100101) {
+                        login("0");
+                    } else {
+                        showToastShort(status.status.msg);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                showToastShort("请求失败");
+            }
+        });
+    }
     /**
      * 登录网络请求
      */
