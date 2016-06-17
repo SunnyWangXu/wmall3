@@ -300,7 +300,8 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
                     intent = new Intent(this, A0_LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(this, "该功能正在开发中", Toast.LENGTH_SHORT).show();
+                    intent = new Intent(this, M7_MyCollectActivity.class);
+                    startActivity(intent);
                 }
                 break;
             case R.id.ll_to_settle:
