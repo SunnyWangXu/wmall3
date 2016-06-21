@@ -116,6 +116,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        if (!getKey().equals("0")) {
+            loadMessageNumber();
+        }else {
+            tvCartNum.setVisibility(View.GONE);
+            tvCabNum.setVisibility(View.GONE);
+        }
         switch (v.getId()) {
             case R.id.index_layout:
                 setTabSelection(0);
@@ -144,7 +150,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      * @param index 每个tab页对应的下标。0首页，  1分类  2发现 3购物车 4我的
      */
     public void setTabSelection(int index) {
-
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         // hideFragments(transaction);
         Intent intent = new Intent();
@@ -162,7 +167,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     //transaction.replace(R.id.content, homeFragment);
                     transaction.add(R.id.content,homeFragment);
                 }*/
-
                 break;
             case 1:
                 clearSelection();
@@ -319,12 +323,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        if (!getKey().equals("0")) {
-            loadMessageNumber();
-        }else {
-            tvCartNum.setVisibility(View.GONE);
-            tvCabNum.setVisibility(View.GONE);
-        }
     }
 
     /**
@@ -355,6 +353,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                             } else if(mainMessageNum.datas.cart_num > 9){
                                 tvCartNum.setVisibility(View.VISIBLE);
                                 tvCartNum.setText("9+");
+                            }else if(mainMessageNum.datas.cart_num == 0){
+                                tvCartNum.setVisibility(View.GONE);
                             }
                         } else if (mainMessageNum.status.code == 200103 || mainMessageNum.status.code == 200104) {
                             showToastShort("登录超时或未登录");
