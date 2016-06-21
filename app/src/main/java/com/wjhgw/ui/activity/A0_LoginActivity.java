@@ -49,7 +49,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
     private Intent intent;
     private ImageView ivWxlogin;
     private IWXAPI api;
-    private String openid = "0";
+    private String unionid = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,10 +114,10 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        openid = getSharedPreferences("openid", this.MODE_APPEND).getString("openid", "0");
-        if (!openid.equals("0")) {
-            getSharedPreferences("openid", MODE_APPEND).edit().putString("openid", "0").commit();
-            check_bind(openid);
+        unionid = getSharedPreferences("unionid", this.MODE_APPEND).getString("unionid", "0");
+        if (!unionid.equals("0")) {
+            getSharedPreferences("unionid", MODE_APPEND).edit().putString("unionid", "0").commit();
+            check_bind(unionid);
         }
     }
 
@@ -243,15 +243,15 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
     /**
      * 登录网络请求
      */
-    private void login(String openid) {
+    private void login(String unionid) {
         super.StartLoading();
         RequestParams params = new RequestParams();
-        if (openid.equals("0")) {
+        if (unionid.equals("0")) {
             params.addBodyParameter("member_mobile", Number);
             params.addBodyParameter("password", password);
         } else {
-            params.addBodyParameter("member_wxopenid", openid);
-
+            params.addBodyParameter("unionid", unionid);
+            params.addBodyParameter("open_type", "1");
         }
 
         params.addBodyParameter("client", "android");
@@ -291,10 +291,10 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
     /**
      * 手机open_id绑定验证
      */
-    private void check_bind(final String openid) {
+    private void check_bind(final String unionid) {
         super.StartLoading();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("open_id", openid);
+        params.addBodyParameter("unionid", unionid);
         params.addBodyParameter("open_type", "1");
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Check_bind, params, new RequestCallBack<String>() {
 
@@ -305,10 +305,11 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                 if (responseInfo != null) {
                     Status status = gson.fromJson(responseInfo.result, Status.class);
                     if (status.status.code == 100401) {
-                        login(openid);
+                        login(unionid);
                     } else {
                         String access_token = getSharedPreferences("access_token", MODE_APPEND).getString("access_token", "0");
-                        if (!openid.equals("0") && !access_token.equals("0")) {
+                        String openid = getSharedPreferences("openid", MODE_APPEND).getString("openid", "0");
+                        if (!unionid.equals("0") && !access_token.equals("0") && openid.equals("0")) {
                             String url1 = "https://api.weixin.qq.com/sns/userinfo?access_token=" + access_token + "&openid=" + openid;
                             UnionID(url1);
                         }
@@ -340,7 +341,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                         myJsonObject.getString("unionid");
                         myJsonObject.getString("openid");
                         intent = new Intent(A0_LoginActivity.this, A3_WXLoginActivity.class);
-                        intent.putExtra("openid", myJsonObject.getString("openid"));
+                        intent.putExtra("unionid", myJsonObject.getString("unionid"));
                         intent.putExtra("nickname", myJsonObject.getString("nickname"));
                         intent.putExtra("headimgurl", myJsonObject.getString("headimgurl"));
                         startActivity(intent);
