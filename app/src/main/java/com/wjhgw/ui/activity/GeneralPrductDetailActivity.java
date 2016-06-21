@@ -130,8 +130,6 @@ public class GeneralPrductDetailActivity extends BaseActivity implements View.On
         keyMap = new HashMap<>();
         if (!getKey().equals("0")) {
             keyMap.put("authentication", getKey());
-        } else {
-            showToastShort("登录超时,请重新登录!");
         }
         webView.loadUrl(url, keyMap);
 

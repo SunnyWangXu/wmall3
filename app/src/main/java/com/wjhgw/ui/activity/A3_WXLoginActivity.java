@@ -34,7 +34,7 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
     private TextView tvAuthCode;
     private TimeCount time;
     private String number;
-    private String open_id;
+    private String unionid;
     //手机号码是否在本平台注册
     private boolean isValidate;
     private String nickname;
@@ -54,8 +54,9 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wx_login);
-
-        open_id = getIntent().getStringExtra("openid");
+        if (unionid != null) {
+            unionid = getIntent().getStringExtra("unionid");
+        }
         nickname = getIntent().getStringExtra("nickname");
         headimgurl = getIntent().getStringExtra("headimgurl");
         APP.getApp().getImageLoader().displayImage(headimgurl, ivHeaderImg);
@@ -229,7 +230,7 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
      */
     private void loadBindWX() {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("openid", open_id);
+        params.addBodyParameter("unionid", unionid);
         params.addBodyParameter("nickname", nickname);
         params.addBodyParameter("headimgurl", headimgurl);
         params.addBodyParameter("member_mobile", number);

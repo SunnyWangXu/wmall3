@@ -118,8 +118,6 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
         keyMap = new HashMap<>();
         if (!getKey().equals("0")) {
             keyMap.put("authentication", getKey());
-        } else {
-            showToastShort("登录超时,请重新登录!");
         }
         webView.loadUrl(url, keyMap);
 
@@ -324,9 +322,9 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
                     final Get_share_info get_share_info = gson.fromJson(responseInfo.result, Get_share_info.class);
                     if (get_share_info.status.code == 10000) {
                         final String Url;
-                        if(getKey().equals("0")){
+                        if (getKey().equals("0")) {
                             Url = "http://www.wjhgw.com/wap/index.php?act=goods&id=" + id;
-                        }else {
+                        } else {
                             String member_id = PrductDetailActivity.this.getSharedPreferences("member_id", MODE_APPEND).getString("member_id", "0");
                             Url = "http://www.wjhgw.com/wap/index.php?act=goods&id=" + id + "&intr_id=" + member_id;
                         }
