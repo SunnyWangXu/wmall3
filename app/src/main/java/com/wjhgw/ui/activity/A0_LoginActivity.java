@@ -309,7 +309,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                     } else {
                         String access_token = getSharedPreferences("access_token", MODE_APPEND).getString("access_token", "0");
                         String openid = getSharedPreferences("openid", MODE_APPEND).getString("openid", "0");
-                        if (!unionid.equals("0") && !access_token.equals("0") && openid.equals("0")) {
+                        if (!unionid.equals("0") && !access_token.equals("0") && !openid.equals("0")) {
                             String url1 = "https://api.weixin.qq.com/sns/userinfo?access_token=" + access_token + "&openid=" + openid;
                             UnionID(url1);
                         }
