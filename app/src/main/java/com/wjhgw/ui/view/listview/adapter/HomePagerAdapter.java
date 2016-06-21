@@ -51,6 +51,8 @@ public class HomePagerAdapter extends PagerAdapter {
     public Object instantiateItem(final ViewGroup container, final int position) {
 
         ImageView image = new ImageView(context);
+
+        image.setScaleType(ImageView.ScaleType.FIT_XY);
         String imageUrl = data.get(position % imageSize).adv_pic;
         advUrl[position % imageSize] = data.get(position % imageSize).adv_url;
 
