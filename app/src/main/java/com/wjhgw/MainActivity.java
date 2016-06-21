@@ -116,12 +116,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (!getKey().equals("0")) {
-            loadMessageNumber();
-        }else {
-            tvCartNum.setVisibility(View.GONE);
-            tvCabNum.setVisibility(View.GONE);
-        }
         switch (v.getId()) {
             case R.id.index_layout:
                 setTabSelection(0);
@@ -150,6 +144,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      * @param index 每个tab页对应的下标。0首页，  1分类  2发现 3购物车 4我的
      */
     public void setTabSelection(int index) {
+        if (!getKey().equals("0")) {
+            loadMessageNumber();
+        }else {
+            tvCartNum.setVisibility(View.GONE);
+            tvCabNum.setVisibility(View.GONE);
+        }
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         // hideFragments(transaction);
         Intent intent = new Intent();
