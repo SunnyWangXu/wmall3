@@ -54,9 +54,8 @@ public class A3_WXLoginActivity extends BaseActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wx_login);
-        if (unionid != null) {
-            unionid = getIntent().getStringExtra("unionid");
-        }
+
+        unionid = getIntent().getStringExtra("unionid");
         nickname = getIntent().getStringExtra("nickname");
         headimgurl = getIntent().getStringExtra("headimgurl");
         APP.getApp().getImageLoader().displayImage(headimgurl, ivHeaderImg);
