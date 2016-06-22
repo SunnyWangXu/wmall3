@@ -7,6 +7,10 @@ public class ApiInterface {
      */
     public static final String Home_pager = "/mobile/index.php?act=index&op=index_ad";
     /**
+     * 首页万嘉头条文章列表接口
+     */
+    public static final  String Head_line = "/mobile/index.php?act=index&op=headline";
+    /**
      * 首页限时抢购
      */
     public static final  String Limit = "/mobile/index.php?act=index&op=time_limit_goods";

@@ -36,11 +36,13 @@ import com.wjhgw.business.bean.Home_Pager;
 import com.wjhgw.business.bean.Home_Pager_Data;
 import com.wjhgw.business.bean.Limit;
 import com.wjhgw.business.bean.MainMessageNum;
+import com.wjhgw.business.bean.OpHeadLine;
 import com.wjhgw.business.bean.Theme_street;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.activity.C1_CaptureActivity;
 import com.wjhgw.ui.activity.C2_SearchActivity;
 import com.wjhgw.ui.activity.C3_GoodsArraySearchActivity;
+import com.wjhgw.ui.activity.GeneralPrductDetailActivity;
 import com.wjhgw.ui.activity.LimitDetailActivity;
 import com.wjhgw.ui.activity.M7_MyCollectActivity;
 import com.wjhgw.ui.activity.PrductDetailActivity;
@@ -64,6 +66,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private TextView tvHomeMessageDot;
     private String key;
     private LinearLayout MenuLayout;
+    private LinearLayout HeadLine;
     private LinearLayout LimitLayout;
     private LinearLayout Eventlayout;
     private LinearLayout Discountlayout;
@@ -77,6 +80,10 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private HomePagerAdapter mPagerAdapter;
     private static final int HANDLERID = 1;
     private Handler handler;
+
+    private TextView tvNews;
+    private TextView tvNewsContent;
+    private LinearLayout llHeadline;
 
     private TextView tvLimitTheme;
     private ImageView ivLimitTheme;
@@ -247,6 +254,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
     private UnderDialog underdevelopmentDialog1;
     private String xianshi_id;
+    private String article_url;
 
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -294,6 +302,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     };
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -331,6 +340,12 @@ public class HomeFragment extends Fragment implements IXListViewListener,
              * 请求首页焦点图
              */
             loadHomePager();
+
+            /**
+             * 请求万家头条
+             */
+            loadHeadLine();
+
             /**
              * 请求限时抢购
              */
@@ -401,6 +416,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
     private void setInflaterView() {
         homeViewPageLayout = (RelativeLayout) LayoutInflater.from(getActivity()).inflate(R.layout.home_page_layout, null);
+        HeadLine = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.headline_layout, null);
         LimitLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.limit_layout, null);
         MenuLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.index_menu, null);
         Eventlayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.event_layout, null);
@@ -424,6 +440,10 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
         homePager = (ViewPager) homeViewPageLayout.findViewById(R.id.pager);
         ll_Point = (LinearLayout) homeViewPageLayout.findViewById(R.id.ll_home_point);
+
+        llHeadline = (LinearLayout) HeadLine.findViewById(R.id.ll_headline);
+        tvNews = (TextView) HeadLine.findViewById(R.id.tv_news);
+        tvNewsContent = (TextView) HeadLine.findViewById(R.id.tv_news_content);
 
         tvLimitTheme = (TextView) LimitLayout.findViewById(R.id.tv_limit_theme);
         ivLimitTheme = (ImageView) LimitLayout.findViewById(R.id.iv_limit_theme);
@@ -616,6 +636,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         homePager.setOnClickListener(this);
         LimitLayout.setOnClickListener(this);
         //MenuLayout.setOnClickListener(this);
+        llHeadline.setOnClickListener(this);
 
         group_purchase_layout.setOnClickListener(this);
 
@@ -658,6 +679,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private void listAddHeader() {
         mListView = (MyListView) homeLayout.findViewById(R.id.home_listview);
         mListView.addHeaderView(homeViewPageLayout);
+        mListView.addHeaderView(HeadLine);
         mListView.addHeaderView(LimitLayout);
         //mListView.addHeaderView(MenuLayout);
 //        mListView.addHeaderView(Eventlayout);
@@ -674,6 +696,10 @@ public class HomeFragment extends Fragment implements IXListViewListener,
          * 请求首页焦点图
          */
         loadHomePager();
+        /**
+         * 请求万家头条
+         */
+        loadHeadLine();
         /**
          * 请求限时抢购
          */
@@ -707,6 +733,12 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
+            case R.id.ll_headline:
+                intent = new Intent(getActivity(), GeneralPrductDetailActivity.class);
+                intent.putExtra("url", article_url);
+                intent.putExtra("isDetail", "no");
+                startActivity(intent);
+                break;
             case R.id.ll_limit_content:
                 intent = new Intent(getActivity(), LimitDetailActivity.class);
                 intent.putExtra("xianshi_id", xianshi_id);
@@ -1017,6 +1049,40 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     }
 
     /**
+     * 请求万家头条
+     */
+    private void loadHeadLine() {
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Head_line, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+
+                Gson gson = new Gson();
+                OpHeadLine opHeadLine = gson.fromJson(responseInfo.result, OpHeadLine.class);
+                if (opHeadLine.status.code == 10000) {
+                    String newsName = opHeadLine.datas.get(0).ac_name;
+                    String article_title = opHeadLine.datas.get(0).article_title;
+                    article_url = opHeadLine.datas.get(0).article_url;
+
+                    tvNews.setText(newsName);
+                    tvNewsContent.setText("              "+ article_title);
+
+                } else {
+
+                    Toast.makeText(getActivity(), opHeadLine.status.msg, Toast.LENGTH_LONG);
+
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+            }
+        });
+    }
+
+
+    /**
      * 请求限时抢购
      */
     private void loadLimit() {
@@ -1280,7 +1346,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         if (responseInfoResult != null) {
             theme_street = gson.fromJson(responseInfoResult, Theme_street.class);
 
-            if (theme_street.status.code == 10000 ) {
+            if (theme_street.status.code == 10000) {
                 theme_name1.setText(theme_street.datas.get(0).theme_name);
                 theme_desc1.setText(theme_street.datas.get(0).theme_desc);
                 APP.getApp().getImageLoader().displayImage(theme_street.datas.get(0).theme_image, theme_image1, APP.getApp().getImageOptions());
