@@ -145,12 +145,10 @@ public class D0_OrderAdapter extends BaseAdapter {
         for(int i = 0; i < List.get(position).extend_order_goods.size(); i++){
             num += Integer.parseInt(List.get(position).extend_order_goods.get(i).goods_num);
         }
-        if(List.get(position).shipping_fee.equals("null")){
+        if(List.get(position).shipping_fee == null){
             tv_order_amount.setText("共"+ num +"件商品,合计：¥" + List.get(position).order_amount + "(含运费0.00)");
-
         }else {
             tv_order_amount.setText("共"+ num +"件商品,合计：¥" + List.get(position).order_amount + "(含运费" + List.get(position).shipping_fee + ")");
-
         }
 
         if (List.get(position).order_state.equals("10")) {
