@@ -18,7 +18,6 @@
             <LinearLayout
                 android:layout_width="65dp"
                 android:layout_height="65dp"
-                android:background="@drawable/background_fillet_white"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -29,29 +28,55 @@
                     android:src="@mipmap/ic_default_avatar" />
             </LinearLayout>
 
+            <ImageView
+                android:id="@+id/iv_vip"
+                android:layout_width="31dp"
+                android:layout_height="13dp"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/ic_vip"
+                android:visibility="gone" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
-                android:layout_marginLeft="72dp"
+                android:layout_marginLeft="84dp"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/member_nickname"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:text="点击登陆"
-                    android:textColor="#ffffff"
-                    android:textSize="20sp" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/member_nickname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="点击登陆"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_level"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/ic_level3"
+                        android:visibility="gone" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/name"
+                    android:id="@+id/tv_member_mobile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="用户等级"
                     android:textColor="#ffffff"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:visibility="gone" />
 
             </LinearLayout>
 

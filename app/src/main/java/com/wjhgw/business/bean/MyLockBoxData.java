@@ -10,6 +10,7 @@ public class MyLockBoxData {
     public String member_avatar;
     public String passwd_strength;
     public String level;
+    public String is_vip;
     public String bankcard_bind;
     public String paypwd;
     public String available_predeposit; //余额

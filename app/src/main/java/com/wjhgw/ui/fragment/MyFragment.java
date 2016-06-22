@@ -79,6 +79,9 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private LinearLayout ll_rechargeable_card;
     private LinearLayout ll_available_predeposit;
     private LinearLayout llMyHelp;
+    private ImageView ivVip;
+    private ImageView ivLevel;
+    private TextView tvMobile;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -140,6 +143,9 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
 
         myAvatar = (ImageView) MyMessageLayout.findViewById(R.id.my_avatar);
         member_nickname = (TextView) MyMessageLayout.findViewById(R.id.member_nickname);
+        tvMobile = (TextView) MyMessageLayout.findViewById(R.id.tv_member_mobile);
+        ivVip = (ImageView) MyMessageLayout.findViewById(R.id.iv_vip);
+        ivLevel = (ImageView) MyMessageLayout.findViewById(R.id.iv_level);
 
         ll_my_collect = (LinearLayout) MyHelpLayout.findViewById(R.id.ll_my_collect);
         llMyHelp = (LinearLayout) MyHelpLayout.findViewById(R.id.ll_my_help);
@@ -200,6 +206,10 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
          */
         if (!key.equals("0")) {
             load_User_information();
+        } else {
+            tvMobile.setVisibility(View.GONE);
+            ivLevel.setVisibility(View.GONE);
+            ivVip.setVisibility(View.GONE);
         }
 
         mListView.stopRefresh();
@@ -251,7 +261,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                     intent.setClass(getActivity(), A0_LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    intent.setClass(getActivity(),M8_MyHelpActivity.class);
+                    intent.setClass(getActivity(), M8_MyHelpActivity.class);
                     startActivity(intent);
                 }
                 break;
@@ -538,6 +548,32 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                     member_nickname.setText(userinformation.datas.member_nickname);
                 }
 
+                if (userinformation.datas.is_vip.equals("1")) {
+                    ivVip.setVisibility(View.VISIBLE);
+                }
+                if (userinformation.datas.is_vip.equals("0")) {
+                    ivVip.setVisibility(View.GONE);
+                }
+
+                if (userinformation.datas.level.equals("0")) {
+                    ivLevel.setVisibility(View.VISIBLE);
+                    ivLevel.setImageResource(R.mipmap.ic_level0);
+                }
+                if (userinformation.datas.level.equals("1")) {
+                    ivLevel.setVisibility(View.VISIBLE);
+                    ivLevel.setImageResource(R.mipmap.ic_level1);
+                }
+                if (userinformation.datas.level.equals("2")) {
+                    ivLevel.setVisibility(View.VISIBLE);
+                    ivLevel.setImageResource(R.mipmap.ic_level2);
+                }
+                if (userinformation.datas.level.equals("3")) {
+                    ivLevel.setVisibility(View.VISIBLE);
+                    ivLevel.setImageResource(R.mipmap.ic_level3);
+                }
+
+                tvMobile.setVisibility(View.VISIBLE);
+                tvMobile.setText(userinformation.datas.member_mobile);
                 available_predeposit.setText(userinformation.datas.available_predeposit);   //余额
                 tv_rechargeable_card.setText(userinformation.datas.available_rc_balance);   //可用充值卡余额
                 tv_hgb.setText(userinformation.datas.hg_points);              //欢购币
@@ -564,6 +600,9 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         if (key.equals("0")) {
             myAvatar.setImageResource(R.mipmap.ic_default_avatar);
             member_nickname.setText("点击登录");
+            tvMobile.setVisibility(View.GONE);
+            ivLevel.setVisibility(View.GONE);
+            ivVip.setVisibility(View.GONE);
             tv_statistics1.setVisibility(View.GONE);
             tv_statistics2.setVisibility(View.GONE);
             tv_statistics5.setVisibility(View.GONE);
