@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -39,6 +40,7 @@ import com.wjhgw.business.bean.MainMessageNum;
 import com.wjhgw.business.bean.OpHeadLine;
 import com.wjhgw.business.bean.Theme_street;
 import com.wjhgw.config.ApiInterface;
+import com.wjhgw.ui.DiyView.ScrollTextView;
 import com.wjhgw.ui.activity.C1_CaptureActivity;
 import com.wjhgw.ui.activity.C2_SearchActivity;
 import com.wjhgw.ui.activity.C3_GoodsArraySearchActivity;
@@ -82,7 +84,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private Handler handler;
 
     private TextView tvNews;
-    private TextView tvNewsContent;
     private LinearLayout llHeadline;
 
     private TextView tvLimitTheme;
@@ -255,6 +256,8 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private UnderDialog underdevelopmentDialog1;
     private String xianshi_id;
     private String article_url;
+    private boolean isContinue;
+    private int count = 0;
 
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -301,6 +304,28 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         }
     };
 
+    private String newsName;
+    private Handler scorllHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                //头条滚动的消息
+                case 0:
+                    count++;
+                    scrollTextView.next();
+                    scrollTextView.setText(opHeadLine.datas.get(count % opHeadLine.datas.size()).article_title);
+                    newsName = opHeadLine.datas.get(count % opHeadLine.datas.size()).ac_name;
+                    tvNews.setText(newsName);
+                    article_url = opHeadLine.datas.get(count % opHeadLine.datas.size()).article_url;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    };
+    private ScrollTextView scrollTextView;
+    private Thread myThread;
+    private OpHeadLine opHeadLine;
 
 
     @Override
@@ -331,7 +356,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
          * 初始化控件
          */
         initView();
-
 
         if (getActivity() != null) {
             Dialog = new LoadDialog(getActivity());
@@ -397,6 +421,28 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         return homeLayout;
     }
 
+    /**
+     * 加载自定义头条ScorrlTextView
+     */
+    private void initScorll() {
+        scrollTextView.setText(opHeadLine.datas.get(0).article_title);// 设置初始值
+        article_url = opHeadLine.datas.get(0).article_url;
+
+        isContinue = true;
+        if (opHeadLine.datas.size() == 1) {
+
+        } else {
+            myThread = new Thread() {
+                public void run() {
+                    while (isContinue) {
+                        SystemClock.sleep(3000);
+                        scorllHandler.sendEmptyMessage(0);// 每隔一秒 发一个空消息 滚动一次
+                    }
+                }
+            };
+            myThread.start();
+        }
+    }
 
     @Override
     public void onResume() {
@@ -443,7 +489,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
         llHeadline = (LinearLayout) HeadLine.findViewById(R.id.ll_headline);
         tvNews = (TextView) HeadLine.findViewById(R.id.tv_news);
-        tvNewsContent = (TextView) HeadLine.findViewById(R.id.tv_news_content);
+        scrollTextView = (ScrollTextView) HeadLine.findViewById(R.id.tv_news_scrolltv);
 
         tvLimitTheme = (TextView) LimitLayout.findViewById(R.id.tv_limit_theme);
         ivLimitTheme = (ImageView) LimitLayout.findViewById(R.id.iv_limit_theme);
@@ -692,6 +738,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     @Override
     public void onRefresh(int id) {
         START++;
+
         /**
          * 请求首页焦点图
          */
@@ -1058,14 +1105,23 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             public void onSuccess(ResponseInfo<String> responseInfo) {
 
                 Gson gson = new Gson();
-                OpHeadLine opHeadLine = gson.fromJson(responseInfo.result, OpHeadLine.class);
+                opHeadLine = gson.fromJson(responseInfo.result, OpHeadLine.class);
                 if (opHeadLine.status.code == 10000) {
-                    String newsName = opHeadLine.datas.get(0).ac_name;
-                    String article_title = opHeadLine.datas.get(0).article_title;
-                    article_url = opHeadLine.datas.get(0).article_url;
+//                    String newsName = opHeadLine.datas.get(0).ac_name;
+//                    String article_title = opHeadLine.datas.get(0).article_title;
+//                    article_url = opHeadLine.datas.get(0).article_url;
 
-                    tvNews.setText(newsName);
-                    tvNewsContent.setText("              "+ article_title);
+//                    tvNews.setText(newsName);
+
+//                    tvNewsContent.setText("              " + article_title);
+
+                    if (START == 1) {
+                        /**
+                         * 加载自定义头条ScorrlTextView
+                         */
+                        initScorll();
+
+                    }
 
                 } else {
 
@@ -1562,6 +1618,11 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     public void onDestroy() {
         super.onDestroy();
         handler.removeMessages(HANDLERID);
+
+        isContinue = false;
+        if (myThread != null && myThread.isAlive()) {
+            myThread.interrupt();
+        }
     }
 
     /**

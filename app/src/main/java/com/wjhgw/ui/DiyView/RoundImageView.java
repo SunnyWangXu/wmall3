@@ -1,4 +1,4 @@
-package com.wjhgw.ui.image;
+package com.wjhgw.ui.DiyView;
 
 import android.content.Context;
 import android.graphics.Bitmap;

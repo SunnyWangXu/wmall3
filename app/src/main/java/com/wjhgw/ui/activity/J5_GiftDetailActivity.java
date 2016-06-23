@@ -22,7 +22,7 @@ import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.Ssend_goods_list;
 import com.wjhgw.config.ApiInterface;
-import com.wjhgw.ui.image.RoundImageView;
+import com.wjhgw.ui.DiyView.RoundImageView;
 import com.wjhgw.ui.view.listview.MyListView;
 import com.wjhgw.ui.view.listview.XListView;
 import com.wjhgw.ui.view.listview.adapter.J5_receiveAdapter;

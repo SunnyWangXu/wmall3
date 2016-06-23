@@ -6,7 +6,7 @@
 
     <include layout="@layout/title_layout" />
 
-    <com.wjhgw.ui.image.RoundImageView
+    <com.wjhgw.ui.DiyView.RoundImageView
         android:id="@+id/iv_header"
         android:layout_width="91dp"
         android:layout_height="91dp"

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.business.bean.Get_goods_list_data;
-import com.wjhgw.ui.image.RoundImageView;
+import com.wjhgw.ui.DiyView.RoundImageView;
 import com.wjhgw.ui.view.listview.MyListView;
 
 import java.util.List;

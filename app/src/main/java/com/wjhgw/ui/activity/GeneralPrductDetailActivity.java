@@ -125,7 +125,9 @@ public class GeneralPrductDetailActivity extends BaseActivity implements View.On
         //BaseQuery.environment()
         url = getIntent().getStringExtra("url");
 
-        id = url.substring(url.lastIndexOf("=") + 1);
+        if (url != null) {
+            id = url.substring(url.lastIndexOf("=") + 1);
+        }
 
         keyMap = new HashMap<>();
         if (!getKey().equals("0")) {

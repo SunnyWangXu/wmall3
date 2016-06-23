@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.business.bean.receive_list_data;
-import com.wjhgw.ui.image.RoundImageView;
+import com.wjhgw.ui.DiyView.RoundImageView;
 
 import java.util.List;
 

@@ -11,7 +11,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
-        <com.wjhgw.ui.image.RoundImageView
+        <com.wjhgw.ui.DiyView.RoundImageView
             android:id="@+id/j1_sender_avatar"
             android:layout_width="35dp"
             android:layout_height="35dp"

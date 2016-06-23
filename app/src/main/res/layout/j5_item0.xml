@@ -34,7 +34,7 @@
         android:textColor="@color/white"
         android:textSize="14sp" />
 
-    <com.wjhgw.ui.image.RoundImageView
+    <com.wjhgw.ui.DiyView.RoundImageView
         android:id="@+id/iv_j5_use_img"
         android:layout_width="80dp"
         android:layout_height="80dp"

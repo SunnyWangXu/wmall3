@@ -24,7 +24,7 @@ import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.BindWX;
 import com.wjhgw.business.bean.Status;
 import com.wjhgw.config.ApiInterface;
-import com.wjhgw.ui.image.RoundImageView;
+import com.wjhgw.ui.DiyView.RoundImageView;
 
 /**
  * 微信登录Activiy
