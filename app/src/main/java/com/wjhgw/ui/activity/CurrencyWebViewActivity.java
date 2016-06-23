@@ -11,6 +11,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ImageView;
 
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
@@ -28,6 +29,7 @@ public class CurrencyWebViewActivity extends BaseActivity implements View.OnClic
     private String Shopping_Cart;
     private HashMap<String, String> keyMap;
     private String url;
+    private ImageView iv_title_right;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,9 @@ public class CurrencyWebViewActivity extends BaseActivity implements View.OnClic
         setContentView(R.layout.activity_prduct_detail);
 
         webView = (WebView) findViewById(R.id.wb_prduct_detail);
+        iv_title_right = (ImageView) findViewById(R.id.iv_title_right);
+        iv_title_right.setVisibility(View.GONE);
+
 
         /**
          * 加载WebView
