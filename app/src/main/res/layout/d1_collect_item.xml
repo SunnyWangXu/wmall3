@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="45dp"
-            android:text="收货人:兰超"
+            android:text="收货人:"
             android:textColor="#666666"
             android:layout_marginTop="10dp"
             android:textSize="14dp" />
@@ -92,7 +92,7 @@
             android:layout_marginTop="14dp"
             android:layout_marginRight="12dp"
             android:layout_toRightOf="@+id/textView1"
-            android:text="1383838438"
+            android:text=""
             android:textColor="#666666"
             android:textSize="12dp" />
         <TextView
@@ -102,7 +102,7 @@
             android:layout_marginLeft="45dp"
             android:layout_marginRight="12dp"
             android:layout_marginTop="35dp"
-            android:text="收货地址：深圳市罗湖区1002号"
+            android:text="收货地址："
             android:textColor="#666666"
             android:textSize="14dp" />
     </FrameLayout>
