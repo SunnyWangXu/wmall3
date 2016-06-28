@@ -516,7 +516,7 @@ public class ShoppingCartActivity extends BaseActivity implements BusinessRespon
                         intent.putExtra("cart_id", cart_id);
                         intent.putExtra("tv_total", realPay + "");
                         intent.putExtra("realPay", realPay);
-                        intent.putExtra("for", "");
+                        intent.putExtra("for", "forShopp");
                         startActivity(intent);
 
 

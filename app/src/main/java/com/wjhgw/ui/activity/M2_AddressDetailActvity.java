@@ -60,6 +60,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
     private String key;
     private String address_id;
     private LoadDialog Dialog;
+    private ImageView ivRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +89,6 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
         title = (TextView) findViewById(R.id.tv_title_name);
         title.setText("编辑地址");
 
-        ivTitle = (ImageView) findViewById(R.id.iv_title_right);
-        ivTitle.setVisibility(View.GONE);
 
         edName = (EditText) findViewById(R.id.ed_name);
         edName.setText(getIntent().getStringExtra("name"));
@@ -434,7 +433,7 @@ public class M2_AddressDetailActvity extends CityActivity implements OnClickList
 
             @Override
             public void onFailure(HttpException e, String s) {
-                
+
             }
         });
 
