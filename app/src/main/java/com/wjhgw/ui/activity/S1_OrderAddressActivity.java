@@ -71,7 +71,7 @@ public class S1_OrderAddressActivity extends BaseActivity implements View.OnClic
      * 请求地址列表
      */
     public void load_Order_Addresst() {
-        super.StartLoading();
+        StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", getKey());
         params.addBodyParameter("address_type", "0");
@@ -79,10 +79,10 @@ public class S1_OrderAddressActivity extends BaseActivity implements View.OnClic
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                Dismiss();
                 Gson gson = new Gson();
                 if (responseInfo != null) {
                     Address_list address_list = gson.fromJson(responseInfo.result, Address_list.class);
-                    S1_OrderAddressActivity.super.Dismiss();
                     if (address_list.status.code == 10000) {
                         order_address_list.clear();
                         if (address_list.datas != null) {

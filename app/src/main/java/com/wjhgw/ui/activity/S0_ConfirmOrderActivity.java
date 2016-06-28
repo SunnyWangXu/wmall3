@@ -128,6 +128,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private Intent intent;
     private boolean Offpay = false;
     private TextView tvDownlinePay;
+    private int START = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,9 +142,11 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     protected void onResume() {
         super.onResume();
 
+        START++;
+
         String selectOrder = getIntent().getStringExtra("selectOrder");
 
-        if (selectOrder != null) {
+        if (START == 1 && selectOrder != null) {
             /**
              * 解析选中订单
              */
@@ -152,7 +155,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
         cart_id = getIntent().getStringExtra("cart_id");
 
-        if (!getKey().equals("0")) {
+        if (START == 1 && !getKey().equals("0")) {
             /**
              * 请求默认地址
              */
@@ -231,7 +234,6 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
      * 检查地址是否支持货到付款
      */
     private void checkAddressSupport() {
-        StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", getKey());
         params.addBodyParameter("freight_hash", freight_hash);
@@ -239,7 +241,6 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Check_Address_Support, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-                Dismiss();
                 Gson gson = new Gson();
                 CheckAddressSupport checkAddressSupport = gson.fromJson(responseInfo.result, CheckAddressSupport.class);
 
