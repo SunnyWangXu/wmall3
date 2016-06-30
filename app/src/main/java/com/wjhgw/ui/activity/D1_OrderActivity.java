@@ -380,8 +380,8 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
 
                             tv_store_name.setText(order_detail.datas.store_name);
                             tv_state_desc.setText(order_detail.datas.state_desc);
-                            tv_order_sn.setText("订单号："+order_detail.datas.order_sn);
-                            tv_payment_name.setText("支付方式："+order_detail.datas.payment_name);
+                            tv_order_sn.setText("订单号：" + order_detail.datas.order_sn);
+                            tv_payment_name.setText("支付方式：" + order_detail.datas.payment_name);
                             int num = 0;
                             for (int i = 0; i < order_detail.datas.extend_order_goods.size(); i++) {
                                 num += Integer.parseInt(order_detail.datas.extend_order_goods.get(i).goods_num);
@@ -392,10 +392,10 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 tv_order_amount.setText("共" + num + "件商品,合计：¥" + order_detail.datas.order_amount + "(含运费0.00)");
                             }
 
-                            if(order_detail.datas.order_type.equals("3")){
+                            if (order_detail.datas.order_type.equals("3")) {
                                 tv_order_type.setVisibility(View.VISIBLE);
                                 tv_order_type.setText("存酒");
-                            }else if(order_detail.datas.order_type.equals("4")){
+                            } else if (order_detail.datas.order_type.equals("4")) {
                                 tv_order_type.setVisibility(View.VISIBLE);
                                 tv_order_type.setText("取酒");
                             }
@@ -403,9 +403,9 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                             if (order_detail.datas.extend_order_common.invoice_info == null) {
                                 ll_invoice.setVisibility(View.GONE);
                             } else {
-                                tv_invoice_type.setText("类型："+order_detail.datas.extend_order_common.invoice_info.类型);
-                                tv_invoice_rise.setText("抬头："+order_detail.datas.extend_order_common.invoice_info.抬头);
-                                tv_invoice_content.setText("内容："+order_detail.datas.extend_order_common.invoice_info.内容);
+                                tv_invoice_type.setText("类型：" + order_detail.datas.extend_order_common.invoice_info.类型);
+                                tv_invoice_rise.setText("抬头：" + order_detail.datas.extend_order_common.invoice_info.抬头);
+                                tv_invoice_content.setText("内容：" + order_detail.datas.extend_order_common.invoice_info.内容);
                             }
                             if (order_detail.datas.order_type.equals("0") || order_detail.datas.order_type.equals("4")) {
                                 tv_reciver_name.setText("收货人：" + order_detail.datas.extend_order_common.reciver_name);
@@ -415,17 +415,17 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 ll_logistics.setVisibility(View.GONE);
                             }
 
-                            tv_add_time.setText("下单时间："+order_detail.datas.add_time);
-                            tv_payment.setText("支付时间："+order_detail.datas.payment_time);
-                            if(order_detail.datas.extend_order_common.shipping_time.length() > 1){
-                                tv_mail.setText("寄出时间："+order_detail.datas.extend_order_common.shipping_time);
-                            }else {
+                            tv_add_time.setText("下单时间：" + order_detail.datas.add_time);
+                            tv_payment.setText("支付时间：" + order_detail.datas.payment_time);
+                            if (order_detail.datas.extend_order_common.shipping_time.length() > 1) {
+                                tv_mail.setText("寄出时间：" + order_detail.datas.extend_order_common.shipping_time);
+                            } else {
                                 tv_mail.setVisibility(View.GONE);
                             }
 
-                            if(order_detail.datas.extend_order_common.order_message.equals("")){
+                            if (order_detail.datas.extend_order_common.order_message.equals("")) {
                                 fl_message.setVisibility(View.GONE);
-                            }else {
+                            } else {
                                 tv_remarks.setText(order_detail.datas.extend_order_common.order_message);
                             }
 
@@ -590,8 +590,8 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                         if (Double.valueOf(payOrder.datas.data.total_fee) > 0) {
                             Intent intent = new Intent(D1_OrderActivity.this, S3_SelectPaymentActivity.class);
                             intent.putExtra("tvRealPay", order_amount);
-                            intent.putExtra("tvAvailablePredeposit", rcb_amount);
-                            intent.putExtra("tvAvailableRcBalance", pd_amount);
+                            intent.putExtra("tvAvailablePredeposit", pd_amount);
+                            intent.putExtra("tvAvailableRcBalance", rcb_amount);
                             intent.putExtra("paySn", payOrder.datas.data.pay_sn);
                             intent.putExtra("totalFee", payOrder.datas.data.total_fee);
                             intent.putExtra("goodsName", payOrder.datas.data.goods_name);

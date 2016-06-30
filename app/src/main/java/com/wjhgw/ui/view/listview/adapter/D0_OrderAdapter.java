@@ -110,7 +110,7 @@ public class D0_OrderAdapter extends BaseAdapter {
         itemListView.setLayoutParams(linearParams);
 
         listAdapter = new D0_OrderAdapter1(c, List.get(position).extend_order_goods, List.get(position).lock_state,
-                List.get(position).order_state, List.get(position).order_sn,List.get(position).order_id );
+                List.get(position).order_state, List.get(position).order_sn, List.get(position).order_id);
         itemListView.setAdapter(listAdapter);
         /**
          * 设置listview不能滑动
@@ -134,21 +134,21 @@ public class D0_OrderAdapter extends BaseAdapter {
 //        });
         tv_store_name.setText(List.get(position).store_name);
         tv_state_desc.setText(List.get(position).state_desc);
-        if(List.get(position).order_type.equals("3")){
+        if (List.get(position).order_type.equals("3")) {
             tv_order_type.setVisibility(View.VISIBLE);
             tv_order_type.setText("存酒");
-        }else if(List.get(position).order_type.equals("4")){
+        } else if (List.get(position).order_type.equals("4")) {
             tv_order_type.setVisibility(View.VISIBLE);
             tv_order_type.setText("取酒");
         }
         int num = 0;
-        for(int i = 0; i < List.get(position).extend_order_goods.size(); i++){
+        for (int i = 0; i < List.get(position).extend_order_goods.size(); i++) {
             num += Integer.parseInt(List.get(position).extend_order_goods.get(i).goods_num);
         }
-        if(List.get(position).shipping_fee == null){
-            tv_order_amount.setText("共"+ num +"件商品,合计：¥" + List.get(position).order_amount + "(含运费0.00)");
-        }else {
-            tv_order_amount.setText("共"+ num +"件商品,合计：¥" + List.get(position).order_amount + "(含运费" + List.get(position).shipping_fee + ")");
+        if (List.get(position).shipping_fee == null) {
+            tv_order_amount.setText("共" + num + "件商品,合计：¥" + List.get(position).order_amount + "(含运费0.00)");
+        } else {
+            tv_order_amount.setText("共" + num + "件商品,合计：¥" + List.get(position).order_amount + "(含运费" + List.get(position).shipping_fee + ")");
         }
 
         if (List.get(position).order_state.equals("10")) {
@@ -338,14 +338,14 @@ public class D0_OrderAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(c, "联系客服", Toast.LENGTH_SHORT).show();
-                final SetPaypwdDialog Dialog = new SetPaypwdDialog(c, "联系客服","客服电话:400-6569333");
+                final SetPaypwdDialog Dialog = new SetPaypwdDialog(c, "联系客服", "客服电话:400-6569333");
                 Dialog.show();
                 Dialog.tvGotoSetpaypwd.setText("拨打");
                 Dialog.tvCancel.setTextColor(Color.parseColor("#333333"));
                 Dialog.tvGotoSetpaypwd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent1 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" +"4006569333"));
+                        Intent intent1 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "4006569333"));
                         c.startActivity(intent1);
                         Dialog.dismiss();
                     }
@@ -427,8 +427,8 @@ public class D0_OrderAdapter extends BaseAdapter {
                         if (Double.valueOf(payOrder.datas.data.total_fee) > 0) {
                             Intent intent = new Intent(c, S3_SelectPaymentActivity.class);
                             intent.putExtra("tvRealPay", order_amount);
-                            intent.putExtra("tvAvailablePredeposit", rcb_amount);
-                            intent.putExtra("tvAvailableRcBalance", pd_amount);
+                            intent.putExtra("tvAvailablePredeposit", pd_amount);
+                            intent.putExtra("tvAvailableRcBalance", rcb_amount);
                             intent.putExtra("paySn", payOrder.datas.data.pay_sn);
                             intent.putExtra("totalFee", payOrder.datas.data.total_fee);
                             intent.putExtra("goodsName", payOrder.datas.data.goods_name);

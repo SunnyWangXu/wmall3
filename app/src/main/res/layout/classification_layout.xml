@@ -21,21 +21,23 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="13dp"
             android:layout_marginRight="11dp"
-            android:src="@mipmap/ic_scanning" />
+            android:src="@mipmap/ic_scanning"
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/ll_goods_search"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@drawable/search_relativelayout_shape"
             android:gravity="center_vertical">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:layout_marginLeft="10dp"
                 android:src="@mipmap/ic_search" />
 

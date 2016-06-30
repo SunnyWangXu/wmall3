@@ -2,6 +2,7 @@ package com.wjhgw.ui.fragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -62,7 +64,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class HomeFragment extends Fragment implements IXListViewListener,
-        View.OnClickListener, ViewPager.OnPageChangeListener {
+        View.OnClickListener, ViewPager.OnPageChangeListener, AbsListView.OnScrollListener {
 
     private View homeLayout;
     private TextView tvHomeMessageDot;
@@ -326,6 +328,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private ScrollTextView scrollTextView;
     private Thread myThread;
     private OpHeadLine opHeadLine;
+    private LinearLayout llSearch;
 
 
     @Override
@@ -410,6 +413,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             mListView.setPullRefreshEnable(true);
             mListView.setXListViewListener(this, 1);
             mListView.setRefreshTime();
+            mListView.setOnScrollListener(this);
             mListView.setAdapter(null);
 
             /**
@@ -451,9 +455,9 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         /**
          * 首页消息的小红点
          */
-        if (!key.equals("0")) {
-            loadHomeMessageDot();
-        }
+//        if (!key.equals("0")) {
+//            loadHomeMessageDot();
+//        }
     }
 
     /**
@@ -478,6 +482,8 @@ public class HomeFragment extends Fragment implements IXListViewListener,
      * 初始化视图
      */
     private void initView() {
+        llSearch = (LinearLayout) homeLayout.findViewById(R.id.ll_search_title);
+
         tvHomeMessageDot = (TextView) homeLayout.findViewById(R.id.tv_home_message_dot);
 
         ivHomeQrcodeScanner = (ImageView) homeLayout.findViewById(R.id.iv_home_qrcode_scanner);
@@ -738,7 +744,6 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     @Override
     public void onRefresh(int id) {
         START++;
-
         /**
          * 请求首页焦点图
          */
@@ -1451,6 +1456,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Guess_Like, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                llSearch.setVisibility(View.VISIBLE);
                 Gson gson = new Gson();
                 if (responseInfo != null) {
                     guess_like = gson.fromJson(responseInfo.result, Guess_Like.class);
@@ -1544,7 +1550,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
     /**
      * @param timeStr
-     * @param s       1代表团购，2代表拍卖,3为折扣街商品1,4为折扣街商品2，5为折扣街商品3
+     * @param s       1代表团购，2代表拍卖,3为折扣街商品1,4为折扣街商品2，5为折扣街商品3, 6为限时抢购
      */
     public void secToTime(long timeStr, int s) {
         if (timeStr > 0) {
@@ -1663,5 +1669,25 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
             }
         });
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+        if (firstVisibleItem == 0) {
+            llSearch.setBackgroundColor(Color.TRANSPARENT);
+            llSearch.setAlpha(0.6f);
+        } else {
+
+            llSearch.setBackgroundColor(Color.parseColor("#C71724"));
+            llSearch.setAlpha(0.6f);
+            llSearch.setVisibility(View.VISIBLE);
+        }
+
     }
 }
