@@ -1685,7 +1685,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         } else {
 
             llSearch.setBackgroundColor(Color.parseColor("#C71724"));
-            llSearch.setAlpha(0.6f);
+            llSearch.setAlpha(0.9f);
             llSearch.setVisibility(View.VISIBLE);
         }
 
