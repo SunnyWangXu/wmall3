@@ -317,6 +317,8 @@ public class PayGiveOrderActivity extends BaseActivity implements View.OnClickLi
 
                             if (Double.parseDouble(totalFee) > 0 && paySn != null) {
                                 startActivity(intent);
+                                getSharedPreferences("Gifts", MODE_PRIVATE).edit().putString("Gifts", "1").commit();
+                                getSharedPreferences("paySn", MODE_PRIVATE).edit().putString("paySn", paySn).commit();
                                 finish();
                             } else {
                                 showToastShort("下单异常，请重新操作");
