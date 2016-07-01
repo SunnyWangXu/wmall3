@@ -41,12 +41,6 @@
             </intent-filter>
         </activity>
 
-        <intent-filter>
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <data android:scheme="wxd930ea5d5a258f4f" />
-        </intent-filter>
-
         <activity
             android:name="com.wjhgw.MainActivity"
             android:screenOrientation="portrait" />
@@ -182,7 +176,7 @@
         <activity
             android:name=".ui.activity.S1_OrderAddressActivity"
             android:screenOrientation="portrait" />
-        <activity
+       <activity
             android:name=".ui.activity.S3_SelectPaymentActivity"
             android:screenOrientation="portrait" />
         <activity

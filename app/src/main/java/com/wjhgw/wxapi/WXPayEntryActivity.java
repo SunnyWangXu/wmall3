@@ -2,8 +2,6 @@ package com.wjhgw.wxapi;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -14,7 +12,7 @@ import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
-import com.wjhgw.ui.activity.D0_OrderActivity;
+import com.wjhgw.ui.dialog.MyDialog;
 
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
@@ -22,6 +20,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 	private static final String TAG = "MicroMsg.SDKSample.WXPayEntryActivity";
 	
     private IWXAPI api;
+	MyDialog mDialog;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,37 +45,17 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
 	@Override
 	public void onResp(BaseResp resp) {
-		//Log.d(TAG, "onPayFinish, errCode = " + resp.errCode);
-
 		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-			if(resp.errCode == 0){
-				Toast.makeText(this, "成功！" + resp.errCode, Toast.LENGTH_SHORT).show();
-			}else if(resp.errCode == -1){
-				new AlertDialog.Builder(this)
-	            .setMessage("支付失败！")
-	            .setPositiveButton("知道了",
-	                           new DialogInterface.OnClickListener(){
-	                                   public void onClick(DialogInterface dialoginterface, int i){
-	                                	   finish();
-	                                    }
-	                            })
-	            .setCancelable(false)	//点击对话框外不关闭
-	            .show();
-			}else if(resp.errCode == -2){
-				new AlertDialog.Builder(this)
-	            .setMessage("用户取消！")
-	            .setPositiveButton("知道了",
-	                           new DialogInterface.OnClickListener(){
-	                                   public void onClick(DialogInterface dialoginterface, int i){
-	                                	  finish();
-	                                    }
-	                            })
-	            .setCancelable(false)	//点击对话框外不关闭
-	            .show();
+			if (resp.errCode == 0) {
+				Toast.makeText(this, "支付成功！" + resp.errCode, Toast.LENGTH_SHORT).show();
+				finish();
+			} else if (resp.errCode == -1) {
+				Toast.makeText(this, "支付失败！" + resp.errCode, Toast.LENGTH_SHORT).show();
+				finish();
+			} else if (resp.errCode == -2) {
+				Toast.makeText(this, "用户取消！" + resp.errCode, Toast.LENGTH_SHORT).show();
+				finish();
 			}
-			Intent intent = new Intent(this, D0_OrderActivity.class);
-			startActivity(intent);
-			finish();
 		}
 	}
 }

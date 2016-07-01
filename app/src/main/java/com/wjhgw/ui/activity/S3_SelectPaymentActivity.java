@@ -7,22 +7,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
+import com.wjhgw.base.BaseQuery;
+import com.wjhgw.business.bean.WXPay;
+import com.wjhgw.config.ApiInterface;
 import com.wjhgw.pay.Alipay.payMethod;
-import com.wjhgw.ui.dialog.UnderDialog;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.security.MessageDigest;
 
 /**
  * 选择支付Activity
@@ -59,7 +61,8 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_payment);
 
-        api = WXAPIFactory.createWXAPI(this, "wxb4ba3c02aa476ea1");
+        api = WXAPIFactory.createWXAPI(this, "wx99a6bd9b7bdbf645", false);
+        api.registerApp("wx99a6bd9b7bdbf645");
         sb = new StringBuffer();
 
         paySn = getIntent().getStringExtra("paySn");
@@ -157,15 +160,7 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
 
             case R.id.btn_confirm_pay:
                 if (isWeixin) {
-                    // buy();
-                    final UnderDialog underdevelopmentDialog = new UnderDialog(this, "请选择支付方式");
-                    underdevelopmentDialog.show();
-                    underdevelopmentDialog.tv_goto_setpaypwd.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            underdevelopmentDialog.dismiss();
-                        }
-                    });
+                    wx_pay();
                 } else {
 //                    payMethod pay = new payMethod(this, "订单号", "测试的商品", "测试的商品详情", "0.01");
                     payMethod pay = new payMethod(this, paySn, goodsName, goodsDetail, totalFee, entrance);
@@ -179,75 +174,91 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
     }
 
     /**
-     * 微信支付测试数据
+     * 发起微信支付
      */
+    private void wx_pay() {
 
-    public void buy() {
-        RequestQueue mRequestQueue;
-        StringRequest stringRequest;
-        mRequestQueue = Volley.newRequestQueue(this);
-        Response.Listener<String> SuccessfulResponse = new Response.Listener<String>() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("key", getKey());
+        params.addBodyParameter("pay_sn", paySn);
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Wx_pay, params, new RequestCallBack<String>() {
             @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject json = new JSONObject(response);
-                    PayReq req = new PayReq();
-                    req.appId = json.getString("appid");
-                    req.partnerId = json.getString("partnerid");
-                    req.prepayId = json.getString("prepayid");
-                    req.nonceStr = json.getString("noncestr");
-                    req.timeStamp = json.getString("timestamp");
-                    req.packageValue = json.getString("package");
-                    req.sign = json.getString("sign");
-                    // req.extData = "app data"; // optional
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                if (responseInfo != null) {
+                    WXPay WXPay_data = gson.fromJson(responseInfo.result, WXPay.class);
+                    if (WXPay_data.status.code == 10000) {
+                        String api_key;
+                        PayReq req = new PayReq();
+                        req.appId = WXPay_data.datas.appid;
+                        req.partnerId = WXPay_data.datas.partnerid;
+                        req.prepayId = WXPay_data.datas.prepayid;
+                        req.nonceStr = WXPay_data.datas.noncestr;
+                        req.timeStamp = WXPay_data.datas.timestamp + "";
+                        req.packageValue = "Sign=WXPay";
+                        api_key = WXPay_data.datas.app_key;
+                        String content = "appid=" + req.appId + "&" + "noncestr=" + req.nonceStr + "&" +
+                                "package=" + req.packageValue + "&" + "partnerid=" + req.partnerId + "&" +
+                                "prepayid=" + req.prepayId + "&" + "timestamp=" + req.timeStamp + "&";
+                        req.sign = genAppSign(content, api_key);
+                        api.sendReq(req);
+                        finish();
+                    } else {
+                        overtime(WXPay_data.status.code, WXPay_data.status.msg);
+                    }
 
-                        /*List<NameValuePair> signParams = new LinkedList<>();
-                        signParams.add(new BasicNameValuePair("appid", req.appId));
-                        signParams.add(new BasicNameValuePair("noncestr", req.nonceStr));
-                        signParams.add(new BasicNameValuePair("package", req.packageValue));
-                        signParams.add(new BasicNameValuePair("partnerid", req.partnerId));
-                        signParams.add(new BasicNameValuePair("prepayid", req.prepayId));
-                        signParams.add(new BasicNameValuePair("timestamp", req.timeStamp));
-
-                        req.sign = genAppSign(signParams);*/
-                    showToastShort("正常调起支付");
-                    api.sendReq(req);
-                    // OnMessageResponse(Route, response, new JSONObject(new JSONObject(response).getString("status")));
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
             }
-        };
-        stringRequest = new StringRequest(Request.Method.POST, "http://wxpay.weixin.qq.com/pub_v2/app/app_pay.php?plat=android", SuccessfulResponse, FailureResponse);
-        mRequestQueue.add(stringRequest);
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+            }
+        });
+
     }
 
     /**
-     * 请求错误回调
+     * 二次签名
+     *
+     * @param params
+     * @param api_key
+     * @return
      */
-    Response.ErrorListener FailureResponse = new Response.ErrorListener() {
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            // Toast.makeText(mContext, "网络错误！", Toast.LENGTH_SHORT).show();
-        }
-    };
-
-
- /*   private String genAppSign(List<NameValuePair> params) {
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < params.size(); i++) {
-            sb.append(params.get(i).getName());
-            sb.append('=');
-            sb.append(params.get(i).getValue());
-            sb.append('&');
-        }
+    private String genAppSign(String params, String api_key) {
+        StringBuilder sb = new StringBuilder(params);
         sb.append("key=");
-        sb.append("16103e4Fd8906506991dbbED035632d1");
-
+        sb.append(api_key);
         this.sb.append("sign str\n" + sb.toString() + "\n\n");
-        String appSign = MD5.getMessageDigest(sb.toString().getBytes());
-        //Log.e("orion", appSign);
+        String appSign = getMessageDigest(sb.toString().getBytes());
         return appSign;
-    }*/
+    }
+
+    /**
+     * MD5签名
+     *
+     * @param buffer
+     * @return
+     */
+    public String getMessageDigest(byte[] buffer) {
+        char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+        try {
+            MessageDigest mdTemp = MessageDigest.getInstance("MD5");
+            mdTemp.update(buffer);
+            byte[] md = mdTemp.digest();
+            int j = md.length;
+            char str[] = new char[j * 2];
+            int k = 0;
+            for (int i = 0; i < j; i++) {
+                byte byte0 = md[i];
+                str[k++] = hexDigits[byte0 >>> 4 & 0xf];
+                str[k++] = hexDigits[byte0 & 0xf];
+            }
+            return new String(str);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }

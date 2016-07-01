@@ -353,4 +353,8 @@ public class ApiInterface {
      * 微信绑定接口
      */
     public static final String Bind_wx = "/mobile/index.php?act=bind&op=wechat";
+    /**
+     * 发起微信支付
+     */
+    public static final String Wx_pay = "/mobile/index.php?act=wxpay&op=wx_pay";
 }
