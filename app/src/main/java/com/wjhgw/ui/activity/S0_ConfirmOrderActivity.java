@@ -129,6 +129,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private boolean Offpay = false;
     private TextView tvDownlinePay;
     private int START = 0;
+    private BigDecimal bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -332,7 +333,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     @Override
     public void onInitViewData() {
         tvTotal = getIntent().getStringExtra("tv_total");
-        BigDecimal bd = new BigDecimal(tvTotal);
+        bd = new BigDecimal(tvTotal);
         bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
         tvTotalAmount.setText(bd + "");
 
@@ -450,10 +451,10 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 }
 
                 if (isDonate) {
-                    tvFreight.setText("+ ¥ 0.0");
+                    tvFreight.setText("+ ¥ 0.00");
                     tvRealPay.setText(realPay + "");
                 } else {
-                    tvFreight.setText("+ ¥ " + freight + ".0");
+                    tvFreight.setText("+ ¥ " + freight + ".00");
                     tvRealPay.setText(realPay + Double.valueOf(freight) + "");
                 }
                 break;
@@ -1004,6 +1005,11 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
                 paymentWindow.dismiss();
                 tvPayMethod.setText("在线支付");
+
+                tvRealPay.setText(realPay + Double.valueOf(freight) + "");
+                tvFreight.setText("+ ¥ " + freight + ".00");
+                tvTotalAmount.setText(bd + "");
+
             }
         });
 
@@ -1029,6 +1035,10 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                     ivAvailableRcBalance.setImageResource(R.mipmap.ic_push_off);
                     llUseMessage.setVisibility(View.VISIBLE);
                     tvDonate.setTextColor(Color.parseColor("#cccccc"));
+                    tvRealPay.setText("0.00");
+                    tvFreight.setText("+ ¥ 0.00");
+                    tvTotalAmount.setText("0.00");
+
 
                 }
             });
