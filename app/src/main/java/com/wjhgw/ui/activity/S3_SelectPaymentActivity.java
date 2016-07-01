@@ -189,7 +189,6 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
                 if (responseInfo != null) {
                     WXPay WXPay_data = gson.fromJson(responseInfo.result, WXPay.class);
                     if (WXPay_data.status.code == 10000) {
-                        String api_key;
                         PayReq req = new PayReq();
                         req.appId = WXPay_data.datas.appid;
                         req.partnerId = WXPay_data.datas.partnerid;
@@ -197,17 +196,16 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
                         req.nonceStr = WXPay_data.datas.noncestr;
                         req.timeStamp = WXPay_data.datas.timestamp + "";
                         req.packageValue = "Sign=WXPay";
-                        api_key = WXPay_data.datas.app_key;
                         String content = "appid=" + req.appId + "&" + "noncestr=" + req.nonceStr + "&" +
                                 "package=" + req.packageValue + "&" + "partnerid=" + req.partnerId + "&" +
-                                "prepayid=" + req.prepayId + "&" + "timestamp=" + req.timeStamp + "&";
-                        req.sign = genAppSign(content, api_key);
+                                "prepayid=" + req.prepayId + "&" + "timestamp=" + req.timeStamp + "&"+
+                                "key=" + WXPay_data.datas.app_key;
+                        req.sign = genAppSign(content);
                         api.sendReq(req);
-                        finish();
                     } else {
                         overtime(WXPay_data.status.code, WXPay_data.status.msg);
                     }
-
+                    finish();
                 }
             }
 
@@ -221,15 +219,11 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
 
     /**
      * 二次签名
-     *
      * @param params
-     * @param api_key
      * @return
      */
-    private String genAppSign(String params, String api_key) {
+    private String genAppSign(String params) {
         StringBuilder sb = new StringBuilder(params);
-        sb.append("key=");
-        sb.append(api_key);
         this.sb.append("sign str\n" + sb.toString() + "\n\n");
         String appSign = getMessageDigest(sb.toString().getBytes());
         return appSign;
