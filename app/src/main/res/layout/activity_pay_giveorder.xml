@@ -65,6 +65,7 @@
             android:id="@+id/tv_give_goodsname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginRight="10dp"
             android:layout_marginTop="17dp"
             android:lines="2"
@@ -318,7 +319,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:gravity="center"
-                android:text="+ ¥ 0.00"
+                android:text="+ ¥0.00"
                 android:textColor="@color/tv_red" />
 
         </LinearLayout>
