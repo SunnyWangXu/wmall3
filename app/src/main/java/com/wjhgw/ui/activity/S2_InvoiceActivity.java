@@ -3,6 +3,8 @@ package com.wjhgw.ui.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +27,7 @@ import com.wjhgw.config.ApiInterface;
 /**
  * 选择发票详情的Activity
  */
-public class S2_InvoiceActivity extends BaseActivity implements View.OnClickListener {
+public class S2_InvoiceActivity extends BaseActivity implements View.OnClickListener, TextWatcher {
 
     private TextView tvNeedInvoice;
     private TextView tvNoInvoice;
@@ -35,13 +37,14 @@ public class S2_InvoiceActivity extends BaseActivity implements View.OnClickList
     private Button btnInvoiceSave;
     private boolean isPerson;
     private String edTitle;
+    private String invoiceId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invoice);
 
-
+        invoiceId = getIntent().getStringExtra("invoiceId");
     }
 
     @Override
@@ -52,8 +55,8 @@ public class S2_InvoiceActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onFindViews() {
-        tvNoInvoice = (TextView) findViewById(R.id.tv_no_invoice);
         tvNeedInvoice = (TextView) findViewById(R.id.tv_need_invoice);
+        tvNoInvoice = (TextView) findViewById(R.id.tv_no_invoice);
 
         ivPerson = (ImageView) findViewById(R.id.iv_person);
         ivCompany = (ImageView) findViewById(R.id.iv_company);
@@ -76,6 +79,7 @@ public class S2_InvoiceActivity extends BaseActivity implements View.OnClickList
         ivPerson.setOnClickListener(this);
         ivCompany.setOnClickListener(this);
         btnInvoiceSave.setOnClickListener(this);
+        edInvoiceTitle.addTextChangedListener(this);
     }
 
     @Override
@@ -92,6 +96,23 @@ public class S2_InvoiceActivity extends BaseActivity implements View.OnClickList
                 break;
 
             case R.id.tv_no_invoice:
+
+                if (invoiceId.equals("")) {
+                    finish();
+                } else {
+                    /**
+                     * 不需要发票
+                     */
+                    Intent intent = new Intent();
+                    intent.putExtra("invoice_id", "");
+                    intent.putExtra("invoice_title", "");
+                    intent.putExtra("invoice_content", "");
+
+                    setResult(22222, intent);
+                    finish();
+
+                }
+
 
                 tvNoInvoice.setTextColor(Color.parseColor("#f25252"));
                 tvNoInvoice.setBackground(getResources().getDrawable(R.drawable.invoice_tv_redbg));
@@ -133,6 +154,7 @@ public class S2_InvoiceActivity extends BaseActivity implements View.OnClickList
                 break;
         }
     }
+
 
     /**
      * 添加发票
@@ -181,8 +203,31 @@ public class S2_InvoiceActivity extends BaseActivity implements View.OnClickList
 
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        if (s.length() > 0) {
+            btnInvoiceSave.setBackgroundColor(Color.parseColor("#f25252"));
+            btnInvoiceSave.setClickable(true);
+        } else {
+            btnInvoiceSave.setBackgroundColor(Color.parseColor("#cccccc"));
+            btnInvoiceSave.setClickable(false);
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
     }
 }

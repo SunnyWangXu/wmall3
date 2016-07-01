@@ -20,25 +20,25 @@
 
 
         <TextView
-            android:id="@+id/tv_no_invoice"
+            android:id="@+id/tv_need_invoice"
             android:layout_width="106dp"
             android:layout_height="38dp"
             android:layout_marginLeft="12dp"
             android:background="@drawable/invoice_tv_redbg"
             android:gravity="center"
-            android:text="不需要发票"
+            android:text="需要发票"
             android:textColor="@color/btn_red"
             android:textSize="14sp" />
 
 
         <TextView
-            android:id="@+id/tv_need_invoice"
+            android:id="@+id/tv_no_invoice"
             android:layout_width="106dp"
             android:layout_height="38dp"
             android:layout_marginLeft="20dp"
             android:background="@drawable/invoice_tv_light_graybg"
             android:gravity="center"
-            android:text="需要发票"
+            android:text="不需要发票"
             android:textColor="@color/light_gray"
             android:textSize="14sp" />
 

@@ -121,9 +121,9 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private LinearLayout llUseMessage01;
     private TextView tvNotAddress;
     private LinearLayout llInvoice;
-    private String invoice_id;
-    private String invoice_title;
-    private String invoice_content;
+    private String invoice_id = "";
+    private String invoice_title = "";
+    private String invoice_content = "";
     private TextView tvInvoice;
     private Intent intent;
     private boolean Offpay = false;
@@ -277,7 +277,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     @Override
     public void onInit() {
         setUp();
-        setTitle("确认订单");
+        setTitle("填写订单");
 
         lvOrderList = (ListView) findViewById(R.id.lv_order_list);
 
@@ -396,8 +396,13 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             invoice_title = data.getStringExtra("invoice_title");
             invoice_content = data.getStringExtra("invoice_content");
 
-            tvInvoice.setText(invoice_title + "-" + invoice_content);
-            tvInvoice.setTextColor(Color.parseColor("#333333"));
+            if (invoice_content.equals("")) {
+                tvInvoice.setText("不需要发票");
+                tvInvoice.setTextColor(Color.parseColor("#cccccc"));
+            } else {
+                tvInvoice.setText(invoice_title + "-" + invoice_content);
+                tvInvoice.setTextColor(Color.parseColor("#333333"));
+            }
         }
     }
 
@@ -429,6 +434,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
             case R.id.ll_invoice:
                 intent.setClass(this, S2_InvoiceActivity.class);
+                intent.putExtra("invoiceId", invoice_id);
                 startActivityForResult(intent, 22222);
 
                 break;
@@ -646,9 +652,14 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             params.addBodyParameter("pay_name", "offline");
         }
 
-        if (invoice_id != null) {
-            params.addBodyParameter("invoice_id", invoice_id);
+        if (!invoice_title.equals("")) {
+            params.addBodyParameter("inv_title", invoice_title);
         }
+
+        if (!invoice_content.equals("")) {
+            params.addBodyParameter("inv_content", invoice_content);
+        }
+
         if (isUseBalance) {
             params.addBodyParameter("pd_pay", "1");
             params.addBodyParameter("password", paypwd);
