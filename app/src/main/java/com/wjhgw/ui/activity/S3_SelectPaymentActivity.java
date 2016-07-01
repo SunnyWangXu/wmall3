@@ -202,10 +202,10 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
                                 "key=" + WXPay_data.datas.app_key;
                         req.sign = genAppSign(content);
                         api.sendReq(req);
+                        finish();
                     } else {
                         overtime(WXPay_data.status.code, WXPay_data.status.msg);
                     }
-                    finish();
                 }
             }
 
