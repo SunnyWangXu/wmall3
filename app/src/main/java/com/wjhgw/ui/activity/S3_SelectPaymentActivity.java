@@ -24,6 +24,7 @@ import com.wjhgw.business.bean.WXPay;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.pay.Alipay.payMethod;
 
+import java.math.BigDecimal;
 import java.security.MessageDigest;
 
 /**
@@ -110,7 +111,10 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
 
         if (giveType != null) {
             tvPayOrder.setText("运费");
-            tvPayOrderPrice.setText(Double.valueOf(realPay).toString());
+            //tvPayOrderPrice.setText(Double.valueOf(realPay).toString());
+            BigDecimal bd = new BigDecimal(realPay);
+            bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+            tvPayOrderPrice.setText(bd + "");
         } else {
 //            tvPayOrder.setText("订单金额");
             tvPayOrderPrice.setText(realPay);
