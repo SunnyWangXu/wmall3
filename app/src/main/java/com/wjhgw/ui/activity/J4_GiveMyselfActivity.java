@@ -101,6 +101,7 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
     private TextView tvFreight;
     private MyDialog mDialog;
     private TextView tvFreightMessage;
+    private boolean hasAddress = false;
 
 
     @Override
@@ -281,12 +282,15 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                             //地址为空显示要去设置收货地址
                             llMyselfMessage.setVisibility(View.GONE);
                             tvMyselfNotAddress.setVisibility(View.VISIBLE);
+                            hasAddress = false;
                         } else {
                             giveMyselfName.setText(address_list.datas.get(0).true_name);
                             giveMyselfPhone.setText(address_list.datas.get(0).mob_phone);
                             giveMyselfAddress.setText(address_list.datas.get(0).area_info + " " + address_list.datas.get(0).address);
 
                             giveUseAddressId = address_list.datas.get(0).address_id;
+
+                            hasAddress = true;
                         }
 
                     } else {
@@ -405,20 +409,16 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                 break;
 
             case R.id.tv_to_give_myself:
-//                if (isUseBalance || isUseRcBalance) {
-                /**
-                 * 开启余额或充值卡余额支付判断是否有登录密码,没有就设置，有就去输入并走购买第二步下单
-                 */
-                whetherHavePaypwd();
-//                }
-//
-//                if (!isUseBalance && !isUseRcBalance) {
-//                    truePaypwd = true;
-//                    /**
-//                     * 检查地址是否支持货到付款，并走购买第二步流程
-//                     */
-//                    checkAddressSupport();
-//                }
+
+                if(hasAddress){
+
+                    /**
+                     * 开启余额或充值卡余额支付判断是否有登录密码,没有就设置，有就去输入并走购买第二步下单
+                     */
+                    whetherHavePaypwd();
+                }else{
+                    showToastLong("请选择收货地址");
+                }
 
                 break;
 
@@ -683,6 +683,8 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                 giveMyselfName.setText(giveUseName);
                 giveMyselfPhone.setText(giveUsePhone);
                 giveMyselfAddress.setText(giveUseAddressInfo);
+
+                hasAddress = true;
             }
 
         }
