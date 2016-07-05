@@ -202,10 +202,14 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 } else {
                     tvAvailableRcBalance.setText(selectOrderDatas.available_rc_balance);
                 }
-                /**
-                 * 检查地址是否支持货到付款
-                 */
-                checkAddressSupport();
+
+                if(address_id != null){
+                    /**
+                     * 检查地址是否支持货到付款
+                     */
+                    checkAddressSupport();
+                }
+
 
                 if (isDonate) {
                     tvFreight.setText("+ ¥ 0.00");
@@ -218,7 +222,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 realPay = getIntent().getDoubleExtra("realPay", 0);
                 BigDecimal bd = new BigDecimal(realPay + Double.valueOf(freight));
                 bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
-                tvRealPay.setText(bd + "");
+                tvRealPay.setText("" + bd );
 
                 ArrayList<Order_goods_list> order_goods_lists = selectOrderDatas.store_cart_list.goods_list;
 
@@ -335,7 +339,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         tvTotal = getIntent().getStringExtra("tv_total");
         bd = new BigDecimal(tvTotal);
         bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
-        tvTotalAmount.setText(bd + "");
+        tvTotalAmount.setText("" +bd);
 
     }
 
@@ -454,15 +458,17 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                         //不存入酒柜，赠送他人
                         isDonate = false;
                     }
+
+                    if (isDonate) {
+                        tvFreight.setText("+ ¥ 0.00");
+                        tvRealPay.setText(realPay + "0");
+                    } else {
+                        tvFreight.setText("+ ¥ " + freight + ".00");
+                        tvRealPay.setText(realPay + Double.valueOf(freight) + "0");
+                    }
                 }
 
-                if (isDonate) {
-                    tvFreight.setText("+ ¥ 0.00");
-                    tvRealPay.setText(realPay + "");
-                } else {
-                    tvFreight.setText("+ ¥ " + freight + ".00");
-                    tvRealPay.setText(realPay + Double.valueOf(freight) + "");
-                }
+
                 break;
             case R.id.ll_use_balance:
                 /**
@@ -1017,9 +1023,9 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 paymentWindow.dismiss();
                 tvPayMethod.setText("在线支付");
 
-                tvRealPay.setText(realPay + Double.valueOf(freight) + "");
+                tvRealPay.setText("" + realPay + Double.valueOf(freight) );
                 tvFreight.setText("+ ¥ " + freight + ".00");
-                tvTotalAmount.setText(bd + "");
+                tvTotalAmount.setText("" +bd);
 
             }
         });
@@ -1076,6 +1082,9 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                             //地址为空显示要去设置收货地址
                             llUseMessage01.setVisibility(View.GONE);
                             tvNotAddress.setVisibility(View.VISIBLE);
+                            //不支持货到付款
+                            Offpay = true;
+
                         } else {
                             tvUseName.setText(address_list.datas.get(0).true_name);
                             tvUsePhone.setText(address_list.datas.get(0).mob_phone);
