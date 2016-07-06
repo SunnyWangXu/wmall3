@@ -134,11 +134,11 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
                 if (loadmore) {
                     loadmore = false;
                     iv_loadmore.setImageResource(R.mipmap.ic_loadmore2);
-                    linearParams.height = dip2px(J5_GiftDetailActivity.this, 115) * 3;// 当控件的高
+                    linearParams.height = dip2px(J5_GiftDetailActivity.this, 124) * 3;// 当控件的高
                 } else {
                     loadmore = true;
                     iv_loadmore.setImageResource(R.mipmap.ic_loadmore1);
-                    linearParams.height = dip2px(J5_GiftDetailActivity.this, 115) * ssend_goods_list.datas.gift_goods_list.size();// 当控件的高
+                    linearParams.height = dip2px(J5_GiftDetailActivity.this, 124) * ssend_goods_list.datas.gift_goods_list.size();// 当控件的高
                 }
                 lv_item_layout1.setLayoutParams(linearParams);
                 listAdapter1.notifyDataSetChanged();
@@ -174,11 +174,11 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
                     if (ssend_goods_list.status.code == 10000) {
                         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) lv_item_layout1.getLayoutParams();
                         if (ssend_goods_list.datas.gift_goods_list.size() > 3) {
-                            linearParams.height = dip2px(J5_GiftDetailActivity.this, 115) * 3;// 当控件的高
+                            linearParams.height = dip2px(J5_GiftDetailActivity.this, 124) * 3;// 当控件的高
                             loadmore = false;
                             ll_loadmore.setVisibility(View.VISIBLE);
                         } else {
-                            linearParams.height = dip2px(J5_GiftDetailActivity.this, 115) * ssend_goods_list.datas.gift_goods_list.size();// 当控件的高
+                            linearParams.height = dip2px(J5_GiftDetailActivity.this, 124) * ssend_goods_list.datas.gift_goods_list.size();// 当控件的高
                         }
 
                         lv_item_layout1.setLayoutParams(linearParams);

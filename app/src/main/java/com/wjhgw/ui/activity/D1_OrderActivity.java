@@ -370,7 +370,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                         mListView.setRefreshTime();
                         if (order_detail.datas != null) {
                             LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) mListView1.getLayoutParams();
-                            linearParams.height = dip2px(D1_OrderActivity.this, 115) * order_detail.datas.extend_order_goods.size();// 当控件的高
+                            linearParams.height = dip2px(D1_OrderActivity.this, 124) * order_detail.datas.extend_order_goods.size();// 当控件的高
                             mListView1.setLayoutParams(linearParams);
 
                             listAdapter = new D1_OrderAdapter(D1_OrderActivity.this, order_detail.datas.extend_order_goods,

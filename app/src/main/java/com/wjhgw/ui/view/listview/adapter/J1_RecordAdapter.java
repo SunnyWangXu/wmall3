@@ -56,7 +56,7 @@ public class J1_RecordAdapter extends BaseAdapter {
         MyListView j1_list_item = (MyListView) convertView.findViewById(R.id.j1_list_item);
 
         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) j1_list_item.getLayoutParams();
-        linearParams.height = dip2px(mContext, 115) * list.get(position).goods_list.size();// 当控件的高
+        linearParams.height = dip2px(mContext, 124) * list.get(position).goods_list.size();// 当控件的高
         j1_list_item.setLayoutParams(linearParams);
 
         listAdapter = new J1_ItemAdapter(mContext, list.get(position).goods_list);

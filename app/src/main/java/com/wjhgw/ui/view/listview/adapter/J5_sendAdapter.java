@@ -44,8 +44,8 @@ public class J5_sendAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        convertView = LayoutInflater.from(mContext).inflate(R.layout.j1_item_item, null);
-        ImageView iv_goods_image = (ImageView) convertView.findViewById(R.id.iv_goods_image);
+        convertView = LayoutInflater.from(mContext).inflate(R.layout.d0_layout_item, null);
+        ImageView iv_goods_image = (ImageView) convertView.findViewById(R.id.iv_goods_image_url);
         TextView tv_goods_name = (TextView) convertView.findViewById(R.id.tv_goods_name);
         TextView tv_goods_price = (TextView) convertView.findViewById(R.id.tv_goods_price);
         TextView tv_goods_num = (TextView) convertView.findViewById(R.id.tv_goods_num);
