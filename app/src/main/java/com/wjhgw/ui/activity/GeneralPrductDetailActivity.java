@@ -13,6 +13,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -135,14 +136,14 @@ public class GeneralPrductDetailActivity extends BaseActivity implements View.On
         }
         webView.loadUrl(url, keyMap);
 
-       /* // 打开网页时不调用系统浏览器， 而是在本WebView中显示：
+        // 打开网页时不调用系统浏览器， 而是在本WebView中显示：
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return true;
             }
-        });*/
+        });
 
         webView.setWebChromeClient(new WebChromeClient());
         //调用javascript
