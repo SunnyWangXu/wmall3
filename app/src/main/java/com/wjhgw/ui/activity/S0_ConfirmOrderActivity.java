@@ -493,7 +493,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                         }
 
                         if (isUseBalance && isUseRcBalance) {
-                            showToastLong("余额支付和充值卡支付同时使用时，系统优先使用充值卡支付！");
+                            showToastLong("余额和充值卡同时开启时，系统优先使用余额支付！");
                         }
                     }
                    /* *//**
