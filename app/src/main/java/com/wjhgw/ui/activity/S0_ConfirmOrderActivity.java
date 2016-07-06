@@ -176,10 +176,9 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
             if (selectOrder.status.code == 10000) {
                 SelectOrderDatas selectOrderDatas = selectOrder.datas;
                 freight = selectOrderDatas.store_cart_list.freight;
-                String freightMessage = "";
-                if (selectOrderDatas.store_cart_list.cancel_calc_sid_list != null) {
-                    freightMessage = selectOrderDatas.store_cart_list.cancel_calc_sid_list.desc;
-                }
+
+                String freightMessage = selectOrderDatas.store_cart_list.freight_desc;
+                tvFreightMessage.setText(freightMessage);
 
                 if (selectOrderDatas.address_info != null) {
                     address_id = selectOrderDatas.address_info.address_id;
@@ -203,7 +202,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                     tvAvailableRcBalance.setText(selectOrderDatas.available_rc_balance);
                 }
 
-                if(address_id != null){
+                if (address_id != null) {
                     /**
                      * 检查地址是否支持货到付款
                      */
@@ -217,12 +216,11 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                     tvFreight.setText("+ ¥ " + freight + ".00");
                 }
 
-                tvFreightMessage.setText(freightMessage);
 
                 realPay = getIntent().getDoubleExtra("realPay", 0);
                 BigDecimal bd = new BigDecimal(realPay + Double.valueOf(freight));
                 bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
-                tvRealPay.setText("" + bd );
+                tvRealPay.setText("" + bd);
 
                 ArrayList<Order_goods_list> order_goods_lists = selectOrderDatas.store_cart_list.goods_list;
 
@@ -339,7 +337,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         tvTotal = getIntent().getStringExtra("tv_total");
         bd = new BigDecimal(tvTotal);
         bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
-        tvTotalAmount.setText("" +bd);
+        tvTotalAmount.setText("" + bd);
 
     }
 
@@ -1023,9 +1021,9 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 paymentWindow.dismiss();
                 tvPayMethod.setText("在线支付");
 
-                tvRealPay.setText("" + realPay + Double.valueOf(freight) );
+                tvRealPay.setText("" + realPay + Double.valueOf(freight));
                 tvFreight.setText("+ ¥ " + freight + ".00");
-                tvTotalAmount.setText("" +bd);
+                tvTotalAmount.setText("" + bd);
 
             }
         });

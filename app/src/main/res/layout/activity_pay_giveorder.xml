@@ -76,13 +76,13 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_give_goodsprice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="17dp"
                 android:ellipsize="end"
                 android:singleLine="true"
@@ -94,7 +94,6 @@
                 android:id="@+id/tv_give_goodsnum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
                 android:gravity="end"
                 android:text="x1"
                 android:textColor="@color/gray"

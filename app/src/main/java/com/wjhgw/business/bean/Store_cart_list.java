@@ -9,7 +9,7 @@ public class Store_cart_list {
     public ArrayList<Order_goods_list> goods_list;
     public String store_goods_total;
     public int freight;
-    public String freight_message;
+    public String freight_desc;
     public String store_name;
     public String store_id;
     public CancelCalcSidList cancel_calc_sid_list;
