@@ -169,24 +169,29 @@ public class PayGiveOrderActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_use_bl:
-                MAKEBL++;
-                if (MAKEBL % 2 == 0) {
-                    ivBl.setImageResource(R.mipmap.ic_push_on);
-                    isBalance = true;
-                } else {
-                    ivBl.setImageResource(R.mipmap.ic_push_off);
-                    isBalance = false;
+                if (available_predeposit != null) {
+                    MAKEBL++;
+                    if (MAKEBL % 2 == 0) {
+                        ivBl.setImageResource(R.mipmap.ic_push_on);
+                        isBalance = true;
+                    } else {
+                        ivBl.setImageResource(R.mipmap.ic_push_off);
+                        isBalance = false;
+                    }
                 }
+
                 break;
 
             case R.id.ll_use_rc_bl:
-                MAKERCBL++;
-                if (MAKERCBL % 2 == 0) {
-                    ivRcBl.setImageResource(R.mipmap.ic_push_on);
-                    isRcBalance = true;
-                } else {
-                    ivRcBl.setImageResource(R.mipmap.ic_push_off);
-                    isRcBalance = false;
+                if (available_rc_balance != null) {
+                    MAKERCBL++;
+                    if (MAKERCBL % 2 == 0) {
+                        ivRcBl.setImageResource(R.mipmap.ic_push_on);
+                        isRcBalance = true;
+                    } else {
+                        ivRcBl.setImageResource(R.mipmap.ic_push_off);
+                        isRcBalance = false;
+                    }
                 }
 
                 break;
