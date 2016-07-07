@@ -32,7 +32,6 @@
             android:layout_marginLeft="13dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="17dp"
-            android:text="我只是一个商品我只是一个商品我只是一个商品"
             android:textColor="@color/title_color"
             android:textSize="16sp" />
 

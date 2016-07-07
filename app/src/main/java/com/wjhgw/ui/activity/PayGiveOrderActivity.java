@@ -292,7 +292,7 @@ public class PayGiveOrderActivity extends BaseActivity implements View.OnClickLi
                         finish();
                     } else {
                         if (payOrder.datas.state = true && payOrder.datas.data.type.equals("order")) {
-                            showToastShort(payOrder.datas.msg);
+
                             /**
                              * 选择了余额支付或者使用充值卡余额支付但是余额小于选中商品金额还是要跳转到选择支付界面付款余下的金额
                              */

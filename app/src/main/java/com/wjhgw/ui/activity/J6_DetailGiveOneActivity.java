@@ -71,14 +71,14 @@ public class J6_DetailGiveOneActivity extends BaseActivity implements View.OnCli
      * 使用Paysn查询赠送他人的商品列表
      */
     private void loadPaysnGoods() {
-
+        StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", getKey());
         params.addBodyParameter("pay_sn", paySn);
-
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Gift_goods_list, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                Dismiss();
                 Gson gson = new Gson();
                 Detail_Gift_List detailGiftList = gson.fromJson(responseInfo.result, Detail_Gift_List.class);
 
