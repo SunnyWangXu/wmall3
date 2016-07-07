@@ -529,7 +529,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
 
     @Override
     public void OnMessageResponse(String url, String response, JSONObject status) throws JSONException {
-        if((BaseQuery.serviceUrl() + ApiInterface.Order_cancel).equals(response)){
+        if(ApiInterface.Order_cancel.equals(url)){
             finish();
         }else {
             Order_detail();
