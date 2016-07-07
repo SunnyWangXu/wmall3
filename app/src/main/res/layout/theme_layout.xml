@@ -62,7 +62,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="14dp"
                 android:layout_marginTop="27dp"
-                android:text="滋阴补阳"
                 android:textColor="#cccccc"
                 android:textSize="12sp" />
 
@@ -102,7 +101,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="14dp"
                 android:layout_marginTop="27dp"
-                android:text="好喝的葡萄酒"
                 android:textColor="@color/spec_text_color"
                 android:textSize="12sp" />
 
@@ -153,7 +151,6 @@
                 android:layout_marginTop="27dp"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="香醇的白酒"
                 android:textColor="@color/spec_text_color"
                 android:textSize="12sp" />
 
@@ -196,7 +193,6 @@
                 android:layout_marginTop="27dp"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="洋酒馆"
                 android:textColor="@color/spec_text_color"
                 android:textSize="12sp" />
 
@@ -245,7 +241,6 @@
                 android:layout_marginTop="27dp"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="敞开肚皮来吧"
                 android:textColor="@color/spec_text_color"
                 android:textSize="12sp" />
 
@@ -288,7 +283,6 @@
                 android:layout_marginTop="27dp"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="国粹在此"
                 android:textColor="@color/spec_text_color"
                 android:textSize="12sp" />
 
@@ -337,7 +331,6 @@
                 android:layout_marginTop="27dp"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="好大的柜子，什么鬼"
                 android:textColor="@color/spec_text_color"
                 android:textSize="12sp" />
 

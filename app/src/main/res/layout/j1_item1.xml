@@ -30,16 +30,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="39dp"
             android:textColor="#cccccc"
-            android:textSize="14dp"
-            android:text="送出时间：2016-0-04 11:04:59"/>
+            android:textSize="14dp"/>
         <TextView
             android:id="@+id/tv_gift_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="59dp"
             android:textColor="#cccccc"
-            android:textSize="14dp"
-            android:text="礼包赠言：我把你灌醉"/>
+            android:textSize="14dp"/>
 
         <TextView
             android:id="@+id/tv_gift_state"
@@ -49,8 +47,7 @@
             android:layout_marginRight="26dp"
             android:layout_marginTop="15dp"
             android:textColor="#f25252"
-            android:textSize="14dp"
-            android:text="已过期"/>
+            android:textSize="14dp"/>
         <TextView
             android:id="@+id/tv_receive_info"
             android:layout_width="wrap_content"
@@ -59,8 +56,7 @@
             android:layout_marginRight="26dp"
             android:layout_marginBottom="13dp"
             android:textColor="#999999"
-            android:textSize="14dp"
-            android:text="0/1"/>
+            android:textSize="14dp"/>
 
         <ImageView
             android:layout_width="15dp"

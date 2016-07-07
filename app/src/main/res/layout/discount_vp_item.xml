@@ -31,7 +31,7 @@
             android:layout_marginRight="5dp"
             android:background="@color/black"
             android:gravity="center"
-            android:text="20"
+            android:text="00"
             android:textColor="@color/white"
             android:textSize="15sp" />
 
@@ -41,7 +41,7 @@
             android:layout_marginRight="5dp"
             android:background="@color/black"
             android:gravity="center"
-            android:text="12"
+            android:text="00"
             android:textColor="@color/white"
             android:textSize="15sp" />
 
@@ -51,7 +51,7 @@
             android:layout_marginRight="5dp"
             android:background="@color/black"
             android:gravity="center"
-            android:text="36"
+            android:text="00"
             android:textColor="@color/white"
             android:textSize="15sp" />
     </LinearLayout>
@@ -62,7 +62,6 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
-        android:text="森奈克卡佩尔无醇气泡白葡萄汁"
         android:textSize="13sp"/>
 
     <LinearLayout
@@ -75,7 +74,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_marginTop="10dp"
-            android:text="¥75.00"
             android:textColor="@color/red"
             android:textSize="20sp" />
 
@@ -90,7 +88,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_marginTop="10dp"
-            android:text="¥199"
             android:textSize="20sp" />
 
     </LinearLayout>

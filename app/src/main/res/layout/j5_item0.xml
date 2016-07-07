@@ -51,7 +51,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
         android:layout_marginBottom="57dp"
-        android:text="老王的大礼包"
         android:textColor="@color/white"
         android:textSize="15sp" />
 
@@ -61,7 +60,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
         android:layout_marginBottom="36dp"
-        android:text="一点心意,希望您能喜欢！"
         android:textColor="#FFBFBF"
         android:textSize="12sp" />
     </FrameLayout>

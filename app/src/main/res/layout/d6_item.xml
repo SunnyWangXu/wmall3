@@ -82,7 +82,6 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:lines="2"
-                android:text="商品名称"
                 android:textColor="#333333"
                 android:textSize="15dp" />
 
@@ -91,7 +90,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                android:text="X 1"
                 android:textColor="#999999"
                 android:textSize="14dp" />
 
@@ -124,7 +122,6 @@
                         android:id="@+id/tv_text5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="84.00"
                         android:textColor="#f25252"
                         android:textSize="14dp" />
                 </LinearLayout>

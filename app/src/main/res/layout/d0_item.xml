@@ -73,7 +73,6 @@
                 android:layout_height="25dp"
                 android:layout_gravity="center|right"
                 android:gravity="center_vertical"
-                android:text="¥999.00"
                 android:textColor="#999999"
                 android:textSize="13dp" />
 

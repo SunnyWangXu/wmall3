@@ -114,7 +114,7 @@
                         android:layout_marginRight="5dp"
                         android:background="@color/black"
                         android:gravity="center"
-                        android:text="20"
+                        android:text="00"
                         android:textColor="@color/white"
                         android:textSize="10sp" />
 
@@ -125,7 +125,7 @@
                         android:layout_marginRight="5dp"
                         android:background="@color/black"
                         android:gravity="center"
-                        android:text="12"
+                        android:text="00"
                         android:textColor="@color/white"
                         android:textSize="10sp" />
 
@@ -136,7 +136,7 @@
                         android:layout_marginRight="5dp"
                         android:background="@color/black"
                         android:gravity="center"
-                        android:text="36"
+                        android:text="00"
                         android:textColor="@color/white"
                         android:textSize="10sp" />
                 </LinearLayout>
@@ -150,7 +150,6 @@
                     android:layout_marginTop="6dp"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="森奈克卡佩尔无醇气泡白葡萄汁"
                     android:textColor="@color/title_color"
                     android:textSize="11sp" />
 
@@ -165,7 +164,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginBottom="6dp"
-                        android:text="¥75.00"
                         android:textColor="@color/red"
                         android:textSize="12sp" />
 
@@ -176,7 +174,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="6dp"
                         android:layout_marginLeft="10dp"
-                        android:text="¥199"
                         android:textColor="@color/gray"
                         android:textSize="10sp" />
 
@@ -252,7 +249,7 @@
                         android:layout_marginRight="5dp"
                         android:background="@color/black"
                         android:gravity="center"
-                        android:text="20"
+                        android:text="00"
                         android:textColor="@color/white"
                         android:textSize="10sp" />
 
@@ -263,7 +260,7 @@
                         android:layout_marginRight="5dp"
                         android:background="@color/black"
                         android:gravity="center"
-                        android:text="12"
+                        android:text="00"
                         android:textColor="@color/white"
                         android:textSize="10sp" />
 
@@ -274,7 +271,7 @@
                         android:layout_marginRight="5dp"
                         android:background="@color/black"
                         android:gravity="center"
-                        android:text="36"
+                        android:text="00"
                         android:textColor="@color/white"
                         android:textSize="10sp" />
                 </LinearLayout>
@@ -288,7 +285,6 @@
                     android:layout_marginTop="6dp"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="森奈克卡佩尔无醇气泡白葡萄汁"
                     android:textColor="@color/title_color"
                     android:textSize="11sp" />
 
@@ -303,7 +299,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="6dp"
                         android:layout_marginLeft="5dp"
-                        android:text="¥75.00"
                         android:textColor="@color/red"
                         android:textSize="12sp" />
 
@@ -314,7 +309,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="6dp"
                         android:layout_marginLeft="10dp"
-                        android:text="¥199"
                         android:textColor="@color/gray"
                         android:textSize="10sp" />
 
@@ -387,7 +381,7 @@
                         android:layout_marginRight="5dp"
                         android:background="@color/black"
                         android:gravity="center"
-                        android:text="2000"
+                        android:text="00"
                         android:textColor="@color/white"
                         android:textSize="10sp" />
 
@@ -398,7 +392,7 @@
                         android:layout_marginRight="5dp"
                         android:background="@color/black"
                         android:gravity="center"
-                        android:text="12"
+                        android:text="00"
                         android:textColor="@color/white"
                         android:textSize="10sp" />
 
@@ -409,7 +403,7 @@
                         android:layout_marginRight="5dp"
                         android:background="@color/black"
                         android:gravity="center"
-                        android:text="36"
+                        android:text="00"
                         android:textColor="@color/white"
                         android:textSize="10sp" />
                 </LinearLayout>
@@ -423,7 +417,6 @@
                     android:layout_marginTop="6dp"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="森奈克卡佩尔无醇气泡白葡萄汁"
                     android:textColor="@color/title_color"
                     android:textSize="11sp" />
 
@@ -438,7 +431,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="6dp"
                         android:layout_marginLeft="5dp"
-                        android:text="¥7500.00"
                         android:textColor="@color/red"
                         android:textSize="12sp" />
 
@@ -448,7 +440,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="6dp"
                         android:layout_marginLeft="10dp"
-                        android:text="¥1999:00"
                         android:textColor="@color/gray"
                         android:textSize="10sp" />
 

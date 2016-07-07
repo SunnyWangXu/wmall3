@@ -205,7 +205,6 @@
                     android:id="@+id/tv_home_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="卡罗兰葡萄酒 20L"
                     android:textColor="#333333"
                     android:textSize="12sp" />
 
@@ -214,14 +213,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="15人围观"
                     android:textColor="#666666"
                     android:textSize="10sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1000元起拍"
                     android:textColor="#d63235" />
 
             </LinearLayout>

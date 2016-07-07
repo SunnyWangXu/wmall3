@@ -48,7 +48,6 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:singleLine="true"
-                android:text="45"
                 android:textColor="#333333"
                 android:textSize="17sp" />
 

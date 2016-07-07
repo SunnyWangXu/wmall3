@@ -61,7 +61,6 @@
             android:layout_marginTop="19dp"
             android:ellipsize="end"
             android:lines="2"
-            android:text="洋酒Remy Martin人头马XO700ml特优香槟洋酒Remy Martin人头马"
             android:textSize="17sp" />
 
         <TextView
@@ -70,7 +69,6 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_marginTop="14dp"
-            android:text="¥ 1680.00"
             android:textColor="@color/tv_red"
             android:textSize="17sp" />
 

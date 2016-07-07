@@ -38,7 +38,6 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:lines="2"
-                android:text="卡罗兰 20L"
                 android:textColor="#333333"
                 android:textSize="14sp" />
 
@@ -48,7 +47,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginRight="12dp"
-                android:text="¥9999.00"
                 android:textColor="#f25252"
                 android:textSize="14sp" />
 
@@ -59,7 +57,6 @@
                 android:layout_gravity="right"
                 android:layout_marginRight="12dp"
                 android:layout_marginTop="19dp"
-                android:text="x1"
                 android:textColor="#999999"
                 android:textSize="14sp" />
 

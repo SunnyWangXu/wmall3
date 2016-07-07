@@ -20,7 +20,6 @@
                 android:ellipsize="end"
                 android:lines="2"
                 android:maxEms="20"
-                android:text="罗湖区红宝路京基100KK-mall"
                 android:textColor="@color/light_gray"
                 android:textSize="13sp" />
 
@@ -30,7 +29,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
                 android:layout_marginRight="80dp"
-                android:text="21km"
                 android:textColor="@color/light_gray"
                 android:textSize="13sp" />
             <View

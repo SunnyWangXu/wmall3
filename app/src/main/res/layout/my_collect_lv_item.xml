@@ -52,7 +52,6 @@
             android:ellipsize="end"
             android:maxLength="30"
             android:maxLines="2"
-            android:text="奔富洛神山庄奔富洛神山庄奔富洛神山庄奔富洛神山庄奔富洛神山庄奔富洛神山庄奔富洛神山庄奔富洛神山庄奔富洛神山庄"
             android:textColor="@color/title_color"
             android:textSize="16sp" />
 
@@ -67,7 +66,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="7dp"
-                android:text="¥9999.00"
                 android:textColor="@color/btn_red" />
 
             <View
@@ -79,8 +77,7 @@
                 android:id="@+id/tv_mycollect_goods_salenum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:text="售出：9999件" />
+                android:layout_marginRight="20dp" />
 
 
         </LinearLayout>

@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|right"
             android:layout_marginRight="12dp"
-            android:text="已领取:3/2"
             android:textColor="#333333"
             android:textSize="13dp" />
     </FrameLayout>

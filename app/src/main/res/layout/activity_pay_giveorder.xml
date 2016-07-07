@@ -69,7 +69,6 @@
             android:layout_marginTop="17dp"
             android:lines="2"
             android:maxEms="10"
-            android:text="奔富洛神山庄红葡萄酒酒香浓郁"
             android:textSize="14sp" />
 
         <LinearLayout
@@ -85,7 +84,6 @@
                 android:layout_marginTop="17dp"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="¥99999.99"
                 android:textColor="@color/btn_red"
                 android:textSize="14sp" />
 
