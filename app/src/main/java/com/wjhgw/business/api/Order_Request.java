@@ -180,7 +180,7 @@ public class Order_Request extends BaseRequest {
 
                     if (status.status.code == 10000) {
                         try {
-                            OnMessageResponse(BaseQuery.serviceUrl() + ApiInterface.Order_cancel, responseInfo.result, null);
+                            OnMessageResponse(ApiInterface.Order_cancel, responseInfo.result, null);
                             Dialog.dismiss();
                             Toast.makeText(mContext, status.status.msg, Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {

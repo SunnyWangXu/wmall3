@@ -189,8 +189,10 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
                 clearTvstate();
                 tvSearchDef.setTextColor(Color.parseColor("#d63235"));
                 PriceCount = 0;
+                curpage = 1;
                 k = "";
                 order = "";
+                isSetAdapter = true;
                 loadSearchGoodsArr();
                 break;
 
@@ -198,8 +200,10 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
                 clearTvstate();
                 tvSaleNum.setTextColor(Color.parseColor("#d63235"));
                 PriceCount = 0;
+                curpage = 1;
                 k = "1";
                 order = "2";
+                isSetAdapter = true;
                 loadSearchGoodsArr();
                 break;
 
@@ -208,6 +212,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
                 clearTvstate();
                 tvPriceArr.setTextColor(Color.parseColor("#d63235"));
                 k = "3";
+                curpage = 1;
                 if (PriceCount % 2 == 1) {
                     order = "1";
                     ivPriceArrow.setImageResource(R.mipmap.ic_array_default_up);
@@ -215,6 +220,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
                     order = "2";
                     ivPriceArrow.setImageResource(R.mipmap.ic_array_default_down);
                 }
+                isSetAdapter = true;
                 loadSearchGoodsArr();
 
                 break;
@@ -223,8 +229,10 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
                 clearTvstate();
                 tvMoods.setTextColor(Color.parseColor("#d63235"));
                 PriceCount = 0;
+                curpage = 1;
                 k = "2";
                 order = "2";
+                isSetAdapter = true;
                 loadSearchGoodsArr();
 
                 break;

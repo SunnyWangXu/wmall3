@@ -325,30 +325,7 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                 break;
 
             case R.id.ll_use_balance:
-
-                Double balance = Double.valueOf(tvUseBalancePrice.getText().toString());
-                Double freight = Double.valueOf(tvFreight.getText().toString());
-
-                if (MAKEAVAILABLERCBALANCE % 2 == 0 && balance >= freight) {
-
-                    MAKEBALANCE++;
-                    if (MAKEBALANCE % 2 == 0) {
-                        ivUseBalance.setImageResource(R.mipmap.ic_push_on);
-                        tvUseBalance.setTextColor(Color.parseColor("#333333"));
-                        isUseBalance = true;
-
-                        ivUseRcBalance.setImageResource(R.mipmap.ic_push_off);
-                        tvUseRcBalance.setTextColor(Color.parseColor("#999999"));
-                        isUseRcBalance = false;
-
-                        MAKEAVAILABLERCBALANCE++;
-                    } else {
-                        ivUseBalance.setImageResource(R.mipmap.ic_push_off);
-                        tvUseBalance.setTextColor(Color.parseColor("#999999"));
-
-                        isUseBalance = false;
-                    }
-                } else {
+                if(! tvUseBalancePrice.getText().toString().equals("0.00")){
 
                     MAKEBALANCE++;
                     if (MAKEBALANCE % 2 == 0) {
@@ -363,60 +340,44 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                         isUseBalance = false;
                     }
 
+                    if (isUseBalance && isUseRcBalance) {
+                        showToastLong("余额和充值卡同时开启时，系统优先使用余额支付！");
+                    }
                 }
 
                 break;
 
             case R.id.ll_rc_balance:
 
-                Double rcBalance = Double.valueOf(tvUseRcBalancePrice.getText().toString());
-                Double freight2 = Double.valueOf(tvFreight.getText().toString());
-                if (MAKEBALANCE % 2 == 0 && rcBalance >= freight2) {
+                if(! tvUseRcBalancePrice.getText().toString().equals("0.00")) {
 
                     MAKEAVAILABLERCBALANCE++;
                     if (MAKEAVAILABLERCBALANCE % 2 == 0) {
                         ivUseRcBalance.setImageResource(R.mipmap.ic_push_on);
                         tvUseRcBalance.setTextColor(Color.parseColor("#333333"));
+
                         isUseRcBalance = true;
-
-                        ivUseBalance.setImageResource(R.mipmap.ic_push_off);
-                        tvUseBalance.setTextColor(Color.parseColor("#999999"));
-                        isUseBalance = false;
-
-                        MAKEBALANCE++;
                     } else {
                         ivUseRcBalance.setImageResource(R.mipmap.ic_push_off);
                         tvUseRcBalance.setTextColor(Color.parseColor("#999999"));
 
                         isUseRcBalance = false;
                     }
-
-                } else {
-
-                    MAKEAVAILABLERCBALANCE++;
-                    if (MAKEAVAILABLERCBALANCE % 2 == 0) {
-                        ivUseRcBalance.setImageResource(R.mipmap.ic_push_on);
-                        tvUseRcBalance.setTextColor(Color.parseColor("#333333"));
-
-                        isUseRcBalance = true;
-                    } else {
-                        ivUseRcBalance.setImageResource(R.mipmap.ic_push_off);
-                        tvUseRcBalance.setTextColor(Color.parseColor("#999999"));
-
-                        isUseRcBalance = false;
+                    if (isUseBalance && isUseRcBalance) {
+                        showToastLong("余额和充值卡同时开启时，系统优先使用余额支付！");
                     }
                 }
                 break;
 
             case R.id.tv_to_give_myself:
 
-                if(hasAddress){
+                if (hasAddress) {
 
                     /**
                      * 开启余额或充值卡余额支付判断是否有登录密码,没有就设置，有就去输入并走购买第二步下单
                      */
                     whetherHavePaypwd();
-                }else{
+                } else {
                     showToastLong("请选择收货地址");
                 }
 
@@ -455,9 +416,7 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                         freight = selectOrderDatas.store_cart_list.freight;
                         freight_hash = selectOrderDatas.freight_hash;
 
-                        if (selectOrderDatas.store_cart_list.cancel_calc_sid_list != null) {
-                            tvFreightMessage.setText(selectOrderDatas.store_cart_list.cancel_calc_sid_list.desc);
-                        }
+                        tvFreightMessage.setText(selectOrderDatas.store_cart_list.freight_desc);
 
                         if (freight == 0) {
                             llUseBalance.setVisibility(View.GONE);
@@ -864,7 +823,7 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
 
             @Override
             public void onFailure(HttpException e, String s) {
-                
+
             }
         });
     }
