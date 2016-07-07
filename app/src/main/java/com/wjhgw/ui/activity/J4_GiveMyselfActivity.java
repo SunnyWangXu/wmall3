@@ -506,7 +506,7 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                     /**
                      * 开启使用余额或充值卡余额大于要使用的邮费时支付成功后弹出对话框
                      */
-                    if (isUseBalance || isUseRcBalance && yu > 0) {
+                    if ((isUseBalance || isUseRcBalance) && yu > 0) {
 
                         mDialog = new MyDialog(J4_GiveMyselfActivity.this, "订单支付成功，会尽快为您处理！");
                         mDialog.positive.setText("继续送礼");

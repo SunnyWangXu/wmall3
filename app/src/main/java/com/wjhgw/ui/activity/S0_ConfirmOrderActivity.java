@@ -658,7 +658,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                         }
                         double yu = (rcBalance + balance) - Double.valueOf(tvRealPay.getText().toString());
 
-                        if (isUseBalance || isUseRcBalance && yu > 0) {
+                        if ((isUseBalance || isUseRcBalance) && yu > 0) {
                             /**
                              * 选择了余额支付或者使用充值卡余额支付并且余额大于选中商品金额直接购买成功
                              */
