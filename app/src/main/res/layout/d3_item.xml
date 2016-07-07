@@ -81,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:textColor="#666666"
+                android:text="很满意"
                 android:textSize="16dp" />
         </LinearLayout>
 
