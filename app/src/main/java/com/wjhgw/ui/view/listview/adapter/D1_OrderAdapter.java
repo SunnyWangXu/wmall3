@@ -27,6 +27,7 @@ import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.business.bean.OrderList_goods_list_data;
 import com.wjhgw.ui.activity.D4_Customer_serviceActivity;
+import com.wjhgw.ui.activity.PrductDetailActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -88,6 +89,15 @@ public class D1_OrderAdapter extends BaseAdapter {
         tv_goods_name.setText(List.get(position).goods_name);
         tv_goods_price.setText("¥ " + List.get(position).goods_price);
         tv_goods_num.setText("X " + List.get(position).goods_num);
+
+        cellView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(c,PrductDetailActivity.class);
+                intent.putExtra("goods_id", List.get(position).goods_id);
+                c.startActivity(intent);
+            }
+        });
 
         if (!lock_state.equals("0") && order_state.equals("20")) {
             tv_refund.setVisibility(View.VISIBLE);
