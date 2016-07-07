@@ -597,22 +597,29 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 break;
 
             case R.id.tv_commit_order:
-                if (isDownlinePay) {
-                    /**
-                     * 提交订单
-                     */
-                    CommitOrder();
-                } else if (isUseBalance || isUseRcBalance) {
-                    /**
-                     * 判断是否有登录密码,没有就设置，有就去输入下单
-                     */
-                    whetherHavePaypwd();
+                if (tvUseAddress.equals("")) {
+                    showToastLong("请填写收货地址");
+                    
                 } else {
-                    /**
-                     * 提交订单
-                     */
-                    CommitOrder();
+
+                    if (isDownlinePay) {
+                        /**
+                         * 提交订单
+                         */
+                        CommitOrder();
+                    } else if (isUseBalance || isUseRcBalance) {
+                        /**
+                         * 判断是否有登录密码,没有就设置，有就去输入下单
+                         */
+                        whetherHavePaypwd();
+                    } else {
+                        /**
+                         * 提交订单
+                         */
+                        CommitOrder();
+                    }
                 }
+
                 break;
             default:
                 break;

@@ -277,14 +277,12 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
                         intent.putExtra("cart_id", cart_id);
                         startActivity(intent);
 
-
                        /* SelectOrderDatas selectOrderDatas = selectOrder.datas;
                         ArrayList<Order_goods_list> order_goods_lists = selectOrderDatas.store_cart_list.goods_list;
                         double realPay = 0.00;
                         for (int i = 0; i < order_goods_lists.size(); i++) {
                             realPay += Double.valueOf(order_goods_lists.get(i).goods_total);
                         }
-
                         Intent intent = new Intent(PrductDetailActivity.this, S0_ConfirmOrderActivity.class);
                         intent.putExtra("selectOrder", responseInfo.result);
                         //String tvTotal = tv_total.getText().toString();
