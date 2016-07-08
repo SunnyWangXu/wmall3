@@ -89,14 +89,19 @@
             android:layout_marginTop="24dp"
             android:src="@mipmap/ic_give_more" />
 
-        <ImageView
-            android:id="@+id/iv_give_more_people"
-            android:layout_width="340dp"
-            android:layout_height="152dp"
-            android:layout_marginBottom="11dp"
-            android:layout_marginLeft="10dp"
-            android:src="@mipmap/ic_more_people" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
 
+            <ImageView
+                android:id="@+id/iv_give_more_people"
+                android:layout_width="340dp"
+                android:layout_height="152dp"
+                android:src="@mipmap/ic_more_people" />
+
+        </LinearLayout>
     </LinearLayout>
 
 
