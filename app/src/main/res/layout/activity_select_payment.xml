@@ -68,7 +68,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="23dp"
             android:layout_weight="1"
-            android:text="使用余额"
+            android:text="余额支付"
             android:textColor="@color/spec_text_color"
             android:textSize="16sp" />
 
@@ -111,7 +111,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="23dp"
             android:layout_weight="1"
-            android:text="使用充值卡"
+            android:text="充值卡支付"
             android:textColor="@color/spec_text_color"
             android:textSize="16sp" />
 

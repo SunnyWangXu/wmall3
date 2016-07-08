@@ -459,10 +459,16 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
 
                     if (isDonate) {
                         tvFreight.setText("+ ¥ 0.00");
-                        tvRealPay.setText(realPay + "0");
+                        BigDecimal bigDecimal = new BigDecimal(realPay);
+                        bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP);
+                        tvRealPay.setText(bigDecimal + "");
                     } else {
-                        tvFreight.setText("+ ¥ " + freight + ".00");
-                        tvRealPay.setText(realPay + Double.valueOf(freight) + "0");
+                        BigDecimal bd1 = new BigDecimal(freight);
+                        bd1 = bd1.setScale(2, BigDecimal.ROUND_HALF_UP);
+                        tvFreight.setText("+ ¥ " + bd1);
+                        BigDecimal bd = new BigDecimal(realPay + Double.valueOf(freight));
+                        bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+                        tvRealPay.setText(bd + "");
                     }
                 }
 
@@ -962,7 +968,9 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 paymentWindow.dismiss();
                 tvPayMethod.setText("在线支付");
 
-                tvRealPay.setText("" + realPay + Double.valueOf(freight));
+                BigDecimal bd2 = new BigDecimal(realPay + Double.valueOf(freight));
+                bd2 = bd2.setScale(2, BigDecimal.ROUND_HALF_UP);
+                tvRealPay.setText("" + bd2);
                 tvFreight.setText("+ ¥ " + freight + ".00");
                 tvTotalAmount.setText("" + bd);
 
