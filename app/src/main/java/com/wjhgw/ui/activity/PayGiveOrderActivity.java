@@ -278,7 +278,7 @@ public class PayGiveOrderActivity extends BaseActivity implements View.OnClickLi
                     }
                     double yu = (rcBalance + balance) - Double.valueOf(store_goods_total);
 
-                    if (isBalance || isRcBalance && yu > 0) {
+                    if ((isBalance || isRcBalance) && yu > 0) {
                         /**
                          * 选择了余额支付或者使用充值卡余额支付并且余额大于选中商品金额直接购买成功跳转赠送
                          */
