@@ -498,9 +498,9 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                             isUseBalance = false;
                         }
 
-                        if (isUseBalance && isUseRcBalance) {
-                            showToastLong("余额和充值卡同时开启时，系统优先使用余额支付！");
-                        }
+//                        if (isUseBalance && isUseRcBalance) {
+//                            showToastLong("余额和充值卡同时开启时，系统优先使用余额支付！");
+//                        }
                     }
                 }
                 break;
@@ -528,9 +528,9 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                             //不使用余额
                             isUseRcBalance = false;
                         }
-                        if (isUseBalance && isUseRcBalance) {
-                            showToastLong("余额和充值卡同时开启时，系统优先使用余额支付！");
-                        }
+//                        if (isUseBalance && isUseRcBalance) {
+//                            showToastLong("余额和充值卡同时开启时，系统优先使用余额支付！");
+//                        }
                     }
 
                 }

@@ -340,9 +340,9 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                         isUseBalance = false;
                     }
 
-                    if (isUseBalance && isUseRcBalance) {
-                        showToastLong("余额和充值卡同时开启时，系统优先使用余额支付！");
-                    }
+//                    if (isUseBalance && isUseRcBalance) {
+//                        showToastLong("余额和充值卡同时开启时，系统优先使用余额支付！");
+//                    }
                 }
 
                 break;
@@ -363,9 +363,9 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
 
                         isUseRcBalance = false;
                     }
-                    if (isUseBalance && isUseRcBalance) {
-                        showToastLong("余额和充值卡同时开启时，系统优先使用余额支付！");
-                    }
+//                    if (isUseBalance && isUseRcBalance) {
+//                        showToastLong("余额和充值卡同时开启时，系统优先使用余额支付！");
+//                    }
                 }
                 break;
 
