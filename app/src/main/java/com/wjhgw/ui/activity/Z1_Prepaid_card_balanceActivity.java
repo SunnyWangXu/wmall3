@@ -69,11 +69,11 @@ public class Z1_Prepaid_card_balanceActivity extends BaseActivity implements OnC
         ll_prepaid_card.setOnClickListener(this);
         state = getIntent().getStringExtra("state");
         if (state.equals("1")) {
-            setTitle("充值卡余额明细");
+            setTitle("充值卡明细");
             rcb_log_list();
             ll_prepaid_card.setVisibility(View.VISIBLE);
         } else if (state.equals("2")) {
-            setTitle("账户余额明细");
+            setTitle("余额明细");
             Pd_log_list();
         }
 

@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="54dp"
-            android:text="充值卡余额"
+            android:text="充值卡"
             android:textColor="#333333"
             android:textSize="16dp" />
 
@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="54dp"
-            android:text="账户余额"
+            android:text="余额"
             android:textColor="#333333"
             android:textSize="16dp" />
 
