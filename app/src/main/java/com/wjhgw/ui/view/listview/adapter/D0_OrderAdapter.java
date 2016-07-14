@@ -410,7 +410,7 @@ public class D0_OrderAdapter extends BaseAdapter {
     /**
      * 订单支付
      */
-    public void member_payment(String pay_sn, String key, final String order_amount, final String rcb_amount, final String pd_amount) {
+    public void member_payment(final String pay_sn, String key, final String order_amount, final String rcb_amount, final String pd_amount) {
         Dialog.ProgressDialog();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
@@ -433,7 +433,13 @@ public class D0_OrderAdapter extends BaseAdapter {
                             intent.putExtra("totalFee", payOrder.datas.data.total_fee);
                             intent.putExtra("goodsName", payOrder.datas.data.goods_name);
                             intent.putExtra("goodsDetail", payOrder.datas.data.goods_detail);
-                            intent.putExtra("entrance", "2");
+                            if(payOrder.datas.data.order_list.get(0).order_special.equals("1")){
+                                c.getSharedPreferences("Gifts", c.MODE_PRIVATE).edit().putString("Gifts", "1").commit();
+                                c.getSharedPreferences("paySn", c.MODE_PRIVATE).edit().putString("paySn", pay_sn).commit();
+                                intent.putExtra("entrance", "4");
+                            }else {
+                                intent.putExtra("entrance", "2");
+                            }
                             c.startActivity(intent);
                         } else {
                             Toast.makeText(c, "需支付金额为" + Double.valueOf(payOrder.datas.data.total_fee), Toast.LENGTH_SHORT).show();

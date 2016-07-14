@@ -578,7 +578,7 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
     /**
      * 订单支付
      */
-    public void member_payment(String pay_sn, String key, final String order_amount, final String rcb_amount, final String pd_amount) {
+    public void member_payment(final String pay_sn, String key, final String order_amount, final String rcb_amount, final String pd_amount) {
         super.StartLoading();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
@@ -601,7 +601,14 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                             intent.putExtra("totalFee", payOrder.datas.data.total_fee);
                             intent.putExtra("goodsName", payOrder.datas.data.goods_name);
                             intent.putExtra("goodsDetail", payOrder.datas.data.goods_detail);
-                            intent.putExtra("entrance", "2");
+
+                            if(payOrder.datas.data.order_list.get(0).order_special.equals("1")){
+                                getSharedPreferences("Gifts", MODE_PRIVATE).edit().putString("Gifts", "1").commit();
+                                getSharedPreferences("paySn", MODE_PRIVATE).edit().putString("paySn", pay_sn).commit();
+                                intent.putExtra("entrance", "4");
+                            }else {
+                                intent.putExtra("entrance", "2");
+                            }
                             startActivity(intent);
                         } else {
                             Toast.makeText(D1_OrderActivity.this, "需支付金额为" + Double.valueOf(payOrder.datas.data.total_fee), Toast.LENGTH_SHORT).show();

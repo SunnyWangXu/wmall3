@@ -14,6 +14,7 @@ public class Confirm_order_list {
     public String pd_amount;
     public String shipping_fee;
     public String order_type;
+    public String order_special;
     public String order_state;
     public String order_amount;
     public String goods_amount;
