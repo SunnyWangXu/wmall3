@@ -526,7 +526,7 @@ public class C3_GoodsArraySearchActivity extends BaseActivity implements Busines
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         String goods_id = actSearch_datas.get(position - 1).goods_id;
-        Intent intent = new Intent(C3_GoodsArraySearchActivity.this, PrductDetailActivity.class);
+        Intent intent = new Intent(C3_GoodsArraySearchActivity.this, W0_PrductDetailActivity.class);
         intent.putExtra("goods_id", goods_id);
         startActivity(intent);
 

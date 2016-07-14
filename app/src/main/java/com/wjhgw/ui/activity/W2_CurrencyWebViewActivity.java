@@ -22,7 +22,7 @@ import java.util.HashMap;
 /**
  * 通用WebView
  */
-public class CurrencyWebViewActivity extends BaseActivity implements View.OnClickListener {
+public class W2_CurrencyWebViewActivity extends BaseActivity implements View.OnClickListener {
     private WebView webView;
     private String ua;
     private LoadDialog Dialog;
@@ -166,7 +166,7 @@ public class CurrencyWebViewActivity extends BaseActivity implements View.OnClic
         @JavascriptInterface
         public void callHandler(String handlerName, String data) {
             if (handlerName.equals("cabinetHandler")) {
-                Intent intent = new Intent(CurrencyWebViewActivity.this, CabinetActivity.class);
+                Intent intent = new Intent(W2_CurrencyWebViewActivity.this, CabinetActivity.class);
                 startActivity(intent);
                 finish();
             }

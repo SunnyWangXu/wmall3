@@ -46,10 +46,10 @@ import com.wjhgw.ui.DiyView.ScrollTextView;
 import com.wjhgw.ui.activity.C1_CaptureActivity;
 import com.wjhgw.ui.activity.C2_SearchActivity;
 import com.wjhgw.ui.activity.C3_GoodsArraySearchActivity;
-import com.wjhgw.ui.activity.GeneralPrductDetailActivity;
+import com.wjhgw.ui.activity.W1_GeneralPrductDetailActivity;
 import com.wjhgw.ui.activity.LimitDetailActivity;
 import com.wjhgw.ui.activity.M7_MyCollectActivity;
-import com.wjhgw.ui.activity.PrductDetailActivity;
+import com.wjhgw.ui.activity.W0_PrductDetailActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.dialog.UnderDialog;
 import com.wjhgw.ui.view.listview.MyListView;
@@ -786,7 +786,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.ll_headline:
-                intent = new Intent(getActivity(), GeneralPrductDetailActivity.class);
+                intent = new Intent(getActivity(), W1_GeneralPrductDetailActivity.class);
                 intent.putExtra("url", article_url);
                 intent.putExtra("isDetail", "no");
                 startActivity(intent);
@@ -883,7 +883,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 startActivity(intent);
                 break;
             case R.id.ll_discount_01:
-                intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.setClass(getActivity(), W0_PrductDetailActivity.class);
 
                 if (groupBuy_data.size() != 0) {
                     intent.putExtra("goods_id", groupBuy_data.get(0).goods_id);
@@ -891,14 +891,14 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 startActivity(intent);
                 break;
             case R.id.ll_discount_02:
-                intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.setClass(getActivity(), W0_PrductDetailActivity.class);
                 if (groupBuy_data.size() != 0) {
                     intent.putExtra("goods_id", groupBuy_data.get(1).goods_id);
                 }
                 startActivity(intent);
                 break;
             case R.id.ll_discount_03:
-                intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.setClass(getActivity(), W0_PrductDetailActivity.class);
                 if (groupBuy_data.size() != 0) {
                     intent.putExtra("goods_id", groupBuy_data.get(2).goods_id);
                 }
@@ -909,42 +909,42 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 break;
 
             case R.id.ll_guess_like01:
-                intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.setClass(getActivity(), W0_PrductDetailActivity.class);
                 if (guess_like_datases.size() != 0) {
                     intent.putExtra("goods_id", guess_like_datases.get(0).goods_id);
                 }
                 startActivity(intent);
                 break;
             case R.id.ll_guess_like02:
-                intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.setClass(getActivity(), W0_PrductDetailActivity.class);
                 if (guess_like_datases.size() != 0) {
                     intent.putExtra("goods_id", guess_like_datases.get(1).goods_id);
                 }
                 startActivity(intent);
                 break;
             case R.id.ll_guess_like03:
-                intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.setClass(getActivity(), W0_PrductDetailActivity.class);
                 if (guess_like_datases.size() != 0) {
                     intent.putExtra("goods_id", guess_like_datases.get(2).goods_id);
                 }
                 startActivity(intent);
                 break;
             case R.id.ll_guess_like04:
-                intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.setClass(getActivity(), W0_PrductDetailActivity.class);
                 if (guess_like_datases.size() != 0) {
                     intent.putExtra("goods_id", guess_like_datases.get(3).goods_id);
                 }
                 startActivity(intent);
                 break;
             case R.id.ll_guess_like05:
-                intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.setClass(getActivity(), W0_PrductDetailActivity.class);
                 if (guess_like_datases.size() != 0) {
                     intent.putExtra("goods_id", guess_like_datases.get(4).goods_id);
                 }
                 startActivity(intent);
                 break;
             case R.id.ll_guess_like06:
-                intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.setClass(getActivity(), W0_PrductDetailActivity.class);
                 if (guess_like_datases.size() != 0) {
                     intent.putExtra("goods_id", guess_like_datases.get(5).goods_id);
                 }
@@ -952,42 +952,42 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 break;
 
             case R.id.ll_guess_like07:
-                intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.setClass(getActivity(), W0_PrductDetailActivity.class);
                 if (guess_like_datases.size() != 0) {
                     intent.putExtra("goods_id", guess_like_datases.get(6).goods_id);
                 }
                 startActivity(intent);
                 break;
             case R.id.ll_guess_like08:
-                intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.setClass(getActivity(), W0_PrductDetailActivity.class);
                 if (guess_like_datases.size() != 0) {
                     intent.putExtra("goods_id", guess_like_datases.get(7).goods_id);
                 }
                 startActivity(intent);
                 break;
             case R.id.ll_guess_like09:
-                intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.setClass(getActivity(), W0_PrductDetailActivity.class);
                 if (guess_like_datases.size() != 0) {
                     intent.putExtra("goods_id", guess_like_datases.get(8).goods_id);
                 }
                 startActivity(intent);
                 break;
             case R.id.ll_guess_like10:
-                intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.setClass(getActivity(), W0_PrductDetailActivity.class);
                 if (guess_like_datases.size() != 0) {
                     intent.putExtra("goods_id", guess_like_datases.get(9).goods_id);
                 }
                 startActivity(intent);
                 break;
             case R.id.ll_guess_like11:
-                intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.setClass(getActivity(), W0_PrductDetailActivity.class);
                 if (guess_like_datases.size() != 0) {
                     intent.putExtra("goods_id", guess_like_datases.get(10).goods_id);
                 }
                 startActivity(intent);
                 break;
             case R.id.ll_guess_like12:
-                intent.setClass(getActivity(), PrductDetailActivity.class);
+                intent.setClass(getActivity(), W0_PrductDetailActivity.class);
                 if (guess_like_datases.size() != 0) {
                     intent.putExtra("goods_id", guess_like_datases.get(11).goods_id);
                 }

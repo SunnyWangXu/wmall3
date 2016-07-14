@@ -215,7 +215,7 @@ public class LimitDetailActivity extends BaseActivity implements AdapterView.OnI
 
         } else {
             String goodsId = goodsInfo.get(position - 1).goods_id;
-            Intent intent = new Intent(this, PrductDetailActivity.class);
+            Intent intent = new Intent(this, W0_PrductDetailActivity.class);
             intent.putExtra("goods_id", goodsId);
             startActivity(intent);
         }

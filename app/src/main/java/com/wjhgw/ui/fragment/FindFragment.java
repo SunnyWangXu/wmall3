@@ -10,7 +10,7 @@ import android.widget.FrameLayout;
 
 import com.wjhgw.R;
 import com.wjhgw.base.BaseQuery;
-import com.wjhgw.ui.activity.CurrencyWebViewActivity;
+import com.wjhgw.ui.activity.W2_CurrencyWebViewActivity;
 import com.wjhgw.ui.activity.F0_Shop_nearbyActivity;
 
 /**
@@ -35,7 +35,7 @@ public class FindFragment extends Fragment {
         fl_redeem_code.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),CurrencyWebViewActivity.class);
+                Intent intent = new Intent(getActivity(),W2_CurrencyWebViewActivity.class);
                 intent.putExtra("name" , "礼品兑换码");
                 intent.putExtra("url" , BaseQuery.serviceUrl()+"/wap/index.php?act=exchange&op=code");
                 startActivity(intent);

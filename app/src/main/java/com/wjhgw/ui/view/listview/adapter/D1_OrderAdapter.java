@@ -27,7 +27,7 @@ import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.business.bean.OrderList_goods_list_data;
 import com.wjhgw.ui.activity.D4_Customer_serviceActivity;
-import com.wjhgw.ui.activity.PrductDetailActivity;
+import com.wjhgw.ui.activity.W0_PrductDetailActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -93,7 +93,7 @@ public class D1_OrderAdapter extends BaseAdapter {
         cellView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(c,PrductDetailActivity.class);
+                Intent intent = new Intent(c,W0_PrductDetailActivity.class);
                 intent.putExtra("goods_id", List.get(position).goods_id);
                 c.startActivity(intent);
             }

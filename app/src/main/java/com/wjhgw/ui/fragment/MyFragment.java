@@ -33,6 +33,7 @@ import com.wjhgw.ui.activity.M0_MyLockBoxActivity;
 import com.wjhgw.ui.activity.M6_SetActivity;
 import com.wjhgw.ui.activity.M7_MyCollectActivity;
 import com.wjhgw.ui.activity.M8_MyHelpActivity;
+import com.wjhgw.ui.activity.W3_MyExtendedActivity;
 import com.wjhgw.ui.activity.Z0_AssetsActivity;
 import com.wjhgw.ui.activity.Z1_Prepaid_card_balanceActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
@@ -242,7 +243,14 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
 
             case R.id.ll_extended:
 
-                Toast.makeText(getActivity(), "我的推广", Toast.LENGTH_SHORT).show();
+                if (key.equals("0")) {
+                    intent.setClass(getActivity(), A0_LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getActivity(), W3_MyExtendedActivity.class);
+                    startActivity(intent);
+                }
+
 
                 break;
             case R.id.ll_cabinet:

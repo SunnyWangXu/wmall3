@@ -212,7 +212,7 @@ public class M7_MyCollectActivity extends BaseActivity implements XListView.IXLi
 
         Intent intent = new Intent();
         intent.putExtra("goods_id", goodsList.get(position % 10 - 1).goods_id);
-        intent.setClass(this, PrductDetailActivity.class);
+        intent.setClass(this, W0_PrductDetailActivity.class);
         startActivity(intent);
     }
 

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.business.bean.Goods_data;
-import com.wjhgw.ui.activity.PrductDetailActivity;
+import com.wjhgw.ui.activity.W0_PrductDetailActivity;
 
 import java.util.List;
 
@@ -60,7 +60,7 @@ public class J1_ItemAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext,PrductDetailActivity.class);
+                Intent intent = new Intent(mContext,W0_PrductDetailActivity.class);
                 intent.putExtra("goods_id", list.get(position).goods_id);
                 mContext.startActivity(intent);
             }

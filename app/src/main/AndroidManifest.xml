@@ -50,9 +50,7 @@
         <activity
             android:name="com.wjhgw.ui.activity.A0_LoginActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.PrductDetailActivity"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.activity.LimitDetailActivity"
             android:screenOrientation="portrait" />
@@ -176,7 +174,7 @@
         <activity
             android:name=".ui.activity.S1_OrderAddressActivity"
             android:screenOrientation="portrait" />
-       <activity
+        <activity
             android:name=".ui.activity.S3_SelectPaymentActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -197,16 +195,23 @@
         <activity
             android:name=".ui.activity.D5_CustomerActivity"
             android:screenOrientation="portrait" />
-
         <activity
-            android:name=".ui.activity.GeneralPrductDetailActivity"
+            android:name=".ui.activity.W0_PrductDetailActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.W1_GeneralPrductDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.W2_CurrencyWebViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.W3_MyExtendedActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.activity.CabinetActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.CurrencyWebViewActivity"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.activity.F0_Shop_nearbyActivity"
             android:screenOrientation="portrait" />

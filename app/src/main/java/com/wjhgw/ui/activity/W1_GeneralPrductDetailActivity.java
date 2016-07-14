@@ -13,8 +13,9 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.exception.HttpException;
@@ -33,7 +34,9 @@ import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
 import com.wjhgw.base.BaseQuery;
 import com.wjhgw.business.bean.Get_share_info;
+import com.wjhgw.business.bean.Order_goods_list;
 import com.wjhgw.business.bean.SelectOrder;
+import com.wjhgw.business.bean.SelectOrderDatas;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.dialog.LoadDialog;
 
@@ -44,12 +47,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * 商品详情页
+ * 首页轮播图通用WebView
  */
-public class PrductDetailActivity extends BaseActivity implements View.OnClickListener {
+public class W1_GeneralPrductDetailActivity extends BaseActivity implements View.OnClickListener {
     private WebView webView;
     private ImageView back;
     private String ua;
@@ -57,23 +61,23 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
     private String Shopping_Cart;
     private HashMap<String, String> keyMap;
     private String url;
-    private String id;
+    private LinearLayout title_container;
     private IWXAPI api;
+    private String id;
     private ImageView iv_title_right;
-    private ImageView iv_title_back;
-    private TextView tv_title_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prduct_detail);
 
+        webView = (WebView) findViewById(R.id.wb_prduct_detail);
+        api = WXAPIFactory.createWXAPI(this, "wx99a6bd9b7bdbf645");
+        api.registerApp("wx99a6bd9b7bdbf645");
         /**
          * 加载WebView
          */
         toLoadWebView();
-        api = WXAPIFactory.createWXAPI(this, "wx99a6bd9b7bdbf645");
-        api.registerApp("wx99a6bd9b7bdbf645");
     }
 
     /**
@@ -109,11 +113,22 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
         /**
          * 加载WebView的url和传key给H5端
          */
-        id = getIntent().getStringExtra("goods_id");
+
+        /**
+         * 如果判断是广告专题那么就不显示title
+         */
+        String isDetail = getIntent().getStringExtra("isDetail");
+        if (isDetail != null && isDetail.equals("no")) {
+            title_container.setVisibility(View.GONE);
+        }
 
         Shopping_Cart = getIntent().getStringExtra("Shopping_Cart");
         //BaseQuery.environment()
-        url = BaseQuery.serviceUrl() + "/wap/index.php?act=goods&op=index&id=" + id;
+        url = getIntent().getStringExtra("url");
+
+        if (url != null) {
+            id = url.substring(url.lastIndexOf("=") + 1);
+        }
 
         keyMap = new HashMap<>();
         if (!getKey().equals("0")) {
@@ -121,14 +136,14 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
         }
         webView.loadUrl(url, keyMap);
 
-     /*   // 打开网页时不调用系统浏览器， 而是在本WebView中显示：
+        // 打开网页时不调用系统浏览器， 而是在本WebView中显示：
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return true;
             }
-        });*/
+        });
 
         webView.setWebChromeClient(new WebChromeClient());
         //调用javascript
@@ -137,26 +152,25 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onInit() {
+        setUp();
+        setTitle("商品详情");
+
     }
 
     @Override
     public void onFindViews() {
-        webView = (WebView) findViewById(R.id.wb_prduct_detail);
+        title_container = (LinearLayout) findViewById(R.id.title_container);
         iv_title_right = (ImageView) findViewById(R.id.iv_title_right);
-        iv_title_back = (ImageView) findViewById(R.id.iv_title_back);
-        tv_title_name = (TextView) findViewById(R.id.tv_title_name);
     }
 
     @Override
     public void onInitViewData() {
-        iv_title_right.setImageResource(R.mipmap.ic_share);
-        tv_title_name.setText("商品详情");
+
     }
 
     @Override
     public void onBindListener() {
         iv_title_right.setOnClickListener(this);
-        iv_title_back.setOnClickListener(this);
     }
 
 
@@ -164,10 +178,10 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_title_right:
+                /**
+                 * 获取分享内容
+                 */
                 get_share_info(id);
-                break;
-            case R.id.iv_title_back:
-                finish();
                 break;
 
             default:
@@ -200,7 +214,7 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
 
             if (handlerName.equals("goHomeHandler")) {
                 Intent intent = new Intent();
-                intent.setClass(PrductDetailActivity.this, MainActivity.class);
+                intent.setClass(W1_GeneralPrductDetailActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);//设置不要刷新将要跳到的界面
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//它可以关掉所要到的界面中间的activity
                 startActivity(intent);
@@ -211,11 +225,8 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
             if (handlerName.equals("goCartHandler")) {
                 if (Shopping_Cart != null) {
                     finish();
-                } else if (getKey().equals("0")) {
-                    Intent intent = new Intent(PrductDetailActivity.this, A0_LoginActivity.class);
-                    startActivity(intent);
                 } else {
-                    Intent intent = new Intent(PrductDetailActivity.this, ShoppingCartActivity.class);
+                    Intent intent = new Intent(W1_GeneralPrductDetailActivity.this, ShoppingCartActivity.class);
                     startActivity(intent);
                 }
             }
@@ -232,7 +243,7 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
             }
 
             if (handlerName.equals("loginHandler")) {
-                Intent intent = new Intent(PrductDetailActivity.this, A0_LoginActivity.class);
+                Intent intent = new Intent(W1_GeneralPrductDetailActivity.this, A0_LoginActivity.class);
                 startActivityForResult(intent, 12345);
 
             }
@@ -261,6 +272,7 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", getKey());
         params.addBodyParameter("cart_id", cart_id);
+        params.addBodyParameter("ifcart", "3");
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Buy_step1, params, new RequestCallBack<String>() {
             @Override
@@ -271,26 +283,21 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
 
                     SelectOrder selectOrder = gson.fromJson(responseInfo.result, SelectOrder.class);
                     if (selectOrder.status.code == 10000) {
-
-                        Intent intent = new Intent(PrductDetailActivity.this, PayGiveOrderActivity.class);
-                        intent.putExtra("by_step1_result", responseInfo.result);
-                        intent.putExtra("cart_id", cart_id);
-                        startActivity(intent);
-
-                       /* SelectOrderDatas selectOrderDatas = selectOrder.datas;
+                        SelectOrderDatas selectOrderDatas = selectOrder.datas;
                         ArrayList<Order_goods_list> order_goods_lists = selectOrderDatas.store_cart_list.goods_list;
                         double realPay = 0.00;
                         for (int i = 0; i < order_goods_lists.size(); i++) {
                             realPay += Double.valueOf(order_goods_lists.get(i).goods_total);
                         }
-                        Intent intent = new Intent(PrductDetailActivity.this, S0_ConfirmOrderActivity.class);
+
+                        Intent intent = new Intent(W1_GeneralPrductDetailActivity.this, S0_ConfirmOrderActivity.class);
                         intent.putExtra("selectOrder", responseInfo.result);
                         //String tvTotal = tv_total.getText().toString();
                         intent.putExtra("cart_id", cart_id);
                         intent.putExtra("tv_total", realPay + "");
                         intent.putExtra("realPay", realPay);
                         intent.putExtra("for", "forDetail");
-                        startActivity(intent);*/
+                        startActivity(intent);
                     } else {
                         overtime(selectOrder.status.code, selectOrder.status.msg);
                     }
@@ -323,7 +330,7 @@ public class PrductDetailActivity extends BaseActivity implements View.OnClickLi
                         if (getKey().equals("0")) {
                             Url = "http://www.wjhgw.com/wap/index.php?act=goods&id=" + id;
                         } else {
-                            String member_id = PrductDetailActivity.this.getSharedPreferences("member_id", MODE_APPEND).getString("member_id", "0");
+                            String member_id = W1_GeneralPrductDetailActivity.this.getSharedPreferences("member_id", MODE_APPEND).getString("member_id", "0");
                             Url = "http://www.wjhgw.com/wap/index.php?act=goods&id=" + id + "&intr_id=" + member_id;
                         }
 

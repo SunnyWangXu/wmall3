@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.wjhgw.APP;
 import com.wjhgw.business.bean.Home_Pager_Data;
-import com.wjhgw.ui.activity.GeneralPrductDetailActivity;
+import com.wjhgw.ui.activity.W1_GeneralPrductDetailActivity;
 
 import java.util.List;
 
@@ -65,7 +65,7 @@ public class HomePagerAdapter extends PagerAdapter {
                 String url = advUrl[position % imageSize].replace("&amp;", "&");
 
                 Intent intent = new Intent();
-                intent.setClass(context, GeneralPrductDetailActivity.class);
+                intent.setClass(context, W1_GeneralPrductDetailActivity.class);
                 intent.putExtra("url", url);
                 /**
                  * 判断是否是商品详情
