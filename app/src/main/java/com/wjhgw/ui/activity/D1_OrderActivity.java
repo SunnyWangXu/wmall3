@@ -607,6 +607,8 @@ public class D1_OrderActivity extends BaseActivity implements BusinessResponse, 
                                 getSharedPreferences("paySn", MODE_PRIVATE).edit().putString("paySn", pay_sn).commit();
                                 intent.putExtra("entrance", "4");
                             }else {
+                                getSharedPreferences("Gifts", MODE_PRIVATE).edit().putString("Gifts", "0").commit();
+                                getSharedPreferences("paySn", MODE_PRIVATE).edit().putString("paySn", "0").commit();
                                 intent.putExtra("entrance", "2");
                             }
                             startActivity(intent);

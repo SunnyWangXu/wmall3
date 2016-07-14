@@ -438,6 +438,8 @@ public class D0_OrderAdapter extends BaseAdapter {
                                 c.getSharedPreferences("paySn", c.MODE_PRIVATE).edit().putString("paySn", pay_sn).commit();
                                 intent.putExtra("entrance", "4");
                             }else {
+                                c.getSharedPreferences("Gifts", c.MODE_PRIVATE).edit().putString("Gifts", "0").commit();
+                                c.getSharedPreferences("paySn", c.MODE_PRIVATE).edit().putString("paySn", "0").commit();
                                 intent.putExtra("entrance", "2");
                             }
                             c.startActivity(intent);
