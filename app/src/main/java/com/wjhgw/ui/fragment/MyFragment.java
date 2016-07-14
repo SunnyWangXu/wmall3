@@ -70,10 +70,10 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private ImageView ivSet;
     private FrameLayout ll_LockBox;
     private LinearLayout ll_assets;
-    private LinearLayout ll_cabinet;
+    private LinearLayout llCabinet;
     private String memberName;
     private LoadDialog Dialog;
-    private LinearLayout ll_my_collect;
+    private LinearLayout llmyCollect;
     private FrameLayout profileHeadShare;
     private FrameLayout profileHeadAddClient;
     private LinearLayout ll_rechargeable_card;
@@ -82,6 +82,7 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private ImageView ivVip;
     private ImageView ivLevel;
     private TextView tvMobile;
+    private LinearLayout llExtended;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -147,7 +148,9 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         ivVip = (ImageView) MyMessageLayout.findViewById(R.id.iv_vip);
         ivLevel = (ImageView) MyMessageLayout.findViewById(R.id.iv_level);
 
-        ll_my_collect = (LinearLayout) MyHelpLayout.findViewById(R.id.ll_my_collect);
+        llExtended = (LinearLayout) MyHelpLayout.findViewById(R.id.ll_extended);
+        llCabinet = (LinearLayout) MyHelpLayout.findViewById(R.id.ll_cabinet);
+        llmyCollect = (LinearLayout) MyHelpLayout.findViewById(R.id.ll_my_collect);
         llMyHelp = (LinearLayout) MyHelpLayout.findViewById(R.id.ll_my_help);
 
         profileHeadShare = (FrameLayout) MyMessageLayout.findViewById(R.id.profile_head_share);
@@ -173,7 +176,6 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
         ll_available_predeposit = (LinearLayout) MyAssetsLayout.findViewById(R.id.ll_available_predeposit);
         ll_LockBox = (FrameLayout) MyMessageLayout.findViewById(R.id.ll_lockbox);
 
-        ll_cabinet = (LinearLayout) MyHelpLayout.findViewById(R.id.ll_cabinet);
     }
 
     /**
@@ -182,12 +184,13 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
     private void setClick() {
         iv_message.setOnClickListener(this);
         ll_LockBox.setOnClickListener(this);
-        ll_my_collect.setOnClickListener(this);
+        llExtended.setOnClickListener(this);
+        llCabinet.setOnClickListener(this);
+        llmyCollect.setOnClickListener(this);
         llMyHelp.setOnClickListener(this);
         profileHeadShare.setOnClickListener(this);
         profileHeadAddClient.setOnClickListener(this);
         ivSet.setOnClickListener(this);
-        ll_cabinet.setOnClickListener(this);
         ll_all_orders.setOnClickListener(this);
         ll_assets.setOnClickListener(this);
         rl_layout1.setOnClickListener(this);
@@ -237,6 +240,11 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                 }
                 break;
 
+            case R.id.ll_extended:
+
+                Toast.makeText(getActivity(), "我的推广", Toast.LENGTH_SHORT).show();
+
+                break;
             case R.id.ll_cabinet:
                 if (key.equals("0")) {
                     intent.setClass(getActivity(), A0_LoginActivity.class);

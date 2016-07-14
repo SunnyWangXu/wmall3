@@ -164,6 +164,9 @@ public class S3_SelectPaymentActivity extends BaseActivity implements View.OnCli
 
             case R.id.btn_confirm_pay:
                 if (isWeixin) {
+                    /**
+                     * 发起微信支付
+                     */
                     wx_pay();
                 } else {
 //                    payMethod pay = new payMethod(this, "订单号", "测试的商品", "测试的商品详情", "0.01");
