@@ -337,8 +337,9 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         if (savedInstanceState != null) {
             String FRAGMENTS_TAG = "android:support:fragments";
             savedInstanceState.remove(FRAGMENTS_TAG);
-
         }
+
+        Dialog = new LoadDialog(getActivity());
     }
 
     @Override
@@ -361,7 +362,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         initView();
 
         if (getActivity() != null) {
-            Dialog = new LoadDialog(getActivity());
+
             underdevelopmentDialog1 = new UnderDialog(getActivity(), "功能正在开发中,敬请期待");
             /**
              * 请求首页焦点图
@@ -387,7 +388,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
              */
 //            loadGroupBuy();
             /**
-             * 主题街数据请求
+             * 快速导航数据请求
              */
             load_theme_street();
 
@@ -766,7 +767,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 //        loadGroupBuy();
 
         /**
-         * 主题街数据请求
+         * 快速导航数据请求
          */
         load_theme_street();
 
@@ -1026,7 +1027,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
      * 请求首页焦点图
      */
     private void loadHomePager() {
-        Dialog.ProgressDialog();
+
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Home_pager, new RequestCallBack<String>() {
 
             @Override
@@ -1045,7 +1046,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 if (getActivity() != null) {
                     mListView.stopRefresh();
                     mListView.setRefreshTime();
-                    Dialog.dismiss();
+
                 }
 
             }
@@ -1360,13 +1361,16 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     }
 
     /**
-     * 主题街数据请求
+     * 快速导航数据请求
      */
     private void load_theme_street() {
+        Dialog.ProgressDialog();
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Theme_street, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                Dialog.dismiss();
+
                 /**
                  * 存入本地数据
                  */
