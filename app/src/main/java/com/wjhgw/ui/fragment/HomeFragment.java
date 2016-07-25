@@ -46,10 +46,10 @@ import com.wjhgw.ui.DiyView.ScrollTextView;
 import com.wjhgw.ui.activity.C1_CaptureActivity;
 import com.wjhgw.ui.activity.C2_SearchActivity;
 import com.wjhgw.ui.activity.C3_GoodsArraySearchActivity;
-import com.wjhgw.ui.activity.W1_GeneralPrductDetailActivity;
 import com.wjhgw.ui.activity.LimitDetailActivity;
 import com.wjhgw.ui.activity.M7_MyCollectActivity;
 import com.wjhgw.ui.activity.W0_PrductDetailActivity;
+import com.wjhgw.ui.activity.W1_GeneralPrductDetailActivity;
 import com.wjhgw.ui.dialog.LoadDialog;
 import com.wjhgw.ui.dialog.UnderDialog;
 import com.wjhgw.ui.view.listview.MyListView;
@@ -259,7 +259,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private String xianshi_id;
     private String article_url;
     private boolean isContinue;
-    private int count = 0;
+    private int HeadLineCount = 0;
 
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -301,7 +301,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                     }
                     break;
                 default:
-                    // 所做的操作
+
             }
         }
     };
@@ -310,14 +310,14 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private Handler scorllHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
-                //头条滚动的消息
+                //万嘉头条滚动的消息
                 case 0:
-                    count++;
+                    HeadLineCount++;
                     scrollTextView.next();
-                    scrollTextView.setText(opHeadLine.datas.get(count % opHeadLine.datas.size()).article_title);
-                    newsName = opHeadLine.datas.get(count % opHeadLine.datas.size()).ac_name;
+                    scrollTextView.setText(opHeadLine.datas.get(HeadLineCount % opHeadLine.datas.size()).article_title);
+                    newsName = opHeadLine.datas.get(HeadLineCount % opHeadLine.datas.size()).ac_name;
                     tvNews.setText(newsName);
-                    article_url = opHeadLine.datas.get(count % opHeadLine.datas.size()).article_url;
+                    article_url = opHeadLine.datas.get(HeadLineCount % opHeadLine.datas.size()).article_url;
                     break;
                 default:
                     break;
