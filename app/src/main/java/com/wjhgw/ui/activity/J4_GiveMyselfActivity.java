@@ -325,7 +325,7 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
                 break;
 
             case R.id.ll_use_balance:
-                if(! tvUseBalancePrice.getText().toString().equals("0.00")){
+                if (!tvUseBalancePrice.getText().toString().equals("0.00")) {
 
                     MAKEBALANCE++;
                     if (MAKEBALANCE % 2 == 0) {
@@ -349,7 +349,7 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
 
             case R.id.ll_rc_balance:
 
-                if(! tvUseRcBalancePrice.getText().toString().equals("0.00")) {
+                if (!tvUseRcBalancePrice.getText().toString().equals("0.00")) {
 
                     MAKEAVAILABLERCBALANCE++;
                     if (MAKEAVAILABLERCBALANCE % 2 == 0) {
@@ -480,6 +480,8 @@ public class J4_GiveMyselfActivity extends BaseActivity implements View.OnClickL
         if (paypwd != null) {
             params.addBodyParameter("password", paypwd);
         }
+
+        params.addBodyParameter("order_from", "5");
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Buy_step2, params, new RequestCallBack<String>() {
 

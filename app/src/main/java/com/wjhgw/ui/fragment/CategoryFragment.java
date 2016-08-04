@@ -167,13 +167,13 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
             Toast.makeText(getActivity(), "扫描返回" + RESULT_MESSAGE, Toast.LENGTH_SHORT).show();
             RESULT_MESSAGE = null;
         }
+        MAK = 0;
     }
 
     /**
      * 请求一级商品分类
      */
     private void load_goods_class1() {
-        Dialog.ProgressDialog();
         RequestParams params = new RequestParams();
         params.addBodyParameter("key", key);
 
@@ -181,12 +181,10 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-                Dialog.dismiss();
                 /**
                  * 缓存一级商品分类
                  */
                 if (responseInfo != null) {
-//                    SharedPreferences.Editor editor = sharedPreferences.edit();
                     SharedPreferences.Editor editor = APP.getApp().getSharedPreferences("wjhgw_category", APP.getApp().MODE_PRIVATE).edit();
                     editor.putString("goods_class1", responseInfo.result).commit();
                 }
@@ -253,12 +251,14 @@ public class CategoryFragment extends Fragment implements XListView.IXListViewLi
      * 请求商品分类属性
      */
     private void load_goods_attr(String gc_id) {
+        Dialog.ProgressDialog();
         RequestParams params = new RequestParams();
         params.addBodyParameter("gc_id", gc_id);
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Goods_attr, params, new RequestCallBack<String>() {
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                Dialog.dismiss();
                 /**
                  * 缓存商品属性
                  */

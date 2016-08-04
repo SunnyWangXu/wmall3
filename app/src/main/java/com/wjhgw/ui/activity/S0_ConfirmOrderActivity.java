@@ -627,6 +627,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
         }
 
         params.addBodyParameter("pay_message", etPayMessage.getText().toString());
+        params.addBodyParameter("order_from", "5");
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Buy_step2, params, new RequestCallBack<String>() {
             @Override

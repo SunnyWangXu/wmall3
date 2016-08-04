@@ -249,6 +249,7 @@ public class PayGiveOrderActivity extends BaseActivity implements View.OnClickLi
         } else {
             params.addBodyParameter("rcb_pay", "0");
         }
+        params.addBodyParameter("order_from", "5");
 
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Buy_step2, params, new RequestCallBack<String>() {
             @Override
