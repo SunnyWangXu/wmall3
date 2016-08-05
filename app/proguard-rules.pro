@@ -194,3 +194,22 @@
 #    public static int d(...);
 #    public static int e(...);
 #}
+
+#gson
+#-libraryjars libs/gson-2.2.4.jar
+-keepattributes Signature
+# Gson specific classes
+-keep class sun.misc.Unsafe { *; }
+# Application classes that will be serialized/deserialized over Gson
+-keep class com.google.gson.examples.android.model.** { *; }
+
+# webview + js
+-keepattributes *JavascriptInterface*
+# keep 使用 webview 的类
+-keepclassmembers class  com.veidy.activity.WebViewActivity {
+   public *;
+}
+# keep 使用 webview 的类的所有的内部类
+-keepclassmembers  class  com.veidy.activity.WebViewActivity$*{
+    *;
+}
