@@ -334,7 +334,18 @@ public class HomeFragment extends Fragment implements IXListViewListener,
     private ImageView theme_image8;
     private TextView theme_desc8;
     private TextView theme_name8;
-
+    private FrameLayout flTheme9;
+    private FrameLayout flTheme10;
+    private TextView theme_name9;
+    private TextView theme_name10;
+    private TextView theme_desc9;
+    private TextView theme_desc10;
+    private ImageView theme_image9;
+    private ImageView theme_image10;
+    private LinearLayout llTheme7;
+    private LinearLayout llTheme10;
+    private String cate_id9;
+    private String cate_id10;
 
 
     @Override
@@ -540,6 +551,10 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         flTheme6 = (FrameLayout) Themelayout.findViewById(R.id.fl_theme6);
         flTheme7 = (FrameLayout) Themelayout.findViewById(R.id.fl_theme7);
         flTheme8 = (FrameLayout) Themelayout.findViewById(R.id.fl_theme8);
+        flTheme9 = (FrameLayout) Themelayout.findViewById(R.id.fl_theme9);
+        flTheme10 = (FrameLayout) Themelayout.findViewById(R.id.fl_theme10);
+        llTheme7 = (LinearLayout) Themelayout.findViewById(R.id.ll_theme7);
+        llTheme10 = (LinearLayout) Themelayout.findViewById(R.id.ll_theme9);
 
         theme_name1 = (TextView) Themelayout.findViewById(R.id.tv_theme_name1);
         theme_name2 = (TextView) Themelayout.findViewById(R.id.tv_theme_name2);
@@ -549,6 +564,8 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         theme_name6 = (TextView) Themelayout.findViewById(R.id.tv_theme_name6);
         theme_name7 = (TextView) Themelayout.findViewById(R.id.tv_theme_name7);
         theme_name8 = (TextView) Themelayout.findViewById(R.id.tv_theme_name8);
+        theme_name9 = (TextView) Themelayout.findViewById(R.id.tv_theme_name9);
+        theme_name10 = (TextView) Themelayout.findViewById(R.id.tv_theme_name10);
 
         theme_desc1 = (TextView) Themelayout.findViewById(R.id.tv_theme_desc1);
         theme_desc2 = (TextView) Themelayout.findViewById(R.id.tv_theme_desc2);
@@ -558,6 +575,8 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         theme_desc6 = (TextView) Themelayout.findViewById(R.id.tv_theme_desc6);
         theme_desc7 = (TextView) Themelayout.findViewById(R.id.tv_theme_desc7);
         theme_desc8 = (TextView) Themelayout.findViewById(R.id.tv_theme_desc8);
+        theme_desc9 = (TextView) Themelayout.findViewById(R.id.tv_theme_desc9);
+        theme_desc10 = (TextView) Themelayout.findViewById(R.id.tv_theme_desc10);
 
         theme_image1 = (ImageView) Themelayout.findViewById(R.id.iv_theme_image1);
         theme_image2 = (ImageView) Themelayout.findViewById(R.id.iv_theme_image2);
@@ -567,6 +586,8 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         theme_image6 = (ImageView) Themelayout.findViewById(R.id.iv_theme_image6);
         theme_image7 = (ImageView) Themelayout.findViewById(R.id.iv_theme_image7);
         theme_image8 = (ImageView) Themelayout.findViewById(R.id.iv_theme_image8);
+        theme_image9 = (ImageView) Themelayout.findViewById(R.id.iv_theme_image9);
+        theme_image10 = (ImageView) Themelayout.findViewById(R.id.iv_theme_image10);
 
         iv_discount02_iamge = (ImageView) Discountlayout.findViewById(R.id.iv_discount02_image);
         tv_discount02_name = (TextView) Discountlayout.findViewById(R.id.tv_discount02_name);
@@ -714,6 +735,8 @@ public class HomeFragment extends Fragment implements IXListViewListener,
         flTheme6.setOnClickListener(this);
         flTheme7.setOnClickListener(this);
         flTheme8.setOnClickListener(this);
+        flTheme9.setOnClickListener(this);
+        flTheme10.setOnClickListener(this);
 
         tvRefresh.setOnClickListener(this);
 
@@ -896,6 +919,16 @@ public class HomeFragment extends Fragment implements IXListViewListener,
             case R.id.fl_theme8:
                 intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
                 intent.putExtra("cate_id", cate_id8);
+                startActivity(intent);
+                break;
+            case R.id.fl_theme9:
+                intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
+                intent.putExtra("cate_id", cate_id9);
+                startActivity(intent);
+                break;
+            case R.id.fl_theme10:
+                intent.setClass(getActivity(), C3_GoodsArraySearchActivity.class);
+                intent.putExtra("cate_id", cate_id10);
                 startActivity(intent);
                 break;
             case R.id.ll_discount_01:
@@ -1462,11 +1495,27 @@ public class HomeFragment extends Fragment implements IXListViewListener,
                 APP.getApp().getImageLoader().displayImage(theme_street.datas.get(6).theme_image, theme_image7, APP.getApp().getImageOptions());
                 cate_id7 = theme_street.datas.get(6).gc_id;
 
-                if(theme_street.datas.size() > 7 ){
+                if (theme_street.datas.size() > 7) {
                     theme_name8.setText(theme_street.datas.get(7).theme_name);
                     theme_desc8.setText(theme_street.datas.get(7).theme_desc);
                     APP.getApp().getImageLoader().displayImage(theme_street.datas.get(7).theme_image, theme_image8, APP.getApp().getImageOptions());
                     cate_id8 = theme_street.datas.get(7).gc_id;
+                }
+                if (theme_street.datas.size() > 8) {
+                    llTheme7.setVisibility(View.VISIBLE);
+                    flTheme9.setVisibility(View.VISIBLE);
+                    theme_name9.setText(theme_street.datas.get(8).theme_name);
+                    theme_desc9.setText(theme_street.datas.get(8).theme_desc);
+                    APP.getApp().getImageLoader().displayImage(theme_street.datas.get(8).theme_image, theme_image9, APP.getApp().getImageOptions());
+                    cate_id9 = theme_street.datas.get(8).gc_id;
+                }
+                if (theme_street.datas.size() > 9) {
+                    llTheme10.setVisibility(View.VISIBLE);
+                    flTheme10.setVisibility(View.VISIBLE);
+                    theme_name10.setText(theme_street.datas.get(9).theme_name);
+                    theme_desc10.setText(theme_street.datas.get(9).theme_desc);
+                    APP.getApp().getImageLoader().displayImage(theme_street.datas.get(9).theme_image, theme_image10, APP.getApp().getImageOptions());
+                    cate_id10 = theme_street.datas.get(9).gc_id;
                 }
             }
         }
@@ -1539,7 +1588,7 @@ public class HomeFragment extends Fragment implements IXListViewListener,
 
                             APP.getApp().getImageLoader().displayImage(guess_like_datases.get(11).goods_image, iv_guessLike12_image);
                             tv_guessLike12_name.setText(guess_like_datases.get(11).goods_name);
-                            tv_guessLike12_price.setText(guess_like_datases.get(1).goods_price);
+                            tv_guessLike12_price.setText(guess_like_datases.get(11).goods_price);
                         }
                     }
                 }
