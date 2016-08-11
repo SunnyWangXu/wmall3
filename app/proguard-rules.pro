@@ -48,7 +48,6 @@
 -keep public class * extends android.content.ContentProvider
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
--keep public class com.android.vending.licensing.ILicensingService
 #如果有引用v4包可以添加下面这行
 -keep public class * extends android.support.v4.app.Fragment
 
@@ -59,12 +58,6 @@
 
 #apk 包内所有 class 的内部结构
 -dump class_files.txt
-#未混淆的类和成员
--printseeds seeds.txt
-#列出从 apk 中删除的代码
--printusage unused.txt
-#混淆前后的映射
--printmapping mapping.txt
 
 #####################记录生成的日志数据，gradle build时 在本项目根目录输出-end################
 
@@ -94,12 +87,6 @@
 -keep class com.alipay.android.app.IRemoteServiceCallback{*;}
 -keep class com.alipay.android.app.lib.ResourceMap{*;}
 
-
-#信鸽推送
--keep class com.tencent.android.tpush.**  {* ;}
--keep class com.tencent.mid.**  {* ;}
-
-
 #自己项目特殊处理代码
 
 #忽略警告
@@ -109,11 +96,6 @@
     *;
  }
 
--keep class  com.veidy.activity.login.WebLoginActivity{*;}
--keep class  com.veidy.activity.UserInfoFragment{*;}
--keep class  com.veidy.activity.HomeFragmentActivity{*;}
--keep class  com.veidy.activity.CityActivity{*;}
--keep class  com.veidy.activity.ClinikActivity{*;}
 
 #如果引用了v4或者v7包
 -dontwarn android.support.**
@@ -132,19 +114,19 @@
     native <methods>;
 }
 
-#保持自定义控件类不被混淆
--keepclasseswithmembers class * {
-    public <init>(android.content.Context, android.util.AttributeSet);
-}
+##保持自定义控件类不被混淆
+#-keepclasseswithmembers class * {
+#    public <init>(android.content.Context, android.util.AttributeSet);
+#}
 
-#保持自定义控件类不被混淆
--keepclasseswithmembers class * {
-    public <init>(android.content.Context, android.util.AttributeSet, int);
-}
-#保持自定义控件类不被混淆
--keepclassmembers class * extends android.app.Activity {
-   public void *(android.view.View);
-}
+##保持自定义控件类不被混淆
+#-keepclasseswithmembers class * {
+#    public <init>(android.content.Context, android.util.AttributeSet, int);
+#}
+##保持自定义控件类不被混淆
+#-keepclassmembers class * extends android.app.Activity {
+#   public void *(android.view.View);
+#}
 
 #保持 Parcelable 不被混淆
 -keep class * implements android.os.Parcelable {
@@ -202,14 +184,26 @@
 -keep class sun.misc.Unsafe { *; }
 # Application classes that will be serialized/deserialized over Gson
 -keep class com.google.gson.examples.android.model.** { *; }
+#所有bean类不混淆
+-keep class com.wjhgw.business.bean.** { *; }
 
 # webview + js
 -keepattributes *JavascriptInterface*
 # keep 使用 webview 的类
--keepclassmembers class  com.veidy.activity.WebViewActivity {
-   public *;
+-keepclassmembers class com.wjhgw.ui.activity.W0_PrductDetailActivity$WMallBridge { #解决webview和js的交互问题
+public *;
 }
-# keep 使用 webview 的类的所有的内部类
--keepclassmembers  class  com.veidy.activity.WebViewActivity$*{
-    *;
+-keepclassmembers class com.wjhgw.ui.activity.W1_GeneralPrductDetailActivity$WMallBridge { #解决webview和js的交互问题
+public *;
 }
+-keepclassmembers class com.wjhgw.ui.activity.W2_CurrencyWebViewActivity$WMallBridge { #解决webview和js的交互问题
+public *;
+}
+-keepclassmembers class com.wjhgw.ui.activity.W3_MyExtendedActivity$WMallBridge { #解决webview和js的交互问题
+public *;
+}
+
+## keep 使用 webview 的类的所有的内部类
+#-keepclassmembers  class  com.wjhgw.ui.activity$*{
+#    *;
+#}
