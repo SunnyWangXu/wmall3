@@ -30,7 +30,7 @@ public class WX_share_Dialog {
 		mDialog = new Dialog(context, R.style.shareDialog_style);
 		mDialog.getWindow().setGravity(Gravity.BOTTOM);
 		mDialog.setContentView(view);
-		mDialog.setCanceledOnTouchOutside(false);
+		mDialog.setCanceledOnTouchOutside(true);
         mDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
