@@ -373,4 +373,5 @@ public class W0_PrductDetailActivity extends BaseActivity implements View.OnClic
         }
         return null;
     }
+
 }

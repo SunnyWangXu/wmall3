@@ -70,11 +70,12 @@ public class VerificationCodeActivity extends BaseActivity implements OnClickLis
         Number = getIntent().getStringExtra("Number");
         tv_state.setText("请输入手机号码 " + Number + " 收到的验证码");
         time = new TimeCount(60000, 1000);//构造CountDownTimer对象
-        time.start();
-        tv_verificationcode.setBackgroundColor(0xffcccccc);
+//        time.start();
+//        tv_verificationcode.setBackgroundColor(0xffcccccc);
+        tv_verificationcode.setText("获取验证码");
 
 
-        Verification_code();
+//        Verification_code();
     }
 
     @Override
