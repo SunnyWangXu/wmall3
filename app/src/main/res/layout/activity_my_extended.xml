@@ -4,32 +4,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:background="#ffffff"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:background="#ffffff">
 
         <ImageView
             android:id="@+id/iv_extended_back"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:padding="15dp"
-            android:scaleType="centerInside"
             android:src="@mipmap/ic_arrow_left" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="我的推广"
             android:textColor="@color/title_color"
             android:textSize="@dimen/title_size" />
 
+        <ImageView
+            android:id="@+id/iv_title_right"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:padding="14dp"
+            android:src="@mipmap/ic_share" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <WebView
         android:id="@+id/wb_extended"

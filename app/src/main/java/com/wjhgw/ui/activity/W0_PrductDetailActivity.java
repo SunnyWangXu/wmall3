@@ -36,6 +36,7 @@ import com.wjhgw.business.bean.Get_share_info;
 import com.wjhgw.business.bean.SelectOrder;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.dialog.LoadDialog;
+import com.wjhgw.ui.dialog.WX_share_Dialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,12 +63,12 @@ public class W0_PrductDetailActivity extends BaseActivity implements View.OnClic
     private ImageView iv_title_right;
     private ImageView iv_title_back;
     private TextView tv_title_name;
+    private WX_share_Dialog wx_share_Dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prduct_detail);
-
         /**
          * 加载WebView
          */
@@ -314,13 +315,40 @@ public class W0_PrductDetailActivity extends BaseActivity implements View.OnClic
                             Url = "http://www.wjhgw.com/wap/index.php?act=goods&id=" + id + "&intr_id=" + member_id;
                         }
 
-                        new Thread(new Runnable() {
-
+                        wx_share_Dialog = new WX_share_Dialog(W0_PrductDetailActivity.this);
+                        wx_share_Dialog.show();
+                        wx_share_Dialog.ll_wx_friends.setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public void run() {
-                                wechatShare(0, Url, get_share_info.datas.goods_image, get_share_info.datas.goods_name);
+                            public void onClick(View v) {
+                                new Thread(new Runnable() {
+
+                                    @Override
+                                    public void run() {
+                                        wechatShare(0, Url, get_share_info.datas.goods_image, get_share_info.datas.goods_name);
+                                    }
+                                }).start();
+                                wx_share_Dialog.dismiss();
                             }
-                        }).start();
+                        });
+                        wx_share_Dialog.ll_wx_circle.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                new Thread(new Runnable() {
+
+                                    @Override
+                                    public void run() {
+                                        wechatShare(1, Url, get_share_info.datas.goods_image, get_share_info.datas.goods_name);
+                                    }
+                                }).start();
+                                wx_share_Dialog.dismiss();
+                            }
+                        });
+                        wx_share_Dialog.tv_payment_confirm.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                wx_share_Dialog.dismiss();
+                            }
+                        });
                     } else {
                         overtime(get_share_info.status.code, get_share_info.status.msg);
                     }
@@ -335,7 +363,7 @@ public class W0_PrductDetailActivity extends BaseActivity implements View.OnClic
     }
 
     /**
-     * 微信分享礼包
+     * 微信商品分享
      */
     private void wechatShare(int flag, String giftUrl, String goods_image, String Name) {
         WXWebpageObject webpage = new WXWebpageObject();
