@@ -72,6 +72,12 @@
 -keep class com.alipay.android.app.IRemoteServiceCallback{*;}
 -keep class com.alipay.android.app.lib.ResourceMap{*;}
 
+#微信
+-keep class com.tencent.mm.sdk.openapi.WXMediaMessage {*;}
+-keep class com.tencent.mm.sdk.openapi.** implements com.tencent.mm.sdk.openapi.WXMediaMessage$IMediaObject {*;}
+-dontwarn com.tencent.mm.**
+-keep class com.tencent.mm.**{*;}
+
 #自己项目特殊处理代码
 
 #忽略警告
