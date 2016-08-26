@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,7 +48,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
     private String password;
     private String username;
     private Intent intent;
-    private ImageView ivWxlogin;
+    private ImageButton ivWxlogin;
     private IWXAPI api;
     private String unionid = "0";
 
@@ -135,7 +136,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
         iv_delete1 = (ImageView) findViewById(R.id.iv_a0_delete1);
         tv_next = (TextView) findViewById(R.id.tv_a0_next);
         iv_registered = (ImageView) findViewById(R.id.iv_a0_registered);
-        ivWxlogin = (ImageView) findViewById(R.id.iv_wx_login);
+        ivWxlogin = (ImageButton) findViewById(R.id.iv_wx_login);
         tv_a0_tback = (TextView) findViewById(R.id.tv_a0_tback);
         tv_back = (TextView) findViewById(R.id.tv_a0_tback);
 
@@ -196,6 +197,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                 req.scope = "snsapi_userinfo";
                 req.state = "wechat_sdk_demo_test";
                 api.sendReq(req);
+                showToastLong("正在跳转微信授权");
                 break;
 
             case R.id.tv_a0_tback:
