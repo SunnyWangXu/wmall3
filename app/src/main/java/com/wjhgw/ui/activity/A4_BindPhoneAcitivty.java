@@ -50,7 +50,7 @@ public class A4_BindPhoneAcitivty extends BaseActivity implements View.OnClickLi
     public void onInit() {
         tvMemberName = (TextView) findViewById(R.id.tv_memberName);
         memberName = getIntent().getStringExtra("member_name");
-        tvMemberName.setText(memberName);
+        tvMemberName.setText("亲爱的用户：" + memberName);
 
     }
 
@@ -90,9 +90,10 @@ public class A4_BindPhoneAcitivty extends BaseActivity implements View.OnClickLi
                 number = edPhone.getText().toString();
                 if (number.length() == 11 && number.substring(0, 1).equals("1")) {
                     /**
-                     * 请求发送验证码
+                     * 验证手机是否注册，已注册请求发送验证码
                      */
-                    Verification_code();
+                    checkBindPhone();
+
                 }
                 break;
 
@@ -107,6 +108,38 @@ public class A4_BindPhoneAcitivty extends BaseActivity implements View.OnClickLi
             default:
                 break;
         }
+    }
+
+    /**
+     * 验证手机是否注册
+     */
+    private void checkBindPhone() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("member_mobile", number);
+
+        APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Validate_phone, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+
+                Gson gson = new Gson();
+                Status status = gson.fromJson(responseInfo.result, Status.class);
+
+                if (status.status.code == 100100) {
+                    /**
+                     * 未注册请求发送验证码
+                     */
+                    Verification_code();
+                } else {
+                    overtime(status.status.code, status.status.msg);
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+            }
+        });
+
     }
 
     /**
