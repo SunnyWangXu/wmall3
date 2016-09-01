@@ -587,9 +587,13 @@ public class MyFragment extends Fragment implements XListView.IXListViewListener
                     ivLevel.setVisibility(View.VISIBLE);
                     ivLevel.setImageResource(R.mipmap.ic_level3);
                 }
-
                 tvMobile.setVisibility(View.VISIBLE);
-                tvMobile.setText(userinformation.datas.member_mobile);
+                if(userinformation.datas.member_mobile_bind.equals("0")){
+                    tvMobile.setText("请绑定手机");
+                }else {
+                    tvMobile.setText(userinformation.datas.member_mobile);
+                }
+
                 available_predeposit.setText(userinformation.datas.available_predeposit);   //余额
                 tv_rechargeable_card.setText(userinformation.datas.available_rc_balance);   //可用充值卡余额
                 tv_hgb.setText(userinformation.datas.hg_points);              //欢购币

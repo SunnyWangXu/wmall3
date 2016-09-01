@@ -59,8 +59,8 @@ public class M0_MyLockBoxActivity extends BaseActivity implements View.OnClickLi
     private TextView tv_Paypwd;
     private TextView tv_Mobile;
     private LinearLayout ll_Manage_Addres;
-    private String Number;
     private String paypwd = "0";
+    private MyLockBoxData myLockBoxData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,18 +130,22 @@ public class M0_MyLockBoxActivity extends BaseActivity implements View.OnClickLi
                 startActivity(intent);
                 break;
             case R.id.ll_payment_password:
-                if (Number.length() > 0) {
+                if (myLockBoxData.member_mobile.length() > 0) {
                     intent = new Intent(this, VerificationCodeActivity.class);
-                    intent.putExtra("Number", Number);
+                    intent.putExtra("Number", myLockBoxData.member_mobile);
                     intent.putExtra("use", "2");
                     intent.putExtra("paypwd", paypwd);
                     startActivity(intent);
                 }
                 break;
             case R.id.ll_mobile:
-                if (Number.length() > 0) {
+                if (myLockBoxData.member_mobile_bind.equals("0")) {
+                    Intent intent1 = new Intent(this,A4_BindPhoneAcitivty.class);
+                    intent1.putExtra("member_name", myLockBoxData.member_name);
+                    startActivity(intent1);
+                }else {
                     intent = new Intent(this, VerificationCodeActivity.class);
-                    intent.putExtra("Number", Number);
+                    intent.putExtra("Number", myLockBoxData.member_mobile);
                     intent.putExtra("use", "3");
                     startActivity(intent);
                 }
@@ -265,8 +269,7 @@ public class M0_MyLockBoxActivity extends BaseActivity implements View.OnClickLi
                     MyLockBox myLockBox = gson.fromJson(responseInfo.result, MyLockBox.class);
                     loadDialog.dismiss();
                     if (myLockBox.status.code == 10000) {
-                        MyLockBoxData myLockBoxData = myLockBox.datas;
-                        Number = myLockBoxData.member_mobile;
+                        myLockBoxData = myLockBox.datas;
                         APP.getApp().getImageLoader().displayImage(myLockBoxData.member_avatar, iv_Avatar);
                         tv_Nickname.setText(myLockBoxData.member_nickname);
                         if (myLockBoxData.passwd_strength.equals("0")) {
@@ -282,7 +285,11 @@ public class M0_MyLockBoxActivity extends BaseActivity implements View.OnClickLi
                         } else {
                             tv_Paypwd.setText("已设置");
                         }
-                        tv_Mobile.setText(myLockBoxData.member_mobile);
+                        if(myLockBoxData.member_mobile_bind.equals("0")){
+                            tv_Mobile.setText("未绑定");
+                        }else {
+                            tv_Mobile.setText(myLockBoxData.member_mobile);
+                        }
 
                     }  else {
                         overtime(myLockBox.status.code, myLockBox.status.msg);

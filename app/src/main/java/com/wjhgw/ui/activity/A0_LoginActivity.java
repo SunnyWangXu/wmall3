@@ -273,7 +273,6 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                         setResult(12345, intent);
 
                         if(login.datas.member_mobile_bind.equals("0")){
-                            showToastShort("未绑定");
                             Intent intent1 = new Intent(A0_LoginActivity.this,A4_BindPhoneAcitivty.class);
                             intent1.putExtra("member_name", login.datas.member_name);
                             startActivity(intent1);

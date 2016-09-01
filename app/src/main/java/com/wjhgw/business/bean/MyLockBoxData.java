@@ -6,6 +6,7 @@ package com.wjhgw.business.bean;
 public class MyLockBoxData {
     public String member_name;
     public String member_mobile;
+    public String member_mobile_bind;
     public String member_nickname;
     public String member_avatar;
     public String passwd_strength;
