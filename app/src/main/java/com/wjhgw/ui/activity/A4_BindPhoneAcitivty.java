@@ -86,7 +86,7 @@ public class A4_BindPhoneAcitivty extends BaseActivity implements View.OnClickLi
                 finish();
 
                 break;
-            case R.id.tv_auth_code:
+            case R.id.tv_bind_auth_code:
                 number = edPhone.getText().toString();
                 if (number.length() == 11 && number.substring(0, 1).equals("1")) {
                     /**
