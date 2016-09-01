@@ -180,11 +180,8 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
             case R.id.tv_a0_next:
                 Number = et_name.getText().toString();
                 password = et_password.getText().toString();
-                if (Number.length() == 11 && Number.substring(0, 1).equals("1")) {
-                    VerificationRegistered(Number);
-                } else {
-                    showToastShort("你输入的号码有误！请重新输入");
-                }
+                //VerificationRegistered(Number);
+                login("0");
                 break;
 
             case R.id.iv_a0_registered:
@@ -218,7 +215,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
     /**
      * 验证手机号是否已经注册
      */
-    private void VerificationRegistered(String number) {
+    /*private void VerificationRegistered(String number) {
         RequestParams params = new RequestParams();
         params.addBodyParameter("member_mobile", number);
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.VerificationRegistered, params, new RequestCallBack<String>() {
@@ -241,7 +238,7 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                 showToastShort("请求失败");
             }
         });
-    }
+    }*/
     /**
      * 登录网络请求
      */
@@ -275,6 +272,12 @@ public class A0_LoginActivity extends BaseActivity implements OnClickListener {
                         intent.putExtra("forWhere", "forPrductDetail");
                         setResult(12345, intent);
 
+                        if(login.datas.member_mobile_bind.equals("0")){
+                            showToastShort("未绑定");
+                            Intent intent1 = new Intent(A0_LoginActivity.this,A4_BindPhoneAcitivty.class);
+                            intent1.putExtra("member_name", login.datas.member_name);
+                            startActivity(intent1);
+                        }
                         finish(false);
 
                     } else {
