@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="绑定手机"
+            android:textColor="@color/title_color"
+            android:textSize="19sp" />
+
+        <TextView
+            android:id="@+id/tv_skip"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text="跳过"
+            android:textColor="#458FEB"
+            android:textSize="14sp" />
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_bg" />
+
+    <com.wjhgw.ui.DiyView.RoundImageView
+        android:layout_width="91dp"
+        android:layout_height="91dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="13dp"
+        android:layout_marginTop="13dp"
+        android:src="@mipmap/ic_default_avatar" />
+
+    <TextView
+        android:id="@+id/tv_memberName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:text="亲爱的用户："
+        android:textColor="@color/title_color"
+        android:textSize="14sp" />
+
+
+    <TextView
+        android:id="@+id/tv_bind_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="5dp"
+        android:text="为了您更好的服务请绑定手机"
+        android:textColor="@color/title_color"
+        android:textSize="14sp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/ic_a0_password" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="请输入登录密码"
+            android:password="true"
+            android:singleLine="true"
+            android:textColor="@color/title_color"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="17dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="13dp"
+                android:src="@mipmap/ic_wx_phone" />
+
+            <EditText
+                android:id="@+id/ed_mobile_phone"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入11位手机号"
+                android:maxLength="11"
+                android:numeric="integer"
+                android:singleLine="true"
+                android:textColor="@color/title_color"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="17dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="13dp"
+                android:src="@mipmap/ic_wx_code" />
+
+            <EditText
+                android:id="@+id/ed_bind_validate"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入验证码"
+                android:maxLength="4"
+                android:numeric="integer"
+                android:textColor="@color/title_color"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="23dp"
+                android:background="@color/gray" />
+
+            <TextView
+                android:id="@+id/tv_bind_auth_code"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="33dp"
+                android:gravity="center"
+                android:text="获取验证码"
+                android:textColor="#458FEB"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_bind_complete"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/gray"
+        android:gravity="center"
+        android:text="完成"
+        android:textColor="@color/white"
+        android:textSize="19sp" />
+
+</LinearLayout>

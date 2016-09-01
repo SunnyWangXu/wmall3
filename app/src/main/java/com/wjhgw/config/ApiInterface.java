@@ -84,6 +84,10 @@ public class ApiInterface {
      * 获取用户信息
      */
     public static final String Get_member_base_info = "/mobile/index.php?act=member_info&op=get_member_base_info";
+    /**
+     * 绑定手机号
+     */
+    public static final String Bind_mobile = "/mobile/index.php?act=member_info&op=bind_mobile";
 
     /**
      * 个人资料 获取用户信息
