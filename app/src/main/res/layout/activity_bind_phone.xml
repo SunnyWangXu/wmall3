@@ -40,7 +40,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="13dp"
         android:layout_marginTop="13dp"
-        android:src="@mipmap/ic_default_avatar" />
+        android:src="@mipmap/ic_default_use_avatar" />
 
     <TextView
         android:id="@+id/tv_memberName"
