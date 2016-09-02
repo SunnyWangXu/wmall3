@@ -37,6 +37,7 @@ import com.wjhgw.business.bean.SelectOrderDatas;
 import com.wjhgw.business.bean.TestPaypwd;
 import com.wjhgw.config.ApiInterface;
 import com.wjhgw.ui.dialog.EntryPaypwdDialog;
+import com.wjhgw.ui.dialog.MyDialog;
 import com.wjhgw.ui.dialog.RestartInputAndFindPaypwdDialog;
 import com.wjhgw.ui.dialog.SetPaypwdDialog;
 import com.wjhgw.ui.view.listview.adapter.LvOrderListAdapter;
@@ -130,6 +131,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
     private TextView tvDownlinePay;
     private int START = 0;
     private BigDecimal bd;
+    private MyDialog myDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -442,7 +444,7 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                 break;
             case R.id.ll_donate:
                 if (!isDownlinePay) {
-                    MAKEDONATE++;
+                   /* MAKEDONATE++;
                     if (MAKEDONATE % 2 == 0) {
                         ivDonate.setImageResource(R.mipmap.ic_push_on);
                         llUseMessage.setVisibility(View.GONE);
@@ -455,7 +457,35 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                         tvDonate.setTextColor(Color.parseColor("#cccccc"));
                         //不存入酒柜，赠送他人
                         isDonate = false;
-                    }
+                    }*/
+
+                    myDialog = new MyDialog(this, "请注意存入酒柜的就不会立即发货");
+                    myDialog.positive.setTextColor(Color.parseColor("#f25252"));
+                    myDialog.show();
+                    myDialog.positive.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ivDonate.setImageResource(R.mipmap.ic_push_on);
+                            llUseMessage.setVisibility(View.GONE);
+                            tvDonate.setTextColor(Color.parseColor("#333333"));
+                            //存入酒柜，赠送他人
+                            isDonate = true;
+                            myDialog.dismiss();
+                        }
+                    });
+
+                    myDialog.negative.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ivDonate.setImageResource(R.mipmap.ic_push_off);
+                            llUseMessage.setVisibility(View.VISIBLE);
+                            tvDonate.setTextColor(Color.parseColor("#cccccc"));
+                            //不存入酒柜，赠送他人
+                            isDonate = false;
+
+                            myDialog.dismiss();
+                        }
+                    });
 
                     if (isDonate) {
                         tvFreight.setText("+ ¥ 0.00");
