@@ -37,7 +37,7 @@
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
             android:background="#ffffff"
-            android:hint="@string/login_username"
+            android:hint="用户名/邮箱/手机号"
             android:digits="1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_.@"
             android:maxLength="20"
             android:paddingLeft="10dp"
