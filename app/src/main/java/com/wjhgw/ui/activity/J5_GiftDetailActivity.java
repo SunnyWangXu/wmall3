@@ -1,6 +1,9 @@
 package com.wjhgw.ui.activity;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,6 +19,11 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.wjhgw.APP;
 import com.wjhgw.R;
 import com.wjhgw.base.BaseActivity;
@@ -31,7 +39,7 @@ import com.wjhgw.ui.view.listview.adapter.J5_sendAdapter;
 /**
  * 发出礼包详情
  */
-public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXListViewListener {
+public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXListViewListener, View.OnClickListener {
     private MyListView lvGiftDetail;
     private MyListView lv_item_layout1;
     private MyListView lv_item_layout2;
@@ -53,6 +61,13 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
     private LinearLayout ll_loadmore;
     private Boolean loadmore = true;
     private ImageView iv_loadmore;
+    private TextView tv_j5_give;
+    private IWXAPI api;
+    private String member_name;
+    private String member_nickname;
+    private String gift_link;
+    private String edNote;
+    private String useName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +78,8 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
         lvGiftDetail.setPullRefreshEnable(false);
         lvGiftDetail.setXListViewListener(this, 1);
         lvGiftDetail.setRefreshTime();
-
+        api = WXAPIFactory.createWXAPI(this, "wx99a6bd9b7bdbf645");
+        api.registerApp("wx99a6bd9b7bdbf645");
     }
 
     @Override
@@ -86,6 +102,7 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
     @Override
     public void onFindViews() {
         lvGiftDetail = (MyListView) findViewById(R.id.lv_gift_detail);
+        tv_j5_give = (TextView) findViewById(R.id.tv_j5_give);
         j5_item0 = (FrameLayout) LayoutInflater.from(this).inflate(R.layout.j5_item0, null);
         j5_item1 = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.j5_item1, null);
         j5_item2 = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.j5_item2, null);
@@ -156,12 +173,52 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tv_j5_give:
+                wechatShare(0);
+                //showToastShort("点击");
+                break;
+        }
+    }
+
+    /**
+     * 微信分享礼包
+     */
+    private void wechatShare(int flag) {
+        WXWebpageObject webpage = new WXWebpageObject();
+        webpage.webpageUrl = gift_link;
+        WXMediaMessage msg = new WXMediaMessage(webpage);
+        if (member_nickname.equals("")) {
+            msg.title = member_name + "的大礼包";
+        } else {
+            msg.title = member_nickname + "的大礼包";
+        }
+
+        if (edNote.equals("")) {
+            msg.description = "上等的好酒送给你";
+        } else {
+            msg.description = edNote;
+        }
+        //这里替换一张自己工程里的图片资源
+        Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_gift_logo);
+
+        msg.setThumbImage(thumb);
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = String.valueOf(System.currentTimeMillis());
+        req.message = msg;
+        req.scene = flag == 0 ? SendMessageToWX.Req.WXSceneSession : SendMessageToWX.Req.WXSceneTimeline;
+        api.sendReq(req);
+    }
+
     /**
      * 发出礼包领取情况品
      */
     private void send_goods_list() {
         StartLoading();
-        RequestParams params = new RequestParams();
+        final RequestParams params = new RequestParams();
         params.addBodyParameter("key", getKey());
         params.addBodyParameter("gift_id", cab_gift_id);
         APP.getApp().getHttpUtils().send(HttpRequest.HttpMethod.POST, BaseQuery.serviceUrl() + ApiInterface.Send_goods_list, params, new RequestCallBack<String>() {
@@ -216,6 +273,12 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
                             tv_gift_state.setText("无效");
                         } else if (gift_state.equals("1")) {
                             tv_gift_state.setText("进行中");
+                            tv_j5_give.setBackgroundColor(Color.parseColor("#f25252"));
+                            tv_j5_give.setOnClickListener(J5_GiftDetailActivity.this);
+                            member_name = ssend_goods_list.datas.gift_info.member_name;
+                            member_nickname = ssend_goods_list.datas.gift_info.member_nickname;
+                            gift_link = ssend_goods_list.datas.gift_info.gift_link;
+                            edNote = ssend_goods_list.datas.gift_info.gift_note;
                         } else if (gift_state.equals("2")) {
                             tv_gift_state.setText("已完成");
                         } else if (gift_state.equals("3")) {
@@ -236,7 +299,7 @@ public class J5_GiftDetailActivity extends BaseActivity implements XListView.IXL
                             s += Double.parseDouble(ssend_goods_list.datas.gift_goods_list.get(i).goods_price)
                                     * Integer.parseInt(ssend_goods_list.datas.gift_goods_list.get(i).goods_num);
                         }
-                        tv_j5_price.setText(new java.text.DecimalFormat("######0.00").format(s));
+                        tv_j5_price.setText("¥" + new java.text.DecimalFormat("######0.00").format(s));
                     } else {
                         overtime(ssend_goods_list.status.code, ssend_goods_list.status.msg);
                     }
