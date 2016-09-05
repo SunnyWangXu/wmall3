@@ -458,34 +458,42 @@ public class S0_ConfirmOrderActivity extends BaseActivity implements View.OnClic
                         //不存入酒柜，赠送他人
                         isDonate = false;
                     }*/
+                    if (!isDonate) {
+                        myDialog = new MyDialog(this, "                      请注意                      存入酒柜的商品不会立即发货");
+                        myDialog.positive.setTextColor(Color.parseColor("#f25252"));
+                        myDialog.show();
+                        myDialog.positive.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ivDonate.setImageResource(R.mipmap.ic_push_on);
+                                llUseMessage.setVisibility(View.GONE);
+                                tvDonate.setTextColor(Color.parseColor("#333333"));
+                                //存入酒柜，赠送他人
+                                isDonate = true;
+                                myDialog.dismiss();
+                            }
+                        });
 
-                    myDialog = new MyDialog(this, "请注意存入酒柜的就不会立即发货");
-                    myDialog.positive.setTextColor(Color.parseColor("#f25252"));
-                    myDialog.show();
-                    myDialog.positive.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            ivDonate.setImageResource(R.mipmap.ic_push_on);
-                            llUseMessage.setVisibility(View.GONE);
-                            tvDonate.setTextColor(Color.parseColor("#333333"));
-                            //存入酒柜，赠送他人
-                            isDonate = true;
-                            myDialog.dismiss();
-                        }
-                    });
+                        myDialog.negative.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ivDonate.setImageResource(R.mipmap.ic_push_off);
+                                llUseMessage.setVisibility(View.VISIBLE);
+                                tvDonate.setTextColor(Color.parseColor("#cccccc"));
+                                //不存入酒柜，赠送他人
+                                isDonate = false;
 
-                    myDialog.negative.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            ivDonate.setImageResource(R.mipmap.ic_push_off);
-                            llUseMessage.setVisibility(View.VISIBLE);
-                            tvDonate.setTextColor(Color.parseColor("#cccccc"));
-                            //不存入酒柜，赠送他人
-                            isDonate = false;
+                                myDialog.dismiss();
+                            }
+                        });
 
-                            myDialog.dismiss();
-                        }
-                    });
+                    } else {
+                        ivDonate.setImageResource(R.mipmap.ic_push_off);
+                        llUseMessage.setVisibility(View.VISIBLE);
+                        tvDonate.setTextColor(Color.parseColor("#cccccc"));
+                        //不存入酒柜，赠送他人
+                        isDonate = false;
+                    }
 
                     if (isDonate) {
                         tvFreight.setText("+ ¥ 0.00");
